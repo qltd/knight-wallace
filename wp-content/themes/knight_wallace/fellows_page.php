@@ -1,14 +1,12 @@
 <?php
 /**
- * The template for displaying all pages.
+ * Template Name: Fellows Page 
  *
- * This is the template that displays all pages by default.
- * This template by default will display the header and footer for Wallace House
  *
  * @package knight_wallace
  */
 
-get_header(); ?>
+get_header('fellows'); ?>
 
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
@@ -23,5 +21,4 @@ get_header(); ?>
 		</main><!-- #main -->
 	</div><!-- #primary -->
 
-<?php get_sidebar(); ?>
-<?php get_footer(); ?>
+<?php get_footer('fellows'); ?>

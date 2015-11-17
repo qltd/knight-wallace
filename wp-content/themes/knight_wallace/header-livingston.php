@@ -1,7 +1,6 @@
 <?php
 /**
- * The header for our theme. This header is intended for use with Wallace House pages
- * this is also the default header
+ * The header for Livingston Awards pages
  *
  *
  * @package knight_wallace
@@ -19,7 +18,7 @@
 </head>
 
 <body <?php body_class(); ?>>
-<div id="page" class="site wallace-house-page">
+<div id="page" class="site livingston-page">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'knight_wallace' ); ?></a>
 
 	<header id="masthead" class="site-header" role="banner">
