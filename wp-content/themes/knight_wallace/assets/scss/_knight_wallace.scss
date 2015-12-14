@@ -1,0 +1,346 @@
+/**
+ * Styles for the Knight-Wallace Website
+ * @rdarling42
+ *
+ */
+@mixin link_style($color, $hover) {
+  a {
+    color: $color;
+    
+    &:link,
+    &:visited {
+      color: $color;
+    }
+
+    &:hover {
+      color: $hover;
+    }
+  }
+}
+
+.disappear {
+  display: none;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  color: $charcoal;
+}
+
+a {
+  color: $lblue;
+  transition: all 0.5s ease;
+  
+  &:link,
+  &:visited {
+    color: $lblue;
+  }
+
+  &:hover {
+    color: $ublue;
+  }
+}
+
+.row {
+  max-width: 128.0rem;
+}
+
+#header {
+  background: $ublue;
+  color: $white;
+  padding: 2rem;
+  
+  h1,
+  h2 {
+    color: $white;
+  }
+}
+
+#eyebrow {
+  ul {
+    float: right;
+    
+    li {
+      float: left;
+      list-style: none;
+      
+      a {
+        color: $white;
+        font-size: 1.4rem;
+        padding: 2px 5px 2px 8px;
+      }
+    }
+  }
+}
+
+#main_nav {
+  background: $charcoal;
+  color: $white-gray;
+  
+  li {
+    display: inline-block;
+  }
+
+  .primary {
+    @include link_style($white-gray, $charcoal);
+    text-align: center;
+    text-transform: uppercase;
+    transition: all 0.5s ease;
+    margin-bottom: 0;
+    font-size: 2rem;
+    
+    a {
+      display: inline-block;
+      padding: 2rem;
+      width: 100%;
+    }
+
+    &:hover,
+    &.active {
+      background: $white-gray;
+      @include link_style($charcoal, $ublue);
+    }
+  }
+
+  .sub-nav-wrap {
+    background: $white-gray;
+    @include link_style($lblue, $charcoal);
+    text-align: center;
+    font-size: 2rem;
+    
+    li {
+      font-size: 2rem;
+      margin: 1rem 2rem 0;
+    }
+  }
+}
+/* Hero Unit */
+#hero_image {
+  background: url(http://lorempixel.com/output/city-q-c-1920-1920-3.jpg) no-repeat center center;
+  background-size: cover;
+  color: $white;
+  height: 750px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+  .columns {
+    background: rgba($charcoal, 0.7);
+    margin: 0 auto;
+    float: none;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  h2 {
+    color: $myellow;
+    font-size: 2.6rem;
+    font-weight: normal;
+    margin-bottom: 0;
+  }
+
+  p {
+    font-size: 2.6rem;
+    line-height: 1.2;
+  }
+}
+/* Home Page Posts */
+#main.posts {
+  margin-top: 5rem;
+  margin-bottom: 6rem;
+  
+  .columns {
+    color: $white;
+    margin-bottom: 2rem;
+    
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    h3 {
+      color: $white;
+      font-weight: bold;
+      font-size: 2rem;
+    }
+
+    a {
+      color: $white;
+      font-size: 1.6rem;
+      display: inline-block;
+    }
+
+    .text {
+      background: $lblue;
+      padding: 1.5rem 3rem 1rem;
+      transition: all 0.5s ease;
+      
+      &:hover {
+        background: $ublue;
+      }
+    }
+  }
+}
+
+#alerts {
+  margin-bottom: 8rem;
+}
+
+.alert {
+  background: $white-gray;
+  margin-bottom: 2rem;
+  
+  .large-4 {
+    background: $red;
+    color: $white;
+    font-size: 1.4rem;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 2rem;
+    
+    strong {
+      font-size: 1.8rem;
+    }
+  }
+
+  .large-8 {
+    font-size: 1.8rem;
+    padding: 2rem;
+    @include link_style($red, lighten($red, 10%));
+    
+    a {
+      font-size: 2.4rem;
+      margin-right: 2rem;
+    }
+
+    p {
+      font-size: 1.8rem;
+    }
+  }
+}
+
+#news_library {
+  .heading {
+    background: $charcoal;
+    padding: 0 1rem;
+    margin-bottom: 2rem;
+  }
+
+  h3 {
+    color: $white;
+    padding: 5px 0;
+  }
+
+  .news-article {
+    background: $white-gray;
+    padding: 1rem 2rem;
+    margin-bottom: 2rem;
+    height: 18rem;
+    position: relative;
+  }
+
+  h4 {
+    a {
+      font-size: 2rem;
+      color: $lblue;
+      font-weight: bold;
+    }
+  }
+
+  .date {
+    font-size: 1.6rem;
+    color: $charcoal;
+  }
+
+  .tags {
+    position: absolute;
+    bottom: 1rem;
+    
+    ul {
+      padding: 0;
+      margin: -10px 0 5px;
+      
+      li {
+        display: inline-block;
+        list-style: none;
+        color: $charcoal;
+        
+        a {
+          padding: 0;
+          color: $charcoal;
+        }
+      }
+    }
+  }
+
+  .more-posts {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 18rem;
+    width: 100%;
+    color: #fff;
+    background: $lblue;
+    font-size: 2rem;
+    margin-bottom: 5rem;
+  }
+}
+
+.social-media-links {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  
+  li {
+    list-style: none;
+    display: inline-block;
+    margin-right: 2rem;
+    
+    a {
+      font-size: 3rem;
+    }
+  }
+}
+/* Footer */
+.site-footer {
+  padding-bottom: 80px;
+  
+  p {
+    color: $lblue;
+    font-size: 1.4rem;
+  }
+
+  a {
+    color: $lblue;
+    font-size: 1.4rem;
+  }
+
+  .large-2 {
+    text-align: right;
+  }
+
+  .top {
+    padding: 35px 0;
+    margin-bottom: 30px;
+    background: $ublue;
+    color: $white;
+    font-size: 1.8rem;
+    
+    h6 {
+      color: $white;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    p {
+      color: $white;
+    }
+
+    a {
+      color: $white;
+    }
+  }
+}
