@@ -1,46 +1,55 @@
 <?php
 /**
- * The template for displaying all pages.
+ * Template Name: Fellows Sub Page 
  *
- * This is the template that displays all pages by default.
- * This template by default will display the header and footer for Wallace House
  *
  * @package knight_wallace
  */
 
-get_header(); ?>
-
-			<?php while ( have_posts() ) : the_post(); ?>
-
-				<?php get_template_part( 'template-parts/content', 'page' ); ?>
+get_header('fellows'); ?>
 
 
-			<?php endwhile; // End of the loop. ?>
+    <?php while ( have_posts() ) : the_post(); ?>
+
+        <?php get_template_part( 'template-parts/content', 'page' ); ?>
+
+    <?php endwhile; // End of the loop. ?>
 
 
-  <section id="alerts">
-    <div class="row alert">
-      <div class="large-4 columns">
-        <p>
-          <strong>Febuary 1, 2016</strong>
-          <br />Application Deadline</p>
+  <main id="main" class="posts">
+    <div class="row">
+      <div class="large-6 columns">
+        <img src="http://dummyimage.com/620x256/aeaeae/555.jpg?text=placeholder" alt="" />
+        <div class="text">
+          <h3>A life-changing experience</h3>
+          <p><a href="">Learn more about the Knight-Wallace Fellowships ></a></p>
+        </div>
       </div>
-      <div class="large-8 columns">
-        <p><a href="">Get Started</a> Online form available now. Apply for the Livingston Awards</p>
-      </div>
-    </div>
-    <div class="row alert">
-      <div class="large-4 columns">
-        <p>
-          <strong>Febuary 1, 2016</strong>
-          <br />Application Deadline</p>
-      </div>
-      <div class="large-8 columns">
-        <p><a href="">Get Started</a> Online form available now. Apply for the Livingston Awards</p>
+      <div class="large-6 columns">
+        <img src="http://dummyimage.com/620x256/aeaeae/555.jpg?text=placeholder" alt="" />
+        <div class="text">
+          <h3>A life-changing experience</h3>
+          <p><a href="">Learn more about the Knight-Wallace Fellowships ></a></p>
+        </div>
       </div>
     </div>
-  </section>
-
+    <div class="row">
+      <div class="large-6 columns">
+        <img src="http://dummyimage.com/620x256/aeaeae/555.jpg?text=placeholder" alt="" />
+        <div class="text">
+          <h3>A life-changing experience</h3>
+          <p><a href="">Learn more about the Knight-Wallace Fellowships ></a></p>
+        </div>
+      </div>
+      <div class="large-6 columns">
+        <img src="http://dummyimage.com/620x256/aeaeae/555.jpg?text=placeholder" alt="" />
+        <div class="text">
+          <h3>A life-changing experience</h3>
+          <p><a href="">Learn more about the Knight-Wallace Fellowships ></a></p>
+        </div>
+      </div>
+    </div>
+  </main>
   <section id="news_library">
     <div class="row headings">
       <div class="large-6 columns">
@@ -127,4 +136,4 @@ get_header(); ?>
       <div class="large-6 columns"><a href="#" class="more-posts">See all Livingston Awards news &raquo;</a></div>
     </div>
   </section>
-<?php get_footer(); ?>
+<?php get_footer('fellows'); ?>
