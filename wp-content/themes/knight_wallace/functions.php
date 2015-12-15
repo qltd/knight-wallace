@@ -92,21 +92,41 @@ function knight_wallace_content_width() {
 }
 add_action( 'after_setup_theme', 'knight_wallace_content_width', 0 );
 
+
+/**
+ * Add Custom Post Types
+ *
+ * */
+add_action( 'init', 'create_post_type' );
+function create_post_type() {
+    register_post_type( 'person',
+        array(
+            'labels' => array(
+                'name' => __( 'Person' ),
+                'singular_name' => __( 'Person' )
+            ),
+            'public' => true,
+            'has_archive' => true,
+        )
+    );
+}
+
+
 /**
  * Register widget area.
  *
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
 function knight_wallace_widgets_init() {
-	register_sidebar( array(
-		'name'          => esc_html__( 'Sidebar', 'knight_wallace' ),
-		'id'            => 'sidebar-1',
-		'description'   => '',
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</aside>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
-	) );
+    register_sidebar( array(
+        'name'          => esc_html__( 'Sidebar', 'knight_wallace' ),
+        'id'            => 'sidebar-1',
+        'description'   => '',
+        'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</aside>',
+        'before_title'  => '<h2 class="widget-title">',
+        'after_title'   => '</h2>',
+    ) );
 }
 add_action( 'widgets_init', 'knight_wallace_widgets_init' );
 
@@ -114,15 +134,15 @@ add_action( 'widgets_init', 'knight_wallace_widgets_init' );
  * Enqueue scripts and styles.
  */
 function knight_wallace_scripts() {
-	wp_enqueue_style( 'knight_wallace-style', get_stylesheet_uri() );
+    wp_enqueue_style( 'knight_wallace-style', get_stylesheet_uri() );
 
-	wp_enqueue_script( 'knight_wallace-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
+    wp_enqueue_script( 'knight_wallace-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
 
-	wp_enqueue_script( 'knight_wallace-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
+    wp_enqueue_script( 'knight_wallace-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
 
-	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' );
-	}
+    if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+        wp_enqueue_script( 'comment-reply' );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'knight_wallace_scripts' );
 
