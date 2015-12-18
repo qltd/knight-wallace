@@ -103,13 +103,80 @@ function create_post_type() {
         array(
             'labels' => array(
                 'name' => __( 'Person' ),
-                'singular_name' => __( 'Person' )
+                'singular_name' => __( 'Person' ),
+                'add_new_item' => __('Add New Person'),
+                'new_item' => __('New Person'), 
+                'view_item' => __('View Person'),
+                'edit_item' => __('Edit Person'),
             ),
             'public' => true,
             'has_archive' => true,
+            'rewrite' => array("slug" => "person")
         )
     );
 }
+
+add_action( 'add_meta_boxes', 'add_person_metaboxes' );
+
+function add_person_metaboxes() {
+    add_meta_box('kw_person_test', 'Person Test', 'kw_person_test', 'person', 'normal', 'default');
+    add_meta_box('kw_person_real', 'Person Real', 'kw_person_real', 'person', 'normal', 'default');
+}
+
+function kw_person_test() {
+    generate_html_for_custom_field("person_test");
+}
+
+function kw_person_real() {
+    generate_html_for_custom_field("person_real");
+}
+
+function generate_html_for_custom_field($name){
+    global $post;
+
+    // Noncename needed to verify where the data originated
+    echo '<input type="hidden" name="'.$name.'meta_noncename" id="'.$name.'meta_noncename" value="' . 
+        wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
+
+    // Get the location data if its already been entered
+    $saved_data = get_post_meta($post->ID, "_{$name}", true);
+
+    // Echo out the field
+    echo '<input type="text" name="_'.$name.'" value="' . $saved_data  . '" class="widefat" />';
+}
+
+function wpt_save_events_meta($post_id, $post) {
+
+    // verify this came from the our screen and with proper authorization,
+    // because save_post can be triggered at other times
+    if ( !wp_verify_nonce( $_POST['personmeta_noncename'], plugin_basename(__FILE__) )) {
+        return $post->ID;
+    }
+
+    // Is the user allowed to edit the post or page?
+    if ( !current_user_can( 'edit_post', $post->ID ))
+        return $post->ID;
+
+    // OK, we're authenticated: we need to find and save the data
+    // We'll put it into an array to make it easier to loop though.
+
+    $events_meta['_test'] = $_POST['_test'];
+
+    // Add values of $events_meta as custom fields
+    foreach ($events_meta as $key => $value) { // Cycle through the $events_meta array!
+        if( $post->post_type == 'revision' ) return; // Don't store custom data twice
+        $value = implode(',', (array)$value); // If $value is an array, make it a CSV (unlikely)
+        if(get_post_meta($post->ID, $key, FALSE)) { // If the custom field already has a value
+            update_post_meta($post->ID, $key, $value);
+        } else { // If the custom field doesn't have a value
+            add_post_meta($post->ID, $key, $value);
+        }
+        if(!$value) delete_post_meta($post->ID, $key); // Delete if blank
+    }
+
+}
+
+add_action('save_post', 'wpt_save_events_meta', 1, 2); // save the custom fields
 
 
 /**
