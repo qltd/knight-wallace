@@ -99,44 +99,88 @@ add_action( 'after_setup_theme', 'knight_wallace_content_width', 0 );
  * */
 add_action( 'init', 'create_post_type' );
 function create_post_type() {
-    register_post_type( 'person',
+    register_post_type( 'person_kw_fellow',
         array(
             'labels' => array(
-                'name' => __( 'Person' ),
-                'singular_name' => __( 'Person' ),
-                'add_new_item' => __('Add New Person'),
-                'new_item' => __('New Person'), 
-                'view_item' => __('View Person'),
-                'edit_item' => __('Edit Person'),
+                'name' => __( 'Knight-Wallace Fellows' ),
+                'singular_name' => __( 'Knight-Wallace Fellow' ),
+                'add_new_item' => __('Add New Knight-Wallace Fellow'),
+                'new_item' => __('New Knight-Wallace Fellow'), 
+                'view_item' => __('View Knight-Wallace Fellow'),
+                'edit_item' => __('Edit Knight-Wallace Fellow'),
             ),
             'public' => true,
             'has_archive' => true,
-            'rewrite' => array("slug" => "person")
+            'rewrite' => array("slug" => "kw-fellow")
+        )
+    );
+    register_post_type( 'person_livingston',
+        array(
+            'labels' => array(
+                'name' => __( 'Livingston Award Winners and Finalists' ),
+                'singular_name' => __( 'Livingston Winner or Finalist' ),
+                'add_new_item' => __('Add New Livingston Winner or Finalist'),
+                'new_item' => __('New Livingston Winner or Finalist'), 
+                'view_item' => __('View Livingston Winner or Finalist'),
+                'edit_item' => __('Edit Livingston Winner or Finalist'),
+            ),
+            'public' => true,
+            'has_archive' => true,
+            'rewrite' => array("slug" => "livingston-award-winners-finalists")
         )
     );
 }
 
-add_action( 'add_meta_boxes', 'add_person_metaboxes' );
+add_action( 'add_meta_boxes', 'add_person_kw_fellow_metaboxes' );//add custom fields for person_kw_fellow type
+add_action( 'add_meta_boxes', 'add_person_livingston_metaboxes' );//add custom fields for Livingston Winner or Finalist
 
-function add_person_metaboxes() {
-    add_meta_box('kw_person_test', 'Person Test', 'kw_person_test', 'person', 'normal', 'default');
-    add_meta_box('kw_person_real', 'Person Real', 'kw_person_real', 'person', 'normal', 'default');
+function add_person_kw_fellow_metaboxes() {
+    //each meta box is a custom field for our custom content type
+    add_meta_box('kw_person_kw_fellow_first_name', 'First Name', 'kw_person_kw_fellow_first_name', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_fellow_last_name', 'Last Name', 'kw_person_kw_fellow_last_name', 'person_kw_fellow', 'normal', 'default');
+}
+    add_meta_box('kw_person_kw_photo', 'Photo', 'kw_person_kw_photo', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_photo_add', 'Additional Photo', 'kw_person_kw_photo_add', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_bio', 'Bio', 'kw_person_kw_bio', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_bio_private', 'Private Bio', 'kw_person_kw_bio_private', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_class_year', 'Class Year', 'kw_person_kw_class_year', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_study_pro_title', 'Study Project Title', 'kw_person_kw_study_pro_title', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_current_job_title', 'Current Job Title', 'kw_person_kw_current_job_title', 'person_kw_fellow', 'normal', 'default');
+
+function add_person_livingston_metaboxes() {
+    add_meta_box('kw_person_liv_first_name', 'First Name', 'kw_person_liv_first_name', 'person_livingston', 'normal', 'default');
+    add_meta_box('kw_person_liv_last_name', 'Last Name', 'kw_person_liv_last_name', 'person_livingston', 'normal', 'default');
 }
 
-function kw_person_test() {
-    generate_html_for_custom_field("person_test");
+//Fill Knight Wallace type custom fields with html
+function kw_person_kw_fellow_first_name() {
+    //pass in true for the noncename once per custom type
+    generate_html_for_custom_field("kw_person_kw_fellow_first_name",true);
 }
 
-function kw_person_real() {
-    generate_html_for_custom_field("person_real");
+function kw_person_kw_fellow_last_name() {
+    generate_html_for_custom_field("kw_person_kw_fellow_last_name");
 }
 
-function generate_html_for_custom_field($name){
+//Fill Livingstion Awards type custom fields with html
+function kw_person_liv_first_name() {
+    //pass in true for the noncename once per custom type
+    generate_html_for_custom_field("kw_person_liv_first_name",true);
+}
+
+function kw_person_liv_last_name() {
+    generate_html_for_custom_field("kw_person_liv_last_name");
+}
+
+function generate_html_for_custom_field($name, $add_noncename=false){
     global $post;
 
     // Noncename needed to verify where the data originated
-    echo '<input type="hidden" name="'.$name.'meta_noncename" id="'.$name.'meta_noncename" value="' . 
-        wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
+    if($add_noncename){
+        //we don't need to add this hidden field every time this function is called
+        echo '<input type="hidden" name="kwmeta_noncename" id="kwmeta_noncename" value="' . 
+            wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
+    }
 
     // Get the location data if its already been entered
     $saved_data = get_post_meta($post->ID, "_{$name}", true);
@@ -145,11 +189,10 @@ function generate_html_for_custom_field($name){
     echo '<input type="text" name="_'.$name.'" value="' . $saved_data  . '" class="widefat" />';
 }
 
-function wpt_save_events_meta($post_id, $post) {
-
+function kw_save_events_meta($post_id, $post) {
     // verify this came from the our screen and with proper authorization,
     // because save_post can be triggered at other times
-    if ( !wp_verify_nonce( $_POST['personmeta_noncename'], plugin_basename(__FILE__) )) {
+    if ( !wp_verify_nonce( $_POST['kwmeta_noncename'], plugin_basename(__FILE__) )) {
         return $post->ID;
     }
 
@@ -160,7 +203,10 @@ function wpt_save_events_meta($post_id, $post) {
     // OK, we're authenticated: we need to find and save the data
     // We'll put it into an array to make it easier to loop though.
 
-    $events_meta['_test'] = $_POST['_test'];
+    $events_meta['_kw_person_kw_fellow_first_name'] = !empty($_POST['_kw_person_kw_fellow_first_name']) ? $_POST['_kw_person_kw_fellow_first_name'] : null;
+    $events_meta['_kw_person_kw_fellow_last_name'] = !empty($_POST['_kw_person_kw_fellow_last_name']) ? $_POST['_kw_person_kw_fellow_last_name'] : null;
+    $events_meta['_kw_person_liv_first_name'] = !empty($_POST['_kw_person_liv_first_name']) ? $_POST['_kw_person_liv_first_name'] : null;
+    $events_meta['_kw_person_liv_last_name'] = !empty($_POST['_kw_person_liv_last_name']) ? $_POST['_kw_person_liv_last_name'] : null;
 
     // Add values of $events_meta as custom fields
     foreach ($events_meta as $key => $value) { // Cycle through the $events_meta array!
@@ -176,7 +222,7 @@ function wpt_save_events_meta($post_id, $post) {
 
 }
 
-add_action('save_post', 'wpt_save_events_meta', 1, 2); // save the custom fields
+add_action('save_post', 'kw_save_events_meta', 1, 2); // save the custom fields
 
 
 /**
