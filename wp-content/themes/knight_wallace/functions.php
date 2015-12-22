@@ -111,6 +111,7 @@ function create_post_type() {
             ),
             'public' => true,
             'has_archive' => true,
+            'supports' => array( 'title', 'thumbnail', 'revisions' ),
             'rewrite' => array("slug" => "kw-fellow")
         )
     );
@@ -126,6 +127,7 @@ function create_post_type() {
             ),
             'public' => true,
             'has_archive' => true,
+            'supports' => array( 'title', 'thumbnail', 'revisions' ),
             'rewrite' => array("slug" => "livingston-award-winners-finalists")
         )
     );
@@ -141,6 +143,7 @@ function create_post_type() {
             ),
             'public' => true,
             'has_archive' => true,
+            'supports' => array( 'title', 'thumbnail', 'revisions' ),
             'rewrite' => array("slug" => "wallace-house-staff")
         )
     );
@@ -156,6 +159,7 @@ function create_post_type() {
             ),
             'public' => true,
             'has_archive' => true,
+            'supports' => array( 'title', 'thumbnail', 'revisions' ),
             'rewrite' => array("slug" => "livingston-award-judge")
         )
     );
@@ -171,6 +175,7 @@ function create_post_type() {
             ),
             'public' => true,
             'has_archive' => true,
+            'supports' => array( 'title', 'thumbnail', 'revisions' ),
             'rewrite' => array("slug" => "donor")
         )
     );
@@ -227,8 +232,8 @@ function add_person_laj() {
 }
 
 function add_person_donor() {
-    add_meta_box('kw_person_donor_name', 'Name', 'kw_person_donor_name', 'person_laj', 'normal', 'default');
-    add_meta_box('kw_person_donor_description', 'Description', 'kw_person_donor_description', 'person_laj', 'normal', 'default');
+    add_meta_box('kw_person_donor_name', 'Name', 'kw_person_donor_name', 'person_donor', 'normal', 'default');
+    add_meta_box('kw_person_donor_description', 'Description', 'kw_person_donor_description', 'person_donor', 'normal', 'default');
 }
 
 //Fill Knight Wallace type custom fields with html
@@ -313,7 +318,7 @@ function kw_person_liv_lib() {
 
 //Fill Wallace House Staff custom fields with needed html
 function kw_person_staff_first_name() {
-    generate_html_for_custom_field("kw_person_staff_first_name");
+    generate_html_for_custom_field("kw_person_staff_first_name",true);
 }
 
 function kw_person_staff_last_name() {
@@ -330,7 +335,7 @@ function kw_person_staff_bio() {
 
 //Callback functions for Livingston Award Judges, filling custom fields with needed html
 function kw_person_laj_first_name() {
-    generate_html_for_custom_field("kw_person_laj_first_name");
+    generate_html_for_custom_field("kw_person_laj_first_name",true);
 }
 
 function kw_person_laj_last_name() {
@@ -359,7 +364,8 @@ function kw_person_laj_bio() {
 
 //Fill in html for Donors
 function kw_person_donor_name() {
-    generate_html_for_custom_field("kw_person_donor_name");
+    //must pass in true, at least once per custom post type
+    generate_html_for_custom_field("kw_person_donor_name",true);
 }
 
 function kw_person_donor_description() {
@@ -438,6 +444,7 @@ function kw_save_events_meta($post_id, $post) {
 
     //Donors
     $events_meta['_kw_person_donor_name'] = !empty($_POST['_kw_person_donor_name']) ? $_POST['_kw_person_donor_name'] : null;
+    $events_meta['_kw_person_donor_description'] = !empty($_POST['_kw_person_donor_description']) ? $_POST['_kw_person_donor_description'] : null;
 
     // Add values of $events_meta as custom fields
     foreach ($events_meta as $key => $value) { // Cycle through the $events_meta array!
