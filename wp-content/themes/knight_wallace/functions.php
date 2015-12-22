@@ -129,16 +129,64 @@ function create_post_type() {
             'rewrite' => array("slug" => "livingston-award-winners-finalists")
         )
     );
+    register_post_type( 'person_staff',
+        array(
+            'labels' => array(
+                'name' => __( 'Wallace House Staff' ),
+                'singular_name' => __( 'Wallace House Staff' ),
+                'add_new_item' => __('Add New Wallace House Staff'),
+                'new_item' => __('New Wallace House Staff'), 
+                'view_item' => __('View Wallace House Staff'),
+                'edit_item' => __('Edit Wallace House Staff'),
+            ),
+            'public' => true,
+            'has_archive' => true,
+            'rewrite' => array("slug" => "wallace-house-staff")
+        )
+    );
+    register_post_type( 'person_laj',
+        array(
+            'labels' => array(
+                'name' => __( 'Livingston Award Judges' ),
+                'singular_name' => __( 'Livingston Award Judge' ),
+                'add_new_item' => __('Add New Livingston Award Judge'),
+                'new_item' => __('New Livingston Award Judge'), 
+                'view_item' => __('View Livingston Award Judge'),
+                'edit_item' => __('Edit Livingston Award Judge'),
+            ),
+            'public' => true,
+            'has_archive' => true,
+            'rewrite' => array("slug" => "livingston-award-judge")
+        )
+    );
+    register_post_type( 'person_donor',
+        array(
+            'labels' => array(
+                'name' => __( 'Donors' ),
+                'singular_name' => __( 'Donor' ),
+                'add_new_item' => __('Add New Donor'),
+                'new_item' => __('New Donor'), 
+                'view_item' => __('View Donor'),
+                'edit_item' => __('Edit Donor'),
+            ),
+            'public' => true,
+            'has_archive' => true,
+            'rewrite' => array("slug" => "donor")
+        )
+    );
 }
 
 add_action( 'add_meta_boxes', 'add_person_kw_fellow_metaboxes' );//add custom fields for person_kw_fellow type
 add_action( 'add_meta_boxes', 'add_person_livingston_metaboxes' );//add custom fields for Livingston Winner or Finalist
+add_action( 'add_meta_boxes', 'add_person_staff' );//add custom fields for Wallace House Staff 
+add_action( 'add_meta_boxes', 'add_person_laj' );//add custom fields for Livingston Award Judge 
+add_action( 'add_meta_boxes', 'add_person_donor' );//add custom fields for Donors 
 
 function add_person_kw_fellow_metaboxes() {
     //each meta box is a custom field for our custom content type
     add_meta_box('kw_person_kw_fellow_first_name', 'First Name', 'kw_person_kw_fellow_first_name', 'person_kw_fellow', 'normal', 'default');
     add_meta_box('kw_person_kw_fellow_last_name', 'Last Name', 'kw_person_kw_fellow_last_name', 'person_kw_fellow', 'normal', 'default');
-}
+
     add_meta_box('kw_person_kw_photo', 'Photo', 'kw_person_kw_photo', 'person_kw_fellow', 'normal', 'default');
     add_meta_box('kw_person_kw_photo_add', 'Additional Photo', 'kw_person_kw_photo_add', 'person_kw_fellow', 'normal', 'default');
     add_meta_box('kw_person_kw_bio', 'Bio', 'kw_person_kw_bio', 'person_kw_fellow', 'normal', 'default');
@@ -146,10 +194,41 @@ function add_person_kw_fellow_metaboxes() {
     add_meta_box('kw_person_kw_class_year', 'Class Year', 'kw_person_kw_class_year', 'person_kw_fellow', 'normal', 'default');
     add_meta_box('kw_person_kw_study_pro_title', 'Study Project Title', 'kw_person_kw_study_pro_title', 'person_kw_fellow', 'normal', 'default');
     add_meta_box('kw_person_kw_current_job_title', 'Current Job Title', 'kw_person_kw_current_job_title', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_aff', 'Affiliation', 'kw_person_kw_aff', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_lib', 'Library Item', 'kw_person_kw_lib', 'person_kw_fellow', 'normal', 'default');
+}
 
 function add_person_livingston_metaboxes() {
     add_meta_box('kw_person_liv_first_name', 'First Name', 'kw_person_liv_first_name', 'person_livingston', 'normal', 'default');
     add_meta_box('kw_person_liv_last_name', 'Last Name', 'kw_person_liv_last_name', 'person_livingston', 'normal', 'default');
+    add_meta_box('kw_person_liv_age', 'Age When Award Was Won', 'kw_person_liv_age', 'person_livingston', 'normal', 'default');
+    add_meta_box('kw_person_liv_type', 'Award Type', 'kw_person_liv_type', 'person_livingston', 'normal', 'default');
+    add_meta_box('kw_person_liv_win', 'Winner, Co-Winner, or Finalist', 'kw_person_liv_win', 'person_livingston', 'normal', 'default');
+    add_meta_box('kw_person_liv_quote', 'Winner Quote', 'kw_person_liv_quote', 'person_livingston', 'normal', 'default');
+    add_meta_box('kw_person_liv_ass', 'Current Assignment', 'kw_person_liv_ass', 'person_livingston', 'normal', 'default');
+    add_meta_box('kw_person_liv_lib', 'Library Item', 'kw_person_liv_lib', 'person_livingston', 'normal', 'default');
+}
+
+function add_person_staff() {
+    add_meta_box('kw_person_staff_first_name', 'First Name', 'kw_person_staff_first_name', 'person_staff', 'normal', 'default');
+    add_meta_box('kw_person_staff_last_name', 'Last Name', 'kw_person_staff_last_name', 'person_staff', 'normal', 'default');
+    add_meta_box('kw_person_staff_title', 'Title', 'kw_person_staff_title', 'person_staff', 'normal', 'default');
+    add_meta_box('kw_person_staff_bio', 'Bio', 'kw_person_staff_bio', 'person_staff', 'normal', 'default');
+}
+
+function add_person_laj() {
+    add_meta_box('kw_person_laj_first_name', 'First Name', 'kw_person_laj_first_name', 'person_laj', 'normal', 'default');
+    add_meta_box('kw_person_laj_last_name', 'Last Name', 'kw_person_laj_last_name', 'person_laj', 'normal', 'default');
+    add_meta_box('kw_person_laj_title', 'Job Title', 'kw_person_laj_title', 'person_laj', 'normal', 'default');
+    add_meta_box('kw_person_laj_aff', 'Affiliation', 'kw_person_laj_aff', 'person_laj', 'normal', 'default');
+    add_meta_box('kw_person_laj_photo', 'Photo', 'kw_person_laj_photo', 'person_laj', 'normal', 'default');
+    add_meta_box('kw_person_laj_nat', 'National or Regional Judge', 'kw_person_laj_nat', 'person_laj', 'normal', 'default');
+    add_meta_box('kw_person_laj_bio', 'Bio', 'kw_person_laj_bio', 'person_laj', 'normal', 'default');
+}
+
+function add_person_donor() {
+    add_meta_box('kw_person_donor_name', 'Name', 'kw_person_donor_name', 'person_laj', 'normal', 'default');
+    add_meta_box('kw_person_donor_description', 'Description', 'kw_person_donor_description', 'person_laj', 'normal', 'default');
 }
 
 //Fill Knight Wallace type custom fields with html
@@ -162,6 +241,42 @@ function kw_person_kw_fellow_last_name() {
     generate_html_for_custom_field("kw_person_kw_fellow_last_name");
 }
 
+function kw_person_kw_photo() {
+    generate_html_for_custom_field("kw_person_kw_photo");
+}
+
+function kw_person_kw_photo_add() {
+    generate_html_for_custom_field("kw_person_kw_photo_add");
+}
+
+function kw_person_kw_bio() {
+    generate_html_for_custom_field("kw_person_kw_bio");
+}
+
+function kw_person_kw_bio_private() {
+    generate_html_for_custom_field("kw_person_kw_bio_private");
+}
+
+function kw_person_kw_class_year() {
+    generate_html_for_custom_field("kw_person_kw_class_year");
+}
+
+function kw_person_kw_study_pro_title() {
+    generate_html_for_custom_field("kw_person_kw_study_pro_title");
+}
+
+function kw_person_kw_current_job_title() {
+    generate_html_for_custom_field("kw_person_kw_current_job_title");
+}
+
+function kw_person_kw_aff() {
+    generate_html_for_custom_field("kw_person_kw_aff");
+}
+
+function kw_person_kw_lib() {
+    generate_html_for_custom_field("kw_person_kw_lib");
+}
+
 //Fill Livingstion Awards type custom fields with html
 function kw_person_liv_first_name() {
     //pass in true for the noncename once per custom type
@@ -170,6 +285,85 @@ function kw_person_liv_first_name() {
 
 function kw_person_liv_last_name() {
     generate_html_for_custom_field("kw_person_liv_last_name");
+}
+
+function kw_person_liv_age() {
+    generate_html_for_custom_field("kw_person_liv_age");
+}
+
+function kw_person_liv_type() {
+    generate_html_for_custom_field("kw_person_liv_type");
+}
+
+function kw_person_liv_win() {
+    generate_html_for_custom_field("kw_person_liv_win");
+}
+
+function kw_person_liv_quote() {
+    generate_html_for_custom_field("kw_person_liv_quote");
+}
+
+function kw_person_liv_ass() {
+    generate_html_for_custom_field("kw_person_liv_ass");
+}
+
+function kw_person_liv_lib() {
+    generate_html_for_custom_field("kw_person_liv_lib");
+}
+
+//Fill Wallace House Staff custom fields with needed html
+function kw_person_staff_first_name() {
+    generate_html_for_custom_field("kw_person_staff_first_name");
+}
+
+function kw_person_staff_last_name() {
+    generate_html_for_custom_field("kw_person_staff_last_name");
+}
+
+function kw_person_staff_title() {
+    generate_html_for_custom_field("kw_person_staff_title");
+}
+
+function kw_person_staff_bio() {
+    generate_html_for_custom_field("kw_person_staff_bio");
+}
+
+//Callback functions for Livingston Award Judges, filling custom fields with needed html
+function kw_person_laj_first_name() {
+    generate_html_for_custom_field("kw_person_laj_first_name");
+}
+
+function kw_person_laj_last_name() {
+    generate_html_for_custom_field("kw_person_laj_last_name");
+}
+
+function kw_person_laj_title() {
+    generate_html_for_custom_field("kw_person_laj_title");
+}
+
+function kw_person_laj_aff() {
+    generate_html_for_custom_field("kw_person_laj_aff");
+}
+
+function kw_person_laj_photo() {
+    generate_html_for_custom_field("kw_person_laj_photo");
+}
+
+function kw_person_laj_nat() {
+    generate_html_for_custom_field("kw_person_laj_nat");
+}
+
+function kw_person_laj_bio() {
+    generate_html_for_custom_field("kw_person_laj_bio");
+}
+
+//Fill in html for Donors
+function kw_person_donor_name() {
+    generate_html_for_custom_field("kw_person_donor_name");
+}
+
+function kw_person_donor_description() {
+    generate_html_for_custom_field("kw_person_donor_description");
 }
 
 function generate_html_for_custom_field($name, $add_noncename=false){
@@ -185,10 +379,11 @@ function generate_html_for_custom_field($name, $add_noncename=false){
     // Get the location data if its already been entered
     $saved_data = get_post_meta($post->ID, "_{$name}", true);
 
-    // Echo out the field
+    // Echo out the field (this is so, so dirty.)
     echo '<input type="text" name="_'.$name.'" value="' . $saved_data  . '" class="widefat" />';
 }
 
+//save data in our custom fields! 
 function kw_save_events_meta($post_id, $post) {
     // verify this came from the our screen and with proper authorization,
     // because save_post can be triggered at other times
@@ -203,10 +398,46 @@ function kw_save_events_meta($post_id, $post) {
     // OK, we're authenticated: we need to find and save the data
     // We'll put it into an array to make it easier to loop though.
 
+    //Knight-Wallace Fellows Custom fields
     $events_meta['_kw_person_kw_fellow_first_name'] = !empty($_POST['_kw_person_kw_fellow_first_name']) ? $_POST['_kw_person_kw_fellow_first_name'] : null;
     $events_meta['_kw_person_kw_fellow_last_name'] = !empty($_POST['_kw_person_kw_fellow_last_name']) ? $_POST['_kw_person_kw_fellow_last_name'] : null;
+    $events_meta['_kw_person_kw_photo'] = !empty($_POST['_kw_person_kw_photo']) ? $_POST['_kw_person_kw_photo'] : null;
+    $events_meta['_kw_person_kw_photo_add'] = !empty($_POST['_kw_person_kw_photo_add']) ? $_POST['_kw_person_kw_photo_add'] : null;
+    $events_meta['_kw_person_kw_bio'] = !empty($_POST['_kw_person_kw_bio']) ? $_POST['_kw_person_kw_bio'] : null;
+    $events_meta['_kw_person_kw_bio_private'] = !empty($_POST['_kw_person_kw_bio_private']) ? $_POST['_kw_person_kw_bio_private'] : null;
+    $events_meta['_kw_person_kw_class_year'] = !empty($_POST['_kw_person_kw_class_year']) ? $_POST['_kw_person_kw_class_year'] : null;
+    $events_meta['_kw_person_kw_study_pro_title'] = !empty($_POST['_kw_person_kw_study_pro_title']) ? $_POST['_kw_person_kw_study_pro_title'] : null;
+    $events_meta['_kw_person_kw_current_job_title'] = !empty($_POST['_kw_person_kw_current_job_title']) ? $_POST['_kw_person_kw_current_job_title'] : null;
+    $events_meta['_kw_person_kw_aff'] = !empty($_POST['_kw_person_kw_aff']) ? $_POST['_kw_person_kw_aff'] : null;
+    $events_meta['_kw_person_kw_lib'] = !empty($_POST['_kw_person_kw_lib']) ? $_POST['_kw_person_kw_lib'] : null;
+
+    //Livingston Winners Custom Fields
     $events_meta['_kw_person_liv_first_name'] = !empty($_POST['_kw_person_liv_first_name']) ? $_POST['_kw_person_liv_first_name'] : null;
     $events_meta['_kw_person_liv_last_name'] = !empty($_POST['_kw_person_liv_last_name']) ? $_POST['_kw_person_liv_last_name'] : null;
+    $events_meta['_kw_person_liv_age'] = !empty($_POST['_kw_person_liv_age']) ? $_POST['_kw_person_liv_age'] : null;
+    $events_meta['_kw_person_liv_type'] = !empty($_POST['_kw_person_liv_type']) ? $_POST['_kw_person_liv_type'] : null;
+    $events_meta['_kw_person_liv_win'] = !empty($_POST['_kw_person_liv_win']) ? $_POST['_kw_person_liv_win'] : null;
+    $events_meta['_kw_person_liv_quote'] = !empty($_POST['_kw_person_liv_quote']) ? $_POST['_kw_person_liv_quote'] : null;
+    $events_meta['_kw_person_liv_ass'] = !empty($_POST['_kw_person_liv_ass']) ? $_POST['_kw_person_liv_ass'] : null;
+    $events_meta['_kw_person_liv_lib'] = !empty($_POST['_kw_person_liv_lib']) ? $_POST['_kw_person_liv_lib'] : null;
+
+    //Wallace House Staff Custom Fields
+    $events_meta['_kw_person_staff_first_name'] = !empty($_POST['_kw_person_staff_first_name']) ? $_POST['_kw_person_staff_first_name'] : null;
+    $events_meta['_kw_person_staff_last_name'] = !empty($_POST['_kw_person_staff_last_name']) ? $_POST['_kw_person_staff_last_name'] : null;
+    $events_meta['_kw_person_staff_title'] = !empty($_POST['_kw_person_staff_title']) ? $_POST['_kw_person_staff_title'] : null;
+    $events_meta['_kw_person_staff_bio'] = !empty($_POST['_kw_person_staff_bio']) ? $_POST['_kw_person_staff_bio'] : null;
+
+    //Livingston Award Judges Custom Fields
+    $events_meta['_kw_person_laj_first_name'] = !empty($_POST['_kw_person_laj_first_name']) ? $_POST['_kw_person_laj_first_name'] : null;
+    $events_meta['_kw_person_laj_last_name'] = !empty($_POST['_kw_person_laj_last_name']) ? $_POST['_kw_person_laj_last_name'] : null;
+    $events_meta['_kw_person_laj_title'] = !empty($_POST['_kw_person_laj_title']) ? $_POST['_kw_person_laj_title'] : null;
+    $events_meta['_kw_person_laj_aff'] = !empty($_POST['_kw_person_laj_aff']) ? $_POST['_kw_person_laj_aff'] : null;
+    $events_meta['_kw_person_laj_photo'] = !empty($_POST['_kw_person_laj_photo']) ? $_POST['_kw_person_laj_photo'] : null;
+    $events_meta['_kw_person_laj_nat'] = !empty($_POST['_kw_person_laj_nat']) ? $_POST['_kw_person_laj_nat'] : null;
+    $events_meta['_kw_person_laj_bio'] = !empty($_POST['_kw_person_laj_bio']) ? $_POST['_kw_person_laj_bio'] : null;
+
+    //Donors
+    $events_meta['_kw_person_donor_name'] = !empty($_POST['_kw_person_donor_name']) ? $_POST['_kw_person_donor_name'] : null;
 
     // Add values of $events_meta as custom fields
     foreach ($events_meta as $key => $value) { // Cycle through the $events_meta array!
