@@ -31,8 +31,8 @@ body {
 }
 
 a {
-  color: $lblue;
   transition: all 0.5s ease;
+  color: $lblue;
   
   &:link,
   &:visited {
@@ -49,9 +49,9 @@ a {
 }
 
 #header {
-  background: $ublue;
-  color: $white;
   padding: 2rem;
+  color: $white;
+  background: $ublue;
   
   h1,
   h2 {
@@ -68,34 +68,34 @@ a {
       list-style: none;
       
       a {
-        color: $white;
         font-size: 1.4rem;
         padding: 2px 5px 2px 8px;
+        color: $white;
       }
     }
   }
 }
 
 #main_nav {
-  background: $charcoal;
   color: $white-gray;
+  background: $charcoal;
   
   li {
     display: inline-block;
   }
 
   .primary {
-    @include link_style($white-gray, $charcoal);
+    font-size: 2rem;
+    margin-bottom: 0;
+    transition: all 0.5s ease;
     text-align: center;
     text-transform: uppercase;
-    transition: all 0.5s ease;
-    margin-bottom: 0;
-    font-size: 2rem;
+    @include link_style($white-gray, $charcoal);
     
     a {
       display: inline-block;
-      padding: 2rem;
       width: 100%;
+      padding: 2rem;
     }
 
     &:hover,
@@ -106,10 +106,10 @@ a {
   }
 
   .sub-nav-wrap {
+    font-size: 2rem;
+    text-align: center;
     background: $white-gray;
     @include link_style($lblue, $charcoal);
-    text-align: center;
-    font-size: 2rem;
     
     li {
       font-size: 2rem;
@@ -119,27 +119,27 @@ a {
 }
 /* Hero Unit */
 #hero_image {
-  background: url(http://lorempixel.com/output/city-q-c-1920-1920-3.jpg) no-repeat center center;
-  background-size: cover;
-  color: $white;
-  height: 750px;
   display: flex;
   flex-direction: column;
+  height: 750px;
+  color: $white;
+  background: url(http://lorempixel.com/output/city-q-c-1920-1920-3.jpg) no-repeat center center;
+  background-size: cover;
   justify-content: center;
   
   .columns {
-    background: rgba($charcoal, 0.7);
-    margin: 0 auto;
     float: none;
+    margin: 0 auto;
     padding: 1rem;
     text-align: center;
+    background: rgba($charcoal, .7);
   }
 
   h2 {
-    color: $myellow;
     font-size: 2.6rem;
     font-weight: normal;
     margin-bottom: 0;
+    color: $myellow;
   }
 
   p {
@@ -153,8 +153,8 @@ a {
   margin-bottom: 6rem;
   
   .columns {
-    color: $white;
     margin-bottom: 2rem;
+    color: $white;
     
     img {
       width: 100%;
@@ -162,21 +162,21 @@ a {
     }
 
     h3 {
-      color: $white;
-      font-weight: bold;
       font-size: 2rem;
+      font-weight: bold;
+      color: $white;
     }
 
     a {
-      color: $white;
       font-size: 1.6rem;
       display: inline-block;
+      color: $white;
     }
 
     .text {
-      background: $lblue;
       padding: 1.5rem 3rem 1rem;
       transition: all 0.5s ease;
+      background: $lblue;
       
       &:hover {
         background: $ublue;
@@ -190,16 +190,16 @@ a {
 }
 
 .alert {
-  background: $white-gray;
   margin-bottom: 2rem;
+  background: $white-gray;
   
   .large-4 {
     background: $red;
     color: $white;
     font-size: 1.4rem;
+    padding: 2rem;
     text-align: center;
     text-transform: uppercase;
-    padding: 2rem;
     
     strong {
       font-size: 1.8rem;
@@ -222,31 +222,46 @@ a {
   }
 }
 
-#news_library {
+.story-list {
   .heading {
-    background: $charcoal;
-    padding: 0 1rem;
     margin-bottom: 2rem;
+    padding: 0 1rem;
+    background: $charcoal;
+  }
+
+  img {
+    max-width: 246px;
+    height: auto;
   }
 
   h3 {
-    color: $white;
     padding: 5px 0;
+    color: $white;
   }
 
   .news-article {
+    position: relative;
+    height: 18rem;
+    margin-bottom: 2rem;
     background: $white-gray;
     padding: 1rem 2rem;
-    margin-bottom: 2rem;
-    height: 18rem;
+  }
+
+  .large-5 {
+    padding-top: 0.5rem;
+  }
+
+  .text {
     position: relative;
+    padding-left: 2rem;
+    height: 100%;
   }
 
   h4 {
     a {
       font-size: 2rem;
-      color: $lblue;
       font-weight: bold;
+      color: $lblue;
     }
   }
 
@@ -257,11 +272,11 @@ a {
 
   .tags {
     position: absolute;
-    bottom: 1rem;
+    bottom: 0;
     
     ul {
+      margin: 0;
       padding: 0;
-      margin: -10px 0 5px;
       
       li {
         display: inline-block;
@@ -277,31 +292,15 @@ a {
   }
 
   .more-posts {
-    display: flex;
     align-items: center;
-    justify-content: center;
-    height: 18rem;
-    width: 100%;
-    color: #fff;
     background: $lblue;
+    color: #fff;
+    display: flex;
     font-size: 2rem;
+    height: 18rem;
+    justify-content: center;
     margin-bottom: 5rem;
-  }
-}
-
-.social-media-links {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  
-  li {
-    list-style: none;
-    display: inline-block;
-    margin-right: 2rem;
-    
-    a {
-      font-size: 3rem;
-    }
+    width: 100%;
   }
 }
 /* Footer */
@@ -309,13 +308,13 @@ a {
   padding-bottom: 80px;
   
   p {
-    color: $lblue;
     font-size: 1.4rem;
+    color: $lblue;
   }
 
   a {
-    color: $lblue;
     font-size: 1.4rem;
+    color: $lblue;
   }
 
   .large-2 {
@@ -323,24 +322,65 @@ a {
   }
 
   .top {
-    padding: 35px 0;
-    margin-bottom: 30px;
     background: $ublue;
     color: $white;
     font-size: 1.8rem;
+    margin-bottom: 30px;
+    padding: 35px 0;
     
+    h5,
     h6 {
-      color: $white;
-      font-size: 1.8rem;
+      font-size: 2rem;
       font-weight: bold;
+      color: $white;
+    }
+
+    h6 {
+      font-size: 1.8rem;
     }
 
     p {
       color: $white;
+      font-size: 1.8rem;
     }
 
     a {
       color: $white;
+      font-size: 1.8rem;
+    }
+
+    .social-media-links {
+      width: 100%;
+      margin: -5px 0 2rem;
+      padding: 0;
+      
+      li {
+        display: inline-block;
+        margin-right: 2rem;
+        list-style: none;
+        
+        a {
+          font-size: 3rem;
+        }
+      }
+    }
+
+    input[type=text] {
+      width: 65%;
+      height: 4.4rem;
+      float: left;
+      margin-right: 3%;
+      font-size: 1.8rem;
+    }
+
+    input[type=submit] {
+      width: 30%;
+      height: 4.4rem;
+      background: $lblue;
+      border: none;
+      color: $white;
+      font-size: 1.8rem;
+      font-weight: bold;
     }
   }
 }
