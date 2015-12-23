@@ -194,7 +194,8 @@ function create_post_type() {
             'public' => true,
             'has_archive' => true,
             'supports' => array('title','thumbnail','revisions','editor'),
-            'rewrite' => array("slug" => "library")
+            'rewrite' => array("slug" => "library"),
+            'taxonomies' => array('post_tag')
         )
     );
 }
