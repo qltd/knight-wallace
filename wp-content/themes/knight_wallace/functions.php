@@ -99,6 +99,7 @@ add_action( 'after_setup_theme', 'knight_wallace_content_width', 0 );
  * */
 add_action( 'init', 'create_post_type' );
 function create_post_type() {
+    //People
     register_post_type( 'person_kw_fellow',
         array(
             'labels' => array(
@@ -179,6 +180,23 @@ function create_post_type() {
             'rewrite' => array("slug" => "donor")
         )
     );
+    //Library
+    register_post_type( 'library',
+        array(
+            'labels' => array(
+                'name' => __( 'Library' ),
+                'singular_name' => __( 'Library Item' ),
+                'add_new_item' => __('Add New Library Item'),
+                'new_item' => __('New Library Item'), 
+                'view_item' => __('View Library Item'),
+                'edit_item' => __('Edit Library Item'),
+            ),
+            'public' => true,
+            'has_archive' => true,
+            'supports' => array('title','thumbnail','revisions','editor'),
+            'rewrite' => array("slug" => "library")
+        )
+    );
 }
 
 add_action( 'add_meta_boxes', 'add_person_kw_fellow_metaboxes' );//add custom fields for person_kw_fellow type
@@ -186,6 +204,7 @@ add_action( 'add_meta_boxes', 'add_person_livingston_metaboxes' );//add custom f
 add_action( 'add_meta_boxes', 'add_person_staff' );//add custom fields for Wallace House Staff 
 add_action( 'add_meta_boxes', 'add_person_laj' );//add custom fields for Livingston Award Judge 
 add_action( 'add_meta_boxes', 'add_person_donor' );//add custom fields for Donors 
+add_action( 'add_meta_boxes', 'add_library_metaboxes' );//add custom fields for Library Items 
 
 function add_person_kw_fellow_metaboxes() {
     //each meta box is a custom field for our custom content type
@@ -234,6 +253,14 @@ function add_person_laj() {
 function add_person_donor() {
     add_meta_box('kw_person_donor_name', 'Name', 'kw_person_donor_name', 'person_donor', 'normal', 'default');
     add_meta_box('kw_person_donor_description', 'Description', 'kw_person_donor_description', 'person_donor', 'normal', 'default');
+}
+
+//for Library Items
+function add_library_metaboxes() {
+    add_meta_box('library_item_type', 'Library Item Type', 'library_item_type', 'library', 'normal', 'default');
+    add_meta_box('library_publisher', 'Publisher', 'library_publisher', 'library', 'normal', 'default');
+    add_meta_box('library_url', 'URL', 'library_url', 'library', 'normal', 'default');
+    add_meta_box('library_author', 'Author', 'library_author', 'library', 'normal', 'default');
 }
 
 //Fill Knight Wallace type custom fields with html
@@ -372,6 +399,30 @@ function kw_person_donor_description() {
     generate_html_for_custom_field("kw_person_donor_description");
 }
 
+//Library
+function library_publisher() {
+    generate_html_for_custom_field("library_publisher",true);
+}
+
+function library_url() {
+    generate_html_for_custom_field("library_url");
+}
+
+function library_item_type(){
+    $lib_item_types = array(
+        'Article', 
+        'Book',
+        'Video',
+        'Photojournalism',
+        'Journal'
+    );
+    generate_select_box_for_custom_field("library_item_type",$lib_item_types);
+}
+
+function library_author() {
+    generate_html_for_custom_field("library_author");
+}
+
 function generate_html_for_custom_field($name, $add_noncename=false){
     global $post;
 
@@ -387,6 +438,24 @@ function generate_html_for_custom_field($name, $add_noncename=false){
 
     // Echo out the field (this is so, so dirty.)
     echo '<input type="text" name="_'.$name.'" value="' . $saved_data  . '" class="widefat" />';
+}
+
+function generate_select_box_for_custom_field($name,$options){
+    global $post;
+
+    // Get the location data if its already been entered
+    $saved_data = get_post_meta($post->ID, "_{$name}", true);
+
+    // Echo out the field (this is so, so dirty.)
+    echo '<select name="_'.$name.'" class="widefat">';
+    foreach($options as $option){
+        echo '<option value="'.$option.'"';
+        if($saved_data == $option){
+            echo ' selected="selected"'; 
+        }
+        echo '>'.$option.'</option>';
+    }
+    echo '</select>';
 }
 
 //save data in our custom fields! 
@@ -445,6 +514,12 @@ function kw_save_events_meta($post_id, $post) {
     //Donors
     $events_meta['_kw_person_donor_name'] = !empty($_POST['_kw_person_donor_name']) ? $_POST['_kw_person_donor_name'] : null;
     $events_meta['_kw_person_donor_description'] = !empty($_POST['_kw_person_donor_description']) ? $_POST['_kw_person_donor_description'] : null;
+
+    //Library Items
+    $events_meta['_library_publisher'] = !empty($_POST['_library_publisher']) ? $_POST['_library_publisher'] : null;
+    $events_meta['_library_url'] = !empty($_POST['_library_url']) ? $_POST['_library_url'] : null;
+    $events_meta['_library_item_type'] = !empty($_POST['_library_item_type']) ? $_POST['_library_item_type'] : null;
+    $events_meta['_library_author'] = !empty($_POST['_library_author']) ? $_POST['_library_author'] : null;
 
     // Add values of $events_meta as custom fields
     foreach ($events_meta as $key => $value) { // Cycle through the $events_meta array!
