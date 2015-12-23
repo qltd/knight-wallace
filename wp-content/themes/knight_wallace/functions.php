@@ -212,7 +212,6 @@ function add_person_kw_fellow_metaboxes() {
     add_meta_box('kw_person_kw_fellow_first_name', 'First Name', 'kw_person_kw_fellow_first_name', 'person_kw_fellow', 'normal', 'default');
     add_meta_box('kw_person_kw_fellow_last_name', 'Last Name', 'kw_person_kw_fellow_last_name', 'person_kw_fellow', 'normal', 'default');
 
-    add_meta_box('kw_person_kw_photo', 'Photo', 'kw_person_kw_photo', 'person_kw_fellow', 'normal', 'default');
     add_meta_box('kw_person_kw_photo_add', 'Additional Photo', 'kw_person_kw_photo_add', 'person_kw_fellow', 'normal', 'default');
     add_meta_box('kw_person_kw_bio', 'Bio', 'kw_person_kw_bio', 'person_kw_fellow', 'normal', 'default');
     add_meta_box('kw_person_kw_bio_private', 'Private Bio', 'kw_person_kw_bio_private', 'person_kw_fellow', 'normal', 'default');
@@ -246,7 +245,6 @@ function add_person_laj() {
     add_meta_box('kw_person_laj_last_name', 'Last Name', 'kw_person_laj_last_name', 'person_laj', 'normal', 'default');
     add_meta_box('kw_person_laj_title', 'Job Title', 'kw_person_laj_title', 'person_laj', 'normal', 'default');
     add_meta_box('kw_person_laj_aff', 'Affiliation', 'kw_person_laj_aff', 'person_laj', 'normal', 'default');
-    add_meta_box('kw_person_laj_photo', 'Photo', 'kw_person_laj_photo', 'person_laj', 'normal', 'default');
     add_meta_box('kw_person_laj_nat', 'National or Regional Judge', 'kw_person_laj_nat', 'person_laj', 'normal', 'default');
     add_meta_box('kw_person_laj_bio', 'Bio', 'kw_person_laj_bio', 'person_laj', 'normal', 'default');
 }
@@ -274,12 +272,8 @@ function kw_person_kw_fellow_last_name() {
     generate_html_for_custom_field("kw_person_kw_fellow_last_name");
 }
 
-function kw_person_kw_photo() {
-    generate_html_for_custom_field("kw_person_kw_photo");
-}
-
 function kw_person_kw_photo_add() {
-    generate_html_for_custom_field("kw_person_kw_photo_add");
+    generate_file_html_for_custom_field("kw_person_kw_photo_add");
 }
 
 function kw_person_kw_bio() {
@@ -378,10 +372,6 @@ function kw_person_laj_aff() {
     generate_html_for_custom_field("kw_person_laj_aff");
 }
 
-function kw_person_laj_photo() {
-    generate_html_for_custom_field("kw_person_laj_photo");
-}
-
 function kw_person_laj_nat() {
     generate_html_for_custom_field("kw_person_laj_nat");
 }
@@ -459,6 +449,16 @@ function generate_select_box_for_custom_field($name,$options){
     echo '</select>';
 }
 
+function generate_file_html_for_custom_field($name){
+    global $post;
+
+    // Get the location data if its already been entered
+    $saved_data = get_post_meta($post->ID, "_{$name}", true);
+
+    // Echo out the field (this is so, so dirty.)
+    echo '<input type="file" value="'.$saved_data.'" name="_'.$name.'" id="_'.$name.'" alt="" class="widefat" />';
+}
+
 //save data in our custom fields! 
 function kw_save_events_meta($post_id, $post) {
     // verify this came from the our screen and with proper authorization,
@@ -477,7 +477,6 @@ function kw_save_events_meta($post_id, $post) {
     //Knight-Wallace Fellows Custom fields
     $events_meta['_kw_person_kw_fellow_first_name'] = !empty($_POST['_kw_person_kw_fellow_first_name']) ? $_POST['_kw_person_kw_fellow_first_name'] : null;
     $events_meta['_kw_person_kw_fellow_last_name'] = !empty($_POST['_kw_person_kw_fellow_last_name']) ? $_POST['_kw_person_kw_fellow_last_name'] : null;
-    $events_meta['_kw_person_kw_photo'] = !empty($_POST['_kw_person_kw_photo']) ? $_POST['_kw_person_kw_photo'] : null;
     $events_meta['_kw_person_kw_photo_add'] = !empty($_POST['_kw_person_kw_photo_add']) ? $_POST['_kw_person_kw_photo_add'] : null;
     $events_meta['_kw_person_kw_bio'] = !empty($_POST['_kw_person_kw_bio']) ? $_POST['_kw_person_kw_bio'] : null;
     $events_meta['_kw_person_kw_bio_private'] = !empty($_POST['_kw_person_kw_bio_private']) ? $_POST['_kw_person_kw_bio_private'] : null;
@@ -508,7 +507,6 @@ function kw_save_events_meta($post_id, $post) {
     $events_meta['_kw_person_laj_last_name'] = !empty($_POST['_kw_person_laj_last_name']) ? $_POST['_kw_person_laj_last_name'] : null;
     $events_meta['_kw_person_laj_title'] = !empty($_POST['_kw_person_laj_title']) ? $_POST['_kw_person_laj_title'] : null;
     $events_meta['_kw_person_laj_aff'] = !empty($_POST['_kw_person_laj_aff']) ? $_POST['_kw_person_laj_aff'] : null;
-    $events_meta['_kw_person_laj_photo'] = !empty($_POST['_kw_person_laj_photo']) ? $_POST['_kw_person_laj_photo'] : null;
     $events_meta['_kw_person_laj_nat'] = !empty($_POST['_kw_person_laj_nat']) ? $_POST['_kw_person_laj_nat'] : null;
     $events_meta['_kw_person_laj_bio'] = !empty($_POST['_kw_person_laj_bio']) ? $_POST['_kw_person_laj_bio'] : null;
 
