@@ -277,11 +277,11 @@ function kw_person_kw_photo_add() {
 }
 
 function kw_person_kw_bio() {
-    generate_html_for_custom_field("kw_person_kw_bio");
+    generate_textarea_for_custom_field("kw_person_kw_bio");
 }
 
 function kw_person_kw_bio_private() {
-    generate_html_for_custom_field("kw_person_kw_bio_private");
+    generate_textarea_for_custom_field("kw_person_kw_bio_private");
 }
 
 function kw_person_kw_class_year() {
@@ -323,7 +323,12 @@ function kw_person_liv_type() {
 }
 
 function kw_person_liv_win() {
-    generate_html_for_custom_field("kw_person_liv_win");
+    $options = array(
+        'Winner', 
+        'Co-Winner',
+        'Finalist'
+    );
+    generate_select_box_for_custom_field("kw_person_liv_win",$options);
 }
 
 function kw_person_liv_quote() {
@@ -352,7 +357,7 @@ function kw_person_staff_title() {
 }
 
 function kw_person_staff_bio() {
-    generate_html_for_custom_field("kw_person_staff_bio");
+    generate_textarea_for_custom_field("kw_person_staff_bio");
 }
 
 //Callback functions for Livingston Award Judges, filling custom fields with needed html
@@ -377,7 +382,7 @@ function kw_person_laj_nat() {
 }
 
 function kw_person_laj_bio() {
-    generate_html_for_custom_field("kw_person_laj_bio");
+    generate_textarea_for_custom_field("kw_person_laj_bio");
 }
 
 //Fill in html for Donors
@@ -387,7 +392,7 @@ function kw_person_donor_name() {
 }
 
 function kw_person_donor_description() {
-    generate_html_for_custom_field("kw_person_donor_description");
+    generate_textarea_for_custom_field("kw_person_donor_description");
 }
 
 //Library
@@ -457,6 +462,16 @@ function generate_file_html_for_custom_field($name){
 
     // Echo out the field (this is so, so dirty.)
     echo '<input type="file" value="'.$saved_data.'" name="_'.$name.'" id="_'.$name.'" alt="" class="widefat" />';
+}
+
+function generate_textarea_for_custom_field($name){
+    global $post;
+
+    // Get the location data if its already been entered
+    $saved_data = get_post_meta($post->ID, "_{$name}", true);
+
+    // Echo out the field (this is so, so dirty.)
+    echo '<textarea name="_'.$name.'" class="widefat">'.$saved_data.'</textarea>';
 }
 
 //save data in our custom fields! 
