@@ -7,13 +7,13 @@
   a {
     color: $color;
     
+    &:hover {
+      color: $hover;
+    }
+
     &:link,
     &:visited {
       color: $color;
-    }
-
-    &:hover {
-      color: $hover;
     }
   }
 }
@@ -31,16 +31,16 @@ body {
 }
 
 a {
-  transition: all 0.5s ease;
   color: $lblue;
+  transition: all 0.5s ease;
   
+  &:hover {
+    color: $ublue;
+  }
+
   &:link,
   &:visited {
     color: $lblue;
-  }
-
-  &:hover {
-    color: $ublue;
   }
 }
 
@@ -49,9 +49,9 @@ a {
 }
 
 #header {
-  padding: 2rem;
-  color: $white;
   background: $ublue;
+  color: $white;
+  padding: 2rem;
   
   h1,
   h2 {
@@ -68,47 +68,43 @@ a {
       list-style: none;
       
       a {
+        color: $white;
         font-size: 1.4rem;
         padding: 2px 5px 2px 8px;
-        color: $white;
       }
     }
   }
 }
 
 #main_nav {
-  color: $white-gray;
   background: $charcoal;
+  color: $white-gray;
   
-  li {
-    display: inline-block;
-  }
-
   .primary {
     font-size: 2rem;
     margin-bottom: 0;
-    transition: all 0.5s ease;
     text-align: center;
     text-transform: uppercase;
+    transition: all 0.5s ease;
     @include link_style($white-gray, $charcoal);
     
-    a {
-      display: inline-block;
-      width: 100%;
-      padding: 2rem;
-    }
-
     &:hover,
     &.active {
       background: $white-gray;
       @include link_style($charcoal, $ublue);
     }
+
+    a {
+      display: inline-block;
+      padding: 2rem;
+      width: 100%;
+    }
   }
 
   .sub-nav-wrap {
+    background: $white-gray;
     font-size: 2rem;
     text-align: center;
-    background: $white-gray;
     @include link_style($lblue, $charcoal);
     
     li {
@@ -116,30 +112,34 @@ a {
       margin: 1rem 2rem 0;
     }
   }
+
+  li {
+    display: inline-block;
+  }
 }
 /* Hero Unit */
 #hero_image {
+  background: url(http://lorempixel.com/output/city-q-c-1920-1920-3.jpg) no-repeat center center;
+  background-size: cover;
+  color: $white;
   display: flex;
   flex-direction: column;
   height: 750px;
-  color: $white;
-  background: url(http://lorempixel.com/output/city-q-c-1920-1920-3.jpg) no-repeat center center;
-  background-size: cover;
   justify-content: center;
   
   .columns {
+    background: rgba($charcoal, .7);
     float: none;
     margin: 0 auto;
     padding: 1rem;
     text-align: center;
-    background: rgba($charcoal, .7);
   }
 
   h2 {
+    color: $myellow;
     font-size: 2.6rem;
     font-weight: normal;
     margin-bottom: 0;
-    color: $myellow;
   }
 
   p {
@@ -149,37 +149,58 @@ a {
 }
 /* Home Page Posts */
 #main.posts {
-  margin-top: 5rem;
   margin-bottom: 6rem;
+  margin-top: 5rem;
   
   .columns {
-    margin-bottom: 2rem;
     color: $white;
+    margin-bottom: 2rem;
     
-    img {
-      width: 100%;
-      height: auto;
-    }
-
-    h3 {
-      font-size: 2rem;
-      font-weight: bold;
-      color: $white;
-    }
-
-    a {
-      font-size: 1.6rem;
-      display: inline-block;
-      color: $white;
-    }
-
     .text {
+      background: $lblue;
       padding: 1.5rem 3rem 1rem;
       transition: all 0.5s ease;
-      background: $lblue;
       
       &:hover {
         background: $ublue;
+      }
+    }
+
+    a {
+      color: $white;
+      display: inline-block;
+      font-size: 1.6rem;
+    }
+
+    h3 {
+      color: $white;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    img {
+      height: auto;
+      width: 100%;
+    }
+  }
+}
+
+.tags-list {
+  bottom: 0;
+  position: absolute;
+  
+  ul {
+    margin: 0;
+    padding: 0;
+    
+    li {
+      color: $charcoal;
+      display: inline-block;
+      list-style: none;
+      
+      a {
+        color: $charcoal;
+        padding: 0;
       }
     }
   }
@@ -190,8 +211,8 @@ a {
 }
 
 .alert {
-  margin-bottom: 2rem;
   background: $white-gray;
+  margin-bottom: 2rem;
   
   .large-4 {
     background: $red;
@@ -221,74 +242,74 @@ a {
     }
   }
 }
+/* Library */
+#library {
+  padding-top: 6rem;
+  
+  .featured {
+    background: $myellow;
+    margin: 4rem 0;
+    
+    .author {
+      font-size: 1.6rem;
+      margin-bottom: 2rem;
+    }
+
+    .featured-text {
+      height: 100%;
+      padding: 1rem 0;
+      position: relative;
+    }
+
+    .tags-list {
+      bottom: 1rem;
+      position: absolute;
+    }
+
+    h1 {
+      font-weight: bold;
+    }
+
+    h3 {
+      a {
+        color: $lblue;
+        font-size: 2rem;
+        font-weight: bold;
+      }
+    }
+
+    h4 {
+      font-size: 1.8rem;
+      margin-bottom: 0;
+      text-transform: uppercase;
+    }
+
+    img {
+      height: auto;
+      width: 100%;
+    }
+
+    p {
+      font-size: 1.8rem;
+      line-height: 1.4;
+    }
+  }
+}
 
 .story-list {
+  .date {
+    color: $charcoal;
+    font-size: 1.6rem;
+  }
+
   .heading {
+    background: $charcoal;
     margin-bottom: 2rem;
     padding: 0 1rem;
-    background: $charcoal;
-  }
-
-  img {
-    max-width: 246px;
-    height: auto;
-  }
-
-  h3 {
-    padding: 5px 0;
-    color: $white;
-  }
-
-  .news-article {
-    position: relative;
-    height: 18rem;
-    margin-bottom: 2rem;
-    background: $white-gray;
-    padding: 1rem 2rem;
   }
 
   .large-5 {
     padding-top: 0.5rem;
-  }
-
-  .text {
-    position: relative;
-    padding-left: 2rem;
-    height: 100%;
-  }
-
-  h4 {
-    a {
-      font-size: 2rem;
-      font-weight: bold;
-      color: $lblue;
-    }
-  }
-
-  .date {
-    font-size: 1.6rem;
-    color: $charcoal;
-  }
-
-  .tags {
-    position: absolute;
-    bottom: 0;
-    
-    ul {
-      margin: 0;
-      padding: 0;
-      
-      li {
-        display: inline-block;
-        list-style: none;
-        color: $charcoal;
-        
-        a {
-          padding: 0;
-          color: $charcoal;
-        }
-      }
-    }
   }
 
   .more-posts {
@@ -302,21 +323,43 @@ a {
     margin-bottom: 5rem;
     width: 100%;
   }
+
+  .news-article {
+    background: $white-gray;
+    height: 18rem;
+    margin-bottom: 2rem;
+    padding: 1rem 2rem;
+    position: relative;
+  }
+
+  .text {
+    height: 100%;
+    padding-left: 2rem;
+    position: relative;
+  }
+
+  h3 {
+    color: $white;
+    padding: 5px 0;
+  }
+
+  h4 {
+    a {
+      color: $lblue;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+  }
+
+  img {
+    height: auto;
+    max-width: 246px;
+  }
 }
 /* Footer */
 .site-footer {
   padding-bottom: 80px;
   
-  p {
-    font-size: 1.4rem;
-    color: $lblue;
-  }
-
-  a {
-    font-size: 1.4rem;
-    color: $lblue;
-  }
-
   .large-2 {
     text-align: right;
   }
@@ -328,36 +371,15 @@ a {
     margin-bottom: 30px;
     padding: 35px 0;
     
-    h5,
-    h6 {
-      font-size: 2rem;
-      font-weight: bold;
-      color: $white;
-    }
-
-    h6 {
-      font-size: 1.8rem;
-    }
-
-    p {
-      color: $white;
-      font-size: 1.8rem;
-    }
-
-    a {
-      color: $white;
-      font-size: 1.8rem;
-    }
-
     .social-media-links {
-      width: 100%;
       margin: -5px 0 2rem;
       padding: 0;
+      width: 100%;
       
       li {
         display: inline-block;
-        margin-right: 2rem;
         list-style: none;
+        margin-right: 2rem;
         
         a {
           font-size: 3rem;
@@ -365,22 +387,53 @@ a {
       }
     }
 
-    input[type=text] {
-      width: 65%;
-      height: 4.4rem;
-      float: left;
-      margin-right: 3%;
+    a {
+      color: $white;
+      font-size: 1.8rem;
+    }
+
+    h5,
+    h6 {
+      color: $white;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    h6 {
       font-size: 1.8rem;
     }
 
     input[type=submit] {
-      width: 30%;
-      height: 4.4rem;
       background: $lblue;
       border: none;
       color: $white;
       font-size: 1.8rem;
       font-weight: bold;
+      height: 4.4rem;
+      width: 30%;
     }
+
+    input[type=text] {
+      float: left;
+      font-size: 1.8rem;
+      height: 4.4rem;
+      margin-right: 3%;
+      width: 65%;
+    }
+
+    p {
+      color: $white;
+      font-size: 1.8rem;
+    }
+  }
+
+  a {
+    color: $lblue;
+    font-size: 1.4rem;
+  }
+
+  p {
+    color: $lblue;
+    font-size: 1.4rem;
   }
 }
