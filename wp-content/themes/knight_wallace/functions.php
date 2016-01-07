@@ -217,7 +217,7 @@ function add_person_kw_fellow_metaboxes() {
     add_meta_box('kw_person_kw_bio_private', 'Private Bio', 'kw_person_kw_bio_private', 'person_kw_fellow', 'normal', 'default');
     add_meta_box('kw_person_kw_class_year', 'Class Year', 'kw_person_kw_class_year', 'person_kw_fellow', 'normal', 'default');
     add_meta_box('kw_person_kw_study_pro_title', 'Study Project Title', 'kw_person_kw_study_pro_title', 'person_kw_fellow', 'normal', 'default');
-    add_meta_box('kw_person_kw_current_job_title', 'Current Job Title', 'kw_person_kw_current_job_title', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_current_job_title', 'Job Title', 'kw_person_kw_current_job_title', 'person_kw_fellow', 'normal', 'default');
     add_meta_box('kw_person_kw_aff', 'Affiliation', 'kw_person_kw_aff', 'person_kw_fellow', 'normal', 'default');
     add_meta_box('kw_person_kw_lib', 'Library Item', 'kw_person_kw_lib', 'person_kw_fellow', 'normal', 'default');
 }
@@ -229,7 +229,10 @@ function add_person_livingston_metaboxes() {
     add_meta_box('kw_person_liv_type', 'Award Type', 'kw_person_liv_type', 'person_livingston', 'normal', 'default');
     add_meta_box('kw_person_liv_win', 'Winner, Co-Winner, or Finalist', 'kw_person_liv_win', 'person_livingston', 'normal', 'default');
     add_meta_box('kw_person_liv_quote', 'Winner Quote', 'kw_person_liv_quote', 'person_livingston', 'normal', 'default');
-    add_meta_box('kw_person_liv_ass', 'Current Assignment', 'kw_person_liv_ass', 'person_livingston', 'normal', 'default');
+    add_meta_box('kw_person_liv_win_aff', 'Winning Affiliation', 'kw_person_liv_win_aff', 'person_livingston', 'normal', 'default');
+    add_meta_box('kw_person_liv_win_job', 'Winning Job Title', 'kw_person_liv_win_job', 'person_livingston', 'normal', 'default');
+    add_meta_box('kw_person_liv_ass', 'Current Affiliation', 'kw_person_liv_ass', 'person_livingston', 'normal', 'default');
+    add_meta_box('kw_person_liv_job', 'Current Job Title', 'kw_person_liv_job', 'person_livingston', 'normal', 'default');
     add_meta_box('kw_person_liv_lib', 'Library Item', 'kw_person_liv_lib', 'person_livingston', 'normal', 'default');
 }
 
@@ -319,7 +322,13 @@ function kw_person_liv_age() {
 }
 
 function kw_person_liv_type() {
-    generate_html_for_custom_field("kw_person_liv_type");
+    $options = array(
+        'Excellence in Local Reporting',
+        'Excellence in National Reporting',
+        'Excellence in International Reporting',
+       'Richard M. Clurman Award' 
+    );
+    generate_select_box_for_custom_field("kw_person_liv_type",$options);
 }
 
 function kw_person_liv_win() {
@@ -337,6 +346,18 @@ function kw_person_liv_quote() {
 
 function kw_person_liv_ass() {
     generate_html_for_custom_field("kw_person_liv_ass");
+}
+
+function kw_person_liv_win_job() {
+    generate_html_for_custom_field("kw_person_liv_win_job");
+}
+
+function kw_person_liv_win_aff() {
+    generate_html_for_custom_field("kw_person_liv_win_aff");
+}
+
+function kw_person_liv_job() {
+    generate_html_for_custom_field("kw_person_liv_job");
 }
 
 function kw_person_liv_lib() {
@@ -378,7 +399,7 @@ function kw_person_laj_aff() {
 }
 
 function kw_person_laj_nat() {
-    generate_html_for_custom_field("kw_person_laj_nat");
+    generate_select_box_for_custom_field("kw_person_laj_nat",array('National','Regional'));
 }
 
 function kw_person_laj_bio() {
@@ -509,7 +530,12 @@ function kw_save_events_meta($post_id, $post) {
     $events_meta['_kw_person_liv_win'] = !empty($_POST['_kw_person_liv_win']) ? $_POST['_kw_person_liv_win'] : null;
     $events_meta['_kw_person_liv_quote'] = !empty($_POST['_kw_person_liv_quote']) ? $_POST['_kw_person_liv_quote'] : null;
     $events_meta['_kw_person_liv_ass'] = !empty($_POST['_kw_person_liv_ass']) ? $_POST['_kw_person_liv_ass'] : null;
+    $events_meta['_kw_person_liv_win_job'] = !empty($_POST['_kw_person_liv_win_job']) ? $_POST['_kw_person_liv_win_job'] : null;
+    $events_meta['_kw_person_liv_win_aff'] = !empty($_POST['_kw_person_liv_win_aff']) ? $_POST['_kw_person_liv_win_aff'] : null;
+    $events_meta['_kw_person_liv_job'] = !empty($_POST['_kw_person_liv_job']) ? $_POST['_kw_person_liv_job'] : null;
     $events_meta['_kw_person_liv_lib'] = !empty($_POST['_kw_person_liv_lib']) ? $_POST['_kw_person_liv_lib'] : null;
+    $events_meta['_kw_person_liv_win_job'] = !empty($_POST['_kw_person_liv_win_job']) ? $_POST['_kw_person_liv_win_job'] : null;
+    $events_meta['_kw_person_liv_win_aff'] = !empty($_POST['_kw_person_liv_win_aff']) ? $_POST['_kw_person_liv_win_aff'] : null;
 
     //Wallace House Staff Custom Fields
     $events_meta['_kw_person_staff_first_name'] = !empty($_POST['_kw_person_staff_first_name']) ? $_POST['_kw_person_staff_first_name'] : null;
