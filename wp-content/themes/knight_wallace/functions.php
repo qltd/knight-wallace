@@ -226,6 +226,7 @@ function add_person_livingston_metaboxes() {
     add_meta_box('kw_person_liv_first_name', 'First Name', 'kw_person_liv_first_name', 'person_livingston', 'normal', 'default');
     add_meta_box('kw_person_liv_last_name', 'Last Name', 'kw_person_liv_last_name', 'person_livingston', 'normal', 'default');
     add_meta_box('kw_person_liv_age', 'Age When Award Was Won', 'kw_person_liv_age', 'person_livingston', 'normal', 'default');
+    add_meta_box('kw_person_liv_year', 'Year Won', 'kw_person_liv_year', 'person_livingston', 'normal', 'default');
     add_meta_box('kw_person_liv_type', 'Award Type', 'kw_person_liv_type', 'person_livingston', 'normal', 'default');
     add_meta_box('kw_person_liv_win', 'Winner, Co-Winner, or Finalist', 'kw_person_liv_win', 'person_livingston', 'normal', 'default');
     add_meta_box('kw_person_liv_quote', 'Winner Quote', 'kw_person_liv_quote', 'person_livingston', 'normal', 'default');
@@ -319,6 +320,10 @@ function kw_person_liv_last_name() {
 
 function kw_person_liv_age() {
     generate_html_for_custom_field("kw_person_liv_age");
+}
+
+function kw_person_liv_year() {
+    generate_html_for_custom_field("kw_person_liv_year");
 }
 
 function kw_person_liv_type() {
@@ -536,6 +541,7 @@ function kw_save_events_meta($post_id, $post) {
     $events_meta['_kw_person_liv_lib'] = !empty($_POST['_kw_person_liv_lib']) ? $_POST['_kw_person_liv_lib'] : null;
     $events_meta['_kw_person_liv_win_job'] = !empty($_POST['_kw_person_liv_win_job']) ? $_POST['_kw_person_liv_win_job'] : null;
     $events_meta['_kw_person_liv_win_aff'] = !empty($_POST['_kw_person_liv_win_aff']) ? $_POST['_kw_person_liv_win_aff'] : null;
+    $events_meta['_kw_person_liv_year'] = !empty($_POST['_kw_person_liv_year']) ? $_POST['_kw_person_liv_year'] : null;
 
     //Wallace House Staff Custom Fields
     $events_meta['_kw_person_staff_first_name'] = !empty($_POST['_kw_person_staff_first_name']) ? $_POST['_kw_person_staff_first_name'] : null;
