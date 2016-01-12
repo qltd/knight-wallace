@@ -76,7 +76,7 @@ $ni3_title = !empty($main_menu[2]->title) ? $main_menu[2]->title : "Menu Item";
 
 <?php $sub_menu_one = wp_get_nav_menu_items('sub-menu-one'); ?>
 
-          <ul class="wallace-house">
+          <ul class="wallace-house disappear">
 
 <?php if(!empty($sub_menu_one)): ?>
 
@@ -92,7 +92,7 @@ $ni3_title = !empty($main_menu[2]->title) ? $main_menu[2]->title : "Menu Item";
 
 <?php $sub_menu_two = wp_get_nav_menu_items('sub-menu-two'); ?>
 
-          <ul class="knight-wallace-fellows disappear">
+          <ul class="knight-wallace-fellows">
 
 <?php if(!empty($sub_menu_two)): ?>
 
