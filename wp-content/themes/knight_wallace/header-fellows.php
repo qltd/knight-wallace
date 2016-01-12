@@ -6,7 +6,8 @@
  * @package knight_wallace
  */
 
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
@@ -19,9 +20,7 @@
 <script src="<?php echo get_template_directory(); ?>/assets/bower_components/modernizr/modernizr.js"></script>
 </head>
 
-<body <?php body_class(); ?>>
-<div id="page" class="site fellows-page">
-	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'knight_wallace' ); ?></a>
+<body <?php body_class(); ?> id="fellows_page">
   <header id="header">
     <div class="row" id="eyebrow">
       <div class="large-12 columns">
@@ -35,7 +34,7 @@
     <div class="row">
       <div class="large-4 columns">
         <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-            <img src="<?php echo get_template_directory(); ?>/assets/images/uofmlogo.png" alt="Knight-Wallace" />
+            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/uofmlogo.png" alt="Knight-Wallace" />
         </a>
       </div>
       <div class="large-8 columns">
@@ -43,10 +42,87 @@
       </div>
     </div>
   </header>
+<nav id="main_nav">
+<?php 
+//Grab Main nav item items
+$main_menu = wp_get_nav_menu_items('primary');
+$ni1_link = !empty($main_menu[0]->url) ? $main_menu[0]->url : "Menu Item";
+$ni1_title = !empty($main_menu[0]->title) ? $main_menu[0]->title : "Menu Item";
+$ni2_link = !empty($main_menu[1]->url) ? $main_menu[1]->url : "Menu Item";
+$ni2_title = !empty($main_menu[1]->title) ? $main_menu[1]->title : "Menu Item";
+$ni3_link = !empty($main_menu[2]->url) ? $main_menu[2]->url : "Menu Item";
+$ni3_title = !empty($main_menu[2]->title) ? $main_menu[2]->title : "Menu Item";
+?>
+    <div class="row">
+      <div class="large-4 columns">
+        <p class="primary wallace-house" data-sub-nav-menu="wallace-house">
+        <a href="<?php echo $ni1_link; ?>"><?php echo $ni1_title; ?></a>
+        </p>
+      </div>
+      <div class="large-4 columns">
+        <p class="primary active knight-wallace-fellows" data-sub-nav-menu="knight-wallace-fellows">
+            <a href="<?php echo $ni2_link; ?>"><?php echo $ni2_title; ?></a>
+        </p>
+      </div>
+      <div class="large-4 columns">
+        <p class="primary livingston-awards" data-sub-nav-menu="livingston-awards">
+            <a href="<?php echo $ni3_link; ?>"><?php echo $ni3_title; ?></a>
+        </p>
+      </div>
+    </div>
+    <div class="sub-nav-wrap">
+      <div class="row">
+        <div class="large-12 columns">
 
+<?php $sub_menu_one = wp_get_nav_menu_items('sub-menu-one'); ?>
 
-		<nav id="site-navigation" class="main-navigation" role="navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'knight_wallace' ); ?></button>
-			<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
-		</nav><!-- #site-navigation -->
+          <ul class="wallace-house">
+
+<?php if(!empty($sub_menu_one)): ?>
+
+    <?php foreach($sub_menu_one as $smo_obj): ?>
+
+        <li><a href="<?php echo $smo_obj->url; ?>"><?php echo $smo_obj->title; ?></a></li>
+
+    <?php endforeach;?>
+
+<?php endif; ?>
+
+          </ul>
+
+<?php $sub_menu_two = wp_get_nav_menu_items('sub-menu-two'); ?>
+
+          <ul class="knight-wallace-fellows disappear">
+
+<?php if(!empty($sub_menu_two)): ?>
+
+    <?php foreach($sub_menu_two as $smo_obj2): ?>
+
+        <li><a href="<?php echo $smo_obj2->url; ?>"><?php echo $smo_obj2->title; ?></a></li>
+
+    <?php endforeach;?>
+
+<?php endif; ?>
+
+          </ul>
+
+<?php $sub_menu_three = wp_get_nav_menu_items('sub-menu-three'); ?>
+
+          <ul class="livingston-awards disappear">
+
+<?php if(!empty($sub_menu_three)): ?>
+
+    <?php foreach($sub_menu_three as $smo_obj3): ?>
+
+        <li><a href="<?php echo $smo_obj3->url; ?>"><?php echo $smo_obj3->title; ?></a></li>
+
+    <?php endforeach;?>
+
+<?php endif; ?>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+</nav>
 

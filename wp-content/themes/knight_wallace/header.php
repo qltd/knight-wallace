@@ -7,7 +7,8 @@
  * @package knight_wallace
  */
 
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
@@ -20,8 +21,7 @@
 <script src="<?php echo get_template_directory(); ?>/assets/bower_components/modernizr/modernizr.js"></script>
 </head>
 
-<body <?php body_class(); ?>>
-<div id="page" class="site fellows-page">
+<body <?php body_class(); ?> id="wallace_house_page">
   <header id="header">
     <div class="row" id="eyebrow">
       <div class="large-12 columns">
@@ -74,31 +74,56 @@ $ni3_title = !empty($main_menu[2]->title) ? $main_menu[2]->title : "Menu Item";
     <div class="sub-nav-wrap">
       <div class="row">
         <div class="large-12 columns">
+
 <?php $sub_menu_one = wp_get_nav_menu_items('sub-menu-one'); ?>
+
           <ul class="wallace-house">
+
 <?php if(!empty($sub_menu_one)): ?>
+
     <?php foreach($sub_menu_one as $smo_obj): ?>
+
         <li><a href="<?php echo $smo_obj->url; ?>"><?php echo $smo_obj->title; ?></a></li>
+
     <?php endforeach;?>
+
 <?php endif; ?>
+
           </ul>
+
+<?php $sub_menu_two = wp_get_nav_menu_items('sub-menu-two'); ?>
+
           <ul class="knight-wallace-fellows disappear">
-            <li><a href="">About</a></li>
-            <li><a href="">How To Apply</a></li>
-            <li><a href="">Our Fellows</a></li>
-            <li><a href="">Board of Directors</a></li>
-            <li><a href="">Sign In</a></li>
+
+<?php if(!empty($sub_menu_two)): ?>
+
+    <?php foreach($sub_menu_two as $smo_obj2): ?>
+
+        <li><a href="<?php echo $smo_obj2->url; ?>"><?php echo $smo_obj2->title; ?></a></li>
+
+    <?php endforeach;?>
+
+<?php endif; ?>
+
           </ul>
+
+<?php $sub_menu_three = wp_get_nav_menu_items('sub-menu-three'); ?>
+
           <ul class="livingston-awards disappear">
-            <li><a href="">About</a></li>
-            <li><a href="">Entry</a></li>
-            <li><a href="">Judges</a></li>
-            <li><a href="">Winners</a></li>
-            <li><a href="">Finalists</a></li>
-            <li><a href="">Clurman Award</a></li>
+
+<?php if(!empty($sub_menu_three)): ?>
+
+    <?php foreach($sub_menu_three as $smo_obj3): ?>
+
+        <li><a href="<?php echo $smo_obj3->url; ?>"><?php echo $smo_obj3->title; ?></a></li>
+
+    <?php endforeach;?>
+
+<?php endif; ?>
+
           </ul>
         </div>
       </div>
     </div>
-</nav><!-- #site-navigation -->
+</nav>
 
