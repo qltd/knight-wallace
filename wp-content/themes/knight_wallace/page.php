@@ -17,114 +17,131 @@ get_header(); ?>
 
 			<?php endwhile; // End of the loop. ?>
 
+<?php 
+//grab alerts
+$alerts = get_posts(array('category_name'=>'alert'));
 
-  <section id="alerts">
-    <div class="row alert">
-      <div class="large-4 columns">
-        <p>
-          <strong>Febuary 1, 2016</strong>
-          <br />Application Deadline</p>
-      </div>
-      <div class="large-8 columns">
-        <p><a href="">Get Started</a> Online form available now. Apply for the Livingston Awards</p>
-      </div>
-    </div>
-    <div class="row alert">
-      <div class="large-4 columns">
-        <p>
-          <strong>Febuary 1, 2016</strong>
-          <br />Application Deadline</p>
-      </div>
-      <div class="large-8 columns">
-        <p><a href="">Get Started</a> Online form available now. Apply for the Livingston Awards</p>
-      </div>
-    </div>
-  </section>
+//display alerts
+if(!empty($alerts)):
+?>
+<section id="alerts">
+<?php foreach($alerts as $alert): ?>
+<div class="row alert">
+  <div class="large-4 columns">
+    <p>
+    <strong><?php echo $alert->post_title; ?></strong>
+      <br /><?php echo $alert->post_excerpt; ?></p>
+  </div>
+  <div class="large-8 columns">
+  <p><?php echo $alert->post_content; ?></p>
+  </div>
+</div>
+<?php endforeach; ?>
+</section>
+<?php endif; ?>
 
-  <section id="news_library">
-    <div class="row headings">
-      <div class="large-6 columns">
-        <div class="heading">
-          <h3>Recent News</h3>
-        </div>
-      </div>
-      <div class="large-6 columns">
-        <div class="heading">
-          <h3>From the Wallace House Library</h3>
-        </div>
-      </div>
+<?php 
+//get news
+$news = get_posts(array('category_name'=>'news'));
+var_dump($news);
+?>
+
+<section class="story-list news">
+<div class="row headings">
+  <div class="large-6 columns">
+    <div class="heading">
+      <h3>Recent News</h3>
     </div>
-    <div class="row">
-      <div class="large-6 columns">
-        <div class="row news snippet-box">
-          <div class="large-12 columns">
-            <div class="news-article">
-              <h4><a href="#">2015 Livingston Award Winners Announced</a></h4>
-              <div class="date">August 15, 2015</div>
-              <div class="tags">
-                <ul>
-                  <li><a href="#">Knight-Wallace</a> |</li>
-                  <li><a href="#">Events</a> </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="large-6 columns">
-        <div class="row news snippet-box">
-          <div class="large-12 columns">
-            <div class="news-article">
-              <h4><a href="#">2015 Livingston Award Winners Announced</a></h4>
-              <div class="date">August 15, 2015</div>
-              <div class="tags">
-                <ul>
-                  <li><a href="#">Knight-Wallace</a> | </li>
-                  <li><a href="#">Events</a> </li>
-                </ul>
-              </div>
-            </div>
+  </div>
+  <div class="large-6 columns">
+    <div class="heading">
+      <h3>From the Wallace House Library</h3>
+    </div>
+  </div>
+</div>
+<div class="row">
+<!--display first news item-->
+  <div class="large-6 columns">
+<?php if(!empty($news[0])): ?>
+    <div class="row news snippet-box">
+      <div class="large-12 columns">
+        <div class="news-article">
+          <h4><a href="#">2015 Livingston Award Winners Announced</a></h4>
+          <div class="date">August 15, 2015</div>
+          <div class="tags-list">
+            <ul>
+              <li><a href="#">Knight-Wallace</a> |</li>
+              <li><a href="#">Events</a> </li>
+            </ul>
+            <br />
           </div>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="large-6 columns">
-        <div class="row news snippet-box">
-          <div class="large-12 columns">
-            <div class="news-article">
-              <h4><a href="#">2015 Livingston Award Winners Announced</a></h4>
-              <div class="date">August 15, 2015</div>
-              <div class="tags">
-                <ul>
-                  <li><a href="#">Knight-Wallace</a> |</li>
-                  <li><a href="#">Events</a> </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="large-6 columns">
-        <div class="row news snippet-box">
-          <div class="large-12 columns">
-            <div class="news-article">
-              <h4><a href="#">2015 Livingston Award Winners Announced</a></h4>
-              <div class="date">August 15, 2015</div>
-              <div class="tags">
-                <ul>
-                  <li><a href="#">Knight-Wallace</a> |</li>
-                  <li><a href="#">Events</a> </li>
-                </ul>
-              </div>
-            </div>
+<?php endif; ?>
+  </div>
+<!--end display first news item-->
+  <div class="large-6 columns">
+    <div class="row news snippet-box">
+      <div class="large-12 columns">
+        <div class="news-article">
+          <h4><a href="#">2015 Livingston Award Winners Announced</a></h4>
+          <div class="date">August 15, 2015</div>
+          <div class="tags-list">
+            <ul>
+              <li><a href="#">Knight-Wallace</a> |</li>
+              <li><a href="#">Events</a> </li>
+            </ul>
+            <br />
           </div>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="large-6 columns"><a href="#" class="more-posts">See all Livingston Awards news &raquo;</a></div>
-      <div class="large-6 columns"><a href="#" class="more-posts">See all Livingston Awards news &raquo;</a></div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-6 columns">
+    <div class="row news snippet-box">
+      <div class="large-12 columns">
+        <div class="news-article">
+          <h4><a href="#">2015 Livingston Award Winners Announced</a></h4>
+          <div class="date">August 15, 2015</div>
+          <div class="tags-list">
+            <ul>
+              <li><a href="#">Knight-Wallace</a> |</li>
+              <li><a href="#">Events</a> </li>
+            </ul>
+            <br />
+          </div>
+        </div>
+
+      </div>
     </div>
-  </section>
+  </div>
+  <div class="large-6 columns">
+    <div class="row news snippet-box">
+      <div class="large-12 columns">
+        <div class="news-article">
+          <h4><a href="#">2015 Livingston Award Winners Announced</a></h4>
+          <div class="date">August 15, 2015</div>
+          <div class="tags-list">
+            <ul>
+              <li><a href="#">Knight-Wallace</a> |</li>
+              <li><a href="#">Events</a> </li>
+            </ul>
+            <br />
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="large-6 columns"><a href="#" class="more-posts">See all Livingston Awards news &raquo;</a></div>
+  <div class="large-6 columns"><a href="#" class="more-posts">See all Livingston Awards news &raquo;</a></div>
+</div>
+</section>
+
 <?php get_footer(); ?>
