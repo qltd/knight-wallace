@@ -34,7 +34,7 @@
     <div class="row">
       <div class="large-4 columns">
         <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/uofmlogo.png" alt="Knight-Wallace" />
+            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/livlogo.png" alt="Knight-Wallace" />
         </a>
       </div>
       <div class="large-8 columns">
