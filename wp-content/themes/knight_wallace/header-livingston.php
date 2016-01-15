@@ -38,7 +38,7 @@
         </a>
       </div>
       <div class="large-8 columns">
-        <h1>Fellowships for Journalists</h1>
+        <h1>For Young Journalists</h1>
       </div>
     </div>
   </header>
