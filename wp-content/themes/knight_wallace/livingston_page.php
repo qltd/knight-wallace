@@ -8,46 +8,97 @@
 get_header('livingston'); ?>
 
 <?php 
+include_once('helpers.php');
 //Here we are grabing special content that we will need in this template, including news, alerts, and library items
 //@rdarling42
 $alerts = get_posts(array('category_name'=>'alert'));
 $news = get_posts(array('category_name'=>'news'));
 $libs = get_posts(array('post_type'=>'library'));
+$content_blocks = get_posts(array('post_type'=>'homepage_fcb'));
+$sorted_content_blocks = sort_homepage_featured_content_blocks($content_blocks);
 ?>
 
 <main id="main" class="posts">
-    <div class="row">
-          <div class="large-6 columns">
-                <img src="http://dummyimage.com/620x256/aeaeae/555.jpg?text=placeholder" alt="" />
-                <div class="text">
-                      <h3>A life-changing experience</h3>
-                      <p><a href="">Learn more about the Knight-Wallace Fellowships ></a></p>
-                </div>
-          </div>
-          <div class="large-6 columns">
-            <img src="http://dummyimage.com/620x256/aeaeae/555.jpg?text=placeholder" alt="" />
-            <div class="text">
-              <h3>A life-changing experience</h3>
-              <p><a href="">Learn more about the Knight-Wallace Fellowships ></a></p>
-            </div>
-          </div>
+<div class="row">
+  <div class="large-6 columns">
+    <?php if(!empty($sorted_content_blocks['Livingston Awards'][0])): ?>
+        <?php if(!empty($sorted_content_blocks['Livingston Awards'][0]['image'])): ?>
+            <a href="<?php echo $sorted_content_blocks['Livingston Awards'][0]['link']; ?>">
+            <?php echo $sorted_content_blocks['Livingston Awards'][0]['image']; ?>
+            </a>
+        <?php else: ?>
+            <img src="http://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
+        <?php endif; ?>
+    <div class="text">
+      <h3><?php echo $sorted_content_blocks['Livingston Awards'][0]['title']; ?></h3>
+      <p>
+          <a href="<?php echo $sorted_content_blocks['Livingston Awards'][0]['link']; ?>">
+              <?php echo $sorted_content_blocks['Livingston Awards'][0]['content']; ?>
+          </a>
+      </p>
     </div>
-    <div class="row">
-      <div class="large-6 columns">
-        <img src="http://dummyimage.com/620x256/aeaeae/555.jpg?text=placeholder" alt="" />
-        <div class="text">
-          <h3>A life-changing experience</h3>
-          <p><a href="">Learn more about the Knight-Wallace Fellowships ></a></p>
-        </div>
-      </div>
-      <div class="large-6 columns">
-        <img src="http://dummyimage.com/620x256/aeaeae/555.jpg?text=placeholder" alt="" />
-        <div class="text">
-          <h3>A life-changing experience</h3>
-          <p><a href="">Learn more about the Knight-Wallace Fellowships ></a></p>
-        </div>
-      </div>
+    <?php endif; ?>
+  </div>
+  <div class="large-6 columns">
+    <?php if(!empty($sorted_content_blocks['Livingston Awards'][1])): ?>
+        <?php if(!empty($sorted_content_blocks['Livingston Awards'][1]['image'])): ?>
+          <a href="<?php echo $sorted_content_blocks['Livingston Awards'][1]['link']; ?>">
+            <?php echo $sorted_content_blocks['Livingston Awards'][1]['image']; ?>
+          </a>
+        <?php else: ?>
+            <img src="http://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
+        <?php endif; ?>
+    <div class="text">
+      <h3><?php echo $sorted_content_blocks['Livingston Awards'][1]['title']; ?></h3>
+      <p>
+          <a href="<?php echo $sorted_content_blocks['Livingston Awards'][1]['link']; ?>">
+              <?php echo $sorted_content_blocks['Livingston Awards'][1]['content']; ?>
+          </a>
+      </p>
     </div>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="row">
+  <div class="large-6 columns">
+    <?php if(!empty($sorted_content_blocks['Livingston Awards'][2])): ?>
+        <?php if(!empty($sorted_content_blocks['Livingston Awards'][2]['image'])): ?>
+          <a href="<?php echo $sorted_content_blocks['Livingston Awards'][2]['link']; ?>">
+            <?php echo $sorted_content_blocks['Livingston Awards'][2]['image']; ?>
+          </a>
+        <?php else: ?>
+            <img src="http://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
+        <?php endif; ?>
+    <div class="text">
+      <h3><?php echo $sorted_content_blocks['Livingston Awards'][2]['title']; ?></h3>
+      <p>
+          <a href="<?php echo $sorted_content_blocks['Livingston Awards'][2]['link']; ?>">
+              <?php echo $sorted_content_blocks['Livingston Awards'][2]['content']; ?>
+          </a>
+      </p>
+    </div>
+    <?php endif; ?>
+  </div>
+  <div class="large-6 columns">
+    <?php if(!empty($sorted_content_blocks['Livingston Awards'][3])): ?>
+        <?php if(!empty($sorted_content_blocks['Livingston Awards'][3]['image'])): ?>
+          <a href="<?php echo $sorted_content_blocks['Livingston Awards'][3]['link']; ?>">
+            <?php echo $sorted_content_blocks['Livingston Awards'][3]['image']; ?>
+          </a>
+        <?php else: ?>
+            <img src="http://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
+        <?php endif; ?>
+    <div class="text">
+      <h3><?php echo $sorted_content_blocks['Livingston Awards'][3]['title']; ?></h3>
+      <p>
+          <a href="<?php echo $sorted_content_blocks['Livingston Awards'][3]['link']; ?>">
+              <?php echo $sorted_content_blocks['Livingston Awards'][3]['content']; ?>
+          </a>
+      </p>
+    </div>
+    <?php endif; ?>
+  </div>
+</div>
 </main>
 
 <?php 

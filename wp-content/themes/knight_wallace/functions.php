@@ -199,15 +199,15 @@ function create_post_type() {
         )
     );
     //Home page featured content blocks
-    register_post_type( 'featured_content_blocks',
+    register_post_type( 'homepage_fcb',
         array(
             'labels' => array(
-                'name' => __( 'Featured Content Blocks' ),
-                'singular_name' => __( 'Featured Content Block' ),
-                'add_new_item' => __('Add New Featured Content Block'),
-                'new_item' => __('New Featured Content Block'), 
-                'view_item' => __('View Featured Content Block'),
-                'edit_item' => __('Edit Featured Content Block'),
+                'name' => __( 'Homepage Featured Content Blocks' ),
+                'singular_name' => __( 'Homepage Featured Content Block' ),
+                'add_new_item' => __('Add New Homepage Featured Content Block'),
+                'new_item' => __('New Homepage Featured Content Block'), 
+                'view_item' => __('View Homepage Featured Content Block'),
+                'edit_item' => __('Edit Homepage Featured Content Block'),
             ),
             'public' => true,
             'has_archive' => true,
@@ -223,7 +223,7 @@ add_action( 'add_meta_boxes', 'add_person_staff' );//add custom fields for Walla
 add_action( 'add_meta_boxes', 'add_person_laj' );//add custom fields for Livingston Award Judge 
 add_action( 'add_meta_boxes', 'add_person_donor' );//add custom fields for Donors 
 add_action( 'add_meta_boxes', 'add_library_metaboxes' );//add custom fields for Library Items 
-add_action( 'add_meta_boxes', 'add_featured_content_blocks_metaboxes' );//add custom fields for Featured Content Block 
+add_action( 'add_meta_boxes', 'add_homepage_fcb' );//add custom fields for Featured Content Block 
 
 function add_person_kw_fellow_metaboxes() {
     //each meta box is a custom field for our custom content type
@@ -284,10 +284,10 @@ function add_library_metaboxes() {
     add_meta_box('library_author', 'Author', 'library_author', 'library', 'normal', 'default');
 }
 
-function add_featured_content_blocks_metaboxes(){
-    //for featured content boxes
-    add_meta_box('fcb_link', 'Link', 'fcb_link', 'featured_content_blocks', 'normal', 'default');
-    add_meta_box('fcb_which_page', 'Choose Page', 'fcb_which_page', 'featured_content_blocks', 'normal', 'default');
+//For Homepage Featured Content Blocks
+function add_homepage_fcb(){
+    add_meta_box('fcb_link', 'Link', 'fcb_link', 'homepage_fcb', 'normal', 'default');
+    add_meta_box('fcb_which_page', 'Choose Page', 'fcb_which_page', 'homepage_fcb', 'normal', 'default');
 }
 
 //Fill Featured Content Blocks type fields with html
