@@ -198,6 +198,23 @@ function create_post_type() {
             'taxonomies' => array('post_tag')
         )
     );
+    //Home page featured content blocks
+    register_post_type( 'featured_content_blocks',
+        array(
+            'labels' => array(
+                'name' => __( 'Featured Content Blocks' ),
+                'singular_name' => __( 'Featured Content Block' ),
+                'add_new_item' => __('Add New Featured Content Block'),
+                'new_item' => __('New Featured Content Block'), 
+                'view_item' => __('View Featured Content Block'),
+                'edit_item' => __('Edit Featured Content Block'),
+            ),
+            'public' => true,
+            'has_archive' => true,
+            'supports' => array('title','thumbnail','revisions','editor'),
+            'rewrite' => array("slug" => "featured-content-block"),
+        )
+    );
 }
 
 add_action( 'add_meta_boxes', 'add_person_kw_fellow_metaboxes' );//add custom fields for person_kw_fellow type
@@ -206,6 +223,7 @@ add_action( 'add_meta_boxes', 'add_person_staff' );//add custom fields for Walla
 add_action( 'add_meta_boxes', 'add_person_laj' );//add custom fields for Livingston Award Judge 
 add_action( 'add_meta_boxes', 'add_person_donor' );//add custom fields for Donors 
 add_action( 'add_meta_boxes', 'add_library_metaboxes' );//add custom fields for Library Items 
+add_action( 'add_meta_boxes', 'add_featured_content_blocks_metaboxes' );//add custom fields for Featured Content Block 
 
 function add_person_kw_fellow_metaboxes() {
     //each meta box is a custom field for our custom content type
@@ -264,6 +282,26 @@ function add_library_metaboxes() {
     add_meta_box('library_publisher', 'Publisher', 'library_publisher', 'library', 'normal', 'default');
     add_meta_box('library_url', 'URL', 'library_url', 'library', 'normal', 'default');
     add_meta_box('library_author', 'Author', 'library_author', 'library', 'normal', 'default');
+}
+
+function add_featured_content_blocks_metaboxes(){
+    //for featured content boxes
+    add_meta_box('fcb_link', 'Link', 'fcb_link', 'featured_content_blocks', 'normal', 'default');
+    add_meta_box('fcb_which_page', 'Choose Page', 'fcb_which_page', 'featured_content_blocks', 'normal', 'default');
+}
+
+//Fill Featured Content Blocks type fields with html
+function fcb_link(){
+    generate_html_for_custom_field("fcb_link",true);
+}
+
+function fcb_which_page(){
+    $options = array(
+        'Wallace House',
+        'Knight-Wallace Fellowships',
+        'Livingston Awards',
+    );
+    generate_select_box_for_custom_field("fcb_which_page",$options);
 }
 
 //Fill Knight Wallace type custom fields with html
@@ -566,6 +604,10 @@ function kw_save_events_meta($post_id, $post) {
     $events_meta['_library_url'] = !empty($_POST['_library_url']) ? $_POST['_library_url'] : null;
     $events_meta['_library_item_type'] = !empty($_POST['_library_item_type']) ? $_POST['_library_item_type'] : null;
     $events_meta['_library_author'] = !empty($_POST['_library_author']) ? $_POST['_library_author'] : null;
+
+    //Featured content Block
+    $events_meta['_fcb_link'] = !empty($_POST['_fcb_link']) ? $_POST['_fcb_link'] : null;
+    $events_meta['_fcb_which_page'] = !empty($_POST['_fcb_which_page']) ? $_POST['_fcb_which_page'] : null;
 
     // Add values of $events_meta as custom fields
     foreach ($events_meta as $key => $value) { // Cycle through the $events_meta array!
