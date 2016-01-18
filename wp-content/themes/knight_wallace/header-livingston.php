@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
 <?php wp_head(); ?>
-<script src="<?php echo get_template_directory(); ?>/assets/bower_components/modernizr/modernizr.js"></script>
+<script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/bower_components/modernizr/modernizr.js"></script>
 </head>
 
 <body <?php body_class(); ?> id="livingstion_page">
