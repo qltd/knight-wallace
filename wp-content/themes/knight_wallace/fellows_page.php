@@ -17,6 +17,23 @@ $libs = get_posts(array('post_type'=>'library'));
 $content_blocks = get_posts(array('post_type'=>'homepage_fcb'));
 $sorted_content_blocks = sort_homepage_featured_content_blocks($content_blocks);
 ?>
+
+<?php if(get_the_post_thumbnail()): ?>
+<?php $background_image = wp_get_attachment_url(get_post_thumbnail_id());?>
+<style>
+#hero_image {
+    background: url(<?php echo $background_image; ?>) no-repeat scroll center center / cover;
+}
+</style>
+<section id="hero_image">
+    <div class="row">
+        <div class="large-8 columns">
+            <?php echo $post->post_content; ?>
+        </div>
+    </div>
+</section>
+<?php endif; //end if get_post_thumbnail ?>
+
 <main id="main" class="posts">
 <div class="row">
   <div class="large-6 columns">
