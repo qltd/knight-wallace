@@ -8,6 +8,12 @@
 
 get_header('fellows'); ?>
 
+<?php 
+//grab our junk
+$alerts = get_posts(array('category_name'=>'alert'));
+$news = get_posts(array('category_name'=>'news'));
+$libs = get_posts(array('post_type'=>'library'));
+?>
 <main id="main" class="posts">
 <div class="row">
   <div class="large-6 columns">
@@ -44,9 +50,6 @@ get_header('fellows'); ?>
 </main>
 
 <?php 
-//grab alerts
-$alerts = get_posts(array('category_name'=>'alert'));
-
 //display alerts
 if(!empty($alerts)):
 ?>
@@ -65,8 +68,6 @@ if(!empty($alerts)):
 <?php endforeach; ?>
 </section>
 <?php endif; ?>
-
-<?php $news = get_posts(array('category_name'=>'news'));//get news ?>
 
 <section class="story-list news">
 <div class="row headings">
@@ -108,21 +109,27 @@ if(!empty($alerts)):
   </div>
 <!--end display first news item-->
   <div class="large-6 columns">
+    <?php if(!empty($libs[0])): ?>
     <div class="row news snippet-box">
       <div class="large-12 columns">
         <div class="news-article">
-          <h4><a href="#">2015 Livingston Award Winners Announced</a></h4>
-          <div class="date">August 15, 2015</div>
+        <h4><a href="/library/<?php echo $libs[0]->post_name; ?>"><?php echo $libs[0]->post_title; ?></a></h4>
+        <div class="date"><?php echo $libs[0]->post_date; ?></div>
+        <?php $tagslib = get_the_tags($libs[0]->ID); ?>
           <div class="tags-list">
             <ul>
-              <li><a href="#">Knight-Wallace</a> |</li>
-              <li><a href="#">Events</a> </li>
+            <?php if(!empty($tagslib)):?>
+                <?php foreach($tagslib as $t): ?>
+                    <li><a href="/tag/<?php echo $t->name; ?>/"><?php echo $t->name; ?></a></li>
+                <?php endforeach; ?>
+            <?php endif; ?>
             </ul>
             <br />
           </div>
         </div>
       </div>
     </div>
+    <?php endif; ?>
   </div>
 </div>
 
@@ -153,21 +160,27 @@ if(!empty($alerts)):
   </div>
 <!--end display second news item -->
   <div class="large-6 columns">
+    <?php if(!empty($libs[1])): ?>
     <div class="row news snippet-box">
       <div class="large-12 columns">
         <div class="news-article">
-          <h4><a href="#">2015 Livingston Award Winners Announced</a></h4>
-          <div class="date">August 15, 2015</div>
+            <h4><a href="/library/<?php echo $libs[1]->post_name; ?>"><?php echo $libs[1]->post_title; ?></a></h4>
+            <div class="date"><?php echo $libs[1]->post_date; ?></div>
           <div class="tags-list">
+            <?php $tagslib1 = get_the_tags($libs[1]->ID); ?>
             <ul>
-              <li><a href="#">Knight-Wallace</a> |</li>
-              <li><a href="#">Events</a> </li>
+            <?php if(!empty($tagslib1)):?>
+                <?php foreach($tagslib1 as $t1): ?>
+                    <li><a href="/tag/<?php echo $t1->name; ?>/"><?php echo $t1->name; ?></a></li>
+                <?php endforeach; ?>
+            <?php endif; ?>
             </ul>
             <br />
           </div>
         </div>
       </div>
     </div>
+    <?php endif; ?>
   </div>
 </div>
 <div class="row">
