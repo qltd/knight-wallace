@@ -11,12 +11,11 @@
 
 ?>
 
-
   <footer class="site-footer">
     <div class="top">
-
       <div class="row">
         <div class="large-6 columns">
+          <?php dynamic_sidebar( 'wallace-house-footer-left' ); ?>
           <h6>Wallace House at the University of Michigan</h6>
           <address>
             620 Oxford Road Ann Arbor, Michigan 48104
@@ -26,6 +25,7 @@
 
         </div>
         <div class="large-6 columns">
+          <?php dynamic_sidebar( 'wallace-house-footer-right' ); ?>
           <ul class="social-media-links">
             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
             <li><a href="#"><i class="fa fa-twitter"></i></a></li>

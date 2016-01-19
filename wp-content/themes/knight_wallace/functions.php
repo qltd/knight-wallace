@@ -641,6 +641,60 @@ function knight_wallace_widgets_init() {
         'before_title'  => '<h2 class="widget-title">',
         'after_title'   => '</h2>',
     ) );
+    register_sidebar( array(
+        'name'          => esc_html__( 'Wallace House Footer Left', 'knight_wallace' ),
+        'id'            => 'wallace-house-footer-left',
+        'description'   => '',
+        'before_widget' => '',
+        'after_widget'  => '',
+        'before_title'  => '',
+        'after_title'   => '',
+    ) );
+    register_sidebar( array(
+        'name'          => esc_html__( 'Wallace House Footer Right', 'knight_wallace' ),
+        'id'            => 'wallace-house-footer-right',
+        'description'   => '',
+        'before_widget' => '',
+        'after_widget'  => '',
+        'before_title'  => '',
+        'after_title'   => '',
+    ) );
+    register_sidebar( array(
+        'name'          => esc_html__( 'KWF Footer Left', 'knight_wallace' ),
+        'id'            => 'kwf-footer-left',
+        'description'   => '',
+        'before_widget' => '',
+        'after_widget'  => '',
+        'before_title'  => '',
+        'after_title'   => '',
+    ) );
+    register_sidebar( array(
+        'name'          => esc_html__( 'KWF Footer Right', 'knight_wallace' ),
+        'id'            => 'kwf-footer-right',
+        'description'   => '',
+        'before_widget' => '',
+        'after_widget'  => '',
+        'before_title'  => '',
+        'after_title'   => '',
+    ) );
+    register_sidebar( array(
+        'name'          => esc_html__( 'Livingston Awards Footer Left', 'knight_wallace' ),
+        'id'            => 'la-footer-left',
+        'description'   => '',
+        'before_widget' => '',
+        'after_widget'  => '',
+        'before_title'  => '',
+        'after_title'   => '',
+    ) );
+    register_sidebar( array(
+        'name'          => esc_html__( 'Livingston Awards Footer Right', 'knight_wallace' ),
+        'id'            => 'la-footer-right',
+        'description'   => '',
+        'before_widget' => '',
+        'after_widget'  => '',
+        'before_title'  => '',
+        'after_title'   => '',
+    ) );
 }
 add_action( 'widgets_init', 'knight_wallace_widgets_init' );
 
