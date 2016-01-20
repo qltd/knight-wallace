@@ -215,6 +215,22 @@ function create_post_type() {
             'rewrite' => array("slug" => "featured-content-block"),
         )
     );
+    register_post_type( 'hero_content',
+        array(
+            'labels' => array(
+                'name' => __( 'Hero Content' ),
+                'singular_name' => __( 'Hero Content' ),
+                'add_new_item' => __('Add New Hero Content'),
+                'new_item' => __('New Hero Content'), 
+                'view_item' => __('View Hero Content'),
+                'edit_item' => __('Edit Hero Content'),
+            ),
+            'public' => true,
+            'has_archive' => true,
+            'supports' => array('title','thumbnail','revisions','editor'),
+            'rewrite' => array("slug" => "hero-content"),
+        )
+    );
 }
 
 add_action( 'add_meta_boxes', 'add_person_kw_fellow_metaboxes' );//add custom fields for person_kw_fellow type
@@ -224,6 +240,7 @@ add_action( 'add_meta_boxes', 'add_person_laj' );//add custom fields for Livings
 add_action( 'add_meta_boxes', 'add_person_donor' );//add custom fields for Donors 
 add_action( 'add_meta_boxes', 'add_library_metaboxes' );//add custom fields for Library Items 
 add_action( 'add_meta_boxes', 'add_homepage_fcb' );//add custom fields for Featured Content Block 
+add_action( 'add_meta_boxes', 'add_hero_content' );//add custom fields for Featured Content Block 
 
 function add_person_kw_fellow_metaboxes() {
     //each meta box is a custom field for our custom content type
@@ -290,6 +307,11 @@ function add_homepage_fcb(){
     add_meta_box('fcb_which_page', 'Choose Page', 'fcb_which_page', 'homepage_fcb', 'normal', 'default');
 }
 
+function add_hero_content(){
+    add_meta_box('hero_content_link', 'Link', 'hero_content_link', 'hero_content', 'normal', 'default');
+    add_meta_box('hero_content_which_page', 'Choose Page', 'hero_content_which_page', 'hero_content', 'normal', 'default');
+}
+
 //Fill Featured Content Blocks type fields with html
 function fcb_link(){
     generate_html_for_custom_field("fcb_link",true);
@@ -302,6 +324,20 @@ function fcb_which_page(){
         'Livingston Awards',
     );
     generate_select_box_for_custom_field("fcb_which_page",$options);
+}
+
+//Fill Hero Content fields with html
+function hero_content_link(){
+    generate_html_for_custom_field("hero_content_link",true);
+}
+
+function hero_content_which_page(){
+    $options = array(
+        'Wallace House',
+        'Knight-Wallace Fellowships',
+        'Livingston Awards',
+    );
+    generate_select_box_for_custom_field("hero_content_which_page",$options);
 }
 
 //Fill Knight Wallace type custom fields with html
@@ -608,6 +644,10 @@ function kw_save_events_meta($post_id, $post) {
     //Featured content Block
     $events_meta['_fcb_link'] = !empty($_POST['_fcb_link']) ? $_POST['_fcb_link'] : null;
     $events_meta['_fcb_which_page'] = !empty($_POST['_fcb_which_page']) ? $_POST['_fcb_which_page'] : null;
+
+    //Hero Content Block
+    $events_meta['_hero_content_link'] = !empty($_POST['_hero_content_link']) ? $_POST['_hero_content_link'] : null;
+    $events_meta['_hero_content_which_page'] = !empty($_POST['_hero_content_which_page']) ? $_POST['_hero_content_which_page'] : null;
 
     // Add values of $events_meta as custom fields
     foreach ($events_meta as $key => $value) { // Cycle through the $events_meta array!
