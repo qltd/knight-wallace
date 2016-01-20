@@ -695,6 +695,24 @@ function knight_wallace_widgets_init() {
         'before_title'  => '',
         'after_title'   => '',
     ) );
+    register_sidebar( array(
+        'name'          => esc_html__( 'Global Footer Left', 'knight_wallace' ),
+        'id'            => 'global-footer-left',
+        'description'   => '',
+        'before_widget' => '',
+        'after_widget'  => '',
+        'before_title'  => '',
+        'after_title'   => '',
+    ) );
+    register_sidebar( array(
+        'name'          => esc_html__( 'Global Footer Right', 'knight_wallace' ),
+        'id'            => 'global-footer-right',
+        'description'   => '',
+        'before_widget' => '',
+        'after_widget'  => '',
+        'before_title'  => '',
+        'after_title'   => '',
+    ) );
 }
 add_action( 'widgets_init', 'knight_wallace_widgets_init' );
 
