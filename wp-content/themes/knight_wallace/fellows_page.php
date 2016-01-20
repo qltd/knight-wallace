@@ -16,10 +16,13 @@ $news = get_posts(array('category_name'=>'news'));
 $libs = get_posts(array('post_type'=>'library'));
 $content_blocks = get_posts(array('post_type'=>'homepage_fcb'));
 $sorted_content_blocks = sort_homepage_featured_content_blocks($content_blocks);
+$hero = get_posts(array('post_type'=>'hero_content'));
+$hero_content = sort_hero_content($hero);
+$random_hero_content = random_hero_content($hero_content,'Knight-Wallace Fellowships');
 ?>
 
-<?php if(get_the_post_thumbnail()): ?>
-<?php $background_image = wp_get_attachment_url(get_post_thumbnail_id());?>
+<?php if(!empty($random_hero_content)): ?>
+<?php $background_image = turn_img_tag_to_url($random_hero_content['image']);?>
 <style>
 #hero_image {
     background: url(<?php echo $background_image; ?>) no-repeat scroll center center / cover;
@@ -28,7 +31,16 @@ $sorted_content_blocks = sort_homepage_featured_content_blocks($content_blocks);
 <section id="hero_image">
     <div class="row">
         <div class="large-8 columns">
-            <?php echo $post->post_content; ?>
+            <h2>
+<?php echo !empty($random_hero_content['link']) ? '<a href="'.$random_hero_content['link'].'">' : ''; ?>
+                <?php echo $random_hero_content['title']; ?>
+<?php echo !empty($random_hero_content['link']) ? '</a>' : ''; ?>
+            </h2>
+            <p>
+<?php echo !empty($random_hero_content['link']) ? '<a href="'.$random_hero_content['link'].'">' : ''; ?>
+            <?php echo $random_hero_content['content']; ?> 
+<?php echo !empty($random_hero_content['link']) ? '</a>' : ''; ?>
+            </p>
         </div>
     </div>
 </section>
