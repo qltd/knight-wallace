@@ -8,7 +8,20 @@
  */
 
 get_header(); ?>
-
+<section class="breadcrumb">
+<div class="row">
+    <div class="small-6 columns">
+        <a href="/wallace-house/library/" class="library-link">All Library Items</a>
+    </div>
+    <div class="small-6 columns">
+        <p class="share-wrap">Share: 
+            <a href=""><i class="fa fa-facebook"></i></a>
+            <a href=""><i class="fa fa-twitter"></i></a>
+            <a href=""><i class="fa fa-envelope"></i></a>
+        </p>
+    </div>
+</div>
+</section>
 <main id="main" class="site-main post-main" role="main">
 <div class="row">
     <div class="large-12 columns">
