@@ -9,27 +9,45 @@
 
 ?>
 
+<?php 
+$image = get_the_post_thumbnail();
+$pmeta = get_post_meta($post->ID); 
+$tags = get_the_tags($post->ID);
+?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-
-		<div class="entry-meta">
-			<?php knight_wallace_posted_on(); ?>
-		</div><!-- .entry-meta -->
-	</header><!-- .entry-header -->
-
-	<div class="entry-content">
-		<?php the_content(); ?>
-		<?php
-			wp_link_pages( array(
-				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'knight_wallace' ),
-				'after'  => '</div>',
-			) );
-		?>
-	</div><!-- .entry-content -->
-
-	<footer class="entry-footer">
-		<?php knight_wallace_entry_footer(); ?>
-	</footer><!-- .entry-footer -->
+<?php if(!empty($image)): ?>
+<div class="row">
+    <div class="large-10 columns">
+        <div class="featured-image-wrap">
+            <?php echo $image; ?>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+<div class="row">
+    <div class="large-10 columns">
+        <header class="entry-header">
+            <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+<?php if(!empty($pmeta['tagline'])): ?>
+            <p class="tagline">
+                <?php echo $pmeta['tagline'][0]; ?>
+            </p>
+<?php endif; ?>
+            <div class="entry-meta">
+                <?php knight_wallace_posted_on(); ?>
+            </div><!-- .entry-meta -->
+        </header><!-- .entry-header -->
+            <?php if(!empty($tags)):?>
+            <p class="tags">
+                <?php foreach($tags as $tag): ?>
+                    <a href="/tag/<?php echo $tag->name; ?>/" class="tag"><?php echo $tag->name; ?></a>
+                <?php endforeach; ?>
+            </p>
+            <?php endif; ?>
+        <div class="entry-content">
+            <?php the_content(); ?>
+        </div><!-- .entry-content -->
+    </div>
+</div>
 </article><!-- #post-## -->
 
