@@ -7,7 +7,7 @@
 
 get_header(); ?>
 
-  <main id="main" class="posts">
+  <main class="wallace-house-subpage">
     <div class="row">
       <div class="large-12 columns">
 

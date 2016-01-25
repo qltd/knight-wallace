@@ -7,7 +7,7 @@
  */
 
 get_header('fellows'); ?>
-  <main id="main" class="posts">
+  <main class="fellows-sub-page">
     <div class="row">
       <div class="large-12 columns">
 

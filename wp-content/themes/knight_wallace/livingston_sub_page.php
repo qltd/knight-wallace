@@ -6,7 +6,7 @@
  */
 
 get_header('livingston'); ?>
-  <main id="main" class="posts">
+  <main class="livingston-sub-page">
     <div class="row">
       <div class="large-12 columns">
 
