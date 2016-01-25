@@ -12,6 +12,7 @@
 <?php 
 $image = get_the_post_thumbnail();
 $pmeta = get_post_meta($post->ID); 
+var_dump($pmeta);
 $tags = get_the_tags($post->ID);
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -30,7 +31,12 @@ $tags = get_the_tags($post->ID);
             <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 <?php if(!empty($pmeta['tagline'])): ?>
             <p class="tagline">
-                <?php echo $pmeta['tagline'][0]; ?>
+                 <?php echo $pmeta['tagline'][0]; ?>
+            </p>
+<?php endif; ?>
+<?php if(!empty($pmeta['author'])): ?>
+            <p class="author">
+               by <?php echo $pmeta['author'][0]; ?>
             </p>
 <?php endif; ?>
             <div class="entry-meta">
