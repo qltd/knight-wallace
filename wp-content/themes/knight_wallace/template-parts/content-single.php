@@ -12,7 +12,6 @@
 <?php 
 $image = get_the_post_thumbnail();
 $pmeta = get_post_meta($post->ID); 
-var_dump($pmeta);
 $tags = get_the_tags($post->ID);
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>

@@ -148,6 +148,22 @@ function create_post_type() {
             'rewrite' => array("slug" => "wallace-house-staff")
         )
     );
+    register_post_type( 'person_board_member',
+        array(
+            'labels' => array(
+                'name' => __( 'Board Members' ),
+                'singular_name' => __( 'Board Member' ),
+                'add_new_item' => __('Add New Board Member'),
+                'new_item' => __('New Board Member'), 
+                'view_item' => __('View Board Member'),
+                'edit_item' => __('Edit Board Member'),
+            ),
+            'public' => true,
+            'has_archive' => true,
+            'supports' => array( 'title', 'thumbnail', 'revisions' ),
+            'rewrite' => array("slug" => "board-member")
+        )
+    );
     register_post_type( 'person_laj',
         array(
             'labels' => array(
@@ -236,6 +252,7 @@ function create_post_type() {
 add_action( 'add_meta_boxes', 'add_person_kw_fellow_metaboxes' );//add custom fields for person_kw_fellow type
 add_action( 'add_meta_boxes', 'add_person_livingston_metaboxes' );//add custom fields for Livingston Winner or Finalist
 add_action( 'add_meta_boxes', 'add_person_staff' );//add custom fields for Wallace House Staff 
+add_action( 'add_meta_boxes', 'add_person_board_member' );//add custom fields for Wallace House Staff 
 add_action( 'add_meta_boxes', 'add_person_laj' );//add custom fields for Livingston Award Judge 
 add_action( 'add_meta_boxes', 'add_person_donor' );//add custom fields for Donors 
 add_action( 'add_meta_boxes', 'add_library_metaboxes' );//add custom fields for Library Items 
@@ -277,6 +294,14 @@ function add_person_staff() {
     add_meta_box('kw_person_staff_last_name', 'Last Name', 'kw_person_staff_last_name', 'person_staff', 'normal', 'default');
     add_meta_box('kw_person_staff_title', 'Title', 'kw_person_staff_title', 'person_staff', 'normal', 'default');
     add_meta_box('kw_person_staff_bio', 'Bio', 'kw_person_staff_bio', 'person_staff', 'normal', 'default');
+}
+
+function add_person_board_member() {
+    add_meta_box('person_board_member_first_name', 'First Name', 'person_board_member_first_name', 'person_board_member', 'normal', 'default');
+    add_meta_box('person_board_member_last_name', 'Last Name', 'person_board_member_last_name', 'person_board_member', 'normal', 'default');
+    add_meta_box('person_board_member_title', 'Title', 'person_board_member_title', 'person_board_member', 'normal', 'default');
+    add_meta_box('person_board_member_ass', 'Affiliation', 'person_board_member_ass', 'person_board_member', 'normal', 'default');
+    add_meta_box('person_board_member_bio', 'Bio', 'person_board_member_bio', 'person_board_member', 'normal', 'default');
 }
 
 function add_person_laj() {
@@ -519,6 +544,27 @@ function library_author() {
     generate_html_for_custom_field("library_author");
 }
 
+//Board Members
+function person_board_member_first_name(){
+    generate_html_for_custom_field("person_board_member_first_name",true);
+}
+
+function person_board_member_last_name(){
+    generate_html_for_custom_field("person_board_member_last_name");
+}
+
+function person_board_member_title(){
+    generate_html_for_custom_field("person_board_member_title");
+}
+
+function person_board_member_ass(){
+    generate_html_for_custom_field("person_board_member_ass");
+}
+
+function person_board_member_bio(){
+    generate_html_for_custom_field("person_board_member_bio");
+}
+
 function generate_html_for_custom_field($name, $add_noncename=false){
     global $post;
 
@@ -648,6 +694,13 @@ function kw_save_events_meta($post_id, $post) {
     //Hero Content Block
     $events_meta['_hero_content_link'] = !empty($_POST['_hero_content_link']) ? $_POST['_hero_content_link'] : null;
     $events_meta['_hero_content_which_page'] = !empty($_POST['_hero_content_which_page']) ? $_POST['_hero_content_which_page'] : null;
+
+    //Board Members
+    $events_meta['_person_board_member_first_name'] = !empty($_POST['_person_board_member_first_name']) ? $_POST['_person_board_member_first_name'] : null;
+    $events_meta['_person_board_member_last_name'] = !empty($_POST['_person_board_member_last_name']) ? $_POST['_person_board_member_last_name'] : null;
+    $events_meta['_person_board_member_title'] = !empty($_POST['_person_board_member_title']) ? $_POST['_person_board_member_title'] : null;
+    $events_meta['_person_board_member_ass'] = !empty($_POST['_person_board_member_ass']) ? $_POST['_person_board_member_ass'] : null;
+    $events_meta['_person_board_member_bio'] = !empty($_POST['_person_board_member_bio']) ? $_POST['_person_board_member_bio'] : null;
 
     // Add values of $events_meta as custom fields
     foreach ($events_meta as $key => $value) { // Cycle through the $events_meta array!
