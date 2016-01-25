@@ -16,7 +16,7 @@ include_once('helpers.php');
 $alerts = get_posts(array('category_name'=>'alert'));
 $news = get_posts(array('category_name'=>'news'));
 $libs = get_posts(array('post_type'=>'library'));
-$content_blocks = get_posts(array('post_type'=>'homepage_fcb'));
+$content_blocks = get_posts(array('post_type'=>'homepage_fcb','posts_per_page'=>200));
 $sorted_content_blocks = sort_homepage_featured_content_blocks($content_blocks);
 $hero = get_posts(array('post_type'=>'hero_content'));
 $hero_content = sort_hero_content($hero);

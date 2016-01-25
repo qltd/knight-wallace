@@ -90,9 +90,13 @@ function random_hero_content($content,$page){
  * */
 
 function turn_img_tag_to_url($img){
-    $doc = new DOMDocument();
-    $doc->loadHTML($img);
-    $xpath = new DOMXPath($doc);
-    $src = $xpath->evaluate("string(//img/@src)");
+    if(empty($img)){
+        $src = ''; 
+    }else{
+        $doc = new DOMDocument();
+        $doc->loadHTML($img);
+        $xpath = new DOMXPath($doc);
+        $src = $xpath->evaluate("string(//img/@src)");
+    }
     return $src;
 }
