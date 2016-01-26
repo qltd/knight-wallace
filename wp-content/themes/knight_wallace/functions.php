@@ -562,7 +562,7 @@ function person_board_member_ass(){
 }
 
 function person_board_member_bio(){
-    generate_html_for_custom_field("person_board_member_bio");
+    generate_textarea_for_custom_field("person_board_member_bio");
 }
 
 function generate_html_for_custom_field($name, $add_noncename=false){
