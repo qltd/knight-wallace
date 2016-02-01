@@ -324,6 +324,7 @@ function add_library_metaboxes() {
     add_meta_box('library_publisher', 'Publisher', 'library_publisher', 'library', 'normal', 'default');
     add_meta_box('library_url', 'URL', 'library_url', 'library', 'normal', 'default');
     add_meta_box('library_author', 'Author', 'library_author', 'library', 'normal', 'default');
+    add_meta_box('library_featured', 'Featured', 'library_featured', 'library', 'normal', 'default');
 }
 
 //For Homepage Featured Content Blocks
@@ -544,6 +545,10 @@ function library_author() {
     generate_html_for_custom_field("library_author");
 }
 
+function library_featured() {
+    generate_html_for_custom_field("library_featured");
+}
+
 //Board Members
 function person_board_member_first_name(){
     generate_html_for_custom_field("person_board_member_first_name",true);
@@ -686,6 +691,7 @@ function kw_save_events_meta($post_id, $post) {
     $events_meta['_library_url'] = !empty($_POST['_library_url']) ? $_POST['_library_url'] : null;
     $events_meta['_library_item_type'] = !empty($_POST['_library_item_type']) ? $_POST['_library_item_type'] : null;
     $events_meta['_library_author'] = !empty($_POST['_library_author']) ? $_POST['_library_author'] : null;
+    $events_meta['_library_featured'] = !empty($_POST['_library_featured']) ? $_POST['_library_featured'] : null;
 
     //Featured content Block
     $events_meta['_fcb_link'] = !empty($_POST['_fcb_link']) ? $_POST['_fcb_link'] : null;

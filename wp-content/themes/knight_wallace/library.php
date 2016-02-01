@@ -13,6 +13,8 @@ include_once('helpers.php');
 $libs = get_posts(array('post_type'=>'library','posts_per_page'=>100));
 $sorted_libs = sort_library_items($libs);
 ?>
+
+<?php if(!empty($sorted_libs['featured'])): ?>
 <section id="library">
     <div class="row">
         <div class="large-12">
@@ -24,23 +26,33 @@ $sorted_libs = sort_library_items($libs);
           <div class="featured">
             <div class="row" data-equalizer>
               <div class="large-6 column" data-equalizer-watch>
-                <img src="http://dummyimage.com/574x285/ccc/555.jpg&text=placeholder" />
+                <?php if(!empty($sorted_libs['featured'][0])): ?>
+                    <?php echo $sorted_libs['featured'][0]['image']; ?>
+                <?php else: ?>
+                    <div style="min-height: 285px;"></div>
+                <?php endif; ?>
               </div>
               <div class="large-6 column" data-equalizer-watch>
                 <div class="featured-text">
                   <h4>Featured</h4>
-                  <h3><a href="#">High Stakes: The Rising Cost of America's Gambling Addiction</a></h3>
+                  <h3>
+                      <a href="<?php echo $sorted_libs['featured'][0]['link']; ?>">
+                        <?php echo $sorted_libs['featured'][0]['title']; ?>
+                      </a>
+                  </h3>
                   <div class="author">
-                    By: Sam Skolnik
+                        <?php echo $sorted_libs['featured'][0]['author']; ?>
                   </div>
                   <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed velit neque, sed placerat nibh. Duis eu lorem eu leo vulputate pellentesque. Aenean ut nibh tortor. Phasellus id velit a nisl suscipit tempor. Quisque a aliquam neque. Pellentesque viverra,
-                  sem sed porta gravida, enim nunc congue urna, nec lacinia nisl diam eget lectus.
+                        <?php echo $sorted_libs['featured'][0]['content']; ?>
                   </p>
                   <div class="tags-list">
                     <ul>
-                      <li><a href="#">Knight-Wallace</a> |</li>
-                      <li><a href="#">Events</a> </li>
+                        <?php if(!empty($sorted_libs['featured'][0]['tags'])): ?>
+                            <?php foreach($sorted_libs['featured'][0]['tags'] as $tag): ?>
+                            <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> |</li>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </ul>
                   </div>
                 </div>
@@ -50,6 +62,13 @@ $sorted_libs = sort_library_items($libs);
         </div>
     </div>
 </section>
+<?php else: ?>
+    <div class="row">
+        <div class="large-12">
+            <h1 class="text-center">Library</h1>
+        </div>
+    </div>
+<?php endif; ?>
 
 <?php if(!empty($sorted_libs['Article'])): ?>
 <section class="story-list library" id="articles">

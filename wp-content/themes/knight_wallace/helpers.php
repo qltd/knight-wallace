@@ -108,7 +108,8 @@ function sort_library_items($lib){
             'Book' => array(),
             'Video' => array(),
             'Photojournalism' => array(),
-            'Journal' => array()
+            'Journal' => array(),
+            'featured' => array()
         );
         foreach($lib as $li){
             $pmeta = get_post_meta($li->ID); 
@@ -116,6 +117,19 @@ function sort_library_items($lib){
             $tags = get_the_tags($li->ID);
             if(!empty($pmeta) && !empty($pmeta['_library_item_type'])){
                 $cats[$pmeta['_library_item_type'][0]][] = array(
+                    'content' => $li->post_content,
+                    'title' => $li->post_title,
+                    'link' => "/?post_type=library&p={$li->ID}",
+                    'slug' => $li->post_name,
+                    'image' => $pimage,
+                    'publisher' => !empty($pmeta['_library_publisher'][0]) ? $pmeta['_library_publisher'][0] : '',
+                    'author' => !empty($pmeta['_library_author'][0]) ? $pmeta['_library_author'][0] : '',
+                    'date' => $li->post_date,
+                    'tags' => $tags
+                );
+            }
+            if(!empty($pmeta['_library_featured'])){
+                $cats['featured'][] = array(
                     'content' => $li->post_content,
                     'title' => $li->post_title,
                     'link' => "/?post_type=library&p={$li->ID}",
