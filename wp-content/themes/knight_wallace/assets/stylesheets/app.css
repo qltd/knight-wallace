@@ -10213,3 +10213,41 @@ a:link, a:visited {
   color: #0d57aa;
   font-size: 1.4rem;
 }
+
+/* line 449, ../scss/_knight_wallace.scss */
+.entry-title {
+  font-size: 4.4rem;
+  line-height: 4.4rem;
+  color: #00274c;
+}
+
+/* line 456, ../scss/_knight_wallace.scss */
+.content h1 {
+  font-size: 4.4rem;
+  line-height: 4.4rem;
+  color: #00274c;
+}
+/* line 462, ../scss/_knight_wallace.scss */
+.content h2 {
+  font-size: 2.6rem;
+  line-height: 3.4rem;
+  color: #00274c;
+}
+/* line 468, ../scss/_knight_wallace.scss */
+.content h3 {
+  font-size: 2rem;
+  line-height: 2.4rem;
+  color: #0d57aa;
+}
+/* line 474, ../scss/_knight_wallace.scss */
+.content h4 {
+  font-size: 1.8rem;
+  line-height: 2.4rem;
+  color: #0d57aa;
+}
+/* line 480, ../scss/_knight_wallace.scss */
+.content p {
+  font-size: 2rem;
+  color: #00274c;
+  line-height: 2.6rem;
+}

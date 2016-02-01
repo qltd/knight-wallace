@@ -445,3 +445,41 @@ a {
         font-size: 1.4rem;
     }
 }
+
+.entry-title {
+    font-size: 4.4rem;
+    line-height: 4.4rem;
+    color: $ublue;
+}
+
+.content {
+    h1 {
+        font-size: 4.4rem;
+        line-height: 4.4rem;
+        color: $ublue;
+    }
+
+    h2 {
+        font-size: 2.6rem;
+        line-height: 3.4rem;
+        color: $ublue;
+    }
+
+    h3 {
+        font-size: 2rem;
+        line-height: 2.4rem;
+        color: $lblue;
+    }
+
+    h4 {
+        font-size: 1.8rem;
+        line-height: 2.4rem;
+        color: $lblue;
+    }
+
+    p {
+        font-size: 2rem;
+        color: $ublue;
+        line-height: 2.6rem;
+    }
+}
