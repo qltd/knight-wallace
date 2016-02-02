@@ -1,0 +1,6 @@
+/* Inline Responsive Media Query */
+@mixin responsive($maxWidth) {
+    @media (max-width: #{$maxWidth}) {
+        @content;
+    }
+}

@@ -9735,6 +9735,7 @@ th.hide-for-touch {
     display: table-cell !important;
   }
 }
+/* Inline Responsive Media Query */
 /**
  * Styles for the Knight-Wallace Website
  * @rdarling42
@@ -10131,16 +10132,81 @@ a:link, a:visited {
   max-width: 246px;
 }
 
-/* Footer */
+/* Page Styles */
 /* line 368, ../scss/_knight_wallace.scss */
+.entry-title {
+  font-size: 4.4rem;
+  line-height: 4.4rem;
+  color: #00274c;
+  text-align: center;
+  margin: 8rem 0 4rem;
+}
+
+/* line 376, ../scss/_knight_wallace.scss */
+.content {
+  padding-bottom: 4rem;
+}
+@media (max-width: 1024px) {
+  /* line 376, ../scss/_knight_wallace.scss */
+  .content {
+    padding: 0 2rem 4rem;
+  }
+}
+/* line 384, ../scss/_knight_wallace.scss */
+.content h1 {
+  font-size: 4.4rem;
+  line-height: 4.4rem;
+  color: #00274c;
+}
+/* line 390, ../scss/_knight_wallace.scss */
+.content h2 {
+  font-size: 2.6rem;
+  line-height: 3.4rem;
+  color: #00274c;
+}
+/* line 396, ../scss/_knight_wallace.scss */
+.content h3 {
+  font-size: 2rem;
+  line-height: 2.4rem;
+  color: #0d57aa;
+}
+/* line 402, ../scss/_knight_wallace.scss */
+.content h4 {
+  font-size: 1.8rem;
+  line-height: 2.4rem;
+  color: #0d57aa;
+}
+/* line 408, ../scss/_knight_wallace.scss */
+.content ul {
+  margin-left: 2rem;
+  margin-bottom: 2rem;
+}
+/* line 413, ../scss/_knight_wallace.scss */
+.content ol {
+  margin-left: 2.2rem;
+  margin-bottom: 2rem;
+}
+/* line 418, ../scss/_knight_wallace.scss */
+.content li, .content p {
+  font-size: 2rem;
+  color: #00274c;
+  line-height: 2.6rem;
+}
+/* line 424, ../scss/_knight_wallace.scss */
+.content li {
+  margin-bottom: 0.5rem;
+}
+
+/* Footer */
+/* line 430, ../scss/_knight_wallace.scss */
 .site-footer {
   padding-bottom: 80px;
 }
-/* line 371, ../scss/_knight_wallace.scss */
+/* line 433, ../scss/_knight_wallace.scss */
 .site-footer .large-2 {
   text-align: right;
 }
-/* line 375, ../scss/_knight_wallace.scss */
+/* line 437, ../scss/_knight_wallace.scss */
 .site-footer .top {
   background: #00274c;
   color: #FFFFFF;
@@ -10148,39 +10214,39 @@ a:link, a:visited {
   margin-bottom: 30px;
   padding: 35px 0;
 }
-/* line 382, ../scss/_knight_wallace.scss */
+/* line 444, ../scss/_knight_wallace.scss */
 .site-footer .top .social-media-links {
   margin: -5px 0 2rem;
   padding: 0;
   width: 100%;
 }
-/* line 387, ../scss/_knight_wallace.scss */
+/* line 449, ../scss/_knight_wallace.scss */
 .site-footer .top .social-media-links li {
   display: inline-block;
   list-style: none;
   margin-right: 2rem;
 }
-/* line 392, ../scss/_knight_wallace.scss */
+/* line 454, ../scss/_knight_wallace.scss */
 .site-footer .top .social-media-links li a {
   font-size: 3rem;
 }
-/* line 398, ../scss/_knight_wallace.scss */
+/* line 460, ../scss/_knight_wallace.scss */
 .site-footer .top a {
   color: #FFFFFF;
   font-size: 1.8rem;
 }
-/* line 403, ../scss/_knight_wallace.scss */
+/* line 465, ../scss/_knight_wallace.scss */
 .site-footer .top h5,
 .site-footer .top h6 {
   color: #FFFFFF;
   font-size: 2rem;
   font-weight: bold;
 }
-/* line 410, ../scss/_knight_wallace.scss */
+/* line 472, ../scss/_knight_wallace.scss */
 .site-footer .top h6 {
   font-size: 1.8rem;
 }
-/* line 414, ../scss/_knight_wallace.scss */
+/* line 476, ../scss/_knight_wallace.scss */
 .site-footer .top input[type=submit], .site-footer .top button {
   background: #0d57aa;
   border: none;
@@ -10190,7 +10256,7 @@ a:link, a:visited {
   height: 4.4rem;
   width: 30%;
 }
-/* line 424, ../scss/_knight_wallace.scss */
+/* line 486, ../scss/_knight_wallace.scss */
 .site-footer .top input[type=text], .site-footer .top input[type=email] {
   float: left;
   font-size: 1.8rem;
@@ -10198,56 +10264,18 @@ a:link, a:visited {
   margin-right: 3%;
   width: 65%;
 }
-/* line 432, ../scss/_knight_wallace.scss */
+/* line 494, ../scss/_knight_wallace.scss */
 .site-footer .top p {
   color: #FFFFFF;
   font-size: 1.8rem;
 }
-/* line 438, ../scss/_knight_wallace.scss */
+/* line 500, ../scss/_knight_wallace.scss */
 .site-footer a {
   color: #0d57aa;
   font-size: 1.4rem;
 }
-/* line 443, ../scss/_knight_wallace.scss */
+/* line 505, ../scss/_knight_wallace.scss */
 .site-footer p {
   color: #0d57aa;
   font-size: 1.4rem;
-}
-
-/* line 449, ../scss/_knight_wallace.scss */
-.entry-title {
-  font-size: 4.4rem;
-  line-height: 4.4rem;
-  color: #00274c;
-}
-
-/* line 456, ../scss/_knight_wallace.scss */
-.content h1 {
-  font-size: 4.4rem;
-  line-height: 4.4rem;
-  color: #00274c;
-}
-/* line 462, ../scss/_knight_wallace.scss */
-.content h2 {
-  font-size: 2.6rem;
-  line-height: 3.4rem;
-  color: #00274c;
-}
-/* line 468, ../scss/_knight_wallace.scss */
-.content h3 {
-  font-size: 2rem;
-  line-height: 2.4rem;
-  color: #0d57aa;
-}
-/* line 474, ../scss/_knight_wallace.scss */
-.content h4 {
-  font-size: 1.8rem;
-  line-height: 2.4rem;
-  color: #0d57aa;
-}
-/* line 480, ../scss/_knight_wallace.scss */
-.content p {
-  font-size: 2rem;
-  color: #00274c;
-  line-height: 2.6rem;
 }

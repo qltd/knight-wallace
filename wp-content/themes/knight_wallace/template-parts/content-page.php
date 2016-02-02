@@ -9,7 +9,7 @@
 
 ?>
 
-<?php 
+<?php
 $image = get_the_post_thumbnail();
 ?>
 
@@ -24,14 +24,14 @@ $image = get_the_post_thumbnail();
 </div>
 <?php endif; ?>
 <div class="row">
-    <div class="large-10 columns large-offset-2">
+    <div class="large-10 large-centered columns">
         <header class="entry-header">
             <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
         </header><!-- .entry-header -->
     </div>
 </div>
 <div class="row">
-    <div class="large-10 columns large-offset-2">
+    <div class="large-10 large-centered columns">
         <div class="content">
             <?php the_content(); ?>
         </div>
