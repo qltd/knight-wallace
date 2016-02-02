@@ -14,19 +14,19 @@
   <footer class="site-footer">
     <div class="top">
       <div class="row">
-        <div class="large-6 columns">
+        <div class="medium-6 columns">
           <?php dynamic_sidebar( 'wallace-house-footer-left' ); ?>
         </div>
-        <div class="large-6 columns">
+        <div class="medium-6 columns">
           <?php dynamic_sidebar( 'wallace-house-footer-right' ); ?>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="large-10 columns">
+      <div class="medium-8 columns">
           <?php dynamic_sidebar( 'global-footer-left' ); ?>
       </div>
-      <div class="large-2 columns">
+      <div class="medium-4 medium-text-right columns">
           <?php dynamic_sidebar( 'global-footer-right' ); ?>
       </div>
     </div>

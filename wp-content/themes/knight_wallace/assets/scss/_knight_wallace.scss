@@ -80,6 +80,12 @@ a {
     background: $charcoal;
     color: $white-gray;
 
+    @media only screen and (min-width: 84.0625em) {
+        .row.small-collapse > .columns {
+            padding: 0 1rem !important;
+        }
+    }
+
     .primary {
         font-size: 2rem;
         margin-bottom: 0;
@@ -98,7 +104,7 @@ a {
 
         a {
             display: inline-block;
-            padding: 2rem;
+            padding: 2rem 0;
             width: 100%;
         }
     }
@@ -140,15 +146,23 @@ a {
     }
 
     h2 {
-        color: $myellow;
         font-size: 2.6rem;
-        font-weight: normal;
+        font-weight: bold;
         margin-bottom: 0;
+        color: $myellow;
+
+        a {
+            color: $myellow;
+        }
     }
 
     p {
         font-size: 2.6rem;
         line-height: 1.2;
+    }
+
+    a {
+        color: $white;
     }
 }
 
@@ -165,6 +179,7 @@ a {
             background: $lblue;
             padding: 1.5rem 3rem 1rem;
             transition: all 0.5s ease;
+            height: 126px;
 
             &:hover {
                 background: $ublue;
@@ -441,6 +456,20 @@ a {
         margin-bottom: 30px;
         padding: 35px 0;
 
+        @include responsive("1280px") {
+            padding: 35px 20px;
+        }
+
+
+        @include responsive("640px") {
+            padding: 35px 20px 0;
+
+            .columns {
+                margin-bottom: 35px;
+            }
+        }
+
+
         .social-media-links {
             margin: -5px 0 2rem;
             padding: 0;
@@ -481,6 +510,16 @@ a {
             font-weight: bold;
             height: 4.4rem;
             width: 30%;
+            padding: 0;
+
+            @include responsive("900px") {
+                font-size: 1.5rem;
+            }
+
+
+            @include responsive("500px") {
+                width: 100%;
+            }
         }
 
         input[type=text], input[type=email] {
@@ -489,6 +528,10 @@ a {
             height: 4.4rem;
             margin-right: 3%;
             width: 65%;
+
+            @include responsive("500px") {
+                width: 100%;
+            }
         }
 
         p {
