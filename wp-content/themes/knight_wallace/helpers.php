@@ -101,6 +101,11 @@ function turn_img_tag_to_url($img){
     return $src;
 }
 
+/**
+ * Sort Library Items
+ *
+ **/
+
 function sort_library_items($lib){
     if(!empty($lib)){
         $cats = array(
@@ -146,5 +151,41 @@ function sort_library_items($lib){
     }else{
         $res = false; 
     }
+    return $res;
+}
+
+/**
+ * Sort Award winners
+ * */
+
+function sort_winners($winners, $year='2015'){
+    if(!empty($winners)){
+        $res = array();
+        foreach($winners as $win){
+            $pmeta = get_post_meta($win->ID); 
+            $pimage = get_the_post_thumbnail($win->ID);
+            if(!empty($pmeta['_kw_person_liv_win']) 
+                && !empty($pmeta['_kw_person_liv_year']) 
+                && $pmeta['_kw_person_liv_win'] == 'Winner' 
+                && $pmeta['_kw_person_liv_year'] == $year){
+                    //Here we have a winner that we want to display on the winners page
+                    $res[] = array(
+                        'type' => !empty($pmeta['_kw_person_liv_type']) ? $pmeta['_kw_person_liv_type'][0] : '',
+                        'first_name' => !empty($pmeta['_kw_person_liv_first_name']) ? $pmeta['_kw_person_liv_first_name'][0] : '',
+                        'last_name' => !empty($pmeta['_kw_person_liv_last_name']) ? $pmeta['_kw_person_liv_last_name'][0] : '',
+                        'age' => !empty($pmeta['_kw_person_liv_age']) ? $pmeta['_kw_person_liv_age'][0] : '',
+                        'ass' => !empty($pmeta['_kw_person_liv_ass']) ? $pmeta['_kw_person_liv_ass'][0] : '',
+                        'job' => !empty($pmeta['_kw_person_liv_job']) ? $pmeta['_kw_person_liv_job'][0] : '',
+                        'aff' => !empty($pmeta['_kw_person_liv_aff']) ? $pmeta['_kw_person_liv_aff'][0] : '',
+                        'lib' => !empty($pmeta['_kw_person_liv_lib']) ? $pmeta['_kw_person_liv_lib'][0] : '',
+                        'id' => $win->ID,
+                        'image' => $pimage
+                    );
+            }
+        }
+    }else{
+        $res = false;
+    }
+
     return $res;
 }
