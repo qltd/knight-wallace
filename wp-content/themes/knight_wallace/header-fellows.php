@@ -43,7 +43,7 @@
     </div>
   </header>
 <nav id="main_nav">
-<?php 
+<?php
 //Grab Main nav item items
 $main_menu = wp_get_nav_menu_items('primary');
 $ni1_link = !empty($main_menu[0]->url) ? $main_menu[0]->url : "Menu Item";
@@ -53,7 +53,7 @@ $ni2_title = !empty($main_menu[1]->title) ? $main_menu[1]->title : "Menu Item";
 $ni3_link = !empty($main_menu[2]->url) ? $main_menu[2]->url : "Menu Item";
 $ni3_title = !empty($main_menu[2]->title) ? $main_menu[2]->title : "Menu Item";
 ?>
-    <div class="row">
+    <div class="row small-collapse">
       <div class="large-4 columns">
         <p class="primary wallace-house" data-sub-nav-menu="wallace-house">
         <a href="<?php echo $ni1_link; ?>"><?php echo $ni1_title; ?></a>
