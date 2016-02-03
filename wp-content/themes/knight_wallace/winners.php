@@ -11,17 +11,39 @@ get_header('livingston'); ?>
 include_once('helpers.php');
 //grab our junk
 $alerts = get_posts(array('category_name'=>'alert'));
-$winners = get_posts(array('post_type'=>'person_livingston','posts_per_page'=>200));
+$winners = get_posts(array('post_type'=>'person_livingston','posts_per_page'=> -1));
 $sorted_winners = sort_winners($winners);
 ?>
 
-<main id="main" class="posts">
+<main class="posts winners-list">
 <div class="row">
     <div class="large-12 columns">
         <h1 class="text-center">Winners</h1>
     </div>
 </div>
-
+<?php if(!empty($sorted_winners)): ?>
+<?php foreach($sorted_winners as $win): ?>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="la-winner">
+            <div class="type"><?php echo $win['type']; ?></div>
+            <div class="name"><?php echo $win['first_name'].' '.$win['last_name'].','.$win['age']; ?></div>
+            <div class="lib-item"><a href="<?php echo $win['library_link']; ?>"><?php echo $win['lib']; ?></a></div> 
+            <div class="aff"><?php echo $win['aff']?></div> 
+            <div class="image"><?php echo $win['library_image']; ?></div> 
+            <div class="descrip"><?php echo $win['lib_item_des']; ?></div> 
+            <div class="row">
+                <div class="large-3 columns">
+                    <div class="a-image"><?php echo $win['image']; ?></div> 
+                    <div class="small-name"><?php echo $win['first_name'].' '.$win['last_name'].','.$win['age']; ?></div>
+                </div>
+                <div class="large-9 columns"><?php echo $win['winner_quote']; ?></div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php endforeach; ?>
+<?php endif; ?>
 </main>
 
 <?php 

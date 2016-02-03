@@ -166,9 +166,12 @@ function sort_winners($winners, $year='2015'){
             $pimage = get_the_post_thumbnail($win->ID);
             if(!empty($pmeta['_kw_person_liv_win']) 
                 && !empty($pmeta['_kw_person_liv_year']) 
-                && $pmeta['_kw_person_liv_win'] == 'Winner' 
-                && $pmeta['_kw_person_liv_year'] == $year){
+                && $pmeta['_kw_person_liv_win'][0] == 'Winner' 
+                && $pmeta['_kw_person_liv_year'][0] == $year){
                     //Here we have a winner that we want to display on the winners page
+                    $lib_item_name = !empty($pmeta['_kw_person_liv_lib']) ? $pmeta['_kw_person_liv_lib'][0] : '';
+                    $lib_item = get_custom_post_by_title('library',$lib_item_name);//get the full library object
+                    $lib_image = get_the_post_thumbnail(!empty($lib_item) ? $lib_item->ID : '');
                     $res[] = array(
                         'type' => !empty($pmeta['_kw_person_liv_type']) ? $pmeta['_kw_person_liv_type'][0] : '',
                         'first_name' => !empty($pmeta['_kw_person_liv_first_name']) ? $pmeta['_kw_person_liv_first_name'][0] : '',
@@ -177,9 +180,13 @@ function sort_winners($winners, $year='2015'){
                         'ass' => !empty($pmeta['_kw_person_liv_ass']) ? $pmeta['_kw_person_liv_ass'][0] : '',
                         'job' => !empty($pmeta['_kw_person_liv_job']) ? $pmeta['_kw_person_liv_job'][0] : '',
                         'aff' => !empty($pmeta['_kw_person_liv_aff']) ? $pmeta['_kw_person_liv_aff'][0] : '',
-                        'lib' => !empty($pmeta['_kw_person_liv_lib']) ? $pmeta['_kw_person_liv_lib'][0] : '',
+                        'lib' => $lib_item_name,
                         'id' => $win->ID,
-                        'image' => $pimage
+                        'image' => $pimage,
+                        'library_link' => !empty($lib_item) ? '?post_type=library&p='.$lib_item->ID : '',
+                        'library_image' => $lib_image,
+                        'winner_quote' => !empty($pmeta['_kw_person_liv_quote']) ? $pmeta['_kw_person_liv_quote'][0] : '',
+                        'lib_item_des' => !empty($lib_item) ? $lib_item->post_content : ''
                     );
             }
         }
@@ -187,5 +194,25 @@ function sort_winners($winners, $year='2015'){
         $res = false;
     }
 
+    return $res;
+}
+
+/**
+ * Get Custom Post Object by Title
+ * Returns an empty string or an object containing a custom post
+ *
+ * */
+
+function get_custom_post_by_title($post_type, $title){
+    $res = '';
+    $dig = get_posts(array('post_type'=> $post_type,'posts_per_page' => -1));
+    if(!empty($dig)){
+        foreach($dig as $p){
+            if($p->post_title == $title){
+                $res = $p; 
+                break;//break because we found what we need
+            }
+        } 
+    }
     return $res;
 }
