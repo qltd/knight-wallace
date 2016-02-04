@@ -12,54 +12,61 @@ include_once('helpers.php');
 //grab our junk
 $alerts = get_posts(array('category_name'=>'alert'));
 $winners = get_posts(array('post_type'=>'person_livingston','posts_per_page'=> -1));
-$sorted_winners = sort_winners($winners);
+$sorted_winners = sort_past_winners($winners,array('2014','2015','2013','2012','2011','2010','2009','2008','2007','2006'));
 ?>
-
-<section id="past_winners_control">
-<form id="control_form">
 <div class="row">
-    <div class="large-4 columns">
+    <div class="large-12 columns">
+        <h1 class="text-center">Past Winners</h1>
+    </div>
+</div>
+<section id="past_winners_control">
+<form id="control_form" action="/livingston-awards/winners/past-winners/">
+<input type="hidden" name="action" value="past_winners" />
+<div class="row">
+    <div class="large-3 columns">
         <p class="control-label">Refine by year:</p>
         <?php $year = date('Y'); ?>
+        <ul>
         <?php for($i=0;$i<20;$i++): ?>
             <?php $year = $year - 1; ?>
+            <li>
             <input type="checkbox" name="year" value="<?php echo $year; ?>" /><label for="year"><?php echo $year; ?></label>
+            </li>
         <?php endfor; ?>
+        </ul>
     </div>
     <div class="large-4 columns">
         <p class="control-label">Refine by award type:</p>
-        <input type="checkbox" name="award" value="Local Reporting" /><label for="award">Local Reporting</label>
-        <input type="checkbox" name="award" value="National Reporting" /><label for="award">National Reporting</label>
-        <input type="checkbox" name="award" value="International Reporting" /><label for="award">International Reporting</label>
-        <input type="checkbox" name="award" value="Clurman Award" /><label for="award">Clurman Award</label>
+        <ul>
+            <li><input type="checkbox" name="award" value="Local Reporting" /><label for="award">Local Reporting</label></li>
+            <li><input type="checkbox" name="award" value="National Reporting" /><label for="award">National Reporting</label></li>
+            <li><input type="checkbox" name="award" value="International Reporting" /><label for="award">International Reporting</label></li> 
+            <li><input type="checkbox" name="award" value="Clurman Award" /><label for="award">Clurman Award</label></li>
+        </ul>
     </div>
-    <div class="large-4 columns"></div>
+    <div class="large-5 columns">
+        <ul>
+            <li><a href="/livingston-awards/winners/past-winners/" class="button gray-scale">Clear All</a></li>
+            <li><input type="button" value="Apply" class="button la-past-winner-control-form-action" /></li>
+        </ul>
+    </div>
 </div>
 </form>
 </section>
 <main class="posts winners-list">
-<div class="row">
-    <div class="large-12 columns">
-        <h1 class="text-center">Winners</h1>
-    </div>
-</div>
 <?php if(!empty($sorted_winners)): ?>
 <?php foreach($sorted_winners as $win): ?>
 <div class="row">
     <div class="large-12 columns">
-        <div class="la-winner">
-            <div class="type"><?php echo $win['type']; ?></div>
+        <div class="past-winner">
             <div class="name"><?php echo $win['first_name'].' '.$win['last_name'].','.$win['age']; ?></div>
             <div class="lib-item"><a href="<?php echo $win['library_link']; ?>"><?php echo $win['lib']; ?></a></div> 
             <div class="aff"><?php echo $win['aff']?></div> 
-            <div class="image"><?php echo $win['library_image']; ?></div> 
-            <div class="descrip"><?php echo $win['lib_item_des']; ?></div> 
-            <div class="row">
-                <div class="large-3 columns">
-                    <div class="a-image"><?php echo $win['image']; ?></div> 
-                    <div class="small-name"><?php echo $win['first_name'].' '.$win['last_name'].','.$win['age']; ?></div>
-                </div>
-                <div class="large-9 columns"><?php echo $win['winner_quote']; ?></div>
+            <div class="job"><?php echo $win['job']?></div> 
+            <div class="tags">
+                <?php echo $win['year']; ?> |
+                <?php echo $win['winner']; ?> |
+                <?php echo $win['type']; ?>
             </div>
         </div>
     </div>
@@ -87,6 +94,5 @@ if(!empty($alerts)):
 <?php endforeach; ?>
 </section>
 <?php endif; ?>
-
 
 <?php get_footer('livingston'); ?>
