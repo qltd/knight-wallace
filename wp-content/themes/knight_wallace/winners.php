@@ -14,13 +14,17 @@ $alerts = get_posts(array('category_name'=>'alert'));
 $winners = get_posts(array('post_type'=>'person_livingston','posts_per_page'=> -1));
 $sorted_winners = sort_winners($winners);
 ?>
-
-<main class="posts winners-list">
 <div class="row">
     <div class="large-12 columns">
         <h1 class="text-center">Winners</h1>
     </div>
 </div>
+<div class="row">
+    <div class="large-12 columns">
+        <p class="text-center"><a href="/livingston-awards/winners/past-winners/">See Past Winners</a></p>
+    </div>
+</div>
+<main class="posts winners-list">
 <?php if(!empty($sorted_winners)): ?>
 <?php foreach($sorted_winners as $win): ?>
 <div class="row">

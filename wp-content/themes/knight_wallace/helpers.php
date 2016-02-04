@@ -222,20 +222,22 @@ function get_custom_post_by_title($post_type, $title){
  *
  * */
 
-function sort_past_winners($winners, $year='2015'){
+function sort_past_winners($winners, $year='2015', $type=null){
     if(!empty($winners)){
         $res = array();
         foreach($winners as $win){
             $pmeta = get_post_meta($win->ID); 
+            $award_type = !empty($pmeta['_kw_person_liv_type']) ? $pmeta['_kw_person_liv_type'][0] : '';
             if(!empty($pmeta['_kw_person_liv_win']) 
                 && !empty($pmeta['_kw_person_liv_year']) 
                 && is_winner_or_co_winner($pmeta['_kw_person_liv_win'][0])
-                && is_matching_year($pmeta['_kw_person_liv_year'][0],$year)){
+                && is_matching_year($pmeta['_kw_person_liv_year'][0],$year)
+                && is_correct_type($type,$award_type)){
                     //Here we have a winner that we want to display on the winners page
                     $lib_item_name = !empty($pmeta['_kw_person_liv_lib']) ? $pmeta['_kw_person_liv_lib'][0] : '';
                     $lib_item = get_custom_post_by_title('library', $lib_item_name);//get the full library object
                     $res[] = array(
-                        'type' => !empty($pmeta['_kw_person_liv_type']) ? $pmeta['_kw_person_liv_type'][0] : '',
+                        'type' => $award_type,
                         'first_name' => !empty($pmeta['_kw_person_liv_first_name']) ? $pmeta['_kw_person_liv_first_name'][0] : '',
                         'last_name' => !empty($pmeta['_kw_person_liv_last_name']) ? $pmeta['_kw_person_liv_last_name'][0] : '',
                         'age' => !empty($pmeta['_kw_person_liv_age']) ? $pmeta['_kw_person_liv_age'][0] : '',
@@ -268,4 +270,16 @@ function is_matching_year($needle, $haystack){
 
 function is_winner_or_co_winner($winner){
     return $winner == 'Co-Winner' || $winner == 'Winner' ? true : false;
+}
+
+function is_correct_type($type, $award_type){
+    if(is_null($type)){
+        $res = true; 
+    }elseif(is_array($award_type)){
+        $res = in_array($type, $award_type); 
+    }else{
+        $res = $type == $award_type ? true : false;
+    }
+
+    return $res;
 }
