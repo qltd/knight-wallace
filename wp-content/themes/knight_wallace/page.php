@@ -199,6 +199,9 @@ if(!empty($alerts)):
                 </div>
             </div>
             <?php endif; ?>
+            <div class="row">
+                <div class="large-6 columns"><a href="#" class="more-posts">See all Wallace House news &raquo;</a></div>
+            </div>
         </div>
         <!--end display first news item-->
         <div class="large-6 columns">
@@ -247,13 +250,13 @@ if(!empty($alerts)):
                 </div>
             </div>
             <?php endif; ?>
+            <div class="row">
+                <div class="large-6 columns"><a href="#" class="more-posts">See all Wallace House library items &raquo;</a></div>
+            </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="large-6 columns"><a href="#" class="more-posts">See all Wallace House news &raquo;</a></div>
-        <div class="large-6 columns"><a href="#" class="more-posts">See all Wallace House library items &raquo;</a></div>
-    </div>
+
 </section>
 
 <?php get_footer(); ?>
