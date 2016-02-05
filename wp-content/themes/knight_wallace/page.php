@@ -162,17 +162,19 @@ if(!empty($alerts)):
             <div class="row news snippet-box">
                 <div class="large-12 columns">
                     <div class="news-article">
-                        <h4><a href="<?php echo $news[0]->guid; ?>"><?php echo $news[0]->post_title; ?></a></h4>
-                        <div class="date"><?php echo $news[0]->post_date; ?></div>
-                        <div class="tags-list">
-                            <ul>
-                                <?php if(!empty($tags)):?>
-                                <?php foreach($tags as $tag): ?>
-                                <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a></li>
-                                <?php endforeach; ?>
-                                <?php endif; ?>
-                            </ul>
-                            <br />
+                        <div class="text">
+                            <h4><a href="<?php echo $news[0]->guid; ?>"><?php echo $news[0]->post_title; ?></a></h4>
+                            <div class="date"><?php echo $news[0]->post_date; ?></div>
+                            <div class="tags-list">
+                                <ul>
+                                    <?php if(!empty($tags)):?>
+                                    <?php foreach($tags as $tag): ?>
+                                    <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                                    <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </ul>
+                                <br />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -183,17 +185,19 @@ if(!empty($alerts)):
             <div class="row news snippet-box">
                 <div class="large-12 columns">
                     <div class="news-article">
-                        <h4><a href="<?php echo $news[1]->guid; ?>"><?php echo $news[1]->post_title; ?></a></h4>
-                        <div class="date"><?php echo $news[1]->post_date; ?></div>
-                        <div class="tags-list">
-                            <ul>
-                                <?php if(!empty($tags1)):?>
-                                <?php foreach($tags1 as $tag1): ?>
-                                <li><a href="/tag/<?php echo $tag1->name; ?>/"><?php echo $tag1->name; ?></a></li>
-                                <?php endforeach; ?>
-                                <?php endif; ?>
-                            </ul>
-                            <br />
+                        <div class="text">
+                            <h4><a href="<?php echo $news[1]->guid; ?>"><?php echo $news[1]->post_title; ?></a></h4>
+                            <div class="date"><?php echo $news[1]->post_date; ?></div>
+                            <div class="tags-list">
+                                <ul>
+                                    <?php if(!empty($tags1)):?>
+                                    <?php foreach($tags1 as $tag1): ?>
+                                    <li><a href="/tag/<?php echo $tag1->name; ?>/"><?php echo $tag1->name; ?></a> <span class="divider">|</span></li>
+                                    <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </ul>
+                                <br />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -211,7 +215,7 @@ if(!empty($alerts)):
             <?php if(!empty($libs[0])): ?>
             <div class="row news snippet-box">
                 <div class="large-12 columns">
-                    <div class="news-article">
+                    <div class="news-article"> <div class="text">
                         <h4><a href="/library/<?php echo $libs[0]->post_name; ?>"><?php echo $libs[0]->post_title; ?></a></h4>
                         <div class="date"><?php echo $libs[0]->post_date; ?></div>
                         <?php $tagslib = get_the_tags($libs[0]->ID); ?>
@@ -219,12 +223,12 @@ if(!empty($alerts)):
                             <ul>
                                 <?php if(!empty($tagslib)):?>
                                 <?php foreach($tagslib as $t): ?>
-                                <li><a href="/tag/<?php echo $t->name; ?>/"><?php echo $t->name; ?></a></li>
+                                <li><a href="/tag/<?php echo $t->name; ?>/"><?php echo $t->name; ?></a> <span class="divider">|</span></li>
                                 <?php endforeach; ?>
                                 <?php endif; ?>
                             </ul>
                             <br />
-                        </div>
+                        </div></div>
                     </div>
                 </div>
             </div>
@@ -233,18 +237,20 @@ if(!empty($alerts)):
             <div class="row news snippet-box">
                 <div class="large-12 columns">
                     <div class="news-article">
-                        <h4><a href="/library/<?php echo $libs[1]->post_name; ?>"><?php echo $libs[1]->post_title; ?></a></h4>
-                        <div class="date"><?php echo $libs[1]->post_date; ?></div>
-                        <div class="tags-list">
-                            <?php $tagslib1 = get_the_tags($libs[1]->ID); ?>
-                            <ul>
-                                <?php if(!empty($tagslib1)):?>
-                                <?php foreach($tagslib1 as $t1): ?>
-                                <li><a href="/tag/<?php echo $t1->name; ?>/"><?php echo $t1->name; ?></a></li>
-                                <?php endforeach; ?>
-                                <?php endif; ?>
-                            </ul>
-                            <br />
+                        <div class="text">
+                            <h4><a href="/library/<?php echo $libs[1]->post_name; ?>"><?php echo $libs[1]->post_title; ?></a></h4>
+                            <div class="date"><?php echo $libs[1]->post_date; ?></div>
+                            <div class="tags-list">
+                                <?php $tagslib1 = get_the_tags($libs[1]->ID); ?>
+                                <ul>
+                                    <?php if(!empty($tagslib1)):?>
+                                    <?php foreach($tagslib1 as $t1): ?>
+                                    <li><a href="/tag/<?php echo $t1->name; ?>/"><?php echo $t1->name; ?></a> <span class="divider">|</span></li>
+                                    <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </ul>
+                                <br />
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -218,6 +218,10 @@ a {
             display: inline-block;
             list-style: none;
 
+            &:last-child .divider {
+                display: none;
+            }
+
             a {
                 color: $charcoal;
                 padding: 0;
@@ -352,12 +356,13 @@ a {
         margin-bottom: 2rem;
         padding: 1rem 2rem;
         position: relative;
+        display: flex;
     }
 
     .text {
         height: 100%;
-        padding-left: 2rem;
         position: relative;
+        flex-grow: 1;
     }
 
     h3 {
@@ -375,7 +380,10 @@ a {
 
     img {
         height: auto;
+        max-height: 152px;
+        width: auto;
         max-width: 246px;
+        margin-right: 2rem;
     }
 }
 
