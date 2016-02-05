@@ -61,4 +61,11 @@ $(document).ready(function(){
         });  
     });
 
+    //mobile menu
+    var menu_item;
+    $('.menu-item-has-children > a').each(function(){
+        menu_item = $(this).html();
+        $(this).html(menu_item+'</a><a href="#"><span class="nav-item-controller"><i class="fa fa-plus-circle"></i></span>');
+    });
+
 });
