@@ -10441,3 +10441,32 @@ a:link, a:visited {
   color: #0d57aa;
   font-size: 1.4rem;
 }
+
+/*Past Winners*/
+/* line 7, ../scss/_knight_wallace.scss */
+#past_winners_control a {
+  color: #FFFFFF;
+}
+/* line 10, ../scss/_knight_wallace.scss */
+#past_winners_control a:hover {
+  color: #FFFFFF;
+}
+/* line 14, ../scss/_knight_wallace.scss */
+#past_winners_control a:link, #past_winners_control a:visited {
+  color: #FFFFFF;
+}
+/* line 558, ../scss/_knight_wallace.scss */
+#past_winners_control li {
+  list-style: none;
+}
+/* line 562, ../scss/_knight_wallace.scss */
+#past_winners_control label {
+  color: #FFFFFF;
+  position: relative;
+  top: -0.5rem;
+}
+/* line 568, ../scss/_knight_wallace.scss */
+#past_winners_control .columns, #past_winners_control .row {
+  background: #555555;
+  color: #FFFFFF;
+}

@@ -634,3 +634,23 @@ a {
         font-size: 1.4rem;
     }
 }
+
+/*Past Winners*/
+#past_winners_control {
+    @include link_style($white, $white);
+
+    li {
+        list-style: none; 
+    }
+
+    label {
+        color: $white; 
+        position: relative;
+        top: -0.5rem;
+    }
+
+    .columns, .row {
+        background: $charcoal;
+        color: $white;
+    }
+}

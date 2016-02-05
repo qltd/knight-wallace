@@ -31,4 +31,34 @@ $(document).ready(function(){
         $('.sub-nav-wrap .'+active_menu).removeClass('disappear');
     });
 
+    //ajax request for past winners
+    $('.la-past-winner-control-form-action').click(function(){
+        var year = [];
+        var award = [];
+        $('input[name="year"]').each(function(){
+            if($(this).is(":checked")){
+                year.push($(this).val());
+            } 
+        });
+        $('input[name="award"]').each(function(){
+            if($(this).is(":checked")){
+                award.push($(this).val()); 
+            }
+        });
+        $.ajax({
+            url: '/wp-content/themes/knight_wallace/ajax.php', 
+            type: 'GET',
+            data: {action: 'past_winners',year: year, award: award},
+            beforeSend: function(){
+                $(".winners-list").html('<p class="center-text"><img src="/wp-content/themes/knight_wallace/assets/images/load.gif" /></p>');
+            },
+            success: function(res){
+                $(".winners-list").html(res);
+            },
+            error: function(){
+                $(".winners-list").html('<p class="alert-box alert">Sorry, we were not able to do that right now</p>');
+            }
+        });  
+    });
+
 });
