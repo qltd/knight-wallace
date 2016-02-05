@@ -49,7 +49,7 @@ $(document).ready(function(){
             url: '/wp-content/themes/knight_wallace/ajax.php', 
             type: 'GET',
             data: {action: 'past_winners',year: year, award: award},
-            beforeSending: function(){
+            beforeSend: function(){
                 $(".winners-list").html('<p class="center-text"><img src="/wp-content/themes/knight_wallace/assets/images/load.gif" /></p>');
             },
             success: function(res){

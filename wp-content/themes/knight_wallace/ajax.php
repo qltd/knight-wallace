@@ -15,7 +15,9 @@ if(!empty($_GET['action'])){
     switch($_GET['action']){
     case 'past_winners':
         $winners = get_posts(array('post_type'=>'person_livingston','posts_per_page'=> -1));
-        $sorted_winners = sort_past_winners($winners,$_GET['year']);
+        $award = !empty($_GET['award']) ? $_GET['award'] : null;
+        $year = !empty($_GET['year']) ? $_GET['year'] : 'all';
+        $sorted_winners = sort_past_winners($winners,$year,$award);
         if(!empty($sorted_winners)){
             foreach($sorted_winners as $win){
                 $res .= '

@@ -222,7 +222,7 @@ function get_custom_post_by_title($post_type, $title){
  *
  * */
 
-function sort_past_winners($winners, $year='2015', $type=null){
+function sort_past_winners($winners, $year='2015', $type_array=null){
     if(!empty($winners)){
         $res = array();
         foreach($winners as $win){
@@ -232,7 +232,7 @@ function sort_past_winners($winners, $year='2015', $type=null){
                 && !empty($pmeta['_kw_person_liv_year']) 
                 && is_winner_or_co_winner($pmeta['_kw_person_liv_win'][0])
                 && is_matching_year($pmeta['_kw_person_liv_year'][0],$year)
-                && is_correct_type($type,$award_type)){
+                && is_correct_type($type_array,$award_type)){
                     //Here we have a winner that we want to display on the winners page
                     $lib_item_name = !empty($pmeta['_kw_person_liv_lib']) ? $pmeta['_kw_person_liv_lib'][0] : '';
                     $lib_item = get_custom_post_by_title('library', $lib_item_name);//get the full library object
@@ -260,7 +260,9 @@ function sort_past_winners($winners, $year='2015', $type=null){
 }
 
 function is_matching_year($needle, $haystack){
-    if(is_array($haystack)){
+    if($haystack == 'all'){
+        $res = true; 
+    }elseif(is_array($haystack)){
         $res = in_array($needle, $haystack); 
     }else{
         $res = $needle == $haystack ? true : false; 
@@ -272,12 +274,21 @@ function is_winner_or_co_winner($winner){
     return $winner == 'Co-Winner' || $winner == 'Winner' ? true : false;
 }
 
-function is_correct_type($type, $award_type){
-    if(is_null($type)){
+function is_correct_type($type_array, $award_type){
+    //$type_array is the awards that a user wants to view
+    //$award_type is a string, the award type that the LA Winner won
+    if(is_null($type_array)){
         $res = true; 
-    }elseif(is_array($award_type)){
-        $res = in_array($type, $award_type); 
+    }elseif(is_array($type_array)){
+        $full_name_filter = array(
+            'Excellence in Local Reporting' => 'Local Reporting', 
+            'Excellence in National Reporting' => 'National Reporting', 
+            'Excellence in International Reporting' => 'International Reporting', 
+            'Richard M. Clurman Award' => 'Clurman Award' 
+        );
+        $res = in_array($full_name_filter[$award_type], $type_array); 
     }else{
+        //it's possible to just past a string for $type_array to this function
         $res = $type == $award_type ? true : false;
     }
 
