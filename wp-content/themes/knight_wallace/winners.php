@@ -24,20 +24,20 @@ $sorted_winners = sort_winners($winners);
 <?php if(!empty($sorted_winners)): ?>
 <?php foreach($sorted_winners as $win): ?>
 <div class="row">
-    <div class="large-12 columns">
+    <div class="large-10 large-centered columns">
         <div class="la-winner">
             <div class="type"><?php echo $win['type']; ?></div>
-            <div class="name"><?php echo $win['first_name'].' '.$win['last_name'].','.$win['age']; ?></div>
-            <div class="lib-item"><a href="<?php echo $win['library_link']; ?>"><?php echo $win['lib']; ?></a></div>
+            <div class="name"><?php echo $win['first_name'].' '.$win['last_name'].', '.$win['age']; ?></div>
+            <div class="lib-item"><a href="<?php echo $win['library_link']; ?>">&ldquo;<?php echo $win['lib']; ?>&rdquo;</a></div>
             <div class="aff"><?php echo $win['aff']?></div>
             <div class="image"><?php echo $win['library_image']; ?></div>
             <div class="descrip"><?php echo $win['lib_item_des']; ?></div>
-            <div class="row">
+            <div class="row winner-quote">
                 <div class="large-3 columns">
-                    <div class="a-image"><?php echo $win['image']; ?></div>
-                    <div class="small-name"><?php echo $win['first_name'].' '.$win['last_name'].','.$win['age']; ?></div>
+                    <div class="a-image"><?php echo $win['image']; ?><img src="http://dummyimage.com/169x134/" /></div>
+                    <div class="small-name"><?php echo $win['first_name'].' '.$win['last_name'].', '.$win['age']; ?></div>
                 </div>
-                <div class="large-9 columns"><?php echo $win['winner_quote']; ?></div>
+                <div class="large-9 columns quote"><?php echo $win['winner_quote']; ?></div>
             </div>
         </div>
     </div>
