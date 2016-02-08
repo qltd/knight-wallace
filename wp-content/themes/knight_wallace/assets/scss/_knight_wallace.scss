@@ -28,6 +28,7 @@ html {
 
 body {
     color: $charcoal;
+    font-family: $primary-font;
 }
 
 a {
@@ -393,6 +394,7 @@ a {
     line-height: 4.4rem;
     color: $ublue;
     text-align: center;
+    font-family: $primary-font-bold;
     margin: 8rem 0 4rem;
 }
 
@@ -523,6 +525,40 @@ a {
         line-height: 1.8rem;
         font-family: $primary-font-bold;
         color: $ublue;
+    }
+}
+
+.board-of-directors {
+    margin-top: 4rem;
+
+    .director {
+        margin-bottom: 5rem;
+    }
+
+    .board-member-image {
+        max-width: 169px;
+        height: auto;
+        max-height: 134px;
+    }
+
+    .large-10 {
+        padding-left: 3.5rem;
+    }
+
+    .board-member-name {
+        font-size: 2.6rem;
+        line-height: 0;
+        margin-top: 1.2rem;
+        font-family: $primary-font-bold;
+        color: $lblue;
+        text-decoration: underline;
+    }
+
+    .board-member-title {
+        font-size: 1.6rem;
+        line-height: 2.4rem;
+        font-family: $primary-font;
+        color: $charcoal;
     }
 }
 

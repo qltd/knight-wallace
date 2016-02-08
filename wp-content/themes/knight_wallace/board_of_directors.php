@@ -1,14 +1,14 @@
 <?php
 /**
  * Template Name: Board of Directors
- * 
+ *
  *
  * @package knight_wallace
  */
 
 get_header('fellows'); ?>
 
-<?php 
+<?php
 include_once('helpers.php');
 //grab our junk
 $alerts = get_posts(array('category_name'=>'alert'));
@@ -26,29 +26,29 @@ $board_members = get_posts(array('post_type'=>'person_board_member','posts_per_p
 <main id="main" class="site-main post-main" role="main">
     <div class="row">
         <div class="large-12 columns">
-            <h1 class="text-center">Board of Directors</h1>
+            <h1 class="entry-title">Board of Directors</h1>
         </div>
     </div>
-    <div class="row">
-        <div class="large-10 columns large-offset-2">
+    <div class="row board-of-directors">
+        <div class="large-10 large-centered columns">
             <?php if(!empty($board_members)): ?>
                 <?php foreach($board_members as $board_member): ?>
-                    <?php 
-                    $image = get_the_post_thumbnail($board_member->ID); 
-                    $pmeta = get_post_meta($board_member->ID); 
+                    <?php
+                    $image = get_the_post_thumbnail($board_member->ID);
+                    $pmeta = get_post_meta($board_member->ID);
                     ?>
-                    <div class="row">
-                        <div class="large-4 columns">
+                    <div class="row director">
+                        <div class="large-2 columns">
                             <div class="board-member-image"><?php echo $image; ?></div>
                         </div>
-                        <div class="large-8 columns">
+                        <div class="large-10 columns">
                             <p class="board-member-name">
                                 <a href="<?php echo !empty($board_member->guid) ? $board_member->guid : ''; ?>" class="board-member-link">
-                                <?php echo !empty($pmeta['_person_board_member_first_name']) ? $pmeta['_person_board_member_first_name'][0] : ''; ?>&nbsp;
+                                <?php echo !empty($pmeta['_person_board_member_first_name']) ? $pmeta['_person_board_member_first_name'][0] : ''; ?>
                                 <?php echo !empty($pmeta['_person_board_member_last_name']) ? $pmeta['_person_board_member_last_name'][0] : ''; ?></a>
                             </p>
                             <p class="board-member-title">
-                                <?php echo !empty($pmeta['_person_board_member_title']) ? $pmeta['_person_board_member_title'][0] : ''; ?>&nbsp;
+                                <?php echo !empty($pmeta['_person_board_member_title']) ? $pmeta['_person_board_member_title'][0] : ''; ?>
                                 <?php echo !empty($pmeta['_person_board_member_ass']) ? $pmeta['_person_board_member_ass'][0] : ''; ?>
                             </p>
                         </div>
@@ -59,7 +59,7 @@ $board_members = get_posts(array('post_type'=>'person_board_member','posts_per_p
     </div>
 </main>
 
-<?php 
+<?php
 //display alerts
 if(!empty($alerts)):
 ?>
