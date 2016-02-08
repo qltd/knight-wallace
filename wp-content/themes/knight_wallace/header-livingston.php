@@ -126,3 +126,19 @@ $ni3_title = !empty($main_menu[2]->title) ? $main_menu[2]->title : "Menu Item";
     </div>
 </nav>
 
+<nav id="mobile_nav">
+<?php
+//Grab Mobile nav item items
+//$mobile_menu = wp_get_nav_menu_items('mobile');
+?>
+<div class="mobile-menu-trigger-wrap">
+    <div class="row">
+        <div class="small-2 columns small-offset-10"><p class="mobile-menu-trigger">Menu</p></div>
+    </div>
+</div>
+<div class="row mobile-menu-wrap">
+    <div class="large-12 columns">
+        <?php wp_nav_menu('mobile'); ?>
+    </div>
+</div>
+</nav>

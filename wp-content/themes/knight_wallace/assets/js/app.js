@@ -63,9 +63,23 @@ $(document).ready(function(){
 
     //mobile menu
     var menu_item;
+    var id;
+
     $('.menu-item-has-children > a').each(function(){
+        id = $(this).parent().attr('id');
         menu_item = $(this).html();
-        $(this).html(menu_item+'</a><a href="#"><span class="nav-item-controller"><i class="fa fa-plus-circle"></i></span>');
+        $(this).html(menu_item+'</a><a href="#"><span class="nav-item-controller closed" id="sub-'+id+'"><i class="fa fa-plus-circle"></i></span>');
+    });
+
+    $('.nav-item-controller').click(function(){
+        var pid = $(this).attr('id');
+        var nid = pid.replace("sub-","");
+        $('#'+nid+' .sub-menu').slideToggle();
+        if($(this).hasClass('closed')){
+            $(this).removeClass('closed').addClass('open').html('<i class="fa fa-minus-circle"></i>');
+        }else{
+            $(this).removeClass('open').addClass('closed').html('<i class="fa fa-plus-circle"></i>');
+        }
     });
 
 });

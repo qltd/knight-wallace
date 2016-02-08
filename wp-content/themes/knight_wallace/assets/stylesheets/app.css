@@ -10456,29 +10456,17 @@ a:link, a:visited {
 #past_winners_control a:link, #past_winners_control a:visited {
   color: #FFFFFF;
 }
-<<<<<<< HEAD
-/* line 566, ../scss/_knight_wallace.scss */
-#past_winners_control li {
-  list-style: none;
-}
-/* line 570, ../scss/_knight_wallace.scss */
-=======
 /* line 643, ../scss/_knight_wallace.scss */
 #past_winners_control li {
   list-style: none;
 }
 /* line 647, ../scss/_knight_wallace.scss */
->>>>>>> master
 #past_winners_control label {
   color: #FFFFFF;
   position: relative;
   top: -0.5rem;
 }
-<<<<<<< HEAD
-/* line 576, ../scss/_knight_wallace.scss */
-=======
 /* line 653, ../scss/_knight_wallace.scss */
->>>>>>> master
 #past_winners_control .columns, #past_winners_control .row {
   background: #555555;
   color: #FFFFFF;
@@ -10539,8 +10527,9 @@ a:link, a:visited {
     background: #FFFFFF;
     margin-left: 0;
     padding-left: 0;
+    display: none;
   }
-  /* line 44, ../scss/_mobile_nav.scss */
+  /* line 45, ../scss/_mobile_nav.scss */
   .mobile-menu-wrap .sub-menu li {
     text-transform: normal;
   }
@@ -10556,7 +10545,7 @@ a:link, a:visited {
   .mobile-menu-wrap .sub-menu li a:link, .mobile-menu-wrap .sub-menu li a:visited {
     color: #0d57aa;
   }
-  /* line 48, ../scss/_mobile_nav.scss */
+  /* line 49, ../scss/_mobile_nav.scss */
   .mobile-menu-wrap .sub-menu li:hover {
     background: #0d57aa;
   }
@@ -10573,7 +10562,7 @@ a:link, a:visited {
     color: #FFFFFF;
   }
 
-  /* line 56, ../scss/_mobile_nav.scss */
+  /* line 57, ../scss/_mobile_nav.scss */
   .nav-item-controller {
     float: right;
   }
