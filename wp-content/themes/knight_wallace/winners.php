@@ -37,11 +37,11 @@ $sorted_winners = sort_winners($winners);
             <div class="image"><?php echo $win['library_image']; ?></div>
             <div class="descrip"><?php echo $win['lib_item_des']; ?></div>
             <div class="row winner-quote">
-                <div class="large-3 columns">
-                    <div class="a-image"><?php echo $win['image']; ?><img src="http://dummyimage.com/169x134/" /></div>
+                <div class="large-2 columns">
+                    <div class="a-image"><?php echo $win['image']; ?></div>
                     <div class="small-name"><?php echo $win['first_name'].' '.$win['last_name'].', '.$win['age']; ?></div>
                 </div>
-                <div class="large-9 columns quote"><?php echo $win['winner_quote']; ?></div>
+                <div class="large-10 columns quote"><?php echo $win['winner_quote']; ?></div>
             </div>
         </div>
     </div>
