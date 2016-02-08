@@ -1,0 +1,32 @@
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/304a82");
+
+@font-face {
+    font-family: 'UniversLTPro-65Bold';
+    src: url("../fonts/304A82_0_0.eot");
+    src: url("../fonts/304A82_0_0.eot?#iefix") format("embedded-opentype"), url("../fonts/304A82_0_0.woff2") format("woff2"), url("../fonts/304A82_0_0.woff") format("woff"), url("../fonts/304A82_0_0.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'UniversLTPro-Condensed';
+    src: url("../fonts/304A82_1_0.eot");
+    src: url("../fonts/304A82_1_0.eot?#iefix") format("embedded-opentype"), url("../fonts/304A82_1_0.woff2") format("woff2"), url("../fonts/304A82_1_0.woff") format("woff"), url("../fonts/304A82_1_0.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'UniversLTPro-45Light';
+    src: url("../fonts/304A82_2_0.eot");
+    src: url("../fonts/304A82_2_0.eot?#iefix") format("embedded-opentype"), url("../fonts/304A82_2_0.woff2") format("woff2"), url("../fonts/304A82_2_0.woff") format("woff"), url("../fonts/304A82_2_0.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'UniversLTPro-65BoldOblique';
+    src: url("../fonts/304A82_3_0.eot");
+    src: url("../fonts/304A82_3_0.eot?#iefix") format("embedded-opentype"), url("../fonts/304A82_3_0.woff2") format("woff2"), url("../fonts/304A82_3_0.woff") format("woff"), url("../fonts/304A82_3_0.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'UniversLTPro-45LightOblique';
+    src: url("../fonts/304A82_4_0.eot");
+    src: url("../fonts/304A82_4_0.eot?#iefix") format("embedded-opentype"), url("../fonts/304A82_4_0.woff2") format("woff2"), url("../fonts/304A82_4_0.woff") format("woff"), url("../fonts/304A82_4_0.ttf") format("truetype");
+}
