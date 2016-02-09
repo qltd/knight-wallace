@@ -8,13 +8,6 @@
 get_header(); ?>
 
   <main class="wallace-house-subpage">
-<div class="in-this-section-nav">
-    <div class="row">
-        <div class="large-12 columns">
-
-        </div>
-    </div>
-</div>
     <div class="row">
       <div class="large-12 columns">
     <?php while ( have_posts() ) : the_post(); ?>

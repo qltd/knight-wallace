@@ -30,6 +30,27 @@ $image = get_the_post_thumbnail();
         </header><!-- .entry-header -->
     </div>
 </div>
+<?php $children = get_pages('child_of='.$post->ID.'&parent='.$post->ID); ?>
+<?php if(!empty($children)): ?>
+<div class="in-this-section-nav">
+    <div class="row">
+        <div class="large-12 columns">
+            <ul class="inline">
+            <?php $c = 0; ?>
+            <?php $count = count($children); ?>
+            <?php foreach($children as $child): ?>
+                <li><a href="<?php echo $child->guid; ?>"><?php echo $child->post_title; ?></a> 
+                <?php if($c < $count - 1): ?>
+                    &nbsp;|&nbsp; 
+                <?php endif; ?>
+                </li>
+            <?php $c += 1; ?>
+            <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
 <div class="row">
     <div class="large-10 large-centered columns">
         <div class="content">

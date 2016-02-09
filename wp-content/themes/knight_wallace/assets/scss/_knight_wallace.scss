@@ -22,6 +22,10 @@
     display: none;
 }
 
+.inline, ul.inline li {
+    display: inline;
+}
+
 html {
     font-size: 62.5%;
 }
@@ -124,6 +128,17 @@ a {
 
     li {
         display: inline-block;
+    }
+}
+
+/* Subpage, in this section nav */
+.in-this-section-nav {
+    text-align: center;
+    margin-bottom: 4rem;
+    font-size: 2rem;
+
+    li, a {
+        font-size: 1.8rem;
     }
 }
 
