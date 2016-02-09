@@ -154,6 +154,47 @@ function sort_library_items($lib){
     return $res;
 }
 
+function sort_library_items_sub_cat($lib,$cat){
+    if(!empty($lib)){
+        $res = array();
+        foreach($lib as $li){
+            $pmeta = get_post_meta($li->ID); 
+            $pimage = get_the_post_thumbnail($li->ID);
+            $tags = get_the_tags($li->ID);
+            if(!empty($pmeta) && !empty($pmeta['_library_item_type']) && $pmeta['_library_item_type'][0] == $cat){
+                $res[] = array(
+                    'content' => $li->post_content,
+                    'title' => $li->post_title,
+                    'link' => "/?post_type=library&p={$li->ID}",
+                    'slug' => $li->post_name,
+                    'image' => $pimage,
+                    'publisher' => !empty($pmeta['_library_publisher'][0]) ? $pmeta['_library_publisher'][0] : '',
+                    'author' => !empty($pmeta['_library_author'][0]) ? $pmeta['_library_author'][0] : '',
+                    'date' => $li->post_date,
+                    'tags' => $tags
+                );
+            }
+            if(!empty($pmeta['_library_featured'])){
+                $res['featured'][] = array(
+                    'content' => $li->post_content,
+                    'title' => $li->post_title,
+                    'link' => "/?post_type=library&p={$li->ID}",
+                    'slug' => $li->post_name,
+                    'image' => $pimage,
+                    'publisher' => !empty($pmeta['_library_publisher'][0]) ? $pmeta['_library_publisher'][0] : '',
+                    'author' => !empty($pmeta['_library_author'][0]) ? $pmeta['_library_author'][0] : '',
+                    'date' => $li->post_date,
+                    'tags' => $tags
+                );
+            }
+        }
+    }else{
+        $res = false; 
+    }
+
+    return $res;
+}
+
 /**
  * Sort Award winners
  * */
