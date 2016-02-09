@@ -174,7 +174,7 @@ function sort_library_items_sub_cat($lib,$cat){
                     'tags' => $tags
                 );
             }
-            if(!empty($pmeta['_library_featured'])){
+            if(!empty($pmeta['_library_featured']) && !empty($pmeta['_library_item_type']) && $pmeta['_library_item_type'][0] == $cat){
                 $res['featured'][] = array(
                     'content' => $li->post_content,
                     'title' => $li->post_title,

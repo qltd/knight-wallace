@@ -179,7 +179,7 @@ $sorted_libs = sort_library_items($libs);
             </div><!--end first column-->
         </div>
         <div class="large-6 columns">
-            <a href="#" class="more-posts">See all Wallace House articles &raquo;</a>
+            <a href="/wallace-house/library/articles/" class="more-posts">See all Wallace House articles &raquo;</a>
         </div>
     </div><!--end second row-->
 </section>
@@ -297,7 +297,7 @@ $sorted_libs = sort_library_items($libs);
             </div><!--end first column-->
         </div>
         <div class="large-6 columns">
-            <a href="#" class="more-posts">See all Wallace House books &raquo;</a>
+            <a href="/wallace-house/library/books/" class="more-posts">See all Wallace House books &raquo;</a>
         </div>
     </div><!--end second row-->
 </section>
@@ -415,7 +415,7 @@ $sorted_libs = sort_library_items($libs);
             </div><!--end first column-->
         </div>
         <div class="large-6 columns">
-            <a href="#" class="more-posts">See all Wallace House videos &raquo;</a>
+            <a href="/wallace-house/library/videos/" class="more-posts">See all Wallace House videos &raquo;</a>
         </div>
     </div><!--end second row-->
 </section>
@@ -533,7 +533,7 @@ $sorted_libs = sort_library_items($libs);
             </div><!--end first column-->
         </div>
         <div class="large-6 columns">
-            <a href="#" class="more-posts">See all Wallace House photojournalism &raquo;</a>
+            <a href="/wallace-house/library/photojournalism/" class="more-posts">See all Wallace House photojournalism &raquo;</a>
         </div>
     </div><!--end second row-->
 </section>
@@ -651,7 +651,7 @@ $sorted_libs = sort_library_items($libs);
             </div><!--end first column-->
         </div>
         <div class="large-6 columns">
-            <a href="#" class="more-posts">See all Wallace House Journals &raquo;</a>
+            <a href="/wallace-house/library/journals/" class="more-posts">See all Wallace House Journals &raquo;</a>
         </div>
     </div><!--end second row-->
 </section>
