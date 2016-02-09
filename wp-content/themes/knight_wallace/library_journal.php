@@ -80,8 +80,9 @@ $sorted_libs = sort_library_items_sub_cat($libs, "Journal");
         </div>
     </div>
     <div class="row"><!--start first row-->
-<?php $c = 1; ?>
+<?php $c = 2; ?>
 <?php foreach($sorted_libs as $slib): ?>
+<?php if(count($slib) > 1): ?>
         <div class="large-6 columns">
             <div class="row">
                 <div class="large-12 columns">
@@ -112,11 +113,12 @@ $sorted_libs = sort_library_items_sub_cat($libs, "Journal");
                 </div>
             </div>
         </div>
+<?php $c += 1; ?>
+<?php endif; ?>
 <?php if($c % 2 == 0): ?>
 </div>
 <div class="row">
 <?php endif; ?>
-<?php $c += 1; ?>
 <?php endforeach; ?>
 </div>
 </section>
