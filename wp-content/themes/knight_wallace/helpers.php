@@ -362,7 +362,6 @@ function is_matching_year($needle, $haystack){
 }
 
 function is_winner_or_co_winner($winner){
-    var_dump($winner);
     return $winner == 'Co-Winner' || $winner == 'Winner' ? true : false;
 }
 
