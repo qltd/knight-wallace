@@ -335,3 +335,36 @@ function is_correct_type($type_array, $award_type){
 
     return $res;
 }
+
+/**
+ * Sort Fellows by year
+ * takes an array of objects, each one being a "fellow", and returns only those which 
+ * fit the desired year string. if year string is null, returns everything.
+ * returns false if array of objects is empty
+ *
+ * */
+
+function sort_fellows_by_year($fellows,$year=null){
+    if(!empty($fellows)){
+        $res = array();
+        foreach($fellows as $fellow){
+            $pmeta = get_post_meta($fellow->ID); 
+            if(!empty($pmeta['_kw_person_kw_class_year']) 
+                && $pmeta['_kw_person_kw_class_year'][0] == $year 
+                || is_null($year)){
+                    $res[] = array(
+                        'image' => get_the_post_thumbnail($fellow->ID),
+                        'link' => $fellow->guid,
+                        'first_name'=> !empty($pmeta['_kw_person_kw_fellow_first_name']) ? $pmeta['_kw_person_kw_fellow_first_name'][0] : '',
+                        'last_name' => !empty($pmeta['_kw_person_kw_fellow_last_name']) ? $pmeta['_kw_person_kw_fellow_last_name'][0] : '',
+                        'title' => !empty($pmeta['_kw_person_kw_study_pro_title']) ? $pmeta['_kw_person_kw_study_pro_title'][0] : '',
+                        'bio' => !empty($pmeta['_kw_person_kw_bio']) ? $pmeta['_kw_person_kw_bio'][0] : ''
+                    );
+            }
+        } 
+    }else{
+        $res = false; 
+    }
+
+    return $res;
+}

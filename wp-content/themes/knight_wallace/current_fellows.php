@@ -11,8 +11,11 @@ get_header('fellows'); ?>
 <?php 
 include_once('helpers.php');
 //grab our junk
+$this_page_meta = get_post_meta($post->ID);
+$this_year = !empty($this_page_meta['year']) ? $this_page_meta['year'][0] : null;
 $alerts = get_posts(array('category_name'=>'alert'));
-$fellows = get_posts(array('post_type'=>'person_kw_fellow','posts_per_page'=>200));
+$fellows = get_posts(array('post_type'=>'person_kw_fellow','posts_per_page'=> -1));
+$sorted_fellows = sort_fellows_by_year($fellows, $this_year);
 ?>
 
 <section class="breadcrumb">
@@ -23,33 +26,56 @@ $fellows = get_posts(array('post_type'=>'person_kw_fellow','posts_per_page'=>200
 </div>
 </section>
 
+<div class="row">
+    <div class="large-12 columns">
+        <h1 class="text-center">Current Fellows</h1>
+    </div>
+</div>
+
+<?php if(!is_null($this_year)): ?>
+<section class="year-control">
+    <?php $count = 1;?>
+    <div class="row">
+        <?php for($i=$this_year;$i>1990;$i--): ?>
+            <div class="medium-3 columns">
+                <a href=""><?php echo $i - 1 .'-'. $i; ?></a>
+            </div>
+            <?php if($count == 4): ?>
+                </div>
+                <div class="row">
+                <?php $count = 0; ?>
+            <?php endif; ?>
+            <?php $count += 1; ?>
+        <?php endfor; ?>
+    </div>
+</section>
+<div class="row">
+    <div class="large-12 columns">
+    <h2 class="text-center"><?php echo $this_year - 1 .'-'. $this_year; ?> Fellows</h2>
+    </div>
+</div>
+<?php endif; ?>
+
 <main id="main" class="site-main post-main" role="main">
     <div class="row">
-        <div class="large-12 columns">
-            <h1 class="text-center">Board of Directors</h1>
-        </div>
-    </div>
-    <div class="row">
         <div class="large-10 columns large-offset-2">
-            <?php if(!empty($fellows)): ?>
-                <?php foreach($fellows as $fellow): ?>
-                    <?php 
-                    $image = get_the_post_thumbnail($fellow->ID); 
-                    $pmeta = get_post_meta($fellow->ID); 
-                    ?>
+            <?php if(!empty($sorted_fellows)): ?>
+                <?php foreach($sorted_fellows as $fellow): ?>
                     <div class="row">
                         <div class="large-4 columns">
-                            <div class="board-member-image"><?php echo $image; ?></div>
+                            <div class="fellow-image"><?php echo $fellow['image']; ?></div>
                         </div>
                         <div class="large-8 columns">
-                            <p class="board-member-name">
-                                <a href="<?php echo !empty($fellow->guid) ? $fellow->guid : ''; ?>" class="board-member-link">
-                                <?php echo !empty($pmeta['_kw_person_kw_fellow_first_name']) ? $pmeta['_person_board_member_first_name'][0] : ''; ?>&nbsp;
-                                <?php echo !empty($pmeta['_person_board_member_last_name']) ? $pmeta['_person_board_member_last_name'][0] : ''; ?></a>
+                            <p class="fellow-name">
+                                <a href="<?php echo $fellow['link']; ?>" class="fellow-link">
+                                <?php echo $fellow['first_name']; ?>&nbsp;
+                                <?php echo $fellow['last_name']; ?></a>
                             </p>
-                            <p class="board-member-title">
-                                <?php echo !empty($pmeta['_person_board_member_title']) ? $pmeta['_person_board_member_title'][0] : ''; ?>&nbsp;
-                                <?php echo !empty($pmeta['_person_board_member_ass']) ? $pmeta['_person_board_member_ass'][0] : ''; ?>
+                            <p class="fellow-title">
+                            <?php echo $fellow['title']; ?>
+                            </p>
+                            <p class="fellow-bio">
+                            <?php echo $fellow['bio']; ?>
                             </p>
                         </div>
                     </div>
