@@ -10328,24 +10328,56 @@ a:link, a:visited {
 }
 
 /* line 531, ../scss/_knight_wallace.scss */
+.past-winner {
+  border-bottom: 1px solid #555555;
+  padding: 2rem 0;
+}
+/* line 535, ../scss/_knight_wallace.scss */
+.past-winner .name {
+  font-family: UniversLTPro-65Bold, sans-serif;
+  font-size: 2rem;
+  line-height: 2.4rem;
+  color: #00274c;
+}
+/* line 542, ../scss/_knight_wallace.scss */
+.past-winner .lib-item {
+  color: #0d57aa;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  font-family: UniversLTPro-45Light, sans-serif;
+}
+/* line 549, ../scss/_knight_wallace.scss */
+.past-winner .aff, .past-winner .job {
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  font-family: UniversLTPro-45Light, sans-serif;
+}
+/* line 555, ../scss/_knight_wallace.scss */
+.past-winner .tags {
+  font-size: 1.2rem;
+  line-height: 2.4rem;
+  font-family: UniversLTPro-45Light, sans-serif;
+}
+
+/* line 562, ../scss/_knight_wallace.scss */
 .board-of-directors {
   margin-top: 4rem;
 }
-/* line 534, ../scss/_knight_wallace.scss */
+/* line 565, ../scss/_knight_wallace.scss */
 .board-of-directors .director {
   margin-bottom: 5rem;
 }
-/* line 538, ../scss/_knight_wallace.scss */
+/* line 569, ../scss/_knight_wallace.scss */
 .board-of-directors .board-member-image {
   max-width: 169px;
   height: auto;
   max-height: 134px;
 }
-/* line 544, ../scss/_knight_wallace.scss */
+/* line 575, ../scss/_knight_wallace.scss */
 .board-of-directors .large-10 {
   padding-left: 3.5rem;
 }
-/* line 548, ../scss/_knight_wallace.scss */
+/* line 579, ../scss/_knight_wallace.scss */
 .board-of-directors .board-member-name {
   font-size: 2.6rem;
   line-height: 0;
@@ -10354,7 +10386,7 @@ a:link, a:visited {
   color: #0d57aa;
   text-decoration: underline;
 }
-/* line 557, ../scss/_knight_wallace.scss */
+/* line 588, ../scss/_knight_wallace.scss */
 .board-of-directors .board-member-title {
   font-size: 1.6rem;
   line-height: 2.4rem;
@@ -10363,15 +10395,15 @@ a:link, a:visited {
 }
 
 /* Footer */
-/* line 566, ../scss/_knight_wallace.scss */
+/* line 597, ../scss/_knight_wallace.scss */
 .site-footer {
   padding-bottom: 80px;
 }
-/* line 569, ../scss/_knight_wallace.scss */
+/* line 600, ../scss/_knight_wallace.scss */
 .site-footer .large-2 {
   text-align: right;
 }
-/* line 573, ../scss/_knight_wallace.scss */
+/* line 604, ../scss/_knight_wallace.scss */
 .site-footer .top {
   background: #00274c;
   color: #FFFFFF;
@@ -10380,54 +10412,54 @@ a:link, a:visited {
   padding: 35px 0;
 }
 @media (max-width: 1280px) {
-  /* line 573, ../scss/_knight_wallace.scss */
+  /* line 604, ../scss/_knight_wallace.scss */
   .site-footer .top {
     padding: 35px 20px;
   }
 }
 @media (max-width: 640px) {
-  /* line 573, ../scss/_knight_wallace.scss */
+  /* line 604, ../scss/_knight_wallace.scss */
   .site-footer .top {
     padding: 35px 20px 0;
   }
-  /* line 588, ../scss/_knight_wallace.scss */
+  /* line 619, ../scss/_knight_wallace.scss */
   .site-footer .top .columns {
     margin-bottom: 35px;
   }
 }
-/* line 594, ../scss/_knight_wallace.scss */
+/* line 625, ../scss/_knight_wallace.scss */
 .site-footer .top .social-media-links {
   margin: -5px 0 2rem;
   padding: 0;
   width: 100%;
 }
-/* line 599, ../scss/_knight_wallace.scss */
+/* line 630, ../scss/_knight_wallace.scss */
 .site-footer .top .social-media-links li {
   display: inline-block;
   list-style: none;
   margin-right: 2rem;
 }
-/* line 604, ../scss/_knight_wallace.scss */
+/* line 635, ../scss/_knight_wallace.scss */
 .site-footer .top .social-media-links li a {
   font-size: 3rem;
 }
-/* line 610, ../scss/_knight_wallace.scss */
+/* line 641, ../scss/_knight_wallace.scss */
 .site-footer .top a {
   color: #FFFFFF;
   font-size: 1.8rem;
 }
-/* line 615, ../scss/_knight_wallace.scss */
+/* line 646, ../scss/_knight_wallace.scss */
 .site-footer .top h5,
 .site-footer .top h6 {
   color: #FFFFFF;
   font-size: 2rem;
   font-weight: bold;
 }
-/* line 622, ../scss/_knight_wallace.scss */
+/* line 653, ../scss/_knight_wallace.scss */
 .site-footer .top h6 {
   font-size: 1.8rem;
 }
-/* line 626, ../scss/_knight_wallace.scss */
+/* line 657, ../scss/_knight_wallace.scss */
 .site-footer .top input[type=submit], .site-footer .top button {
   background: #0d57aa;
   border: none;
@@ -10439,18 +10471,18 @@ a:link, a:visited {
   padding: 0;
 }
 @media (max-width: 900px) {
-  /* line 626, ../scss/_knight_wallace.scss */
+  /* line 657, ../scss/_knight_wallace.scss */
   .site-footer .top input[type=submit], .site-footer .top button {
     font-size: 1.5rem;
   }
 }
 @media (max-width: 500px) {
-  /* line 626, ../scss/_knight_wallace.scss */
+  /* line 657, ../scss/_knight_wallace.scss */
   .site-footer .top input[type=submit], .site-footer .top button {
     width: 100%;
   }
 }
-/* line 646, ../scss/_knight_wallace.scss */
+/* line 677, ../scss/_knight_wallace.scss */
 .site-footer .top input[type=text], .site-footer .top input[type=email] {
   float: left;
   font-size: 1.8rem;
@@ -10459,22 +10491,22 @@ a:link, a:visited {
   width: 65%;
 }
 @media (max-width: 500px) {
-  /* line 646, ../scss/_knight_wallace.scss */
+  /* line 677, ../scss/_knight_wallace.scss */
   .site-footer .top input[type=text], .site-footer .top input[type=email] {
     width: 100%;
   }
 }
-/* line 658, ../scss/_knight_wallace.scss */
+/* line 689, ../scss/_knight_wallace.scss */
 .site-footer .top p {
   color: #FFFFFF;
   font-size: 1.8rem;
 }
-/* line 664, ../scss/_knight_wallace.scss */
+/* line 695, ../scss/_knight_wallace.scss */
 .site-footer a {
   color: #0d57aa;
   font-size: 1.4rem;
 }
-/* line 669, ../scss/_knight_wallace.scss */
+/* line 700, ../scss/_knight_wallace.scss */
 .site-footer p {
   color: #0d57aa;
   font-size: 1.4rem;
@@ -10493,17 +10525,17 @@ a:link, a:visited {
 #past_winners_control a:link, #past_winners_control a:visited {
   color: #FFFFFF;
 }
-/* line 679, ../scss/_knight_wallace.scss */
+/* line 710, ../scss/_knight_wallace.scss */
 #past_winners_control li {
   list-style: none;
 }
-/* line 683, ../scss/_knight_wallace.scss */
+/* line 714, ../scss/_knight_wallace.scss */
 #past_winners_control label {
   color: #FFFFFF;
   position: relative;
-  top: -0.5rem;
+  top: -0.2rem;
 }
-/* line 689, ../scss/_knight_wallace.scss */
+/* line 720, ../scss/_knight_wallace.scss */
 #past_winners_control .columns, #past_winners_control .row {
   background: #555555;
   color: #FFFFFF;
