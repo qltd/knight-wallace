@@ -48,7 +48,6 @@ $sorted_winners = sort_past_winners($winners,array('2014','2015','2013','2012','
             <li><input type="checkbox" name="award" value="Local Reporting" /><label for="award">Local Reporting</label></li>
             <li><input type="checkbox" name="award" value="National Reporting" /><label for="award">National Reporting</label></li>
             <li><input type="checkbox" name="award" value="International Reporting" /><label for="award">International Reporting</label></li>
-            <li><input type="checkbox" name="award" value="Clurman Award" /><label for="award">Clurman Award</label></li>
         </ul>
     </div>
     <div class="large-5 columns">

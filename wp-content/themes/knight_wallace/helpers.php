@@ -208,7 +208,9 @@ function sort_winners($winners, $year='2015'){
             if(!empty($pmeta['_kw_person_liv_win']) 
                 && !empty($pmeta['_kw_person_liv_year']) 
                 && $pmeta['_kw_person_liv_win'][0] == 'Winner' 
-                && $pmeta['_kw_person_liv_year'][0] == $year){
+                && $pmeta['_kw_person_liv_year'][0] == $year 
+                && !empty($pmeta['_kw_person_liv_type']) 
+                && $pmeta['_kw_person_liv_type'][0] != 'Richard M. Clurman Award'){
                     //Here we have a winner that we want to display on the winners page
                     $lib_item_name = !empty($pmeta['_kw_person_liv_lib']) ? $pmeta['_kw_person_liv_lib'][0] : '';
                     $lib_item = get_custom_post_by_title('library',$lib_item_name);//get the full library object
@@ -318,7 +320,9 @@ function is_winner_or_co_winner($winner){
 function is_correct_type($type_array, $award_type){
     //$type_array is the awards that a user wants to view
     //$award_type is a string, the award type that the LA Winner won
-    if(is_null($type_array)){
+    if($award_type == 'Richard M. Clurman Award'){
+        $res = false; //we are not including Clurman Award at all
+    }elseif(is_null($type_array)){
         $res = true; 
     }elseif(is_array($type_array)){
         $full_name_filter = array(

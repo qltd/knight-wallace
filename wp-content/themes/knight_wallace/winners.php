@@ -11,8 +11,10 @@ get_header('livingston'); ?>
 include_once('helpers.php');
 //grab our junk
 $alerts = get_posts(array('category_name'=>'alert'));
+$this_page_meta = get_post_meta($post->ID);
+$this_year = !empty($this_page_meta['year']) ? $this_page_meta['year'][0] : null;
 $winners = get_posts(array('post_type'=>'person_livingston','posts_per_page'=> -1));
-$sorted_winners = sort_winners($winners);
+$sorted_winners = sort_winners($winners, $this_year);
 ?>
 <div class="row">
     <div class="large-12 columns">
