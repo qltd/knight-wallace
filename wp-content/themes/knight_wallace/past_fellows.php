@@ -38,7 +38,7 @@ $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
     <div class="row">
         <?php for($i=$this_year;$i>1990;$i--): ?>
             <div class="medium-3 columns">
-                <a href=""><?php echo $i - 1 .'-'. $i; ?></a>
+                <a href="/knight-wallace/our-fellows/<?php echo $i - 1 .'-'. $i; ?>/"><?php echo $i - 1 .'-'. $i; ?></a>
             </div>
             <?php if($count == 4): ?>
                 </div>
