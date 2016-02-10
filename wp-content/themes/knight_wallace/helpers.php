@@ -207,7 +207,7 @@ function sort_winners($winners, $year='2015'){
             $pimage = get_the_post_thumbnail($win->ID);
             if(!empty($pmeta['_kw_person_liv_win']) 
                 && !empty($pmeta['_kw_person_liv_year']) 
-                && $pmeta['_kw_person_liv_win'][0] == 'Winner' 
+                && is_winner_or_co_winner($pmeta['_kw_person_liv_win'][0]) 
                 && $pmeta['_kw_person_liv_year'][0] == $year 
                 && !empty($pmeta['_kw_person_liv_type']) 
                 && $pmeta['_kw_person_liv_type'][0] != 'Richard M. Clurman Award'){
