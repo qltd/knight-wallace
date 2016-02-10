@@ -352,14 +352,16 @@ function sort_fellows_by_year($fellows,$year=null){
             if(!empty($pmeta['_kw_person_kw_class_year']) 
                 && $pmeta['_kw_person_kw_class_year'][0] == $year 
                 || is_null($year)){
-                    $res[] = array(
-                        'image' => get_the_post_thumbnail($fellow->ID),
-                        'link' => $fellow->guid,
-                        'first_name'=> !empty($pmeta['_kw_person_kw_fellow_first_name']) ? $pmeta['_kw_person_kw_fellow_first_name'][0] : '',
-                        'last_name' => !empty($pmeta['_kw_person_kw_fellow_last_name']) ? $pmeta['_kw_person_kw_fellow_last_name'][0] : '',
-                        'title' => !empty($pmeta['_kw_person_kw_study_pro_title']) ? $pmeta['_kw_person_kw_study_pro_title'][0] : '',
-                        'bio' => !empty($pmeta['_kw_person_kw_bio']) ? $pmeta['_kw_person_kw_bio'][0] : ''
-                    );
+                $res[] = array(
+                    'image' => get_the_post_thumbnail($fellow->ID),
+                    'link' => $fellow->guid,
+                    'first_name'=> !empty($pmeta['_kw_person_kw_fellow_first_name']) ? $pmeta['_kw_person_kw_fellow_first_name'][0] : '',
+                    'last_name' => !empty($pmeta['_kw_person_kw_fellow_last_name']) ? $pmeta['_kw_person_kw_fellow_last_name'][0] : '',
+                    'title' => !empty($pmeta['_kw_person_kw_study_pro_title']) ? $pmeta['_kw_person_kw_study_pro_title'][0] : '',
+                    'bio' => !empty($pmeta['_kw_person_kw_bio']) ? $pmeta['_kw_person_kw_bio'][0] : '',
+                    'aff' => !empty($pmeta['_kw_person_kw_aff']) ? $pmeta['_kw_person_kw_aff'][0] : '',
+                    'job'=> !empty($pmeta['_kw_person_kw_current_job_title']) ? $pmeta['_kw_person_kw_current_job_title'][0] : ''
+                );
             }
         } 
     }else{
