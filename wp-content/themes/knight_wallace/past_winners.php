@@ -7,7 +7,7 @@
 
 get_header('livingston'); ?>
 
-<?php 
+<?php
 include_once('helpers.php');
 //grab our junk
 $alerts = get_posts(array('category_name'=>'alert'));
@@ -23,7 +23,7 @@ $sorted_winners = sort_past_winners($winners,array('2014','2015','2013','2012','
 </section>
 <div class="row">
     <div class="large-12 columns">
-        <h1 class="text-center">Past Winners</h1>
+        <h1 class="entry-title">Past Winners</h1>
     </div>
 </div>
 <section id="past_winners_control">
@@ -47,7 +47,7 @@ $sorted_winners = sort_past_winners($winners,array('2014','2015','2013','2012','
         <ul>
             <li><input type="checkbox" name="award" value="Local Reporting" /><label for="award">Local Reporting</label></li>
             <li><input type="checkbox" name="award" value="National Reporting" /><label for="award">National Reporting</label></li>
-            <li><input type="checkbox" name="award" value="International Reporting" /><label for="award">International Reporting</label></li> 
+            <li><input type="checkbox" name="award" value="International Reporting" /><label for="award">International Reporting</label></li>
             <li><input type="checkbox" name="award" value="Clurman Award" /><label for="award">Clurman Award</label></li>
         </ul>
     </div>
@@ -64,12 +64,12 @@ $sorted_winners = sort_past_winners($winners,array('2014','2015','2013','2012','
 <?php if(!empty($sorted_winners)): ?>
 <?php foreach($sorted_winners as $win): ?>
 <div class="row">
-    <div class="large-12 columns">
+    <div class="large-10 large-centered columns">
         <div class="past-winner">
             <div class="name"><?php echo $win['first_name'].' '.$win['last_name'].','.$win['age']; ?></div>
-            <div class="lib-item"><a href="<?php echo $win['library_link']; ?>"><?php echo $win['lib']; ?></a></div> 
-            <div class="aff"><?php echo $win['aff']?></div> 
-            <div class="job"><?php echo $win['job']?></div> 
+            <div class="lib-item"><a href="<?php echo $win['library_link']; ?>"><?php echo $win['lib']; ?></a></div>
+            <div class="aff"><?php echo $win['aff']?></div>
+            <div class="job"><?php echo $win['job']?></div>
             <div class="tags">
                 <?php echo $win['year']; ?> |
                 <?php echo $win['winner']; ?> |
@@ -82,7 +82,7 @@ $sorted_winners = sort_past_winners($winners,array('2014','2015','2013','2012','
 <?php endif; ?>
 </main>
 
-<?php 
+<?php
 //display alerts
 if(!empty($alerts)):
 ?>
