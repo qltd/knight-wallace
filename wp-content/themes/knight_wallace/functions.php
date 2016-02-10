@@ -431,7 +431,7 @@ function kw_person_liv_type() {
         'Excellence in Local Reporting',
         'Excellence in National Reporting',
         'Excellence in International Reporting',
-       'Richard M. Clurman Award' 
+        'Richard M. Clurman Award' 
     );
     generate_select_box_for_custom_field("kw_person_liv_type",$options);
 }

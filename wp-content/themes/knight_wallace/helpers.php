@@ -241,6 +241,54 @@ function sort_winners($winners, $year='2015'){
 }
 
 /**
+ * Sort Finalists
+ * */
+
+function sort_finalists($finalists, $year='2015'){
+    if(!empty($finalists)){
+        $res = array(
+           'Excellence in Local Reporting' => array(),
+           'Excellence in National Reporting' => array(),
+           'Excellence in International Reporting' => array()
+        );
+        foreach($finalists as $fin){
+            $pmeta = get_post_meta($fin->ID); 
+            $pimage = get_the_post_thumbnail($fin->ID);
+            if(!empty($pmeta['_kw_person_liv_win']) 
+                && !empty($pmeta['_kw_person_liv_year']) 
+                && !is_winner_or_co_winner($pmeta['_kw_person_liv_win'][0]) 
+                && $pmeta['_kw_person_liv_year'][0] == $year 
+                && !empty($pmeta['_kw_person_liv_type']) 
+                && $pmeta['_kw_person_liv_type'][0] != 'Richard M. Clurman Award'){
+                    //Here we have a finalist that we want to display on the finalists page
+                    $lib_item_name = !empty($pmeta['_kw_person_liv_lib']) ? $pmeta['_kw_person_liv_lib'][0] : '';
+                    $lib_item = get_custom_post_by_title('library',$lib_item_name);//get the full library object
+                    $lib_image = get_the_post_thumbnail(!empty($lib_item) ? $lib_item->ID : '');
+                    $res[$pmeta['_kw_person_liv_type'][0]][] = array(
+                        'type' => !empty($pmeta['_kw_person_liv_type']) ? $pmeta['_kw_person_liv_type'][0] : '',
+                        'first_name' => !empty($pmeta['_kw_person_liv_first_name']) ? $pmeta['_kw_person_liv_first_name'][0] : '',
+                        'last_name' => !empty($pmeta['_kw_person_liv_last_name']) ? $pmeta['_kw_person_liv_last_name'][0] : '',
+                        'age' => !empty($pmeta['_kw_person_liv_age']) ? $pmeta['_kw_person_liv_age'][0] : '',
+                        'ass' => !empty($pmeta['_kw_person_liv_ass']) ? $pmeta['_kw_person_liv_ass'][0] : '',
+                        'job' => !empty($pmeta['_kw_person_liv_job']) ? $pmeta['_kw_person_liv_job'][0] : '',
+                        'aff' => !empty($pmeta['_kw_person_liv_aff']) ? $pmeta['_kw_person_liv_aff'][0] : '',
+                        'lib' => $lib_item_name,
+                        'id' => $fin->ID,
+                        'image' => $pimage,
+                        'library_link' => !empty($lib_item) ? '?post_type=library&p='.$lib_item->ID : '',
+                        'library_image' => $lib_image,
+                        'winner_quote' => !empty($pmeta['_kw_person_liv_quote']) ? $pmeta['_kw_person_liv_quote'][0] : '',
+                        'lib_item_des' => !empty($lib_item) ? $lib_item->post_content : ''
+                    );
+            }
+        }
+    }else{
+        $res = false;
+    }
+
+    return $res;
+}
+/**
  * Get Custom Post Object by Title
  * Returns an empty string or an object containing a custom post
  *
@@ -314,6 +362,7 @@ function is_matching_year($needle, $haystack){
 }
 
 function is_winner_or_co_winner($winner){
+    var_dump($winner);
     return $winner == 'Co-Winner' || $winner == 'Winner' ? true : false;
 }
 
