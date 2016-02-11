@@ -422,3 +422,35 @@ function sort_fellows_by_year($fellows,$year=null){
 
     return $res;
 }
+
+/**
+ * Sort Judges
+ *
+ * */
+
+function sort_judges($judges){
+    if(!empty($judges)){
+        $res = array(
+            'National' => array(),
+            'Regional' => array()
+        );
+        foreach($judges as $judge){
+            $image = get_the_post_thumbnail($judge->ID); 
+            $pmeta = get_post_meta($judge->ID); 
+            if(!empty($pmeta['_kw_person_laj_nat'])){
+                $res[$pmeta['_kw_person_laj_nat'][0]][] = array(
+                   'first_name' => !empty($pmeta['_kw_person_laj_first_name']) ? $pmeta['_kw_person_laj_first_name'][0] : '',
+                   'last_name' => !empty($pmeta['_kw_person_laj_last_name']) ? $pmeta['_kw_person_laj_last_name'][0] : '',
+                   'title' => !empty($pmeta['_kw_person_laj_title']) ? $pmeta['_kw_person_laj_title'][0] : '',
+                   'aff' => !empty($pmeta['_kw_person_laj_aff']) ? $pmeta['_kw_person_laj_aff'][0] : '',
+                   'image' => $image,
+                   'link' => !empty($judge->guid) ? $judge->guid : ''
+                ); 
+            }
+        }
+    }else{
+        $res = false; 
+    }
+
+    return $res;
+}

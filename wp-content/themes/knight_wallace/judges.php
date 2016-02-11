@@ -12,7 +12,8 @@ get_header('livingston'); ?>
 include_once('helpers.php');
 //grab our junk
 $alerts = get_posts(array('category_name'=>'alert'));
-$judges = get_posts(array('post_type'=>'person_laj','posts_per_page'=>200));
+$judges = get_posts(array('post_type'=>'person_laj','posts_per_page'=> -1));
+$sorted_judges = sort_judges($judges);
 ?>
 
 <section class="breadcrumb">
@@ -22,34 +23,59 @@ $judges = get_posts(array('post_type'=>'person_laj','posts_per_page'=>200));
     </div>
 </div>
 </section>
-
+<div class="row">
+    <div class="large-12 columns">
+        <h1 class="text-center">Judges</h1>
+    </div>
+</div>
 <main id="main" class="site-main post-main" role="main">
     <div class="row">
-        <div class="large-12 columns">
-            <h1 class="text-center">Judges</h1>
-        </div>
-    </div>
-    <div class="row">
         <div class="large-10 columns large-offset-2">
-            <?php if(!empty($judges)): ?>
-                <?php foreach($judges as $judge): ?>
-                    <?php 
-                    $image = get_the_post_thumbnail($judge->ID); 
-                    $pmeta = get_post_meta($judge->ID); 
-                    ?>
+            <?php if(!empty($sorted_judges['National'])): ?>
+            <div class="row">
+                <div class="large-12 columns">
+                    <h2 class="judge-type">National</h2>
+                </div>
+            </div>
+                <?php foreach($sorted_judges['National'] as $judge): ?>
                     <div class="row">
                         <div class="large-4 columns">
-                            <div class="board-member-image"><?php echo $image; ?></div>
+                            <div class="board-member-image"><?php echo $judge['image']; ?></div>
                         </div>
                         <div class="large-8 columns">
                             <p class="name">
-                                <a href="<?php echo !empty($judge->guid) ? $judge->guid : ''; ?>" class="link">
-                                <?php echo !empty($pmeta['_kw_person_laj_first_name']) ? $pmeta['_kw_person_laj_first_name'][0] : ''; ?>&nbsp;
-                                <?php echo !empty($pmeta['_kw_person_laj_last_name']) ? $pmeta['_kw_person_laj_last_name'][0] : ''; ?></a>
+                                <a href="<?php echo $judge['link']; ?>" class="link">
+                                <?php echo $judge['first_name']; ?>&nbsp;
+                                <?php echo $judge['last_name']; ?></a>
                             </p>
                             <p class="title">
-                                <?php echo !empty($pmeta['_kw_person_laj_title']) ? $pmeta['_kw_person_laj_title'][0] : ''; ?>&nbsp;
-                                <?php echo !empty($pmeta['_kw_person_laj_aff']) ? $pmeta['_kw_person_laj_aff'][0] : ''; ?>
+                                <?php echo $judge['title']; ?>&nbsp;
+                                <?php echo $judge['aff']; ?>
+                            </p>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            <?php if(!empty($sorted_judges['Regional'])): ?>
+            <div class="row">
+                <div class="large-12 columns">
+                    <h2 class="judge-type">Regional</h2>
+                </div>
+            </div>
+                <?php foreach($sorted_judges['Regional'] as $judge): ?>
+                    <div class="row">
+                        <div class="large-4 columns">
+                            <div class="board-member-image"><?php echo $judge['image']; ?></div>
+                        </div>
+                        <div class="large-8 columns">
+                            <p class="name">
+                                <a href="<?php echo $judge['link']; ?>" class="link">
+                                <?php echo $judge['first_name']; ?>&nbsp;
+                                <?php echo $judge['last_name']; ?></a>
+                            </p>
+                            <p class="title">
+                                <?php echo $judge['title']; ?>&nbsp;
+                                <?php echo $judge['aff']; ?>
                             </p>
                         </div>
                     </div>
