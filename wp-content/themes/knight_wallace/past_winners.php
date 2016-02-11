@@ -33,7 +33,7 @@ $sorted_winners = sort_past_winners($winners,array('2014','2015','2013','2012','
     <div class="large-3 columns">
         <p class="control-label">Refine by year:</p>
         <?php $year = date('Y'); ?>
-        <ul>
+        <ul class="years">
         <?php for($i=0;$i<20;$i++): ?>
             <?php $year = $year - 1; ?>
             <li>
@@ -41,6 +41,7 @@ $sorted_winners = sort_past_winners($winners,array('2014','2015','2013','2012','
             </li>
         <?php endfor; ?>
         </ul>
+        <a href="#" class="show-more">More &raquo;</a>
     </div>
     <div class="large-4 columns">
         <p class="control-label">Refine by award type:</p>
@@ -50,7 +51,7 @@ $sorted_winners = sort_past_winners($winners,array('2014','2015','2013','2012','
             <li><input type="checkbox" name="award" value="International Reporting" /><label for="award">International Reporting</label></li>
         </ul>
     </div>
-    <div class="large-5 columns">
+    <div class="large-5 columns text-right">
         <ul>
             <li><a href="/livingston-awards/winners/past-winners/" class="button gray-scale">Clear All</a></li>
             <li><input type="button" value="Apply" class="button la-past-winner-control-form-action" /></li>
