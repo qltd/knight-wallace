@@ -30,7 +30,7 @@ $sorted_winners = sort_past_winners($winners,array('2014','2015','2013','2012','
 <form id="control_form" action="/livingston-awards/winners/past-winners/">
 <input type="hidden" name="action" value="past_winners" />
 <div class="row">
-    <div class="large-3 columns">
+    <div class="medium-3 columns">
         <p class="control-label">Refine by year:</p>
         <?php $year = date('Y'); ?>
         <ul class="years">
@@ -43,7 +43,7 @@ $sorted_winners = sort_past_winners($winners,array('2014','2015','2013','2012','
         </ul>
         <a href="#" class="show-more">More &raquo;</a>
     </div>
-    <div class="large-4 columns">
+    <div class="medium-4 columns">
         <p class="control-label">Refine by award type:</p>
         <ul>
             <li><input type="checkbox" name="award" value="Local Reporting" /><label for="award">Local Reporting</label></li>
@@ -51,7 +51,7 @@ $sorted_winners = sort_past_winners($winners,array('2014','2015','2013','2012','
             <li><input type="checkbox" name="award" value="International Reporting" /><label for="award">International Reporting</label></li>
         </ul>
     </div>
-    <div class="large-5 columns text-right">
+    <div class="medium-5 columns small-text-center medium-text-right">
         <ul>
             <li><a href="/livingston-awards/winners/past-winners/" class="button gray-scale">Clear All</a></li>
             <li><input type="button" value="Apply" class="button la-past-winner-control-form-action" /></li>
