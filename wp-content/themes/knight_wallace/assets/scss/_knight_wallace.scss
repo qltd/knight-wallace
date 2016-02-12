@@ -314,6 +314,21 @@ a {
         }
 }
 
+figure {
+    width: auto !important;
+    margin: 0;
+    figcaption {
+        margin-top: 3px;
+        font-size: 1.2rem;
+        line-height: 1.8rem;
+        color: $ublue;
+        strong {
+            font-size: 1.4rem;
+            font-family: $primary-font-bold;
+        }
+    }
+}
+
 /* Breadcrumbs */
 .breadcrumb .link {
     font-size: 1.8rem;
