@@ -24,9 +24,13 @@
   <header id="header">
     <div class="row" id="eyebrow">
       <div class="large-12 columns">
+        <?php $eyebrow = wp_get_nav_menu_items('eyebrow'); ?>
         <ul>
-          <li><a href="">Contact Us</a> | </li>
-          <li><a href="">Donate</a> | </li>
+            <?php if(!empty($eyebrow)): ?>
+                <?php foreach($eyebrow as $eye): ?>
+                <li><a href="<?php echo $eye->url; ?>"><?php echo $eye->title; ?></a> | </li>
+                <?php endforeach; ?>
+            <?php endif; ?>
           <li><a href=""><i class="fa fa-search"></i></a></li>
         </ul>
       </div>
