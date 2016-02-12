@@ -36,13 +36,13 @@
       </div>
     </div>
     <div class="row">
-      <div class="large-4 columns">
-        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/uofmlogo.png" alt="Knight-Wallace" />
+      <div class="large-5 columns">
+        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" class="logo">
+            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/knight-wallace-logo.svg" alt="Knight-Wallace" />
         </a>
       </div>
-      <div class="large-8 columns">
-        <h1>Fellowships for Journalists</h1>
+      <div class="large-7 columns">
+        <h1 class="section-title">Fellowships for Journalists</h1>
       </div>
     </div>
   </header>
