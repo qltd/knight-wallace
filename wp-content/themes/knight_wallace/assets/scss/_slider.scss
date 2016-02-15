@@ -1,0 +1,50 @@
+/**
+ * Styles for Sliders
+ * @rdar
+ *
+ * */
+
+#slideshow {
+    padding-top: 5rem;
+    font-size: 2rem;
+
+    div {
+        font-size: 2rem;
+
+        &.quote {
+            max-width:90%;
+            font-size:1.8rem;
+        }
+
+        &.name {
+            font-weight: bold; 
+        }
+
+        &.win {
+            font-size:1.4rem;
+        }
+
+        &.past {
+            font-size:1.4rem;
+        }
+
+        &.current {
+            font-size:1.4rem;
+        }
+
+        &.win-meta {
+            border-top: 0.1rem solid $black; 
+            border-bottom: 0.2rem solid $charcoal; 
+            max-width:90%;
+        }
+
+        img {
+            float:right; 
+        }
+    }
+
+    .bx-wrapper .bx-viewport {
+        box-shadow: none; 
+    }
+
+}

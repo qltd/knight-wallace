@@ -10772,3 +10772,52 @@ figure figcaption strong {
     float: right;
   }
 }
+/**
+ * Styles for Sliders
+ * @rdar
+ *
+ * */
+/* line 7, ../scss/_slider.scss */
+#slideshow {
+  padding-top: 5rem;
+  font-size: 2rem;
+}
+/* line 11, ../scss/_slider.scss */
+#slideshow div {
+  font-size: 2rem;
+}
+/* line 14, ../scss/_slider.scss */
+#slideshow div.quote {
+  max-width: 90%;
+  font-size: 1.8rem;
+}
+/* line 19, ../scss/_slider.scss */
+#slideshow div.name {
+  font-weight: bold;
+}
+/* line 23, ../scss/_slider.scss */
+#slideshow div.win {
+  font-size: 1.4rem;
+}
+/* line 27, ../scss/_slider.scss */
+#slideshow div.past {
+  font-size: 1.4rem;
+}
+/* line 31, ../scss/_slider.scss */
+#slideshow div.current {
+  font-size: 1.4rem;
+}
+/* line 35, ../scss/_slider.scss */
+#slideshow div.win-meta {
+  border-top: 0.1rem solid #000000;
+  border-bottom: 0.2rem solid #555555;
+  max-width: 90%;
+}
+/* line 41, ../scss/_slider.scss */
+#slideshow div img {
+  float: right;
+}
+/* line 46, ../scss/_slider.scss */
+#slideshow .bx-wrapper .bx-viewport {
+  box-shadow: none;
+}

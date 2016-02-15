@@ -100,4 +100,12 @@ $(document).ready(function(){
     $('.mobile-menu-trigger').click(function(){
         $('.mobile-menu-wrap').slideToggle(); 
     });
+
+    //slider
+    $('.bxslider').bxSlider({
+         auto: true,
+         autoHover: true,
+         pause: 8000,
+         pager: false 
+    });
 });

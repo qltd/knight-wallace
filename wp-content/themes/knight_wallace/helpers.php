@@ -229,7 +229,10 @@ function sort_winners($winners, $year='2015'){
                         'library_link' => !empty($lib_item) ? '?post_type=library&p='.$lib_item->ID : '',
                         'library_image' => $lib_image,
                         'winner_quote' => !empty($pmeta['_kw_person_liv_quote']) ? $pmeta['_kw_person_liv_quote'][0] : '',
-                        'lib_item_des' => !empty($lib_item) ? $lib_item->post_content : ''
+                        'lib_item_des' => !empty($lib_item) ? $lib_item->post_content : '',
+                        'year' => !empty($pmeta['_kw_person_liv_year']) ? $pmeta['_kw_person_liv_year'][0] : '',
+                        'past_aff' => !empty($pmeta['_kw_person_liv_win_aff']) ? $pmeta['_kw_person_liv_win_aff'][0] : '',
+                        'past_job' => !empty($pmeta['_kw_person_liv_win_job']) ? $pmeta['_kw_person_liv_win_job'][0] : ''
                     );
             }
         }
