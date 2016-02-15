@@ -10821,3 +10821,15 @@ figure figcaption strong {
 #slideshow .bx-wrapper .bx-viewport {
   box-shadow: none;
 }
+
+/**
+ * Responsive styles
+ * @rdar
+ *
+ * */
+@media (max-width: 632px) {
+  /* line 9, ../scss/_res.scss */
+  .landing-page-content-blocks img {
+    display: none;
+  }
+}

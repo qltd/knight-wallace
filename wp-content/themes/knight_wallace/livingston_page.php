@@ -91,7 +91,7 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
 </section>
 <?php endif; ?>
 
-<main id="main" class="posts">
+<main id="main" class="posts landing-page-content-blocks">
 <div class="row">
     <div class="medium-6 columns">
         <?php if(!empty($sorted_content_blocks['Livingston Awards'][0])): ?>

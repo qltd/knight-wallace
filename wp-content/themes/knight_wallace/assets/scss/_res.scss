@@ -1,0 +1,13 @@
+/**
+ * Responsive styles
+ * @rdar
+ *
+ * */
+
+@media(max-width: 632px){
+    .landing-page-content-blocks {
+       img {
+           display:none; 
+       }  
+    }
+}
