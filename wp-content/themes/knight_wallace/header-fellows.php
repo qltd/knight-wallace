@@ -143,7 +143,7 @@ $ni3_title = !empty($main_menu[2]->title) ? $main_menu[2]->title : "Menu Item";
 </div>
 <div class="row mobile-menu-wrap">
     <div class="large-12 columns">
-        <?php wp_nav_menu('mobile'); ?>
+        <?php wp_nav_menu(array('menu'=>'mobile')); ?>
     </div>
 </div>
 </nav>

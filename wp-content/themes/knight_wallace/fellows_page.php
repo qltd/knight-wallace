@@ -83,7 +83,7 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
 
 <main id="main" class="posts">
 <div class="row">
-    <div class="large-6 columns">
+    <div class="medium-6 columns">
         <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][0])): ?>
         <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][0]['image'])): ?>
         <a href="<?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][0]['link']; ?>">
@@ -102,7 +102,7 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
         </div>
         <?php endif; ?>
     </div>
-    <div class="large-6 columns">
+    <div class="medium-6 columns">
         <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][1])): ?>
         <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][1]['image'])): ?>
         <a href="<?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][1]['link']; ?>">
@@ -123,7 +123,7 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
     </div>
 </div>
 <div class="row">
-    <div class="large-6 columns">
+    <div class="medium-6 columns">
         <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][2])): ?>
         <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][2]['image'])): ?>
         <a href="<?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][2]['link']; ?>">
@@ -142,7 +142,7 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
         </div>
         <?php endif; ?>
     </div>
-    <div class="large-6 columns">
+    <div class="medium-6 columns">
         <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][3])): ?>
         <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][3]['image'])): ?>
         <a href="<?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][3]['link']; ?>">
