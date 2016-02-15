@@ -36,6 +36,7 @@
 
   <script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/bower_components/jquery/dist/jquery.min.js"></script>
   <script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/bower_components/foundation/js/foundation.min.js"></script>
+  <script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/bxslider/jquery.bxslider.min.js"></script>
   <script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/js/app.js"></script>
 </body>
 </html>

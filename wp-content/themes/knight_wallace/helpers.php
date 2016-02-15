@@ -81,6 +81,17 @@ function random_hero_content($content,$page){
     return $res;
 }
 
+//randomize any array and limit an array
+function randomize_and_limit($array,$limit){
+    $res = array();
+    $count = count($array);
+    for($i=0;$i<$limit;$i++){
+        $random_number = rand(0,$count - 1);
+        $res[] = $array[$random_number];
+    }
+    return $res;
+}
+
 /**
  * function turn_img_tag_to_url
  * takes 1 argumant, an html image tag

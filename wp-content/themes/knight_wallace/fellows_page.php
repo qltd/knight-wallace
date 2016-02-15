@@ -19,6 +19,9 @@ $sorted_content_blocks = sort_homepage_featured_content_blocks($content_blocks);
 $hero = get_posts(array('post_type'=>'hero_content','posts_per_page'=>200));
 $hero_content = sort_hero_content($hero);
 $random_hero_content = random_hero_content($hero_content,'Knight-Wallace Fellowships');
+$fellows = get_posts(array('post_type'=>'person_kw_fellow','posts_per_page'=> -1));
+$all_fellows = sort_fellows_by_year($fellows);
+$sorted_fellows = randomize_and_limit($all_fellows,5);
 ?>
 
 <?php if(!empty($random_hero_content)): ?>
@@ -45,6 +48,38 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
     </div>
 </section>
 <?php endif; //end if get_post_thumbnail ?>
+
+<?php if(!empty($sorted_fellows)): ?>
+<section id="slideshow">
+   <div class="row">
+       <div class="large-10 columns large-offset-1">
+    <ul class="bxslider">
+        <?php foreach($sorted_fellows as $fell):?>
+        <li>
+            <div class="row">
+           <div class="medium-1 columns"></div> 
+            <?php if(!empty($fell['image'])):?>
+            <div class="medium-4 columns"><?php echo $fell['image']; ?></div>
+            <?php endif; ?>
+                <div class="medium-7 columns">
+                    <div class="win-meta">
+                        <div class="name"><?php echo $fell['first_name']; ?> <?php echo $fell['last_name']; ?></div>
+                        <div class="current">
+                        <?php echo $fell['job']; ?>&nbsp; 
+                        <?php echo $fell['aff']; ?> 
+                        </div>
+                    </div>
+                    <div class="quote"><?php echo $fell['bio']; ?></div> 
+                </div>
+            </div>
+        </li>
+        <?php endforeach; ?>
+    </ul>
+       </div>
+       <div class="large-1 column"></div>
+    </div> 
+</section>
+<?php endif; ?>
 
 <main id="main" class="posts">
 <div class="row">
