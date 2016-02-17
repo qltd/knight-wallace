@@ -13,6 +13,8 @@ include_once('helpers.php');
 //grab our junk
 $alerts = get_posts(array('category_name'=>'alert'));
 $donors = get_posts(array('post_type'=>'person_donor','posts_per_page' => -1));
+$this_page_meta = get_post_meta($post->ID);
+$donor_type = !empty($this_page_meta['donor']) ? $this_page_meta['donor'][0] : '';
 ?>
 
 <section class="breadcrumb">
@@ -38,6 +40,7 @@ $donors = get_posts(array('post_type'=>'person_donor','posts_per_page' => -1));
                     $image = get_the_post_thumbnail($donor->ID);
                     $pmeta = get_post_meta($donor->ID);
                     ?>
+                    <?php if(!empty($pmeta['_kw_person_donor_type']) && $pmeta['_kw_person_donor_type'][0] == $donor_type): ?>
                     <div class="row director">
                         <div class="large-2 columns">
                             <div class="board-member-image"><?php echo $image; ?></div>
@@ -52,6 +55,7 @@ $donors = get_posts(array('post_type'=>'person_donor','posts_per_page' => -1));
                             </p>
                         </div>
                     </div>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
