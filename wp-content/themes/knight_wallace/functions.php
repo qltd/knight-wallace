@@ -316,6 +316,7 @@ function add_person_laj() {
 function add_person_donor() {
     add_meta_box('kw_person_donor_name', 'Name', 'kw_person_donor_name', 'person_donor', 'normal', 'default');
     add_meta_box('kw_person_donor_description', 'Description', 'kw_person_donor_description', 'person_donor', 'normal', 'default');
+    add_meta_box('kw_person_donor_type', 'Type', 'kw_person_donor_type', 'person_donor', 'normal', 'default');
 }
 
 //for Library Items
@@ -521,6 +522,14 @@ function kw_person_donor_description() {
     generate_textarea_for_custom_field("kw_person_donor_description");
 }
 
+function kw_person_donor_type(){
+    $options = array(
+        'Knight-Wallace Fellowships',
+        'Livingston Awards',
+    );
+    generate_select_box_for_custom_field("fcb_which_page",$options);
+}
+
 //Library
 function library_publisher() {
     generate_html_for_custom_field("library_publisher",true);
@@ -685,6 +694,7 @@ function kw_save_events_meta($post_id, $post) {
     //Donors
     $events_meta['_kw_person_donor_name'] = !empty($_POST['_kw_person_donor_name']) ? $_POST['_kw_person_donor_name'] : null;
     $events_meta['_kw_person_donor_description'] = !empty($_POST['_kw_person_donor_description']) ? $_POST['_kw_person_donor_description'] : null;
+    $events_meta['_kw_person_donor_type'] = !empty($_POST['_kw_person_donor_type']) ? $_POST['_kw_person_donor_type'] : null;
 
     //Library Items
     $events_meta['_library_publisher'] = !empty($_POST['_library_publisher']) ? $_POST['_library_publisher'] : null;
