@@ -468,3 +468,17 @@ function sort_judges($judges){
 
     return $res;
 }
+
+/**
+ * login user
+ *
+ * */
+
+function login_user($username,$password,$form_id){
+    
+}
+
+function is_user_logged_in($session){
+
+}
+

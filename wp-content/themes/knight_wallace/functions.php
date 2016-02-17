@@ -865,3 +865,43 @@ require get_template_directory() . '/inc/customizer.php';
  * Load Jetpack compatibility file.
  */
 require get_template_directory() . '/inc/jetpack.php';
+
+/**
+ * Add Theme Settings
+ *
+ * */
+
+function theme_settings_page(){
+    echo '<div class="wrap">
+            <form method="post" action="options.php">
+                '.settings_fields("section")
+                .do_settings_sections("theme-options")
+                .submit_button().'
+            </form>
+        </div>';
+}
+
+function add_theme_menu_item(){
+        add_menu_page("Theme Panel", "Theme Panel", "manage_options", "theme-panel", "theme_settings_page", null, 99);
+}
+
+add_action("admin_menu", "add_theme_menu_item");
+
+function display_fellows_username_element(){
+    echo '<input type="text" name="fellows_username" id="fellows_username" value="'.get_option('fellows_username').'" />';
+}
+
+function display_fellows_password_element(){
+    echo '<input type="password" name="fellows_password" id="fellows_password" value="'.get_option('fellows_password').'" />';
+}
+
+function display_theme_panel_fields(){
+    add_settings_section("section", "All Settings", null, "theme-options");
+    add_settings_field("fellows_username", "Fellows Username", "display_fellows_username_element", "theme-options", "section");
+    add_settings_field("fellows_password", "Fellows Password", "display_fellows_password_element", "theme-options", "section");
+
+    register_setting("section", "fellows_username");
+    register_setting("section", "fellows_password");
+}
+
+add_action("admin_init", "display_theme_panel_fields");
