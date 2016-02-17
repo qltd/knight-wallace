@@ -10,7 +10,7 @@ get_header(); ?>
 
 <?php
 //grab our junk
-$news = get_posts(array('category_name'=>'news'));
+$news = get_posts(array('category_name'=>'news','posts_per_page'=> -1));
 ?>
 
 <div class="row">
@@ -30,8 +30,8 @@ $news = get_posts(array('category_name'=>'news'));
                 <div class="large-12 columns">
                     <div class="news-article">
                         <div class="text">
-                            <h4><a href="<?php echo $news[0]->guid; ?>"><?php echo $news[0]->post_title; ?></a></h4>
-                            <div class="date"><?php echo $news[0]->post_date; ?></div>
+                            <h4><a href="<?php echo $new>guid; ?>"><?php echo $new->post_title; ?></a></h4>
+                            <div class="date"><?php echo $new->post_date; ?></div>
                             <div class="tags-list">
                                 <ul>
                                     <?php if(!empty($tags)):?>
