@@ -11,6 +11,7 @@
 
 <?php
 $image = get_the_post_thumbnail();
+$pmeta = get_post_meta($post->ID);
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -58,6 +59,31 @@ $image = get_the_post_thumbnail();
         </div>
     </div>
 </div>
-
+<?php if(!empty($pmeta['accordion'])): ?>
+<div class="row">
+    <div class="large-12 columns">
+        <ul class="accordion" data-accordion>
+        <?php $acount = 1; ?>
+        <?php foreach($pmeta['accordion'] as $accord): ?>
+            <?php preg_match("/\[title (.+?)\]/",$accord,$matches); ?>
+            <?php $accord_title = !empty($matches[0]) ? $matches[0] : ''; ?>
+            <?php $accord = !empty($accord_title) ? preg_replace($accord_title,'',$accord) : $accord; ?>
+            <?php $accord = preg_replace("/\[\]/",'',$accord); ?>
+          <li class="accordion-navigation">
+              <a href="#panel<?php echo $acount; ?>a">
+                  <?php $accord_title = preg_replace("/\[title/",'',$accord_title); ?>
+                  <?php $accord_title = preg_replace("/\]/",'',$accord_title); ?>
+                  <?php echo !empty($accord_title) ? $accord_title : 'Accordion '.$acount; ?>
+              </a>
+            <div id="panel<?php echo $acount; ?>a" class="content active">
+                <?php echo $accord; ?>
+            </div>
+          </li>
+        <?php $acount += 1; ?>
+        <?php endforeach; ?>
+        </ul>
+    </div>
+</div>
+<?php endif; ?>
 </article><!-- #post-## -->
 
