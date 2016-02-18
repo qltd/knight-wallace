@@ -474,11 +474,19 @@ function sort_judges($judges){
  *
  * */
 
-function login_user($username,$password,$form_id){
-    
+function login_fellows_user($username,$password,$form_id){
+    if(empty($username) || empty($password) || empty($form_id)){
+        $res = false; 
+    }else{
+        $saved_username = get_option('fellows_username'); 
+        $saved_password = get_option('fellows_password');
+        $res = $saved_username == $username && $saved_password == $password ? true : false;
+    }
+
+    return $res;
 }
 
-function is_user_logged_in($session){
-
+function is_fellows_user_logged_in($session){
+    return !empty($session['logged_in']) && $session['logged_in'] == $session['form_id'] ? true : false;
 }
 

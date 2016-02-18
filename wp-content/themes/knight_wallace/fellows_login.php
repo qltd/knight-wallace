@@ -20,7 +20,7 @@ if(isset($_POST) && !empty($_POST['fellow_login']) && $_POST['fellow_login'] == 
         $message_type = 'warning';
     }else{
         //login the user 
-        $logged_in = login_user($_POST['username'],$_POST['password'],$_SESSION['form_id']);
+        $logged_in = login_fellows_user($_POST['username'],$_POST['password'],$_SESSION['form_id']);
         if($logged_in){
             $_SESSION['logged_in'] = $_SESSION['form_id'];
         }else{
@@ -29,7 +29,7 @@ if(isset($_POST) && !empty($_POST['fellow_login']) && $_POST['fellow_login'] == 
         }
     }
 }else{
-    $logged_in = is_user_logged_in($_SESSION);
+    $logged_in = is_fellows_user_logged_in($_SESSION);
 }
 
 get_header('fellows'); ?>
@@ -60,7 +60,7 @@ get_header('fellows'); ?>
 <?php endif; ?>
 <div class="row">
     <div class="large-12 columns">
-        <form>
+        <form method="post" action="">
             <div class="row">
                 <div class="large-12 columns">
                     <label for="username">Username</label>
