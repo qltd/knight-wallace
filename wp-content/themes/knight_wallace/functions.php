@@ -553,7 +553,7 @@ function kw_person_donor_type(){
         'Knight-Wallace Fellowships',
         'Livingston Awards',
     );
-    generate_select_box_for_custom_field("fcb_which_page",$options);
+    generate_select_box_for_custom_field("kw_person_donor_type",$options);
 }
 
 //Library
