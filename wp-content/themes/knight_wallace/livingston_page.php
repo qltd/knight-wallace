@@ -19,10 +19,8 @@ $sorted_content_blocks = sort_homepage_featured_content_blocks($content_blocks);
 $hero = get_posts(array('post_type'=>'hero_content','posts_per_page'=>200));
 $hero_content = sort_hero_content($hero);
 $random_livingston_hero_content = random_hero_content($hero_content,'Livingston Awards');
-$this_page_meta = get_post_meta($post->ID);
-$this_year = !empty($this_page_meta['year']) ? $this_page_meta['year'][0] : null;
-$winners = get_posts(array('post_type'=>'person_livingston','posts_per_page'=> -1));
-$sorted_winners = sort_winners($winners, $this_year);
+$slides = get_posts(array('post_type'=>'slider_content','posts_per_page'=> -1));
+$sorted_slides = sort_slider_content($slides);
 ?>
 
 <?php if(!empty($random_livingston_hero_content)):?>
@@ -51,35 +49,26 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
 </section>
 <?php endif; //end if get_post_thumbnail ?>
 
-<?php if(!empty($sorted_winners)): ?>
+<?php if(!empty($sorted_slides['Livingston Awards'])): ?>
 <section id="slideshow">
    <div class="row">
        <div class="large-10 columns large-offset-1">
     <ul class="bxslider">
-        <?php foreach($sorted_winners as $win):?>
+        <?php foreach($sorted_slides['Livingston Awards'] as $slide):?>
         <li>
             <div class="row">
            <div class="medium-1 columns"></div> 
-            <?php if(!empty($win['image'])):?>
-            <div class="medium-4 columns"><?php echo $win['image']; ?></div>
+            <?php if(!empty($slide['image'])):?>
+            <div class="medium-4 columns"><?php echo $slide['image']; ?></div>
             <?php endif; ?>
                 <div class="medium-7 columns">
                     <div class="win-meta">
-                        <div class="name"><?php echo $win['first_name']; ?> <?php echo $win['last_name']; ?></div>
-                        <div class="win">
-                        <?php echo $win['year']; ?> <?php echo $win['type']; ?>, 
-                            <a href="<?php echo $win['library_link']; ?>"><?php echo $win['lib']; ?></a>
-                        </div>
-                        <div class="past">
-                        <?php echo $win['past_job']; ?>&nbsp;
-                        <?php echo $win['past_aff']; ?>
-                        </div>
-                        <div class="current">
-                        <?php echo $win['job']; ?>&nbsp; 
-                        <?php echo $win['aff']; ?> 
+                        <div class="name"><?php echo $slide['name']; ?></div>
+                        <div class="details">
+                        <?php echo $slide['details']; ?>
                         </div>
                     </div>
-                    <div class="quote"><?php echo $win['winner_quote']; ?></div> 
+                    <div class="testimonial"><?php echo $slide['testimonial']; ?></div> 
                 </div>
             </div>
         </li>

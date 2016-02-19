@@ -10787,7 +10787,7 @@ figure figcaption strong {
   font-size: 2rem;
 }
 /* line 14, ../scss/_slider.scss */
-#slideshow div.quote {
+#slideshow div.testimonial {
   max-width: 90%;
   font-size: 1.8rem;
 }
@@ -10796,28 +10796,20 @@ figure figcaption strong {
   font-weight: bold;
 }
 /* line 23, ../scss/_slider.scss */
-#slideshow div.win {
+#slideshow div.details {
   font-size: 1.4rem;
 }
 /* line 27, ../scss/_slider.scss */
-#slideshow div.past {
-  font-size: 1.4rem;
-}
-/* line 31, ../scss/_slider.scss */
-#slideshow div.current {
-  font-size: 1.4rem;
-}
-/* line 35, ../scss/_slider.scss */
 #slideshow div.win-meta {
   border-top: 0.1rem solid #000000;
   border-bottom: 0.2rem solid #555555;
   max-width: 90%;
 }
-/* line 41, ../scss/_slider.scss */
+/* line 33, ../scss/_slider.scss */
 #slideshow div img {
   float: right;
 }
-/* line 46, ../scss/_slider.scss */
+/* line 38, ../scss/_slider.scss */
 #slideshow .bx-wrapper .bx-viewport {
   box-shadow: none;
 }

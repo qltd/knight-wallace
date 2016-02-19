@@ -490,3 +490,32 @@ function is_fellows_user_logged_in($session){
     return !empty($session['logged_in']) && $session['logged_in'] == $session['form_id'] ? true : false;
 }
 
+
+/**
+ * Slider Content
+ *
+ * */
+
+function sort_slider_content($content){
+    $res = array(
+        'Knight-Wallace Fellowships' => array(),
+        'Livingston Awards' => array()
+    );
+    if(!empty($content)){
+        foreach($content as $c){
+            $pmeta = get_post_meta($c->ID); 
+            $pimage = get_the_post_thumbnail($c->ID);
+            if(!empty($pmeta)){
+                $res[$pmeta["_slider_content_page"][0]][] = array(
+                    'name' => !empty($pmeta['_slider_content_name_line']) ? $pmeta['_slider_content_name_line'][0] : '',
+                    'image' => !empty($pimage) ? $pimage : false,
+                    'testimonial' => !empty($pmeta['_slider_content_test']) ? $pmeta['_slider_content_test'][0] : '',
+                    'details' => !empty($pmeta['_slider_content_details']) ? $pmeta['_slider_content_details'][0] : ''
+                );
+            }
+        } 
+    }else{
+        $res = false; 
+    }
+    return $res;
+}
