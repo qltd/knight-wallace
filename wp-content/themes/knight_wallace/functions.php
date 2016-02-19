@@ -247,6 +247,22 @@ function create_post_type() {
             'rewrite' => array("slug" => "hero-content"),
         )
     );
+    register_post_type( 'slider_content',
+        array(
+            'labels' => array(
+                'name' => __( 'Slider Content' ),
+                'singular_name' => __( 'Slider Content' ),
+                'add_new_item' => __('Add New Slider Content'),
+                'new_item' => __('New Slider Content'), 
+                'view_item' => __('View Slider Content'),
+                'edit_item' => __('Edit Slider Content'),
+            ),
+            'public' => true,
+            'has_archive' => true,
+            'supports' => array('title','thumbnail','revisions','editor'),
+            'rewrite' => array("slug" => "slider-content"),
+        )
+    );
 }
 
 add_action( 'add_meta_boxes', 'add_person_kw_fellow_metaboxes' );//add custom fields for person_kw_fellow type
@@ -258,6 +274,7 @@ add_action( 'add_meta_boxes', 'add_person_donor' );//add custom fields for Donor
 add_action( 'add_meta_boxes', 'add_library_metaboxes' );//add custom fields for Library Items 
 add_action( 'add_meta_boxes', 'add_homepage_fcb' );//add custom fields for Featured Content Block 
 add_action( 'add_meta_boxes', 'add_hero_content' );//add custom fields for Featured Content Block 
+add_action( 'add_meta_boxes', 'add_slider_content' );//add custom fields for Fellows Slider 
 
 function add_person_kw_fellow_metaboxes() {
     //each meta box is a custom field for our custom content type
@@ -334,9 +351,18 @@ function add_homepage_fcb(){
     add_meta_box('fcb_which_page', 'Choose Page', 'fcb_which_page', 'homepage_fcb', 'normal', 'default');
 }
 
+//Hero Content
 function add_hero_content(){
     add_meta_box('hero_content_link', 'Link', 'hero_content_link', 'hero_content', 'normal', 'default');
     add_meta_box('hero_content_which_page', 'Choose Page', 'hero_content_which_page', 'hero_content', 'normal', 'default');
+}
+
+//Slider Content
+function add_slider_content(){
+    add_meta_box('slider_content_name_line', 'Name Line', 'slider_content_name_line', 'slider_content', 'normal', 'default');
+    add_meta_box('slider_content_details', 'Details', 'slider_content_details', 'slider_content', 'normal', 'default');
+    add_meta_box('slider_content_test', 'Testimonial', 'slider_content_test', 'slider_content', 'normal', 'default');
+    add_meta_box('slider_content_page', 'Choose Page', 'slider_content_page', 'slider_content', 'normal', 'default');
 }
 
 //Fill Featured Content Blocks type fields with html
@@ -579,6 +605,28 @@ function person_board_member_bio(){
     generate_textarea_for_custom_field("person_board_member_bio");
 }
 
+//Slider Content
+
+function slider_content_name_line(){
+    generate_html_for_custom_field("slider_content_name_line",true);
+}
+
+function slider_content_details(){
+    generate_textarea_for_custom_field("slider_content_details");
+}
+
+function slider_content_test(){
+    generate_textarea_for_custom_field("slider_content_test");
+}
+
+function slider_content_page(){
+    $pages = array(
+        'Knight-Wallace Fellowships', 
+        'Livingston Awards'
+    );
+    generate_select_box_for_custom_field("slider_content_page",$pages);
+}
+
 function generate_html_for_custom_field($name, $add_noncename=false){
     global $post;
 
@@ -717,6 +765,12 @@ function kw_save_events_meta($post_id, $post) {
     $events_meta['_person_board_member_title'] = !empty($_POST['_person_board_member_title']) ? $_POST['_person_board_member_title'] : null;
     $events_meta['_person_board_member_ass'] = !empty($_POST['_person_board_member_ass']) ? $_POST['_person_board_member_ass'] : null;
     $events_meta['_person_board_member_bio'] = !empty($_POST['_person_board_member_bio']) ? $_POST['_person_board_member_bio'] : null;
+
+    //Slider Content
+    $events_meta['_slider_content_name_line'] = !empty($_POST['_slider_content_name_line']) ? $_POST['_slider_content_name_line'] : null;
+    $events_meta['_slider_content_details'] = !empty($_POST['_slider_content_details']) ? $_POST['_slider_content_details'] : null;
+    $events_meta['_slider_content_test'] = !empty($_POST['_slider_content_test']) ? $_POST['_slider_content_test'] : null;
+    $events_meta['_slider_content_page'] = !empty($_POST['_slider_content_page']) ? $_POST['_slider_content_page'] : null;
 
     // Add values of $events_meta as custom fields
     foreach ($events_meta as $key => $value) { // Cycle through the $events_meta array!
