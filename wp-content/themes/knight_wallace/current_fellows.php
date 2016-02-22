@@ -74,6 +74,9 @@ $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
                             <p class="fellow-title">
                             <?php echo $fellow['title']; ?>
                             </p>
+                            <p class="fellow-aff">
+                                <span class="job"><?php echo $fellow['job']; ?></span> <?php echo $fellow['aff']; ?> 
+                            </p>
                             <p class="fellow-bio">
                             <?php echo $fellow['bio']; ?>
                             </p>

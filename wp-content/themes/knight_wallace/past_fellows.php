@@ -16,6 +16,7 @@ $this_year = !empty($this_page_meta['year']) ? $this_page_meta['year'][0] : null
 $alerts = get_posts(array('category_name'=>'alert'));
 $fellows = get_posts(array('post_type'=>'person_kw_fellow','posts_per_page'=> -1));
 $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
+$current_year_global = get_option('fellows_current_year');
 ?>
 
 <section class="breadcrumb">
@@ -32,11 +33,11 @@ $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
     </div>
 </div>
 
-<?php if(!is_null($this_year)): ?>
+<?php if(!is_null($current_year_global)): ?>
 <section class="year-control">
     <?php $count = 1;?>
     <div class="row">
-        <?php for($i=$this_year;$i>1990;$i--): ?>
+        <?php for($i=$current_year_global;$i>1990;$i--): ?>
             <div class="medium-3 columns">
                 <a href="/knight-wallace/our-fellows/<?php echo $i - 1 .'-'. $i; ?>/"><?php echo $i - 1 .'-'. $i; ?></a>
             </div>

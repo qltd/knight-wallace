@@ -950,13 +950,19 @@ function display_fellows_password_element(){
     echo '<input type="password" name="fellows_password" id="fellows_password" value="'.get_option('fellows_password').'" />';
 }
 
+function display_fellows_current_year_element(){
+    echo '<input type="text" name="fellows_current_year" id="fellows_current_year" value="'.get_option('fellows_current_year').'" />';
+}
+
 function display_theme_panel_fields(){
     add_settings_section("section", "All Settings", null, "theme-options");
     add_settings_field("fellows_username", "Fellows Username", "display_fellows_username_element", "theme-options", "section");
     add_settings_field("fellows_password", "Fellows Password", "display_fellows_password_element", "theme-options", "section");
+    add_settings_field("fellows_current_year", "Current Year", "display_fellows_current_year_element", "theme-options", "section");
 
     register_setting("section", "fellows_username");
     register_setting("section", "fellows_password");
+    register_setting("section", "fellows_current_year");
 }
 
 add_action("admin_init", "display_theme_panel_fields");
