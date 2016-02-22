@@ -1,14 +1,14 @@
 <?php
 /**
  * Template Name: Judges
- * 
+ *
  *
  * @package knight_wallace
  */
 
 get_header('livingston'); ?>
 
-<?php 
+<?php
 include_once('helpers.php');
 //grab our junk
 $alerts = get_posts(array('category_name'=>'alert'));
@@ -25,12 +25,12 @@ $sorted_judges = sort_judges($judges);
 </section>
 <div class="row">
     <div class="large-12 columns">
-        <h1 class="text-center">Judges</h1>
+        <h1 class="entry-title text-center">Judges</h1>
     </div>
 </div>
 <main id="main" class="site-main post-main" role="main">
-    <div class="row">
-        <div class="large-10 columns large-offset-2">
+     <div class="row judges">
+        <div class="large-10 large-centered columns">
             <?php if(!empty($sorted_judges['National'])): ?>
             <div class="row">
                 <div class="large-12 columns">
@@ -38,11 +38,11 @@ $sorted_judges = sort_judges($judges);
                 </div>
             </div>
                 <?php foreach($sorted_judges['National'] as $judge): ?>
-                    <div class="row">
-                        <div class="large-4 columns">
+                    <div class="row director">
+                        <div class="medium-2 columns">
                             <div class="board-member-image"><?php echo $judge['image']; ?></div>
                         </div>
-                        <div class="large-8 columns">
+                        <div class="medium-10 columns">
                             <p class="name">
                                 <a href="<?php echo $judge['link']; ?>" class="link">
                                 <?php echo $judge['first_name']; ?>&nbsp;
@@ -63,11 +63,11 @@ $sorted_judges = sort_judges($judges);
                 </div>
             </div>
                 <?php foreach($sorted_judges['Regional'] as $judge): ?>
-                    <div class="row">
-                        <div class="large-4 columns">
+                    <div class="row director">
+                        <div class="medium-2 columns">
                             <div class="board-member-image"><?php echo $judge['image']; ?></div>
                         </div>
-                        <div class="large-8 columns">
+                        <div class="medium-10 columns">
                             <p class="name">
                                 <a href="<?php echo $judge['link']; ?>" class="link">
                                 <?php echo $judge['first_name']; ?>&nbsp;
@@ -85,7 +85,7 @@ $sorted_judges = sort_judges($judges);
     </div>
 </main>
 
-<?php 
+<?php
 //display alerts
 if(!empty($alerts)):
 ?>

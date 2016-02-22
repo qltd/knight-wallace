@@ -38,16 +38,16 @@ $board_members = get_posts(array('post_type'=>'person_board_member','posts_per_p
                     $pmeta = get_post_meta($board_member->ID);
                     ?>
                     <div class="row director">
-                        <div class="large-2 columns">
+                        <div class="medium-2 columns">
                             <div class="board-member-image"><?php echo $image; ?></div>
                         </div>
-                        <div class="large-10 columns">
-                            <p class="board-member-name">
+                        <div class="medium-10 columns">
+                            <p class="name">
                                 <a href="<?php echo !empty($board_member->guid) ? $board_member->guid : ''; ?>" class="board-member-link">
                                 <?php echo !empty($pmeta['_person_board_member_first_name']) ? $pmeta['_person_board_member_first_name'][0] : ''; ?>
                                 <?php echo !empty($pmeta['_person_board_member_last_name']) ? $pmeta['_person_board_member_last_name'][0] : ''; ?></a>
                             </p>
-                            <p class="board-member-title">
+                            <p class="title">
                                 <?php echo !empty($pmeta['_person_board_member_title']) ? $pmeta['_person_board_member_title'][0] : ''; ?>
                                 <?php echo !empty($pmeta['_person_board_member_ass']) ? $pmeta['_person_board_member_ass'][0] : ''; ?>
                             </p>
