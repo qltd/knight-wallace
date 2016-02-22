@@ -29,10 +29,10 @@ $staff = get_posts(array('post_type'=>'person_staff','posts_per_page'=> -1));
                     $pmeta = get_post_meta($s->ID);
                     ?>
                     <div class="row director">
-                        <div class="large-2 columns">
+                        <div class="medium-2 columns">
                             <div class="image"><?php echo $image; ?></div>
                         </div>
-                        <div class="large-10 columns">
+                        <div class="medium-10 columns">
                             <p class="name">
                                 <a href="<?php echo !empty($s->guid) ? $s->guid : ''; ?>" class="board-member-link">
                                 <?php echo !empty($pmeta['_kw_person_staff_first_name']) ? $pmeta['_kw_person_staff_first_name'][0] : ''; ?>
