@@ -96,7 +96,7 @@ $sorted_libs = sort_library_items($libs);
                                     <?php echo $sorted_libs['Article'][0]['title']; ?>
                                 </a>
                             </h4>
-                            <div class="date"><?php echo $sorted_libs['Article'][0]['date']; ?></div>
+                            <div class="date"><?php echo $sorted_libs['Article'][0]['author']; ?></div>
                             <div class="tags-list">
                                 <ul>
                                 <?php if(!empty($sorted_libs['Article'][0]['tags'])): ?>
@@ -128,7 +128,7 @@ $sorted_libs = sort_library_items($libs);
                                             <?php echo $sorted_libs['Article'][1]['title']; ?>
                                         </a>
                                     </h4>
-                                    <div class="date"><?php echo $sorted_libs['Article'][1]['date']; ?></div>
+                                    <div class="date"><?php echo $sorted_libs['Article'][1]['author']; ?></div>
                                     <div class="tags-list">
                                         <ul>
                                         <?php if(!empty($sorted_libs['Article'][1]['tags'])): ?>
@@ -162,7 +162,7 @@ $sorted_libs = sort_library_items($libs);
                                             <?php echo $sorted_libs['Article'][2]['title']; ?>
                                         </a>
                                     </h4>
-                                    <div class="date"><?php echo $sorted_libs['Article'][2]['date']; ?></div>
+                                    <div class="date"><?php echo $sorted_libs['Article'][2]['author']; ?></div>
                                     <div class="tags-list">
                                         <ul>
                                         <?php if(!empty($sorted_libs['Article'][2]['tags'])): ?>
@@ -212,7 +212,7 @@ $sorted_libs = sort_library_items($libs);
                                             <?php echo $sorted_libs['Book'][0]['title']; ?>
                                         </a>
                                     </h4>
-                                    <div class="date"><?php echo $sorted_libs['Book'][0]['date']; ?></div>
+                                    <div class="date"><?php echo $sorted_libs['Book'][0]['author']; ?></div>
                                     <div class="tags-list">
                                         <ul>
                                         <?php if(!empty($sorted_libs['Book'][0]['tags'])): ?>
@@ -245,7 +245,7 @@ $sorted_libs = sort_library_items($libs);
                                             <?php echo $sorted_libs['Book'][1]['title']; ?>
                                         </a>
                                     </h4>
-                                    <div class="date"><?php echo $sorted_libs['Book'][1]['date']; ?></div>
+                                    <div class="date"><?php echo $sorted_libs['Book'][1]['author']; ?></div>
                                     <div class="tags-list">
                                         <ul>
                                         <?php if(!empty($sorted_libs['Book'][1]['tags'])): ?>
@@ -280,7 +280,7 @@ $sorted_libs = sort_library_items($libs);
                                             <?php echo $sorted_libs['Book'][2]['title']; ?>
                                         </a>
                                     </h4>
-                                    <div class="date"><?php echo $sorted_libs['Book'][2]['date']; ?></div>
+                                    <div class="date"><?php echo $sorted_libs['Book'][2]['author']; ?></div>
                                     <div class="tags-list">
                                         <ul>
                                         <?php if(!empty($sorted_libs['Book'][2]['tags'])): ?>
@@ -330,7 +330,7 @@ $sorted_libs = sort_library_items($libs);
                                             <?php echo $sorted_libs['Video'][0]['title']; ?>
                                         </a>
                                     </h4>
-                                    <div class="date"><?php echo $sorted_libs['Video'][0]['date']; ?></div>
+                                    <div class="date"><?php echo $sorted_libs['Video'][0]['author']; ?></div>
                                     <div class="tags-list">
                                         <ul>
                                         <?php if(!empty($sorted_libs['Video'][0]['tags'])): ?>
@@ -363,7 +363,7 @@ $sorted_libs = sort_library_items($libs);
                                             <?php echo $sorted_libs['Video'][1]['title']; ?>
                                         </a>
                                     </h4>
-                                    <div class="date"><?php echo $sorted_libs['Video'][1]['date']; ?></div>
+                                    <div class="date"><?php echo $sorted_libs['Video'][1]['author']; ?></div>
                                     <div class="tags-list">
                                         <ul>
                                         <?php if(!empty($sorted_libs['Video'][1]['tags'])): ?>
@@ -398,7 +398,7 @@ $sorted_libs = sort_library_items($libs);
                                             <?php echo $sorted_libs['Video'][2]['title']; ?>
                                         </a>
                                     </h4>
-                                    <div class="date"><?php echo $sorted_libs['Book'][2]['date']; ?></div>
+                                    <div class="date"><?php echo $sorted_libs['Book'][2]['author']; ?></div>
                                     <div class="tags-list">
                                         <ul>
                                         <?php if(!empty($sorted_libs['Video'][2]['tags'])): ?>
@@ -448,7 +448,7 @@ $sorted_libs = sort_library_items($libs);
                                             <?php echo $sorted_libs['Photojournalism'][0]['title']; ?>
                                         </a>
                                     </h4>
-                                    <div class="date"><?php echo $sorted_libs['Photojournalism'][0]['date']; ?></div>
+                                    <div class="date"><?php echo $sorted_libs['Photojournalism'][0]['author']; ?></div>
                                     <div class="tags-list">
                                         <ul>
                                         <?php if(!empty($sorted_libs['Photojournalism'][0]['tags'])): ?>
@@ -481,7 +481,7 @@ $sorted_libs = sort_library_items($libs);
                                             <?php echo $sorted_libs['Photojournalism'][1]['title']; ?>
                                         </a>
                                     </h4>
-                                    <div class="date"><?php echo $sorted_libs['Photojournalism'][1]['date']; ?></div>
+                                    <div class="date"><?php echo $sorted_libs['Photojournalism'][1]['author']; ?></div>
                                     <div class="tags-list">
                                         <ul>
                                         <?php if(!empty($sorted_libs['Photojournalism'][1]['tags'])): ?>
@@ -516,7 +516,7 @@ $sorted_libs = sort_library_items($libs);
                                             <?php echo $sorted_libs['Photojournalism'][2]['title']; ?>
                                         </a>
                                     </h4>
-                                    <div class="date"><?php echo $sorted_libs['Photojournalism'][2]['date']; ?></div>
+                                    <div class="date"><?php echo $sorted_libs['Photojournalism'][2]['author']; ?></div>
                                     <div class="tags-list">
                                         <ul>
                                         <?php if(!empty($sorted_libs['Photojournalism'][2]['tags'])): ?>
@@ -566,7 +566,7 @@ $sorted_libs = sort_library_items($libs);
                                             <?php echo $sorted_libs['Journal'][0]['title']; ?>
                                         </a>
                                     </h4>
-                                    <div class="date"><?php echo $sorted_libs['Journal'][0]['date']; ?></div>
+                                    <div class="date"><?php echo $sorted_libs['Journal'][0]['author']; ?></div>
                                     <div class="tags-list">
                                         <ul>
                                         <?php if(!empty($sorted_libs['Journal'][0]['tags'])): ?>
@@ -599,7 +599,7 @@ $sorted_libs = sort_library_items($libs);
                                             <?php echo $sorted_libs['Journal'][1]['title']; ?>
                                         </a>
                                     </h4>
-                                    <div class="date"><?php echo $sorted_libs['Journal'][1]['date']; ?></div>
+                                    <div class="date"><?php echo $sorted_libs['Journal'][1]['author']; ?></div>
                                     <div class="tags-list">
                                         <ul>
                                         <?php if(!empty($sorted_libs['Journal'][1]['tags'])): ?>
@@ -634,7 +634,7 @@ $sorted_libs = sort_library_items($libs);
                                             <?php echo $sorted_libs['Journal'][2]['title']; ?>
                                         </a>
                                     </h4>
-                                    <div class="date"><?php echo $sorted_libs['Journal'][2]['date']; ?></div>
+                                    <div class="date"><?php echo $sorted_libs['Journal'][2]['author']; ?></div>
                                     <div class="tags-list">
                                         <ul>
                                         <?php if(!empty($sorted_libs['Journal'][2]['tags'])): ?>
