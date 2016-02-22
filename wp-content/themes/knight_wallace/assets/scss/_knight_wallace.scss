@@ -274,9 +274,15 @@ a {
         background: $red;
         color: $white;
         font-size: 1.4rem;
-        padding: 2rem;
-        text-align: center;
         text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 10rem;
+
+        p {
+            margin-bottom: 0;
+        }
 
         strong {
             font-size: 1.8rem;
@@ -285,7 +291,11 @@ a {
 
     .large-8 {
         font-size: 1.8rem;
-        padding: 2rem;
+        display: flex;
+        padding-left: 2rem;
+        align-items: center;
+        justify-content: center;
+        min-height: 10rem;
 
         @include link_style($red, lighten($red, 10%));
 
@@ -296,6 +306,7 @@ a {
 
         p {
             font-size: 1.8rem;
+            margin-bottom: 0;
         }
     }
 }
@@ -709,6 +720,11 @@ figure {
         line-height: 2.4rem;
         font-family: $primary-font;
     }
+}
+
+.winners-list.past > .row:last-child .past-winner {
+    border: none;
+    margin-bottom: 2rem;
 }
 
 .board-of-directors, .staff, .judges {

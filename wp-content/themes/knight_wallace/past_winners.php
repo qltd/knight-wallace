@@ -60,7 +60,7 @@ $sorted_winners = sort_past_winners($winners,array('2014','2015','2013','2012','
 </div>
 </form>
 </section>
-<main class="posts winners-list">
+<main class="posts winners-list past">
 <?php if(!empty($sorted_winners)): ?>
 <?php foreach($sorted_winners as $win): ?>
 <div class="row">
