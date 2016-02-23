@@ -10722,6 +10722,42 @@ figure figcaption strong {
   font-size: 1.4rem;
 }
 
+/* Accordion */
+/* line 895, ../scss/_knight_wallace.scss */
+.accordion {
+  margin-bottom: 5rem;
+}
+/* line 898, ../scss/_knight_wallace.scss */
+.accordion .accordion-navigation, .accordion .accordion-navigation.active {
+  background: #e5e5e5;
+  margin-bottom: 1rem !important;
+}
+/* line 902, ../scss/_knight_wallace.scss */
+.accordion .accordion-navigation > a, .accordion .accordion-navigation > a:hover, .accordion .accordion-navigation.active > a, .accordion .accordion-navigation.active > a:hover {
+  background: #555555;
+  color: #fff;
+  font-weight: bold;
+  font-size: 2rem;
+  padding: 0rem 1rem;
+}
+/* line 909, ../scss/_knight_wallace.scss */
+.accordion .accordion-navigation > a:after, .accordion .accordion-navigation > a:hover:after, .accordion .accordion-navigation.active > a:after, .accordion .accordion-navigation.active > a:hover:after {
+  font-family: FontAwesome;
+  content: "\f055";
+  float: right;
+}
+/* line 917, ../scss/_knight_wallace.scss */
+.accordion .accordion-navigation.active > a:after, .accordion .accordion-navigation.active.active > a:after {
+  content: "\f056";
+}
+/* line 922, ../scss/_knight_wallace.scss */
+.accordion .accordion-navigation .content, .accordion .accordion-navigation.active .content {
+  background: #e5e5e5;
+  font-size: 2rem;
+  color: #00274c;
+  line-height: 2.4rem;
+}
+
 @media (min-width: 1024px) {
   /* line 2, ../scss/_mobile_nav.scss */
   #mobile_nav {
