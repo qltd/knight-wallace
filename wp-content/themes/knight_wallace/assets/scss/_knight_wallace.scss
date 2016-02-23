@@ -215,12 +215,37 @@ a {
     height: 750px;
     justify-content: center;
 
+    @include responsive("640px") {
+        height: 400px;
+        position: relative;
+        margin-bottom: 200px;
+    }
+
+
     .columns {
         background: rgba($charcoal, 0.7);
         float: none;
         margin: 0 auto;
         padding: 1rem;
         text-align: center;
+
+        @include responsive("640px") {
+            position: absolute;
+            bottom: -160px;
+            background: $charcoal;
+            height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            p {
+                font-size: 1.6rem;
+            }
+        }
     }
 
     h2 {
