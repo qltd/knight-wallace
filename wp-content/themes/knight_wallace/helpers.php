@@ -353,7 +353,9 @@ function sort_past_winners($winners, $year='2015', $type_array=null){
                         'id' => $win->ID,
                         'library_link' => !empty($lib_item) ? '?post_type=library&p='.$lib_item->ID : '',
                         'winner' => !empty($pmeta['_kw_person_liv_win']) ? $pmeta['_kw_person_liv_win'][0] : '',
-                        'year' => !empty($pmeta['_kw_person_liv_year']) ? $pmeta['_kw_person_liv_year'][0] : ''
+                        'year' => !empty($pmeta['_kw_person_liv_year']) ? $pmeta['_kw_person_liv_year'][0] : '',
+                        'past_aff' => !empty($pmeta['_kw_person_liv_win_aff']) ? $pmeta['_kw_person_liv_win_aff'][0] : '',
+                        'past_job' => !empty($pmeta['_kw_person_liv_win_job']) ? $pmeta['_kw_person_liv_win_job'][0] : ''
                     );
             }
         }

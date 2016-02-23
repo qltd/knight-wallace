@@ -97,7 +97,7 @@ $sorted_libs = sort_library_items_sub_cat($libs, "Book");
                                     <?php echo $slib['title']; ?>
                                 </a>
                             </h4>
-                            <div class="date"><?php echo $slib['date']; ?></div>
+                            <div class="date"><?php echo $slib['author']; ?></div>
                             <div class="tags-list">
                                 <ul>
                                 <?php if(!empty($slib['tags'])): ?>
