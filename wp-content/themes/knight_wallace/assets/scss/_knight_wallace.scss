@@ -890,3 +890,40 @@ figure {
         font-size: 1.4rem;
     }
 }
+
+/* Accordion */
+.accordion {
+    margin-bottom: 5rem;
+
+    .accordion-navigation, .accordion-navigation.active {
+        background: #e5e5e5;
+        margin-bottom: 1rem !important;
+
+        > a, > a:hover {
+            background: $charcoal;
+            color: #fff;
+            font-weight: bold;
+            font-size: 2rem;
+            padding: 0rem 1rem;
+
+            &:after {
+                font-family: FontAwesome;
+                content: "\f055";
+                float: right;
+            }
+        }
+
+        &.active {
+            > a:after {
+                content: "\f056";
+            }
+        }
+
+        .content {
+            background: #e5e5e5;
+            font-size: 2rem;
+            color: $ublue;
+            line-height: 2.4rem;
+        }
+    }
+}
