@@ -9869,19 +9869,32 @@ a:link, a:visited {
   margin-left: -3rem;
   margin-top: -0.3rem;
 }
+@media (max-width: 1024px) {
+  /* line 108, ../scss/_knight_wallace.scss */
+  .section-title {
+    margin-left: 100px;
+    font-size: 1.2rem;
+  }
+}
+@media (max-width: 420px) {
+  /* line 108, ../scss/_knight_wallace.scss */
+  .section-title {
+    margin-left: 0px;
+  }
+}
 
-/* line 115, ../scss/_knight_wallace.scss */
+/* line 125, ../scss/_knight_wallace.scss */
 #main_nav {
   background: #555555;
   color: #e5e5e5;
 }
 @media only screen and (min-width: 84.0625em) {
-  /* line 120, ../scss/_knight_wallace.scss */
+  /* line 130, ../scss/_knight_wallace.scss */
   #main_nav .row.small-collapse > .columns {
     padding: 0 1rem !important;
   }
 }
-/* line 125, ../scss/_knight_wallace.scss */
+/* line 135, ../scss/_knight_wallace.scss */
 #main_nav .primary {
   font-size: 2rem;
   margin-bottom: 0;
@@ -9901,7 +9914,7 @@ a:link, a:visited {
 #main_nav .primary a:link, #main_nav .primary a:visited {
   color: #e5e5e5;
 }
-/* line 134, ../scss/_knight_wallace.scss */
+/* line 144, ../scss/_knight_wallace.scss */
 #main_nav .primary:hover, #main_nav .primary.active {
   background: #e5e5e5;
 }
@@ -9917,13 +9930,13 @@ a:link, a:visited {
 #main_nav .primary:hover a:link, #main_nav .primary:hover a:visited, #main_nav .primary.active a:link, #main_nav .primary.active a:visited {
   color: #555555;
 }
-/* line 141, ../scss/_knight_wallace.scss */
+/* line 151, ../scss/_knight_wallace.scss */
 #main_nav .primary a {
   display: inline-block;
   padding: 2rem 0;
   width: 100%;
 }
-/* line 148, ../scss/_knight_wallace.scss */
+/* line 158, ../scss/_knight_wallace.scss */
 #main_nav .sub-nav-wrap {
   background: #e5e5e5;
   font-size: 2rem;
@@ -9941,30 +9954,67 @@ a:link, a:visited {
 #main_nav .sub-nav-wrap a:link, #main_nav .sub-nav-wrap a:visited {
   color: #0d57aa;
 }
-/* line 155, ../scss/_knight_wallace.scss */
+/* line 165, ../scss/_knight_wallace.scss */
 #main_nav .sub-nav-wrap li {
   font-size: 2rem;
   margin: 1rem 2rem 0;
 }
-/* line 161, ../scss/_knight_wallace.scss */
+/* line 171, ../scss/_knight_wallace.scss */
 #main_nav li {
   display: inline-block;
 }
 
+/* Mobile Nav */
+/* line 177, ../scss/_knight_wallace.scss */
+.mobile-menu-trigger {
+  padding-right: 1.2rem;
+  text-align: right;
+  margin: 3px 0;
+}
+
+/* line 184, ../scss/_knight_wallace.scss */
+.mobile-menu-wrap .large-12 {
+  padding: 0 !important;
+}
+/* line 188, ../scss/_knight_wallace.scss */
+.mobile-menu-wrap li.menu-item {
+  padding: 1rem 0 0 !important;
+  border-bottom: 1px solid #FFFFFF;
+}
+/* line 192, ../scss/_knight_wallace.scss */
+.mobile-menu-wrap li.menu-item > a {
+  padding: 0 3rem 0.75rem 2rem;
+  display: block;
+  line-height: 1.2;
+  position: relative;
+}
+/* line 198, ../scss/_knight_wallace.scss */
+.mobile-menu-wrap li.menu-item > a > a {
+  position: absolute;
+  top: 50%;
+  margin-top: -16px;
+  right: 1rem;
+}
+
+/* line 208, ../scss/_knight_wallace.scss */
+#menu-mobile {
+  margin: 0;
+}
+
 /* Subpage, in this section nav */
-/* line 167, ../scss/_knight_wallace.scss */
+/* line 213, ../scss/_knight_wallace.scss */
 .in-this-section-nav {
   text-align: center;
   margin-bottom: 4rem;
   font-size: 2rem;
 }
-/* line 172, ../scss/_knight_wallace.scss */
+/* line 218, ../scss/_knight_wallace.scss */
 .in-this-section-nav li, .in-this-section-nav a {
   font-size: 1.8rem;
 }
 
 /* Hero Unit */
-/* line 178, ../scss/_knight_wallace.scss */
+/* line 224, ../scss/_knight_wallace.scss */
 #hero_image {
   background: url(http://lorempixel.com/output/city-q-c-1920-1920-3.jpg) no-repeat center center;
   background-size: cover;
@@ -9974,7 +10024,15 @@ a:link, a:visited {
   height: 750px;
   justify-content: center;
 }
-/* line 187, ../scss/_knight_wallace.scss */
+@media (max-width: 640px) {
+  /* line 224, ../scss/_knight_wallace.scss */
+  #hero_image {
+    height: 400px;
+    position: relative;
+    margin-bottom: 200px;
+  }
+}
+/* line 240, ../scss/_knight_wallace.scss */
 #hero_image .columns {
   background: rgba(85, 85, 85, 0.7);
   float: none;
@@ -9982,104 +10040,124 @@ a:link, a:visited {
   padding: 1rem;
   text-align: center;
 }
-/* line 195, ../scss/_knight_wallace.scss */
+@media (max-width: 640px) {
+  /* line 240, ../scss/_knight_wallace.scss */
+  #hero_image .columns {
+    position: absolute;
+    bottom: -160px;
+    background: #555555;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  /* line 256, ../scss/_knight_wallace.scss */
+  #hero_image .columns h2 {
+    font-size: 1.8rem;
+  }
+  /* line 260, ../scss/_knight_wallace.scss */
+  #hero_image .columns p {
+    font-size: 1.6rem;
+  }
+}
+/* line 266, ../scss/_knight_wallace.scss */
 #hero_image h2 {
   font-size: 2.6rem;
   font-weight: bold;
   margin-bottom: 0;
   color: #f5c300;
 }
-/* line 201, ../scss/_knight_wallace.scss */
+/* line 272, ../scss/_knight_wallace.scss */
 #hero_image h2 a {
   color: #f5c300;
 }
-/* line 206, ../scss/_knight_wallace.scss */
+/* line 277, ../scss/_knight_wallace.scss */
 #hero_image p {
   font-size: 2.6rem;
   line-height: 1.2;
 }
-/* line 211, ../scss/_knight_wallace.scss */
+/* line 282, ../scss/_knight_wallace.scss */
 #hero_image a {
   color: #FFFFFF;
 }
 
 /* Home Page Posts */
-/* line 217, ../scss/_knight_wallace.scss */
+/* line 288, ../scss/_knight_wallace.scss */
 #main.posts {
   margin-bottom: 6rem;
   margin-top: 5rem;
 }
-/* line 221, ../scss/_knight_wallace.scss */
+/* line 292, ../scss/_knight_wallace.scss */
 #main.posts .columns {
   color: #FFFFFF;
   margin-bottom: 2rem;
 }
-/* line 225, ../scss/_knight_wallace.scss */
+/* line 296, ../scss/_knight_wallace.scss */
 #main.posts .columns .text {
   background: #0d57aa;
   padding: 1.5rem 3rem 1rem;
   transition: all 0.5s ease;
   height: 126px;
 }
-/* line 231, ../scss/_knight_wallace.scss */
+/* line 302, ../scss/_knight_wallace.scss */
 #main.posts .columns .text:hover {
   background: #00274c;
 }
-/* line 236, ../scss/_knight_wallace.scss */
+/* line 307, ../scss/_knight_wallace.scss */
 #main.posts .columns a {
   color: #FFFFFF;
   display: inline-block;
   font-size: 1.6rem;
 }
-/* line 242, ../scss/_knight_wallace.scss */
+/* line 313, ../scss/_knight_wallace.scss */
 #main.posts .columns h3 {
   color: #FFFFFF;
   font-size: 2rem;
   font-weight: bold;
 }
-/* line 248, ../scss/_knight_wallace.scss */
+/* line 319, ../scss/_knight_wallace.scss */
 #main.posts .columns img {
   height: auto;
   width: 100%;
 }
 
-/* line 255, ../scss/_knight_wallace.scss */
+/* line 326, ../scss/_knight_wallace.scss */
 .tags-list {
   bottom: 0;
   position: absolute;
 }
-/* line 259, ../scss/_knight_wallace.scss */
+/* line 330, ../scss/_knight_wallace.scss */
 .tags-list ul {
   margin: 0;
   padding: 0;
 }
-/* line 263, ../scss/_knight_wallace.scss */
+/* line 334, ../scss/_knight_wallace.scss */
 .tags-list ul li {
   color: #555555;
   display: inline-block;
   list-style: none;
 }
-/* line 268, ../scss/_knight_wallace.scss */
+/* line 339, ../scss/_knight_wallace.scss */
 .tags-list ul li:last-child .divider {
   display: none;
 }
-/* line 272, ../scss/_knight_wallace.scss */
+/* line 343, ../scss/_knight_wallace.scss */
 .tags-list ul li a {
   color: #555555;
   padding: 0;
 }
 
-/* line 280, ../scss/_knight_wallace.scss */
+/* line 351, ../scss/_knight_wallace.scss */
 #alerts {
   margin-bottom: 8rem;
 }
 
-/* line 284, ../scss/_knight_wallace.scss */
+/* line 355, ../scss/_knight_wallace.scss */
 .alert {
   background: #e5e5e5;
   margin-bottom: 2rem;
 }
-/* line 288, ../scss/_knight_wallace.scss */
+/* line 359, ../scss/_knight_wallace.scss */
 .alert .large-4 {
   background: #b32017;
   color: #FFFFFF;
@@ -10090,15 +10168,15 @@ a:link, a:visited {
   justify-content: center;
   min-height: 10rem;
 }
-/* line 298, ../scss/_knight_wallace.scss */
+/* line 369, ../scss/_knight_wallace.scss */
 .alert .large-4 p {
   margin-bottom: 0;
 }
-/* line 302, ../scss/_knight_wallace.scss */
+/* line 373, ../scss/_knight_wallace.scss */
 .alert .large-4 strong {
   font-size: 1.8rem;
 }
-/* line 307, ../scss/_knight_wallace.scss */
+/* line 378, ../scss/_knight_wallace.scss */
 .alert .large-8 {
   font-size: 1.8rem;
   display: flex;
@@ -10119,18 +10197,18 @@ a:link, a:visited {
 .alert .large-8 a:link, .alert .large-8 a:visited {
   color: #b32017;
 }
-/* line 317, ../scss/_knight_wallace.scss */
+/* line 388, ../scss/_knight_wallace.scss */
 .alert .large-8 a {
   font-size: 2.4rem;
   margin-right: 2rem;
 }
-/* line 322, ../scss/_knight_wallace.scss */
+/* line 393, ../scss/_knight_wallace.scss */
 .alert .large-8 p {
   font-size: 1.8rem;
   margin-bottom: 0;
 }
 
-/* line 329, ../scss/_knight_wallace.scss */
+/* line 400, ../scss/_knight_wallace.scss */
 .button {
   display: inline-block;
   padding: 1rem;
@@ -10138,117 +10216,117 @@ a:link, a:visited {
   color: #FFFFFF !important;
   font-size: 1.8rem;
 }
-/* line 336, ../scss/_knight_wallace.scss */
+/* line 407, ../scss/_knight_wallace.scss */
 .button.gray-scale {
   background: #9e9e9e;
   font-weight: normal;
 }
-/* line 341, ../scss/_knight_wallace.scss */
+/* line 412, ../scss/_knight_wallace.scss */
 .button:hover {
   background: #00274c;
 }
 
-/* line 346, ../scss/_knight_wallace.scss */
+/* line 417, ../scss/_knight_wallace.scss */
 figure {
   width: auto !important;
   margin: 0;
 }
-/* line 350, ../scss/_knight_wallace.scss */
+/* line 421, ../scss/_knight_wallace.scss */
 figure figcaption {
   margin-top: 3px;
   font-size: 1.2rem;
   line-height: 1.8rem;
   color: #00274c;
 }
-/* line 356, ../scss/_knight_wallace.scss */
+/* line 427, ../scss/_knight_wallace.scss */
 figure figcaption strong {
   font-size: 1.4rem;
   font-family: UniversLTPro-65Bold, sans-serif;
 }
 
 /* Breadcrumbs */
-/* line 364, ../scss/_knight_wallace.scss */
+/* line 435, ../scss/_knight_wallace.scss */
 .breadcrumb a {
   font-size: 1.8rem;
   color: #0d57aa;
   margin-top: 3rem;
   display: block;
 }
-/* line 370, ../scss/_knight_wallace.scss */
+/* line 441, ../scss/_knight_wallace.scss */
 .breadcrumb a:before {
   content: "\00ab";
   margin-right: 10px;
 }
 
 /* Library */
-/* line 377, ../scss/_knight_wallace.scss */
+/* line 448, ../scss/_knight_wallace.scss */
 #library {
   padding-top: 6rem;
 }
-/* line 380, ../scss/_knight_wallace.scss */
+/* line 451, ../scss/_knight_wallace.scss */
 #library .featured {
   background: #f5c300;
   margin: 4rem 0;
 }
-/* line 384, ../scss/_knight_wallace.scss */
+/* line 455, ../scss/_knight_wallace.scss */
 #library .featured .author {
   font-size: 1.6rem;
   margin-bottom: 2rem;
 }
-/* line 389, ../scss/_knight_wallace.scss */
+/* line 460, ../scss/_knight_wallace.scss */
 #library .featured .featured-text {
   height: 100%;
   padding: 1rem 0;
   position: relative;
 }
-/* line 395, ../scss/_knight_wallace.scss */
+/* line 466, ../scss/_knight_wallace.scss */
 #library .featured .tags-list {
   bottom: 1rem;
   position: absolute;
 }
-/* line 400, ../scss/_knight_wallace.scss */
+/* line 471, ../scss/_knight_wallace.scss */
 #library .featured h1 {
   font-weight: bold;
 }
-/* line 405, ../scss/_knight_wallace.scss */
+/* line 476, ../scss/_knight_wallace.scss */
 #library .featured h3 a {
   color: #0d57aa;
   font-size: 2rem;
   font-weight: bold;
 }
-/* line 412, ../scss/_knight_wallace.scss */
+/* line 483, ../scss/_knight_wallace.scss */
 #library .featured h4 {
   font-size: 1.8rem;
   margin-bottom: 0;
   text-transform: uppercase;
 }
-/* line 418, ../scss/_knight_wallace.scss */
+/* line 489, ../scss/_knight_wallace.scss */
 #library .featured img {
   height: auto;
   width: 100%;
 }
-/* line 423, ../scss/_knight_wallace.scss */
+/* line 494, ../scss/_knight_wallace.scss */
 #library .featured p {
   font-size: 1.8rem;
   line-height: 1.4;
 }
 
-/* line 431, ../scss/_knight_wallace.scss */
+/* line 502, ../scss/_knight_wallace.scss */
 .story-list .date {
   color: #555555;
   font-size: 1.6rem;
 }
-/* line 436, ../scss/_knight_wallace.scss */
+/* line 507, ../scss/_knight_wallace.scss */
 .story-list .heading {
   background: #555555;
   margin-bottom: 2rem;
   padding: 0 1rem;
 }
-/* line 442, ../scss/_knight_wallace.scss */
+/* line 513, ../scss/_knight_wallace.scss */
 .story-list .large-5 {
   padding-top: 0.5rem;
 }
-/* line 446, ../scss/_knight_wallace.scss */
+/* line 517, ../scss/_knight_wallace.scss */
 .story-list .more-posts {
   align-items: center;
   background: #0d57aa;
@@ -10260,7 +10338,7 @@ figure figcaption strong {
   margin-bottom: 5rem;
   width: 100%;
 }
-/* line 458, ../scss/_knight_wallace.scss */
+/* line 529, ../scss/_knight_wallace.scss */
 .story-list .news-article {
   background: #e5e5e5;
   height: 18rem;
@@ -10269,24 +10347,24 @@ figure figcaption strong {
   position: relative;
   display: flex;
 }
-/* line 467, ../scss/_knight_wallace.scss */
+/* line 538, ../scss/_knight_wallace.scss */
 .story-list .text {
   height: 100%;
   position: relative;
   flex-grow: 1;
 }
-/* line 473, ../scss/_knight_wallace.scss */
+/* line 544, ../scss/_knight_wallace.scss */
 .story-list h3 {
   color: #FFFFFF;
   padding: 5px 0;
 }
-/* line 479, ../scss/_knight_wallace.scss */
+/* line 550, ../scss/_knight_wallace.scss */
 .story-list h4 a {
   color: #0d57aa;
   font-size: 2rem;
   font-weight: bold;
 }
-/* line 486, ../scss/_knight_wallace.scss */
+/* line 557, ../scss/_knight_wallace.scss */
 .story-list img {
   height: auto;
   max-height: 152px;
@@ -10296,7 +10374,7 @@ figure figcaption strong {
 }
 
 /* Page Styles */
-/* line 496, ../scss/_knight_wallace.scss */
+/* line 567, ../scss/_knight_wallace.scss */
 .entry-title {
   font-size: 4.4rem;
   line-height: 4.4rem;
@@ -10306,73 +10384,73 @@ figure figcaption strong {
   margin: 8rem 0 4rem;
 }
 @media (max-width: 1024px) {
-  /* line 496, ../scss/_knight_wallace.scss */
+  /* line 567, ../scss/_knight_wallace.scss */
   .entry-title {
     margin: 1rem 0;
   }
 }
 
-/* line 509, ../scss/_knight_wallace.scss */
+/* line 580, ../scss/_knight_wallace.scss */
 .content {
   padding-bottom: 4rem;
 }
 @media (max-width: 1024px) {
-  /* line 509, ../scss/_knight_wallace.scss */
+  /* line 580, ../scss/_knight_wallace.scss */
   .content {
     padding: 0 2rem 4rem;
   }
 }
-/* line 517, ../scss/_knight_wallace.scss */
+/* line 588, ../scss/_knight_wallace.scss */
 .content h1 {
   font-size: 4.4rem;
   line-height: 4.4rem;
   color: #00274c;
 }
-/* line 523, ../scss/_knight_wallace.scss */
+/* line 594, ../scss/_knight_wallace.scss */
 .content h2 {
   font-size: 2.6rem;
   line-height: 3.4rem;
   color: #00274c;
 }
-/* line 529, ../scss/_knight_wallace.scss */
+/* line 600, ../scss/_knight_wallace.scss */
 .content h3 {
   font-size: 2rem;
   line-height: 2.4rem;
   color: #0d57aa;
 }
-/* line 535, ../scss/_knight_wallace.scss */
+/* line 606, ../scss/_knight_wallace.scss */
 .content h4 {
   font-size: 1.8rem;
   line-height: 2.4rem;
   color: #0d57aa;
 }
-/* line 541, ../scss/_knight_wallace.scss */
+/* line 612, ../scss/_knight_wallace.scss */
 .content ul {
   margin-left: 2rem;
   margin-bottom: 2rem;
 }
-/* line 546, ../scss/_knight_wallace.scss */
+/* line 617, ../scss/_knight_wallace.scss */
 .content ol {
   margin-left: 2.2rem;
   margin-bottom: 2rem;
 }
-/* line 551, ../scss/_knight_wallace.scss */
+/* line 622, ../scss/_knight_wallace.scss */
 .content li, .content p {
   font-size: 2rem;
   color: #00274c;
   line-height: 2.6rem;
 }
-/* line 557, ../scss/_knight_wallace.scss */
+/* line 628, ../scss/_knight_wallace.scss */
 .content li {
   margin-bottom: 0.5rem;
 }
 
-/* line 562, ../scss/_knight_wallace.scss */
+/* line 633, ../scss/_knight_wallace.scss */
 .la-winner {
   padding: 6rem 0;
   border-bottom: 1px solid #555555;
 }
-/* line 566, ../scss/_knight_wallace.scss */
+/* line 637, ../scss/_knight_wallace.scss */
 .la-winner .type {
   background: #00274c;
   color: #FFFFFF;
@@ -10383,49 +10461,49 @@ figure figcaption strong {
   padding: 3px 10px;
   margin-bottom: 2rem;
 }
-/* line 577, ../scss/_knight_wallace.scss */
+/* line 648, ../scss/_knight_wallace.scss */
 .la-winner .name {
   color: #00274c;
   font-size: 2.6rem;
   line-height: 3.4rem;
   font-family: UniversLTPro-65Bold, sans-serif;
 }
-/* line 584, ../scss/_knight_wallace.scss */
+/* line 655, ../scss/_knight_wallace.scss */
 .la-winner .lib-item {
   color: #0d57aa;
   font-size: 1.8rem;
   line-height: 2.4rem;
   font-family: UniversLTPro-45Light, sans-serif;
 }
-/* line 591, ../scss/_knight_wallace.scss */
+/* line 662, ../scss/_knight_wallace.scss */
 .la-winner .aff {
   font-size: 1.6rem;
   line-height: 2.4rem;
   color: #555555;
   font-family: UniversLTPro-45Light, sans-serif;
 }
-/* line 598, ../scss/_knight_wallace.scss */
+/* line 669, ../scss/_knight_wallace.scss */
 .la-winner .image {
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
-/* line 602, ../scss/_knight_wallace.scss */
+/* line 673, ../scss/_knight_wallace.scss */
 .la-winner .image img {
   width: 100%;
   height: auto;
 }
-/* line 608, ../scss/_knight_wallace.scss */
+/* line 679, ../scss/_knight_wallace.scss */
 .la-winner .descrip {
   font-size: 1.8rem;
   font-family: UniversLTPro-45Light, sans-serif;
   color: #00274c;
   line-height: 2.6rem;
 }
-/* line 615, ../scss/_knight_wallace.scss */
+/* line 686, ../scss/_knight_wallace.scss */
 .la-winner .winner-quote {
   margin-top: 2rem;
 }
-/* line 619, ../scss/_knight_wallace.scss */
+/* line 690, ../scss/_knight_wallace.scss */
 .la-winner .quote {
   font-size: 1.8rem;
   line-height: 2.4rem;
@@ -10433,11 +10511,11 @@ figure figcaption strong {
   font-family: UniversLTPro-65Bold, sans-serif;
   padding-left: 1.8rem;
 }
-/* line 627, ../scss/_knight_wallace.scss */
+/* line 698, ../scss/_knight_wallace.scss */
 .la-winner .a-image {
   margin-bottom: 7px;
 }
-/* line 631, ../scss/_knight_wallace.scss */
+/* line 702, ../scss/_knight_wallace.scss */
 .la-winner .small-name {
   font-size: 1.4rem;
   line-height: 1.8rem;
@@ -10458,33 +10536,33 @@ figure figcaption strong {
 #past_winners_control a:link, #past_winners_control a:visited {
   color: #FFFFFF;
 }
-/* line 643, ../scss/_knight_wallace.scss */
+/* line 714, ../scss/_knight_wallace.scss */
 #past_winners_control .control-label {
   font-size: 1.8rem;
   line-height: 2rem;
   text-transform: uppercase;
 }
-/* line 649, ../scss/_knight_wallace.scss */
+/* line 720, ../scss/_knight_wallace.scss */
 #past_winners_control ul {
   margin: 0;
 }
-/* line 653, ../scss/_knight_wallace.scss */
+/* line 724, ../scss/_knight_wallace.scss */
 #past_winners_control .years {
   max-height: 100px;
   overflow: hidden;
   transition: all 0.5s ease;
 }
-/* line 658, ../scss/_knight_wallace.scss */
+/* line 729, ../scss/_knight_wallace.scss */
 #past_winners_control .years.open {
   max-height: 1000px;
 }
-/* line 663, ../scss/_knight_wallace.scss */
+/* line 734, ../scss/_knight_wallace.scss */
 #past_winners_control .show-more {
   font-size: 1.8rem;
   margin-top: 8px;
   display: inline-block;
 }
-/* line 669, ../scss/_knight_wallace.scss */
+/* line 740, ../scss/_knight_wallace.scss */
 #past_winners_control .button, #past_winners_control button {
   width: 205px;
   height: 4.4rem;
@@ -10492,87 +10570,87 @@ figure figcaption strong {
   background: #0d57aa;
   font-weight: bold;
 }
-/* line 676, ../scss/_knight_wallace.scss */
+/* line 747, ../scss/_knight_wallace.scss */
 #past_winners_control .button.gray-scale, #past_winners_control button.gray-scale {
   background: #9e9e9e;
   font-weight: normal;
 }
-/* line 681, ../scss/_knight_wallace.scss */
+/* line 752, ../scss/_knight_wallace.scss */
 #past_winners_control .button:hover, #past_winners_control button:hover {
   background: #00274c;
 }
-/* line 686, ../scss/_knight_wallace.scss */
+/* line 757, ../scss/_knight_wallace.scss */
 #past_winners_control li {
   list-style: none;
   margin-bottom: 5px;
 }
-/* line 691, ../scss/_knight_wallace.scss */
+/* line 762, ../scss/_knight_wallace.scss */
 #past_winners_control label {
   color: #FFFFFF;
   position: relative;
   font-size: 1.8rem;
   top: 0.5rem;
 }
-/* line 698, ../scss/_knight_wallace.scss */
+/* line 769, ../scss/_knight_wallace.scss */
 #past_winners_control .row {
   padding: 20px;
 }
-/* line 702, ../scss/_knight_wallace.scss */
+/* line 773, ../scss/_knight_wallace.scss */
 #past_winners_control .columns, #past_winners_control .row {
   background: #555555;
   color: #FFFFFF;
   margin-bottom: 20px;
 }
 
-/* line 709, ../scss/_knight_wallace.scss */
+/* line 780, ../scss/_knight_wallace.scss */
 .past-winner {
   border-bottom: 1px solid #555555;
   padding: 2rem 0;
 }
-/* line 713, ../scss/_knight_wallace.scss */
+/* line 784, ../scss/_knight_wallace.scss */
 .past-winner .name {
   font-family: UniversLTPro-65Bold, sans-serif;
   font-size: 2rem;
   line-height: 2.4rem;
   color: #00274c;
 }
-/* line 720, ../scss/_knight_wallace.scss */
+/* line 791, ../scss/_knight_wallace.scss */
 .past-winner .lib-item {
   color: #0d57aa;
   font-size: 1.6rem;
   line-height: 2.4rem;
   font-family: UniversLTPro-45Light, sans-serif;
 }
-/* line 727, ../scss/_knight_wallace.scss */
+/* line 798, ../scss/_knight_wallace.scss */
 .past-winner .aff, .past-winner .job {
   font-size: 1.6rem;
   line-height: 2.4rem;
   font-family: UniversLTPro-45Light, sans-serif;
 }
-/* line 733, ../scss/_knight_wallace.scss */
+/* line 804, ../scss/_knight_wallace.scss */
 .past-winner .tags {
   font-size: 1.2rem;
   line-height: 2.4rem;
   font-family: UniversLTPro-45Light, sans-serif;
 }
 
-/* line 740, ../scss/_knight_wallace.scss */
+/* line 811, ../scss/_knight_wallace.scss */
 .winners-list.past > .row:last-child .past-winner {
   border: none;
   margin-bottom: 2rem;
 }
 
-/* line 745, ../scss/_knight_wallace.scss */
+/* line 816, ../scss/_knight_wallace.scss */
 .board-of-directors, .staff, .judges {
   margin-top: 4rem;
 }
 @media (max-width: 640px) {
-  /* line 745, ../scss/_knight_wallace.scss */
+  /* line 816, ../scss/_knight_wallace.scss */
   .board-of-directors, .staff, .judges {
     margin-top: 0;
   }
 }
-/* line 753, ../scss/_knight_wallace.scss */
+/* line 824, ../scss/_knight_wallace.scss */
 .board-of-directors .judge-type, .staff .judge-type, .judges .judge-type {
   background: #00274c;
   color: #fff;
@@ -10582,28 +10660,28 @@ figure figcaption strong {
   padding: 3px 7px 2px;
   margin-bottom: 2rem;
 }
-/* line 763, ../scss/_knight_wallace.scss */
+/* line 834, ../scss/_knight_wallace.scss */
 .board-of-directors .director, .staff .director, .judges .director {
   margin-bottom: 5rem;
 }
-/* line 767, ../scss/_knight_wallace.scss */
+/* line 838, ../scss/_knight_wallace.scss */
 .board-of-directors .board-member-image, .staff .board-member-image, .judges .board-member-image {
   max-width: 169px;
   height: auto;
   max-height: 134px;
 }
-/* line 773, ../scss/_knight_wallace.scss */
+/* line 844, ../scss/_knight_wallace.scss */
 .board-of-directors .medium-10, .staff .medium-10, .judges .medium-10 {
   padding-left: 3.5rem;
 }
 @media (max-width: 640px) {
-  /* line 773, ../scss/_knight_wallace.scss */
+  /* line 844, ../scss/_knight_wallace.scss */
   .board-of-directors .medium-10, .staff .medium-10, .judges .medium-10 {
     padding-left: 0.9375rem;
     margin-top: 3rem;
   }
 }
-/* line 782, ../scss/_knight_wallace.scss */
+/* line 853, ../scss/_knight_wallace.scss */
 .board-of-directors .name, .staff .name, .judges .name {
   font-size: 2.6rem;
   line-height: 0;
@@ -10612,7 +10690,7 @@ figure figcaption strong {
   color: #0d57aa;
   text-decoration: underline;
 }
-/* line 791, ../scss/_knight_wallace.scss */
+/* line 862, ../scss/_knight_wallace.scss */
 .board-of-directors .title, .staff .title, .judges .title {
   font-size: 1.6rem;
   line-height: 2.4rem;
@@ -10621,15 +10699,15 @@ figure figcaption strong {
 }
 
 /* Footer */
-/* line 800, ../scss/_knight_wallace.scss */
+/* line 871, ../scss/_knight_wallace.scss */
 .site-footer {
   padding-bottom: 80px;
 }
-/* line 803, ../scss/_knight_wallace.scss */
+/* line 874, ../scss/_knight_wallace.scss */
 .site-footer .large-2 {
   text-align: right;
 }
-/* line 807, ../scss/_knight_wallace.scss */
+/* line 878, ../scss/_knight_wallace.scss */
 .site-footer .top {
   background: #00274c;
   color: #FFFFFF;
@@ -10638,54 +10716,54 @@ figure figcaption strong {
   padding: 35px 0;
 }
 @media (max-width: 1280px) {
-  /* line 807, ../scss/_knight_wallace.scss */
+  /* line 878, ../scss/_knight_wallace.scss */
   .site-footer .top {
     padding: 35px 20px;
   }
 }
 @media (max-width: 640px) {
-  /* line 807, ../scss/_knight_wallace.scss */
+  /* line 878, ../scss/_knight_wallace.scss */
   .site-footer .top {
     padding: 35px 20px 0;
   }
-  /* line 822, ../scss/_knight_wallace.scss */
+  /* line 893, ../scss/_knight_wallace.scss */
   .site-footer .top .columns {
     margin-bottom: 35px;
   }
 }
-/* line 828, ../scss/_knight_wallace.scss */
+/* line 899, ../scss/_knight_wallace.scss */
 .site-footer .top .social-media-links {
   margin: -5px 0 2rem;
   padding: 0;
   width: 100%;
 }
-/* line 833, ../scss/_knight_wallace.scss */
+/* line 904, ../scss/_knight_wallace.scss */
 .site-footer .top .social-media-links li {
   display: inline-block;
   list-style: none;
   margin-right: 2rem;
 }
-/* line 838, ../scss/_knight_wallace.scss */
+/* line 909, ../scss/_knight_wallace.scss */
 .site-footer .top .social-media-links li a {
   font-size: 3rem;
 }
-/* line 844, ../scss/_knight_wallace.scss */
+/* line 915, ../scss/_knight_wallace.scss */
 .site-footer .top a {
   color: #FFFFFF;
   font-size: 1.8rem;
 }
-/* line 849, ../scss/_knight_wallace.scss */
+/* line 920, ../scss/_knight_wallace.scss */
 .site-footer .top h5,
 .site-footer .top h6 {
   color: #FFFFFF;
   font-size: 2rem;
   font-weight: bold;
 }
-/* line 856, ../scss/_knight_wallace.scss */
+/* line 927, ../scss/_knight_wallace.scss */
 .site-footer .top h6 {
   font-size: 1.8rem;
 }
-/* line 860, ../scss/_knight_wallace.scss */
+/* line 931, ../scss/_knight_wallace.scss */
 .site-footer .top input[type=submit], .site-footer .top button {
   background: #0d57aa;
   border: none;
@@ -10697,18 +10775,18 @@ figure figcaption strong {
   padding: 0;
 }
 @media (max-width: 900px) {
-  /* line 860, ../scss/_knight_wallace.scss */
+  /* line 931, ../scss/_knight_wallace.scss */
   .site-footer .top input[type=submit], .site-footer .top button {
     font-size: 1.5rem;
   }
 }
 @media (max-width: 500px) {
-  /* line 860, ../scss/_knight_wallace.scss */
+  /* line 931, ../scss/_knight_wallace.scss */
   .site-footer .top input[type=submit], .site-footer .top button {
     width: 100%;
   }
 }
-/* line 880, ../scss/_knight_wallace.scss */
+/* line 951, ../scss/_knight_wallace.scss */
 .site-footer .top input[type=text], .site-footer .top input[type=email] {
   float: left;
   font-size: 1.8rem;
@@ -10717,38 +10795,38 @@ figure figcaption strong {
   width: 65%;
 }
 @media (max-width: 500px) {
-  /* line 880, ../scss/_knight_wallace.scss */
+  /* line 951, ../scss/_knight_wallace.scss */
   .site-footer .top input[type=text], .site-footer .top input[type=email] {
     width: 100%;
   }
 }
-/* line 892, ../scss/_knight_wallace.scss */
+/* line 963, ../scss/_knight_wallace.scss */
 .site-footer .top p {
   color: #FFFFFF;
   font-size: 1.8rem;
 }
-/* line 898, ../scss/_knight_wallace.scss */
+/* line 969, ../scss/_knight_wallace.scss */
 .site-footer a {
   color: #0d57aa;
   font-size: 1.4rem;
 }
-/* line 903, ../scss/_knight_wallace.scss */
+/* line 974, ../scss/_knight_wallace.scss */
 .site-footer p {
   color: #0d57aa;
   font-size: 1.4rem;
 }
 
 /* Accordion */
-/* line 910, ../scss/_knight_wallace.scss */
+/* line 981, ../scss/_knight_wallace.scss */
 .accordion {
   margin-bottom: 5rem;
 }
-/* line 913, ../scss/_knight_wallace.scss */
+/* line 984, ../scss/_knight_wallace.scss */
 .accordion .accordion-navigation, .accordion .accordion-navigation.active {
   background: #e5e5e5;
   margin-bottom: 1rem !important;
 }
-/* line 917, ../scss/_knight_wallace.scss */
+/* line 988, ../scss/_knight_wallace.scss */
 .accordion .accordion-navigation > a, .accordion .accordion-navigation > a:hover, .accordion .accordion-navigation.active > a, .accordion .accordion-navigation.active > a:hover {
   background: #555555;
   color: #fff;
@@ -10756,17 +10834,17 @@ figure figcaption strong {
   font-size: 2rem;
   padding: 0rem 1rem;
 }
-/* line 924, ../scss/_knight_wallace.scss */
+/* line 995, ../scss/_knight_wallace.scss */
 .accordion .accordion-navigation > a:after, .accordion .accordion-navigation > a:hover:after, .accordion .accordion-navigation.active > a:after, .accordion .accordion-navigation.active > a:hover:after {
   font-family: FontAwesome;
   content: "\f055";
   float: right;
 }
-/* line 932, ../scss/_knight_wallace.scss */
+/* line 1003, ../scss/_knight_wallace.scss */
 .accordion .accordion-navigation.active > a:after, .accordion .accordion-navigation.active.active > a:after {
   content: "\f056";
 }
-/* line 937, ../scss/_knight_wallace.scss */
+/* line 1008, ../scss/_knight_wallace.scss */
 .accordion .accordion-navigation .content, .accordion .accordion-navigation.active .content {
   background: #e5e5e5;
   font-size: 2rem;

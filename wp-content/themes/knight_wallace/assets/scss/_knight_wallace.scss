@@ -60,12 +60,12 @@ a {
     font-size: 4rem;
     position: fixed;
     display: inline-block;
-    padding:2rem;
+    padding: 2rem;
     cursor: pointer;
     right: 1rem;
     bottom: 2rem;
     z-index: 1001;
-    display:none;
+    display: none;
 }
 
 #header {
@@ -110,6 +110,16 @@ a {
     line-height: 1.8rem;
     margin-left: -3rem;
     margin-top: -0.3rem;
+
+    @include responsive("1024px") {
+        margin-left: 100px;
+        font-size: 1.2rem;
+    }
+
+
+    @include responsive("420px") {
+        margin-left: 0px;
+    }
 }
 
 #main_nav {
@@ -163,6 +173,42 @@ a {
     }
 }
 
+/* Mobile Nav */
+.mobile-menu-trigger {
+    padding-right: 1.2rem;
+    text-align: right;
+    margin: 3px 0;
+}
+
+.mobile-menu-wrap {
+    .large-12 {
+        padding: 0 !important;
+    }
+
+    li.menu-item {
+        padding: 1rem 0 0 !important;
+        border-bottom: 1px solid $white;
+
+        > a {
+            padding: 0 3rem 0.75rem 2rem;
+            display: block;
+            line-height: 1.2;
+            position: relative;
+
+            > a {
+                position: absolute;
+                top: 50%;
+                margin-top: -16px;
+                right: 1rem;
+            }
+        }
+    }
+}
+
+#menu-mobile {
+    margin: 0;
+}
+
 /* Subpage, in this section nav */
 .in-this-section-nav {
     text-align: center;
@@ -184,12 +230,37 @@ a {
     height: 750px;
     justify-content: center;
 
+    @include responsive("640px") {
+        height: 400px;
+        position: relative;
+        margin-bottom: 200px;
+    }
+
+
     .columns {
         background: rgba($charcoal, 0.7);
         float: none;
         margin: 0 auto;
         padding: 1rem;
         text-align: center;
+
+        @include responsive("640px") {
+            position: absolute;
+            bottom: -160px;
+            background: $charcoal;
+            height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            p {
+                font-size: 1.6rem;
+            }
+        }
     }
 
     h2 {
