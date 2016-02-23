@@ -103,9 +103,30 @@ $(document).ready(function(){
 
     //slider
     $('.bxslider').bxSlider({
-         auto: true,
-         autoHover: true,
-         pause: 8000,
-         pager: false 
+        auto: true,
+        autoHover: true,
+        pause: 8000,
+        pager: false 
+    });
+
+    //pager
+    $('.display-page-action').click(function(event){
+        event.preventDefault();
+        //show the page
+        var page = $(this).attr('data-page');
+        console.log(page);
+        $('.pager').slideUp();
+        $('.page-'+page).slideDown();
+        //update pager nav to active
+        $('.pagination .current').removeClass('current');
+        $(this).parent().addClass('current');
+        //slide to the top
+        var target = this.hash;
+        var $target = $(target);
+        $('html, body').stop().animate({
+            'scrollTop': $target.offset().top
+        }, 900, 'swing', function () {
+            window.location.hash = target;
+        });
     });
 });

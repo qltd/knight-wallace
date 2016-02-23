@@ -1,0 +1,16 @@
+/**
+ * Some styles needed for the pager
+ * @rdar
+ * */
+
+.pagination {
+
+}
+
+.pager {
+    display: none;
+
+    &.page-1 {
+        display: block; 
+    }
+}

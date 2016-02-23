@@ -75,7 +75,7 @@ $sorted_libs = sort_library_items_sub_cat($libs, "Article");
     <div class="row headings">
         <div class="large-12 columns">
             <div class="heading">
-                <h3>Articles</h3>
+                <h3 id="lib_heading">Articles</h3>
             </div>
         </div>
     </div>
@@ -128,6 +128,18 @@ $sorted_libs = sort_library_items_sub_cat($libs, "Article");
 <?php endif; ?>
 <?php endforeach; ?>
 </div>
+<!--pagination controls-->
+<div class="pagination-centered">
+  <ul class="pagination">
+    <li class="arrow"><a href="#lib_heading" class="display-page-action" data-page="1">&laquo;</a></li>
+    <li class="current"><a href="#lib_heading" class="display-page-action" data-page="1">1</a></li>
+    <?php for($i=2;$i<=$page;$i++): ?>  
+        <li><a href="#lib_heading" class="display-page-action" data-page="<?php echo $i; ?>"><?php echo $i; ?></a></li>
+    <?php endfor; ?>
+        <li class="arrow"><a href="#lib_heading" class="display-page-action" data-page="<?php echo $page; ?>">&raquo;</a></li>
+  </ul>
+</div>
+<!--end pagination controls-->
 </section>
 <?php endif; ?>
 

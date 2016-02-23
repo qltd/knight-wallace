@@ -10870,3 +10870,15 @@ figure figcaption strong {
     display: none;
   }
 }
+/**
+ * Some styles needed for the pager
+ * @rdar
+ * */
+/* line 10, ../scss/_pager.scss */
+.pager {
+  display: none;
+}
+/* line 13, ../scss/_pager.scss */
+.pager.page-1 {
+  display: block;
+}
