@@ -74,12 +74,14 @@ $sorted_libs = sort_library_items_sub_cat($libs, "Book");
     <div class="row headings">
         <div class="large-12 columns">
             <div class="heading">
-                <h3>Books</h3>
+                <h3 id="lib_heading">Books</h3>
             </div>
         </div>
     </div>
-    <div class="row"><!--start first row-->
+    <div class="row pager page-1"><!--start first row-->
 <?php $c = 2; ?>
+<?php $page = 1;?>
+<?php $pager_count = 0;?>
 <?php foreach($sorted_libs as $slib): ?>
 <?php if(count($slib) > 1): ?>
         <div class="large-6 columns">
@@ -116,10 +118,27 @@ $sorted_libs = sort_library_items_sub_cat($libs, "Book");
 <?php endif; ?>
 <?php if($c % 2 == 0): ?>
 </div>
-<div class="row">
+<?php $pager_count += 1; ?>
+<div class="row pager page-<?php echo $page; ?>">
+    <?php if($pager_count >= 20):?>
+        <?php $page += 1; //increase what page we are on?>
+        <?php $pager_count = 0; //reset pager count ?>
+    <?php endif; ?>
 <?php endif; ?>
 <?php endforeach; ?>
 </div>
+<!--pagination controls-->
+<div class="pagination-centered">
+  <ul class="pagination">
+    <li class="arrow"><a href="#lib_heading" class="display-page-action" data-page="1">&laquo;</a></li>
+    <li class="current"><a href="#lib_heading" class="display-page-action" data-page="1">1</a></li>
+    <?php for($i=2;$i<=$page;$i++): ?>  
+        <li><a href="#lib_heading" class="display-page-action" data-page="<?php echo $i; ?>"><?php echo $i; ?></a></li>
+    <?php endfor; ?>
+        <li class="arrow"><a href="#lib_heading" class="display-page-action" data-page="<?php echo $page; ?>">&raquo;</a></li>
+  </ul>
+</div>
+<!--end pagination controls-->
 </section>
 <?php endif; ?>
 
