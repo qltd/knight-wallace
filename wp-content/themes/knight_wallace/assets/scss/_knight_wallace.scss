@@ -1,6 +1,6 @@
 /**
  * Styles for the Knight-Wallace Website
- * @rdarling42
+ * @rdar
  *
  */
 @mixin link_style($color, $hover) {
@@ -51,6 +51,21 @@ a {
 
 .row {
     max-width: 128.0rem;
+}
+
+.back-to-top-button {
+    background: $black;
+    opacity: 0.5;
+    color: $white;
+    font-size: 4rem;
+    position: fixed;
+    display: inline-block;
+    padding:2rem;
+    cursor: pointer;
+    right: 1rem;
+    bottom: 2rem;
+    z-index: 1001;
+    display:none;
 }
 
 #header {

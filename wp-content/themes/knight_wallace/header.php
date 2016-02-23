@@ -143,3 +143,5 @@ $ni3_title = !empty($main_menu[2]->title) ? $main_menu[2]->title : "Menu Item";
     </div>
 </div>
 </nav>
+
+<div class="back-to-top-button"><i class="fa fa-angle-double-up"></i></div>

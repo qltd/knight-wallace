@@ -129,4 +129,23 @@ $(document).ready(function(){
             window.location.hash = target;
         });
     });
+
+    //back to top button
+    $('.back-to-top-button').click(function(){
+        var $target = $('body');
+        $('html, body').stop().animate({
+                'scrollTop': $target.offset().top
+        }, 900, 'swing',function(){
+            $('.back-to-top-button').fadeOut();
+        }); 
+    });
+
+    $(window).scroll(function(){
+        var t = $(window).scrollTop()
+        if(t < 10){
+            $('.back-to-top-button').fadeOut();
+        }else{
+            $('.back-to-top-button').fadeIn();
+        }
+    });
 });
