@@ -79,8 +79,10 @@ $sorted_libs = sort_library_items_sub_cat($libs, "Article");
             </div>
         </div>
     </div>
-    <div class="row"><!--start first row-->
+    <div class="row pager page-1"><!--start first row-->
 <?php $c = 2; ?>
+<?php $page = 1;?>
+<?php $pager_count = 0;?>
 <?php foreach($sorted_libs as $slib): ?>
 <?php if(count($slib) > 1): ?>
         <div class="large-6 columns">
@@ -117,7 +119,12 @@ $sorted_libs = sort_library_items_sub_cat($libs, "Article");
 <?php endif; ?>
 <?php if($c % 2 == 0): ?>
 </div>
-<div class="row">
+<?php $pager_count += 1; ?>
+<div class="row pager page-<?php echo $page; ?>">
+    <?php if($pager_count >= 20):?>
+        <?php $page += 1; //increase what page we are on?>
+        <?php $pager_count = 0; //reset pager count ?>
+    <?php endif; ?>
 <?php endif; ?>
 <?php endforeach; ?>
 </div>
