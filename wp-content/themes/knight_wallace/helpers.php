@@ -428,7 +428,9 @@ function sort_fellows_by_year($fellows,$year=null){
                     'title' => !empty($pmeta['_kw_person_kw_study_pro_title']) ? $pmeta['_kw_person_kw_study_pro_title'][0] : '',
                     'bio' => !empty($pmeta['_kw_person_kw_bio']) ? $pmeta['_kw_person_kw_bio'][0] : '',
                     'aff' => !empty($pmeta['_kw_person_kw_aff']) ? $pmeta['_kw_person_kw_aff'][0] : '',
-                    'job'=> !empty($pmeta['_kw_person_kw_current_job_title']) ? $pmeta['_kw_person_kw_current_job_title'][0] : ''
+                    'job'=> !empty($pmeta['_kw_person_kw_current_job_title']) ? $pmeta['_kw_person_kw_current_job_title'][0] : '',
+                    'bio_private' => !empty($pmeta['_kw_person_kw_bio_private']) ? $pmeta['_kw_person_kw_bio_private'][0] : '',
+                    'pic_private' => !empty($pmeta['_kw_person_kw_photo_add']) ? $pmeta['_kw_person_kw_photo_add'][0] : ''
                 );
             }
         } 

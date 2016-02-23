@@ -68,7 +68,11 @@ $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
                 <?php foreach($sorted_fellows as $fellow): ?>
                     <div class="row">
                         <div class="large-4 columns">
-                            <div class="fellow-image"><?php echo $fellow['image']; ?></div>
+                                <div class="fellow-image">
+                                <?php if(!empty($fellow['pic_private'])): ?> 
+                                    <img src="<?php echo $fellow['pic_private']; ?>" alt="Fellow Personal Pic" />
+                                <?php endif; ?>
+                            </div>
                         </div>
                         <div class="large-8 columns">
                             <p class="fellow-name">
@@ -80,7 +84,7 @@ $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
                             <?php echo $fellow['title']; ?>
                             </p>
                             <p class="fellow-bio">
-                            <?php echo $fellow['bio']; ?>
+                            <?php echo $fellow['bio_private']; ?>
                             </p>
                         </div>
                     </div>
