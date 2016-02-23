@@ -404,7 +404,7 @@ function kw_person_kw_fellow_last_name() {
 }
 
 function kw_person_kw_photo_add() {
-    generate_file_html_for_custom_field("kw_person_kw_photo_add");
+    generate_html_for_custom_field("kw_person_kw_photo_add");
 }
 
 function kw_person_kw_bio() {
