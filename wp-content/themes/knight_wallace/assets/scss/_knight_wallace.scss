@@ -95,6 +95,16 @@ a {
     line-height: 1.8rem;
     margin-left: -3rem;
     margin-top: -0.3rem;
+
+    @include responsive("1024px") {
+        margin-left: 100px;
+        font-size: 1.2rem;
+    }
+
+
+    @include responsive("420px") {
+        margin-left: 0px;
+    }
 }
 
 #main_nav {
