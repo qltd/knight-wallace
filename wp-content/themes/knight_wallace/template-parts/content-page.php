@@ -40,9 +40,9 @@ $pmeta = get_post_meta($post->ID);
             <?php $c = 0; ?>
             <?php $count = count($children); ?>
             <?php foreach($children as $child): ?>
-                <li><a href="<?php echo $child->guid; ?>"><?php echo $child->post_title; ?></a> 
+                <li><a href="<?php echo $child->guid; ?>"><?php echo $child->post_title; ?></a>
                 <?php if($c < $count - 1): ?>
-                    &nbsp;|&nbsp; 
+                    &nbsp;|&nbsp;
                 <?php endif; ?>
                 </li>
             <?php $c += 1; ?>
@@ -61,7 +61,7 @@ $pmeta = get_post_meta($post->ID);
 </div>
 <?php if(!empty($pmeta['accordion'])): ?>
 <div class="row">
-    <div class="large-12 columns">
+    <div class="large-10 large-centered columns">
         <ul class="accordion" data-accordion>
         <?php $acount = 1; ?>
         <?php foreach($pmeta['accordion'] as $accord): ?>
