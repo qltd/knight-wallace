@@ -432,11 +432,27 @@ figure {
 }
 
 /* Breadcrumbs */
-.breadcrumb a {
+.breadcrumb a, .breadcrumb p {
     font-size: 1.8rem;
     color: $lblue;
+    display: inline-block;
+}
+
+.breadcrumb p {
+    text-transform: uppercase;
+}
+
+.breadcrumb a {
     margin-top: 3rem;
-    display: block;
+    margin-left: 1rem;
+
+    i {
+        font-size: 2.5rem;
+    }
+}
+
+.breadcrumb .small-6:first-child a {
+    margin-left: 0;
 
     &:before {
         content: "\00ab";
@@ -583,6 +599,33 @@ figure {
     color: $ublue;
 }
 
+.library.entry-header {
+    .entry-title {
+        margin: 0;
+        font-size: 2.6rem;
+        text-align: left;
+    }
+
+    .author-name, .publisher {
+        font-size: 1.6rem;
+        line-height: 2.4rem;
+        margin: 0;
+    }
+
+    .tags-list {
+        margin-top: 5px;
+        position: static;
+
+        a {
+            font-size: 1.2rem;
+        }
+    }
+}
+
+.library-article {
+    margin-top: 5rem;
+}
+
 .content {
     padding-bottom: 4rem;
 
@@ -595,24 +638,32 @@ figure {
         font-size: 4.4rem;
         line-height: 4.4rem;
         color: $ublue;
+        font-family: $primary-font-bold;
     }
 
     h2 {
         font-size: 2.6rem;
         line-height: 3.4rem;
         color: $ublue;
+        font-family: $primary-font-bold;
     }
 
     h3 {
         font-size: 2rem;
         line-height: 2.4rem;
         color: $lblue;
+        font-family: $primary-font-bold;
     }
 
     h4 {
         font-size: 1.8rem;
         line-height: 2.4rem;
         color: $lblue;
+        font-family: $primary-font-bold;
+    }
+
+    strong {
+        font-family: $primary-font-bold;
     }
 
     ul {
@@ -633,6 +684,10 @@ figure {
 
     li {
         margin-bottom: 0.5rem;
+    }
+
+    a {
+        text-decoration: underline;
     }
 }
 
