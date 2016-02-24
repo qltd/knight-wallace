@@ -12,7 +12,6 @@ get_header(); ?>
 
 <?php
 include_once('helpers.php');
-include_once('twitter_feed.php');
 //grab our junk
 $alerts = get_posts(array('category_name'=>'alert'));
 $news = get_posts(array('category_name'=>'news'));

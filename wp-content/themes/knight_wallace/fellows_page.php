@@ -21,6 +21,9 @@ $hero_content = sort_hero_content($hero);
 $random_hero_content = random_hero_content($hero_content,'Knight-Wallace Fellowships');
 $slides = get_posts(array('post_type'=>'slider_content','posts_per_page'=> -1));
 $sorted_slides = sort_slider_content($slides);
+//twitter integration
+$twitter_username = 'UMKnightWallace';
+include_once('twitter_feed.php');//$tweets var is set here
 ?>
 
 <?php if(!empty($random_hero_content)): ?>
@@ -298,4 +301,20 @@ if(!empty($alerts)):
 
 </section>
 
+<?php if(!empty($tweets)): ?>
+<section id="tweets">
+<?php foreach($tweets as $tweet): ?>
+<div class="tweet-wrap">
+    <div class="row">
+        <div class="small-2 columns">
+            <a href="https://twitter.com/<?php echo $twitter_username; ?>"><i class="fa fa-twitter"></i></a>
+        </div>
+        <div class="small-10 columns">
+        <a href="<?php echo $tweet->url; ?>"><?php echo '@'.$twitter_username.'<br />'.$tweet->text; ?></a>
+        </div>
+    </div>
+</div>
+<?php endforeach; ?>
+</section>
+<?php endif; ?>
 <?php get_footer('fellows'); ?>
