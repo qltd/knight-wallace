@@ -33,19 +33,8 @@ $sorted_finalists = sort_finalists($finalists, $this_year);
 <div class="row">
     <div class="large-10 large-centered columns">
         <div class="la-winner">
-            <div class="type"><?php echo $fin['type']; ?></div>
-            <div class="name"><?php echo $fin['first_name'].' '.$fin['last_name'].', '.$fin['age']; ?></div>
+            <div class="name"><?php echo $fin['first_name'].' '.$fin['last_name'].', '.$fin['aff']; ?></div>
             <div class="lib-item"><a href="<?php echo $fin['library_link']; ?>">&ldquo;<?php echo $fin['lib']; ?>&rdquo;</a></div>
-            <div class="aff"><?php echo $fin['aff']?></div>
-            <div class="image"><?php echo $fin['library_image']; ?></div>
-            <div class="descrip"><?php echo $fin['lib_item_des']; ?></div>
-            <div class="row winner-quote">
-                <div class="large-2 columns">
-                    <div class="a-image"><?php echo $fin['image']; ?></div>
-                    <div class="small-name"><?php echo $fin['first_name'].' '.$fin['last_name'].', '.$fin['age']; ?></div>
-                </div>
-                <div class="large-10 columns quote"><?php echo $fin['winner_quote']; ?></div>
-            </div>
         </div>
     </div>
 </div>
@@ -64,19 +53,8 @@ $sorted_finalists = sort_finalists($finalists, $this_year);
 <div class="row">
     <div class="large-10 large-centered columns">
         <div class="la-winner">
-            <div class="type"><?php echo $fin['type']; ?></div>
-            <div class="name"><?php echo $fin['first_name'].' '.$fin['last_name'].', '.$fin['age']; ?></div>
+            <div class="name"><?php echo $fin['first_name'].' '.$fin['last_name'].', '.$fin['aff']; ?></div>
             <div class="lib-item"><a href="<?php echo $fin['library_link']; ?>">&ldquo;<?php echo $fin['lib']; ?>&rdquo;</a></div>
-            <div class="aff"><?php echo $fin['aff']?></div>
-            <div class="image"><?php echo $fin['library_image']; ?></div>
-            <div class="descrip"><?php echo $fin['lib_item_des']; ?></div>
-            <div class="row winner-quote">
-                <div class="large-2 columns">
-                    <div class="a-image"><?php echo $fin['image']; ?></div>
-                    <div class="small-name"><?php echo $fin['first_name'].' '.$fin['last_name'].', '.$fin['age']; ?></div>
-                </div>
-                <div class="large-10 columns quote"><?php echo $fin['winner_quote']; ?></div>
-            </div>
         </div>
     </div>
 </div>
@@ -95,19 +73,8 @@ $sorted_finalists = sort_finalists($finalists, $this_year);
 <div class="row">
     <div class="large-10 large-centered columns">
         <div class="la-winner">
-            <div class="type"><?php echo $fin['type']; ?></div>
-            <div class="name"><?php echo $fin['first_name'].' '.$fin['last_name'].', '.$fin['age']; ?></div>
+            <div class="name"><?php echo $fin['first_name'].' '.$fin['last_name'].', '.$fin['aff']; ?></div>
             <div class="lib-item"><a href="<?php echo $fin['library_link']; ?>">&ldquo;<?php echo $fin['lib']; ?>&rdquo;</a></div>
-            <div class="aff"><?php echo $fin['aff']?></div>
-            <div class="image"><?php echo $fin['library_image']; ?></div>
-            <div class="descrip"><?php echo $fin['lib_item_des']; ?></div>
-            <div class="row winner-quote">
-                <div class="large-2 columns">
-                    <div class="a-image"><?php echo $fin['image']; ?></div>
-                    <div class="small-name"><?php echo $fin['first_name'].' '.$fin['last_name'].', '.$fin['age']; ?></div>
-                </div>
-                <div class="large-10 columns quote"><?php echo $fin['winner_quote']; ?></div>
-            </div>
         </div>
     </div>
 </div>
