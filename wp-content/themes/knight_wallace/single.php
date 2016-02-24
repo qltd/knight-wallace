@@ -23,7 +23,7 @@ get_header(); ?>
     </div>
 </div>
 </section>
-<main id="main" class="site-main post-main" role="main">
+<main id="main" class="site-main post-main content" role="main">
 <div class="row">
     <div class="large-12 columns">
         <h1 class="text-center">News</h1>
