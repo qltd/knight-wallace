@@ -1,14 +1,14 @@
 <?php
 /**
- * Template Name: Past Fellows 
- * 
+ * Template Name: Past Fellows
+ *
  *
  * @package knight_wallace
  */
 
 get_header('fellows'); ?>
 
-<?php 
+<?php
 include_once('helpers.php');
 //grab our junk
 $this_page_meta = get_post_meta($post->ID);
@@ -22,57 +22,78 @@ $current_year_global = get_option('fellows_current_year');
 <section class="breadcrumb">
 <div class="row">
     <div class="small-6 columns">
-        <a href="/knight-wallace/our-fellows/" class="library-link">Current Fellows</a>
+        <a href="/knight-wallace/our-fellows/" class="library-link ">Current Fellows</a>
     </div>
 </div>
 </section>
 
 <div class="row">
     <div class="large-12 columns">
-        <h1 class="text-center">Past Fellows</h1>
+        <h1 class="entry-title text-center">Past Fellows</h1>
     </div>
 </div>
 
 <?php if(!is_null($current_year_global)): ?>
 <section class="year-control">
-    <?php $count = 1;?>
     <div class="row">
-        <?php for($i=$current_year_global;$i>1990;$i--): ?>
-            <div class="medium-3 columns">
-                <a href="/knight-wallace/our-fellows/<?php echo $i - 1 .'-'. $i; ?>/"><?php echo $i - 1 .'-'. $i; ?></a>
+        <div class="large-12 columns">
+            <div class="row">
+                    <div class="large-12 columns">
+                        <h4>VIEW BY CLASS YEAR:</h4>
+                    </div>
             </div>
-            <?php if($count == 4): ?>
+            <div class="row years">
+                <div class="large-12 columns">
+                    <?php $count = 1;?>
+                    <div class="row">
+                        <?php for($i=$this_year;$i>1990;$i--): ?>
+                        <div class="medium-3 columns">
+                            <a href="/knight-wallace/our-fellows/<?php echo $i - 1 .'-'. $i; ?>/"><?php echo $i - 1 .'-'. $i; ?></a>
+                        </div>
+                        <?php if($count == 4): ?>
+                    </div>
+                    <div class="row">
+                        <?php $count = 0; ?>
+                        <?php endif; ?>
+                        <?php $count += 1; ?>
+                        <?php endfor; ?>
+
+                    </div>
                 </div>
-                <div class="row">
-                <?php $count = 0; ?>
-            <?php endif; ?>
-            <?php $count += 1; ?>
-        <?php endfor; ?>
-    </div>
-</section>
+            </div>
+        </div>
+        <div class="row">
+            <div class="medium-9 columns"></div>
+            <div class="medium-3 columns">
+                <a href="#" class="show-more">More &raquo;</a>
+            </div>
+        </div>
+    </section>
 <div class="row">
     <div class="large-12 columns">
-    <h2 class="text-center"><?php echo $this_year - 1 .'-'. $this_year; ?> Fellows</h2>
+    <h2 class="entry-sub-title text-center"><?php echo $this_year - 1 .'-'. $this_year; ?> Fellows</h2>
     </div>
 </div>
 <?php endif; ?>
 
 <main id="main" class="site-main post-main" role="main">
+    <?php if (get_the_post_thumbnail($post->ID)): ?>
     <div class="row">
         <div class="large-12 columns">
             <div class="fellow-class-image"><?php echo get_the_post_thumbnail($post->ID); ?></div>
         </div>
     </div>
-    <div class="row">
-        <div class="large-10 columns large-offset-2">
+    <?php endif; ?>
+    <div class="row board-of-directors">
+        <div class="large-10 large-centered columns">
             <?php if(!empty($sorted_fellows)): ?>
                 <?php foreach($sorted_fellows as $fellow): ?>
-                    <div class="row">
+                    <div class="row director past-fellow">
                         <div class="large-12 columns">
-                            <p class="fellow-name">
+                            <p class="name">
 
                                 <?php if(!empty($fellow['bio'])): ?>
-                                    <a href="<?php echo $fellow['link']; ?>" class="fellow-link">
+                                    <a href="<?php echo $fellow['link']; ?>" class="link">
                                 <?php endif; ?>
                                     <?php echo $fellow['first_name']; ?>&nbsp;
                                     <?php echo $fellow['last_name']; ?>
@@ -80,10 +101,10 @@ $current_year_global = get_option('fellows_current_year');
                                     </a>
                                 <?php endif; ?>
                             </p>
-                            <p class="fellow-aff">
-                                <span class="job"><?php echo $fellow['job']; ?></span> <?php echo $fellow['aff']; ?> 
+                            <p class="aff">
+                                <span class="job"><?php echo $fellow['job']; ?></span> <?php echo $fellow['aff']; ?>
                             </p>
-                            <p class="fellow-title">
+                            <p class="title">
                                 <?php echo $fellow['title']; ?>
                             </p>
                         </div>
@@ -94,7 +115,7 @@ $current_year_global = get_option('fellows_current_year');
     </div>
 </main>
 
-<?php 
+<?php
 //display alerts
 if(!empty($alerts)):
 ?>

@@ -31,6 +31,7 @@ $(document).ready(function(){
         $('.sub-nav-wrap .'+active_menu).removeClass('disappear');
     });
 
+
     //past winners filters show/hide
     $('.show-more').click(function(){
         if (open == false){
@@ -40,8 +41,8 @@ $(document).ready(function(){
             $(this).html('Less &raquo;');
             open = false;
         }
-        console.log(open);
         $('.years').toggleClass('open');
+
 
         return false;
     });
@@ -98,7 +99,7 @@ $(document).ready(function(){
     });
 
     $('.mobile-menu-trigger').click(function(){
-        $('.mobile-menu-wrap').slideToggle(); 
+        $('.mobile-menu-wrap').slideToggle();
     });
 
     //slider
@@ -106,7 +107,7 @@ $(document).ready(function(){
         auto: true,
         autoHover: true,
         pause: 8000,
-        pager: false 
+        pager: false
     });
 
     //pager
@@ -137,7 +138,7 @@ $(document).ready(function(){
                 'scrollTop': $target.offset().top
         }, 900, 'swing',function(){
             $('.back-to-top-button').fadeOut();
-        }); 
+        });
     });
 
     $(window).scroll(function(){
