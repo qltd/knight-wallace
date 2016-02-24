@@ -21,6 +21,7 @@ $featured = find_featured_news_article($news);
     </div>
 </div>
 <?php if(!empty($featured)): ?>
+<div id="library">
     <div class="row">
         <div class="large-12 column">
           <div class="featured">
@@ -42,12 +43,17 @@ $featured = find_featured_news_article($news);
                       </a>
                   </h3>
                   <div class="author">
-                        <?php echo $sorted_libs['featured'][0]['author']; ?>
+                        <?php $featured_meta = get_post_meta($featured[0]->ID); ?>
+
+                        <?php if(!empty($featured_meta['Author'])): ?>
+                            <?php echo $featured_meta['Author'][0]; ?>
+                        <?php endif; ?>
                   </div>
-                  <p>
-                        <?php echo $sorted_libs['featured'][0]['content']; ?>
-                  </p>
+                  <p><?php echo $featured[0]->post_excerpt; ?></p>
+                  <p><a href="<?php echo $featured[0]->guid; ?>" class="button">Read Full Story <i class="fa fa-angle-double-right"></i>
+</a></p>
                   <div class="tags-list">
+                    <?php $featured_tags = get_the_tags($featured[0]->ID); ?>
                     <ul>
                         <?php if(!empty($sorted_libs['featured'][0]['tags'])): ?>
                             <?php foreach($sorted_libs['featured'][0]['tags'] as $tag): ?>
@@ -62,6 +68,7 @@ $featured = find_featured_news_article($news);
           </div>
         </div>
     </div>
+</div>
 <?php endif; ?>
 <section class="story-list news">
     <?php if(!empty($news)): ?>
@@ -76,7 +83,10 @@ $featured = find_featured_news_article($news);
                     <div class="news-article">
                         <div class="text">
                             <h4><a href="<?php echo $new->guid; ?>"><?php echo $new->post_title; ?></a></h4>
-                            <div class="date"><?php echo $new->post_date; ?></div>
+                        <?php $nmeta = get_post_meta($new->ID); ?>
+                        <?php if(!empty($nmeta['Author'])): ?>
+                            <div class="date"><?php echo $nmeta['Author'][0]; ?></div>
+                        <?php endif; ?>
                             <div class="tags-list">
                                 <ul>
                                     <?php if(!empty($tags)):?>

@@ -534,7 +534,6 @@ function find_featured_news_article($news){
     if(!empty($news)){
         foreach($news as $new){
             $pmeta = get_post_meta($new->ID); 
-            var_dump($pmeta);
             if(!empty($pmeta['featured']) && $pmeta['featured'][0] == 'featured'){
                 $res[] = $new; 
             }
