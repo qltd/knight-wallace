@@ -577,6 +577,12 @@ figure {
     }
 }
 
+.entry-sub-title {
+    font-size: 2.6rem;
+    font-weight: bold;
+    color: $ublue;
+}
+
 .content {
     padding-bottom: 4rem;
 
@@ -704,6 +710,48 @@ figure {
         line-height: 1.8rem;
         font-family: $primary-font-bold;
         color: $ublue;
+    }
+}
+
+/* Past Fellows */
+.year-control {
+    margin-bottom: 7rem;
+
+    @include link_style($white, $white);
+
+    > .row {
+        background: $charcoal;
+        padding: 1.5rem;
+    }
+
+    .years {
+        max-height: 95px;
+        overflow: hidden;
+        transition: all 0.5s ease;
+
+        &.open {
+            max-height: 1000px;
+        }
+    }
+
+    h4 {
+        color: $white;
+        text-transform: uppercase;
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+
+    a {
+        font-size: 1.8rem;
+        line-height: 2rem;
+        margin-bottom: 12px;
+        display: inline-block;
+    }
+
+    a.show-more {
+        font-size: 1.8rem;
+        display: inline-block;
+        margin-left: -5px;
     }
 }
 
@@ -835,6 +883,10 @@ figure {
         margin-bottom: 5rem;
     }
 
+    .past-fellow {
+        padding: 0 3.2rem;
+    }
+
     .board-member-image {
         max-width: 169px;
         height: auto;
@@ -865,6 +917,15 @@ figure {
         font-family: $primary-font;
         color: $charcoal;
     }
+
+    .aff, .bio {
+        font-size: 1.4rem;
+    }
+}
+
+.fellow-class-image {
+    text-align: center;
+    margin-top: 3rem;
 }
 
 /* Footer */
