@@ -12,6 +12,7 @@ get_header(); ?>
 
 <?php
 include_once('helpers.php');
+include_once('twitter_feed.php');
 //grab our junk
 $alerts = get_posts(array('category_name'=>'alert'));
 $news = get_posts(array('category_name'=>'news'));
@@ -21,6 +22,7 @@ $sorted_content_blocks = sort_homepage_featured_content_blocks($content_blocks);
 $hero = get_posts(array('post_type'=>'hero_content','posts_per_page'=>200));
 $hero_content = sort_hero_content($hero);
 $random_hero_content = random_hero_content($hero_content,'Wallace House');
+
 ?>
 
 <?php if(!empty($random_hero_content)): ?>
