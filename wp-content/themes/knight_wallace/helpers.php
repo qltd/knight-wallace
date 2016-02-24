@@ -211,8 +211,8 @@ function sort_library_items_sub_cat($lib,$cat){
  * */
 
 function sort_winners($winners, $year='2015'){
+    $res = array();
     if(!empty($winners)){
-        $res = array();
         foreach($winners as $win){
             $pmeta = get_post_meta($win->ID); 
             $pimage = get_the_post_thumbnail($win->ID);
@@ -247,8 +247,7 @@ function sort_winners($winners, $year='2015'){
                     );
             }
         }
-    }else{
-        $res = false;
+        usort($res,"compareBy");//sort Alpha order by last name
     }
 
     return $res;
@@ -328,8 +327,8 @@ function get_custom_post_by_title($post_type, $title){
  * */
 
 function sort_past_winners($winners, $year='2015', $type_array=null){
+    $res = array();
     if(!empty($winners)){
-        $res = array();
         foreach($winners as $win){
             $pmeta = get_post_meta($win->ID); 
             $award_type = !empty($pmeta['_kw_person_liv_type']) ? $pmeta['_kw_person_liv_type'][0] : '';
@@ -359,8 +358,7 @@ function sort_past_winners($winners, $year='2015', $type_array=null){
                     );
             }
         }
-    }else{
-        $res = false;
+        usort($res,"compareBy");//sort Alpha order by last name
     }
 
     return $res;
@@ -466,6 +464,9 @@ function sort_judges($judges){
                 ); 
             }
         }
+        //sort results by Alpha Order
+        usort($res['National'],"compareBy");
+        usort($res['Regional'],"compareBy");
     }else{
         $res = false; 
     }
@@ -538,6 +539,44 @@ function find_featured_news_article($news){
                 $res[] = $new; 
             }
         } 
+    }
+    return $res;
+}
+
+/**
+ * Sort by alpha order
+ * takes two arguments, a multi dimenstional array of items and the item by which everything should
+ * be sorted by, such as "last_name"
+ * returns sorted array
+ * @rdar
+ *
+ * */
+
+function compareBy($a, $b) {
+    return strcmp($a["last_name"], $b["last_name"]);
+}
+
+/**
+ * Sort board of directors
+ *
+ * */
+
+function sort_board_of_directors($directors){
+    $res = array();
+    if(!empty($directors)){
+        foreach($directors as $d){
+            $image = get_the_post_thumbnail($d->ID);
+            $pmeta = get_post_meta($d->ID);
+            $res[] = array(
+                'image' => $image,
+                'link' => $d->guid,
+                'first_name' => !empty($pmeta['_person_board_member_first_name']) ? $pmeta['_person_board_member_first_name'][0] : '',
+                'last_name' => !empty($pmeta['_person_board_member_last_name']) ? trim($pmeta['_person_board_member_last_name'][0]) : '',
+                'title' => !empty($pmeta['_person_board_member_title']) ? $pmeta['_person_board_member_title'][0] : '',
+                'ass' => !empty($pmeta['_person_board_member_ass']) ? $pmeta['_person_board_member_ass'][0] : ''
+            ); 
+        } 
+        usort($res,"compareBy");
     }
     return $res;
 }

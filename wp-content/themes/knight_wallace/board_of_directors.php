@@ -13,6 +13,7 @@ include_once('helpers.php');
 //grab our junk
 $alerts = get_posts(array('category_name'=>'alert'));
 $board_members = get_posts(array('post_type'=>'person_board_member','posts_per_page'=>200));
+$sorted_board_members = sort_board_of_directors($board_members);
 ?>
 
 <section class="breadcrumb">
@@ -31,25 +32,21 @@ $board_members = get_posts(array('post_type'=>'person_board_member','posts_per_p
     </div>
     <div class="row board-of-directors">
         <div class="large-10 large-centered columns">
-            <?php if(!empty($board_members)): ?>
-                <?php foreach($board_members as $board_member): ?>
-                    <?php
-                    $image = get_the_post_thumbnail($board_member->ID);
-                    $pmeta = get_post_meta($board_member->ID);
-                    ?>
+            <?php if(!empty($sorted_board_members)): ?>
+                <?php foreach($sorted_board_members as $board_member): ?>
                     <div class="row director">
                         <div class="medium-2 columns">
-                            <div class="board-member-image"><?php echo $image; ?></div>
+                            <div class="board-member-image"><?php echo $board_member['image']; ?></div>
                         </div>
                         <div class="medium-10 columns">
                             <p class="name">
-                                <a href="<?php echo !empty($board_member->guid) ? $board_member->guid : ''; ?>" class="board-member-link">
-                                <?php echo !empty($pmeta['_person_board_member_first_name']) ? $pmeta['_person_board_member_first_name'][0] : ''; ?>
-                                <?php echo !empty($pmeta['_person_board_member_last_name']) ? $pmeta['_person_board_member_last_name'][0] : ''; ?></a>
+                                <a href="<?php echo $board_member['link']; ?>" class="board-member-link">
+                                <?php echo $board_member['first_name']; ?>
+                                <?php echo $board_member['last_name']; ?></a>
                             </p>
                             <p class="title">
-                                <?php echo !empty($pmeta['_person_board_member_title']) ? $pmeta['_person_board_member_title'][0] : ''; ?>
-                                <?php echo !empty($pmeta['_person_board_member_ass']) ? $pmeta['_person_board_member_ass'][0] : ''; ?>
+                                <?php echo $board_member['title']; ?>
+                                <?php echo $board_member['ass']; ?>
                             </p>
                         </div>
                     </div>
