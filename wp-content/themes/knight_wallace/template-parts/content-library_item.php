@@ -43,7 +43,7 @@ $tags = get_the_tags($post->ID);
     </div>
 <?php endif; ?>
     <div class="large-7 columns">
-        <div class="entry-content">
+        <div class="entry-content content">
             <?php the_content(); ?>
             <?php
                 wp_link_pages( array(
