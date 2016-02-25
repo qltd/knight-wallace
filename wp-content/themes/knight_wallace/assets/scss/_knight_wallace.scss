@@ -428,6 +428,7 @@ figure {
         strong {
             font-size: 1.4rem;
             font-family: $primary-font-bold;
+            font-weight: normal;
         }
     }
 }
@@ -587,6 +588,7 @@ figure {
     color: $ublue;
     text-align: center;
     font-family: $primary-font-bold;
+    font-weight: normal;
     margin: 8rem 0 4rem;
 
     @include responsive("1024px") {
@@ -641,6 +643,7 @@ figure {
         line-height: 4.4rem;
         color: $ublue;
         font-family: $primary-font-bold;
+        font-weight: normal;
     }
 
     h2 {
@@ -648,6 +651,7 @@ figure {
         line-height: 3.4rem;
         color: $ublue;
         font-family: $primary-font-bold;
+        font-weight: normal;
     }
 
     h3 {
@@ -655,6 +659,7 @@ figure {
         line-height: 2.4rem;
         color: $ublue;
         font-family: $primary-font-bold;
+        font-weight: normal;
     }
 
     h4 {
@@ -662,10 +667,12 @@ figure {
         line-height: 2.4rem;
         color: $ublue;
         font-family: $primary-font-bold;
+        font-weight: normal;
     }
 
     strong {
         font-family: $primary-font-bold;
+        font-weight: normal;
     }
 
     ul {
