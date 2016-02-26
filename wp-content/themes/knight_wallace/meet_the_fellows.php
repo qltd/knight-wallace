@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Meet the Fellows 
+ * Template Name: Meet the Fellows
  *
  *
  * @package knight_wallace
@@ -15,11 +15,11 @@ if(empty($_SESSION['form_id'])){
 
 if(isset($_POST) && !empty($_POST['fellow_login']) && $_POST['fellow_login'] == $_SESSION['form_id']){
     if(empty($_POST['username']) || empty($_POST['password'])){
-        $logged_in = false;  
+        $logged_in = false;
         $message = 'Please enter both a username and password';
         $message_type = 'warning';
     }else{
-        //login the user 
+        //login the user
         $logged_in = login_fellows_user($_POST['username'],$_POST['password'],$_SESSION['form_id']);
         if($logged_in){
             $_SESSION['logged_in'] = $_SESSION['form_id'];
@@ -60,25 +60,25 @@ get_header('fellows'); ?>
 <?php endif; ?>
 <div class="row">
     <div class="large-12 columns">
-        <form method="post" action="">
+        <form method="post" class="meet-fellows-login" action="">
             <div class="row">
                 <div class="large-12 columns">
                     <label for="username">Username</label>
                     <input type="text" name="username" placeholder="Enter username" />
-                </div> 
-            </div> 
+                </div>
+            </div>
             <div class="row">
                 <div class="large-12 columns">
                     <label for="password">Password</label>
                     <input type="password" name="password" placeholder="Enter password" />
-                </div> 
-            </div> 
+                </div>
+            </div>
             <div class="row">
                 <div class="large-12 columns">
                 <input type="hidden" name="fellow_login" value="<?php echo $_SESSION['form_id']; ?>" />
                     <input type="submit" value="Sign In" class="button" />
-                </div> 
-            </div> 
+                </div>
+            </div>
         </form>
     </div>
 </div>

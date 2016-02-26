@@ -1,6 +1,6 @@
 <?php
 /**
- * Template part for displaying private meet the fellows page 
+ * Template part for displaying private meet the fellows page
  *
  *
  * @package knight_wallace
@@ -42,9 +42,9 @@ $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
             <?php $c = 0; ?>
             <?php $count = count($children); ?>
             <?php foreach($children as $child): ?>
-                <li><a href="<?php echo $child->guid; ?>"><?php echo $child->post_title; ?></a> 
+                <li><a href="<?php echo $child->guid; ?>"><?php echo $child->post_title; ?></a>
                 <?php if($c < $count - 1): ?>
-                    &nbsp;|&nbsp; 
+                    &nbsp;|&nbsp;
                 <?php endif; ?>
                 </li>
             <?php $c += 1; ?>
@@ -62,28 +62,28 @@ $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
     </div>
 </div>
 <div class="meet-the-fellows-list">
-    <div class="row">
-        <div class="large-10 columns large-offset-2">
+    <div class="row board-of-directors">
+        <div class="large-10 columns large-centered">
             <?php if(!empty($sorted_fellows)): ?>
                 <?php foreach($sorted_fellows as $fellow): ?>
-                    <div class="row">
-                        <div class="large-4 columns">
-                                <div class="fellow-image">
-                                <?php if(!empty($fellow['pic_private'])): ?> 
+                    <div class="row director">
+                        <div class="large-2 columns">
+                                 <div class="board-member-image">
+                                <?php if(!empty($fellow['pic_private'])): ?>
                                     <img src="<?php echo $fellow['pic_private']; ?>" alt="Fellow Personal Pic" />
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <div class="large-8 columns">
-                            <p class="fellow-name">
-                                <a href="<?php echo $fellow['link']; ?>" class="fellow-link">
+                        <div class="large-10 columns">
+                            <p class="name">
+                                <a href="<?php echo $fellow['link']; ?>" class="link">
                                 <?php echo $fellow['first_name']; ?>&nbsp;
                                 <?php echo $fellow['last_name']; ?></a>
                             </p>
-                            <p class="fellow-title">
+                            <p class="title">
                             <?php echo $fellow['title']; ?>
                             </p>
-                            <p class="fellow-bio">
+                            <p class="bio">
                             <?php echo $fellow['bio_private']; ?>
                             </p>
                         </div>
