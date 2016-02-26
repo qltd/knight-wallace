@@ -309,7 +309,7 @@ if(!empty($alerts)):
             <a href="https://twitter.com/<?php echo $twitter_username; ?>"><i class="fa fa-twitter"></i></a>
         </div>
         <div class="small-10 columns">
-        <a href="<?php echo $tweet->url; ?>"><?php echo '@'.$twitter_username.'<br />'.$tweet->text; ?></a>
+        <a href="https://twitter.com/<?php echo $twitter_username; ?>/status/<?php echo $tweet->id_str; ?>" target="_blank"><?php echo '@'.$twitter_username.'<br />'.$tweet->text; ?></a>
         </div>
     </div>
 </div>
