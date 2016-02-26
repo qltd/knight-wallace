@@ -60,7 +60,7 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
         <?php foreach($sorted_slides['Livingston Awards'] as $slide):?>
         <li>
             <div class="row">
-           <div class="medium-1 columns"></div> 
+           <div class="medium-1 columns"></div>
             <?php if(!empty($slide['image'])):?>
             <div class="medium-4 columns"><?php echo $slide['image']; ?></div>
             <?php endif; ?>
@@ -71,7 +71,7 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
                         <?php echo $slide['details']; ?>
                         </div>
                     </div>
-                    <div class="testimonial"><?php echo $slide['testimonial']; ?></div> 
+                    <div class="testimonial"><?php echo $slide['testimonial']; ?></div>
                 </div>
             </div>
         </li>
@@ -79,7 +79,7 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
     </ul>
        </div>
        <div class="large-1 column"></div>
-    </div> 
+    </div>
 </section>
 <?php endif; ?>
 
@@ -309,7 +309,7 @@ if(!empty($alerts)):
             <a href="https://twitter.com/<?php echo $twitter_username; ?>"><i class="fa fa-twitter"></i></a>
         </div>
         <div class="small-10 columns">
-        <a href="https://twitter.com/<?php echo $twitter_username; ?>/status/<?php echo $tweet->id_str; ?>" target="_blank"><?php echo '@'.$twitter_username.'<br />'.$tweet->text; ?></a>
+        <a href="https://twitter.com/<?php echo $twitter_username; ?>/status/<?php echo $tweet->id_str; ?>" target="_blank"><strong><?php echo '@'.$twitter_username.'</strong><br />'.$tweet->text; ?></a>
         </div>
     </div>
 </div>

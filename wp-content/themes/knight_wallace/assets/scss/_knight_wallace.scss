@@ -595,7 +595,8 @@ figure {
         background: #e5e5e5;
         display: flex;
         align-items: center;
-        font-size: 1.8rem;
+        font-size: 1.6rem;
+        color: $charcoal;
     }
 
     i {
@@ -603,6 +604,11 @@ figure {
         border-right: 1px solid $charcoal;
         padding: 0 5rem;
         margin: 2rem 0;
+    }
+
+    strong {
+        font-weight: normal;
+        font-family: $primary-font-bold;
     }
 }
 
