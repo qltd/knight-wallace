@@ -307,10 +307,10 @@ if(!empty($alerts)):
 <div class="tweet-wrap">
     <div class="row">
         <div class="small-2 columns">
-            <a href="https://twitter.com/<?php echo $twitter_username; ?>"><i class="fa fa-twitter"></i></a>
+            <a href="https://twitter.com/<?php echo $twitter_username; ?>" target="_blank"><i class="fa fa-twitter"></i></a>
         </div>
         <div class="small-10 columns">
-        <a href="<?php echo $tweet->url; ?>"><?php echo '@'.$twitter_username.'<br />'.$tweet->text; ?></a>
+        <a href="https://twitter.com/<?php echo $twitter_username; ?>/status/<?php echo $tweet->id_str; ?>" target="_blank"><?php echo '@'.$twitter_username.'<br />'.$tweet->text; ?></a>
         </div>
     </div>
 </div>
