@@ -10,7 +10,7 @@ get_header(); ?>
 <?php
 //grab our junk
 include_once('helpers.php');
-$libs = get_posts(array('post_type'=>'library','posts_per_page'=>100));
+$libs = get_posts(array('post_type'=>'library','posts_per_page'=> -1));
 $sorted_libs = sort_library_items($libs);
 ?>
 
