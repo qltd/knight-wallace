@@ -25,7 +25,7 @@ $pmeta = get_post_meta($post->ID);
 <?php endif; ?>
     <div class="large-6 columns">
         <header class="entry-header">
-            <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+            <?php the_title( '<h2 class="entry-title">', '</h2>' ); ?>
         </header><!-- .entry-header -->
         <div class="content">
             <p class="title">
