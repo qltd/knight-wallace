@@ -28,20 +28,16 @@ $pmeta = get_post_meta($post->ID);
             <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
         </header><!-- .entry-header -->
         <div class="content">
-            <p class="name">
-<?php echo !empty($pmeta['_kw_person_laj_first_name']) ? $pmeta['_kw_person_laj_first_name'][0] : ''; ?>&nbsp;
-<?php echo !empty($pmeta['_kw_person_laj_last_name']) ? $pmeta['_kw_person_laj_last_name'][0] : ''; ?>
-            </p>
             <p class="title">
-<?php echo !empty($pmeta['_kw_person_laj_title']) ? $pmeta['_kw_person_laj_title'][0] : ''; ?>,&nbsp;
+<?php echo !empty($pmeta['_kw_person_laj_title']) ? $pmeta['_kw_person_laj_title'][0] : ''; ?>,
 <?php echo !empty($pmeta['_kw_person_laj_aff']) ? $pmeta['_kw_person_laj_aff'][0] : ''; ?>
             </p>
             <p class="judge-type">
-<?php echo !empty($pmeta['_kw_person_laj_nat']) ? $pmeta['_kw_person_laj_nat'][0] : ''; ?>&nbsp;
+<?php echo !empty($pmeta['_kw_person_laj_nat']) ? $pmeta['_kw_person_laj_nat'][0] : ''; ?>
                 Judge
             </p>
             <p class="bio">
-<?php echo !empty($pmeta['_kw_person_laj_bio']) ? $pmeta['_kw_person_laj_bio'][0] : ''; ?>&nbsp;
+<?php echo !empty($pmeta['_kw_person_laj_bio']) ? $pmeta['_kw_person_laj_bio'][0] : ''; ?>
             </p>
         </div>
         <footer class="entry-footer">
