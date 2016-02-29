@@ -40,14 +40,14 @@ $sorted_board_members = sort_board_of_directors($board_members);
                         </div>
                         <div class="medium-10 columns">
                             <p class="name">
-                                <a href="<?php echo $board_member['link']; ?>" class="board-member-link">
                                 <?php echo $board_member['first_name']; ?>
-                                <?php echo $board_member['last_name']; ?></a>
+                                <?php echo $board_member['last_name']; ?>
                             </p>
                             <p class="title">
                                 <?php echo $board_member['title']; ?>
                                 <?php echo $board_member['ass']; ?>
                             </p>
+                                <p class="bio"><?php echo $board_member['bio']; ?> </p>
                         </div>
                     </div>
                 <?php endforeach; ?>

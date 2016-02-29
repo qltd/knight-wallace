@@ -493,7 +493,8 @@ function sort_judges($judges){
                    'title' => !empty($pmeta['_kw_person_laj_title']) ? $pmeta['_kw_person_laj_title'][0] : '',
                    'aff' => !empty($pmeta['_kw_person_laj_aff']) ? $pmeta['_kw_person_laj_aff'][0] : '',
                    'image' => $image,
-                   'link' => !empty($judge->guid) ? $judge->guid : ''
+                   'link' => !empty($judge->guid) ? $judge->guid : '',
+                   'bio' => !empty($pmeta['_kw_person_laj_bio']) ? $pmeta['_kw_person_laj_bio'][0] : ''
                 ); 
             }
         }
@@ -606,7 +607,8 @@ function sort_board_of_directors($directors){
                 'first_name' => !empty($pmeta['_person_board_member_first_name']) ? $pmeta['_person_board_member_first_name'][0] : '',
                 'last_name' => !empty($pmeta['_person_board_member_last_name']) ? trim($pmeta['_person_board_member_last_name'][0]) : '',
                 'title' => !empty($pmeta['_person_board_member_title']) ? $pmeta['_person_board_member_title'][0] : '',
-                'ass' => !empty($pmeta['_person_board_member_ass']) ? $pmeta['_person_board_member_ass'][0] : ''
+                'ass' => !empty($pmeta['_person_board_member_ass']) ? $pmeta['_person_board_member_ass'][0] : '',
+                'bio' => !empty($pmeta['_person_board_member_bio']) ? $pmeta['_person_board_member_bio'][0] : ''
             ); 
         } 
         usort($res,"compareBy");
