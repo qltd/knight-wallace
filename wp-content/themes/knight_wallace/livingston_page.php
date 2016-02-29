@@ -195,12 +195,13 @@ if(!empty($alerts)):
             </div>
             <?php if(!empty($news[0])): ?>
             <?php $tags = get_the_tags($news[0]->ID); ?>
+            <?php $n1meta = get_post_meta($news[0]->ID); ?>
             <div class="row news snippet-box">
                 <div class="large-12 columns">
                     <div class="news-article">
                         <div class="text">
                         <h4><a href="<?php echo $news[0]->guid; ?>"><?php echo $news[0]->post_title; ?></a></h4>
-                        <div class="date"><?php echo $news[0]->post_date; ?></div>
+                            <div class="date"><?php echo $n1meta['Author'][0]; ?></div>
                         <div class="tags-list">
                             <ul>
                                 <?php if(!empty($tags)):?>
@@ -218,12 +219,13 @@ if(!empty($alerts)):
             <?php endif; ?>
             <?php if(!empty($news[1])): ?>
             <?php $tags1 = get_the_tags($news[1]->ID); ?>
+            <?php $n2meta = get_post_meta($news[0]->ID); ?>
             <div class="row news snippet-box">
                 <div class="large-12 columns">
                     <div class="news-article">
                         <div class="text">
                         <h4><a href="<?php echo $news[1]->guid; ?>"><?php echo $news[1]->post_title; ?></a></h4>
-                        <div class="date"><?php echo $news[1]->post_date; ?></div>
+                            <div class="date"><?php echo $n2meta['Author'][0]; ?></div>
                         <div class="tags-list">
                             <ul>
                                 <?php if(!empty($tags1)):?>
@@ -249,12 +251,13 @@ if(!empty($alerts)):
                 <h3>From the Wallace House Library</h3>
             </div>
             <?php if(!empty($libs[0])): ?>
+            <?php $l1meta = get_post_meta($libs[0]->ID); ?>
             <div class="row news snippet-box">
                 <div class="large-12 columns">
                     <div class="news-article">
                         <div class="text">
                         <h4><a href="/library/<?php echo $libs[0]->post_name; ?>"><?php echo $libs[0]->post_title; ?></a></h4>
-                        <div class="date"><?php echo $libs[0]->post_date; ?></div>
+                        <div class="date"><?php echo !empty($l1meta['_library_author']) ? $l1meta['_library_author'][0] : ''; ?></div>
                         <?php $tagslib = get_the_tags($libs[0]->ID); ?>
                         <div class="tags-list">
                             <ul>
@@ -272,12 +275,13 @@ if(!empty($alerts)):
             </div>
             <?php endif; ?>
             <?php if(!empty($libs[1])): ?>
+            <?php $l2meta = get_post_meta($libs[1]->ID); ?>
             <div class="row news snippet-box">
                 <div class="large-12 columns">
                     <div class="news-article">
                         <div class="text">
                         <h4><a href="/library/<?php echo $libs[1]->post_name; ?>"><?php echo $libs[1]->post_title; ?></a></h4>
-                        <div class="date"><?php echo $libs[1]->post_date; ?></div>
+                        <div class="date"><?php echo !empty($l2meta['_library_author']) ? $l2meta['_library_author'][0] : ''; ?></div>
                         <div class="tags-list">
                             <?php $tagslib1 = get_the_tags($libs[1]->ID); ?>
                             <ul>
