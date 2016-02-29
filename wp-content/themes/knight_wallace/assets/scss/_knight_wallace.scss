@@ -110,6 +110,7 @@ a {
     line-height: 1.8rem;
     margin-left: -3rem;
     margin-top: -0.3rem;
+    font-family: $primary-font;
 
     @include responsive("1024px") {
         margin-left: 100px;
@@ -150,7 +151,7 @@ a {
 
         a {
             display: inline-block;
-            padding: 2rem 0;
+            padding: 1.2rem 0;
             width: 100%;
         }
     }
@@ -159,6 +160,7 @@ a {
         background: $white-gray;
         font-size: 2rem;
         text-align: center;
+        padding: 1rem 0;
 
         @include link_style($lblue, $charcoal);
 
@@ -298,6 +300,7 @@ a {
             padding: 1.5rem 3rem 1rem;
             transition: all 0.5s ease;
             height: 126px;
+            max-width: 620px;
 
             &:hover {
                 background: $ublue;
@@ -350,6 +353,7 @@ a {
                 color: $charcoal;
                 padding: 0;
                 font-size: 1.2rem;
+                text-transform: uppercase;
             }
         }
     }
@@ -465,7 +469,6 @@ figure {
 
     &:before {
         content: "\00ab";
-        margin-right: 10px;
     }
 }
 
@@ -491,8 +494,6 @@ figure {
 
 /* Library */
 #library {
-    padding-top: 6rem;
-
     .featured {
         background: $myellow;
         margin: 4rem 0;
@@ -544,6 +545,10 @@ figure {
 }
 
 .story-list {
+    .page-template-news & {
+        margin-bottom: 6rem;
+    }
+
     .date {
         color: $charcoal;
         font-size: 1.6rem;
@@ -569,6 +574,10 @@ figure {
         justify-content: center;
         margin-bottom: 5rem;
         width: 100%;
+
+        &:hover {
+            background: $ublue;
+        }
     }
 
     .news-article {
@@ -589,6 +598,7 @@ figure {
     h3 {
         color: $white;
         padding: 5px 0;
+        text-transform: uppercase;
     }
 
     h4 {
@@ -727,19 +737,19 @@ figure {
     }
 
     ul {
-        margin-left: 2rem;
+        margin-left: 4rem;
         margin-bottom: 2rem;
     }
 
     ol {
-        margin-left: 2.2rem;
+        margin-left: 4.2rem;
         margin-bottom: 2rem;
     }
 
     li, p {
         font-size: 2rem;
         color: $ublue;
-        line-height: 2.6rem;
+        line-height: 2.8rem;
     }
 
     li {
@@ -1021,7 +1031,6 @@ figure {
         margin-top: 1.2rem;
         font-family: $primary-font-bold;
         color: $lblue;
-        text-decoration: underline;
     }
 
     .title {
@@ -1032,7 +1041,9 @@ figure {
     }
 
     .aff, .bio {
-        font-size: 1.4rem;
+        font-size: 2rem;
+        color: $ublue;
+        line-height: 2.8rem;
     }
 }
 
@@ -1164,7 +1175,7 @@ figure {
             color: #fff;
             font-weight: bold;
             font-size: 2rem;
-            padding: 0rem 1rem;
+            padding: 0.5rem 1.5rem;
 
             &:after {
                 font-family: FontAwesome;
@@ -1184,6 +1195,7 @@ figure {
             font-size: 2rem;
             color: $ublue;
             line-height: 2.4rem;
+            padding: 1.5rem;
         }
     }
 }
