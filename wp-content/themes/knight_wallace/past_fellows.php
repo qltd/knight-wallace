@@ -46,7 +46,7 @@ $current_year_global = get_option('fellows_current_year');
                 <div class="large-12 columns">
                     <?php $count = 1;?>
                     <div class="row">
-                        <?php for($i=$this_year;$i>1990;$i--): ?>
+                        <?php for($i=$current_year_global;$i>1990;$i--): ?>
                         <div class="medium-3 columns">
                             <a href="/knight-wallace/our-fellows/<?php echo $i - 1 .'-'. $i; ?>/"><?php echo $i - 1 .'-'. $i; ?></a>
                         </div>

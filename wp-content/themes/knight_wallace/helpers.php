@@ -213,6 +213,7 @@ function sort_library_items_sub_cat($lib,$cat){
 function sort_winners($winners, $year='2015'){
     $res = array();
     if(!empty($winners)){
+        $cowin = array();//array needed to deal with co-winners
         foreach($winners as $win){
             $pmeta = get_post_meta($win->ID); 
             if(!empty($pmeta['_kw_person_liv_win']) 
@@ -224,6 +225,37 @@ function sort_winners($winners, $year='2015'){
                     //Here we have a winner that we want to display on the winners page
                     $pimage = get_the_post_thumbnail($win->ID);
                     $lib_item_name = !empty($pmeta['_kw_person_liv_lib']) ? $pmeta['_kw_person_liv_lib'][0] : '';
+
+                    if($pmeta['_kw_person_liv_win'][0] == 'Co-Winner'){
+                        //we need to do some special stuff for co-winners
+                        if(in_array($lib_item_name,$cowin)){
+                            //we have already found the co-winners co-winner
+                            //now we need to add the co-winner to the co-winner in res array
+                            $add_winner = false;//doesn't need it's own slow in res array
+                            foreach($res as $r_key => $r_value){
+                                //loop through existing res array 
+                                if($r_value['lib'] == $lib_item_name){
+                                    $co_winner_name_line = !empty($pmeta['_kw_person_liv_first_name']) ? 
+                                        $pmeta['_kw_person_liv_first_name'][0].' ' : '';
+                                    $co_winner_name_line .= !empty($pmeta['_kw_person_liv_last_name']) ? 
+                                        $pmeta['_kw_person_liv_last_name'][0].', ' : '';
+                                    $co_winner_name_line .= !empty($pmeta['_kw_person_liv_age']) ? $pmeta['_kw_person_liv_age'][0] : '';
+                                    $res[$r_key]['co-winner_name_line'] = $co_winner_name_line;
+                                    $res[$r_key]['co-winner_image'] = $pimage;
+                                }
+                            }
+
+                        }else{
+                            //we need to add the co-winner to the cowin array 
+                            $cowin[$lib_item_name] = true;
+                            $add_winner = true;//add the winner, it's the first co-winner
+                        }
+                    }else{
+                        $add_winner = true;//add the winner, it's not a co-winner
+                    }
+
+                    if($add_winner){
+                    //we want to include this winner in the final array
                     $lib_item = get_custom_post_by_title('library',$lib_item_name);//get the full library object
                     $lib_image = get_the_post_thumbnail(!empty($lib_item) ? $lib_item->ID : '');
                     $res[] = array(
@@ -243,8 +275,9 @@ function sort_winners($winners, $year='2015'){
                         'lib_item_des' => !empty($lib_item) ? $lib_item->post_content : '',
                         'year' => !empty($pmeta['_kw_person_liv_year']) ? $pmeta['_kw_person_liv_year'][0] : '',
                         'past_aff' => !empty($pmeta['_kw_person_liv_win_aff']) ? $pmeta['_kw_person_liv_win_aff'][0] : '',
-                        'past_job' => !empty($pmeta['_kw_person_liv_win_job']) ? $pmeta['_kw_person_liv_win_job'][0] : ''
+                        'past_job' => !empty($pmeta['_kw_person_liv_win_job']) ? $pmeta['_kw_person_liv_win_job'][0] : '',
                     );
+                    }//end if add_winner
             }
         }
         usort($res,"compareBy");//sort Alpha order by last name

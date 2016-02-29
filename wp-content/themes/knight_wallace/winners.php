@@ -33,7 +33,11 @@ $sorted_winners = sort_winners($winners, $this_year);
     <div class="large-10 large-centered columns">
         <div class="la-winner">
             <div class="type"><?php echo $win['type']; ?></div>
-            <div class="name"><?php echo $win['first_name'].' '.$win['last_name'].', '.$win['age']; ?></div>
+            <div class="name"><?php echo $win['first_name'].' '.$win['last_name'].', '.$win['age']; ?>
+                <?php if(isset($win['co-winner_name_line'])): ?>
+                    <?php echo 'and '.$win['co-winner_name_line']; ?>
+                <?php endif; ?> 
+            </div>
             <div class="lib-item"><a href="<?php echo $win['library_link']; ?>">&ldquo;<?php echo $win['lib']; ?>&rdquo;</a></div>
             <div class="aff"><?php echo $win['aff']?></div>
             <div class="image"><?php echo $win['library_image']; ?></div>
@@ -42,6 +46,12 @@ $sorted_winners = sort_winners($winners, $this_year);
                 <div class="large-2 columns">
                     <div class="a-image"><?php echo $win['image']; ?></div>
                     <div class="small-name"><?php echo $win['first_name'].' '.$win['last_name'].', '.$win['age']; ?></div>
+                <?php if(isset($win['co-winner_image'])): ?>
+                    <div class="a-image"><?php echo $win['co-winner_image']; ?></div>
+                <?php endif; ?> 
+                <?php if(isset($win['co-winner_name_line'])): ?>
+                    <div class="small-name"><?php echo $win['co-winner_name_line']; ?></div>
+                <?php endif; ?> 
                 </div>
                 <div class="large-10 columns quote"><?php echo $win['winner_quote']; ?></div>
             </div>
