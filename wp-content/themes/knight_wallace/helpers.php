@@ -411,8 +411,8 @@ function is_correct_type($type_array, $award_type){
  * */
 
 function sort_fellows_by_year($fellows,$year=null){
+    $res = array();
     if(!empty($fellows)){
-        $res = array();
         foreach($fellows as $fellow){
             $pmeta = get_post_meta($fellow->ID); 
             if(!empty($pmeta['_kw_person_kw_class_year']) 
@@ -432,8 +432,8 @@ function sort_fellows_by_year($fellows,$year=null){
                 );
             }
         } 
-    }else{
-        $res = false; 
+
+        usort($res,"compareBy");
     }
 
     return $res;
