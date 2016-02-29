@@ -215,7 +215,6 @@ function sort_winners($winners, $year='2015'){
     if(!empty($winners)){
         foreach($winners as $win){
             $pmeta = get_post_meta($win->ID); 
-            $pimage = get_the_post_thumbnail($win->ID);
             if(!empty($pmeta['_kw_person_liv_win']) 
                 && !empty($pmeta['_kw_person_liv_year']) 
                 && is_winner_or_co_winner($pmeta['_kw_person_liv_win'][0]) 
@@ -223,6 +222,7 @@ function sort_winners($winners, $year='2015'){
                 && !empty($pmeta['_kw_person_liv_type']) 
                 && $pmeta['_kw_person_liv_type'][0] != 'Richard M. Clurman Award'){
                     //Here we have a winner that we want to display on the winners page
+                    $pimage = get_the_post_thumbnail($win->ID);
                     $lib_item_name = !empty($pmeta['_kw_person_liv_lib']) ? $pmeta['_kw_person_liv_lib'][0] : '';
                     $lib_item = get_custom_post_by_title('library',$lib_item_name);//get the full library object
                     $lib_image = get_the_post_thumbnail(!empty($lib_item) ? $lib_item->ID : '');
