@@ -9,21 +9,21 @@
 
 ?>
 
-<?php 
+<?php
 $image = get_the_post_thumbnail();
-$pmeta = get_post_meta($post->ID); 
+$pmeta = get_post_meta($post->ID);
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 <div class="row">
 <?php if(!empty($image)): ?>
-    <div class="large-6 columns">
+    <div class="medium-4 columns">
         <div class="featured-image-wrap">
             <?php echo $image; ?>
         </div>
     </div>
 <?php endif; ?>
-    <div class="large-6 columns">
+    <div class="medium-8 columns">
         <header class="entry-header">
             <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
         </header><!-- .entry-header -->

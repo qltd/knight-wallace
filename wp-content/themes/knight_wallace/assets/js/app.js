@@ -107,7 +107,10 @@ $(document).ready(function(){
         auto: true,
         autoHover: true,
         pause: 8000,
-        pager: false
+        pager: false,
+        prevText: '',
+        nextText: '',
+        adaptiveHeight: true
     });
 
     //pager

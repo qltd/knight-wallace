@@ -81,10 +81,10 @@ $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
             <?php if(!empty($sorted_fellows)): ?>
             <?php foreach($sorted_fellows as $fellow): ?>
             <div class="row director">
-                <div class="large-4 columns">
+                <div class="medium-2 columns">
                     <div class="fellow-image"><?php echo $fellow['image']; ?></div>
                 </div>
-                <div class="large-8 columns">
+                <div class="medium-10 columns">
                     <p class="name">
                         <?php if(!empty($fellow['bio'])): ?>
                         <a href="<?php echo $fellow['link']; ?>" class="link">

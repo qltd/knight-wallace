@@ -1,60 +1,64 @@
-@media(min-width: 1024px){
+@media (min-width: 1024px) {
     #mobile_nav {
-        display: none; 
+        display: none;
     }
 }
 
-@media(max-width: 1024px){
+@media (max-width: 1024px) {
     #main_nav {
-        display: none; 
-
+        display: none;
     }
 
     .mobile-menu-trigger-wrap {
-        background: $lblue; 
+        background: $lblue;
         color: $white;
-        font-size:1.4rem;
+        font-size: 1.4rem;
+
         p {
-            font-size:1.4rem;
+            font-size: 1.4rem;
         }
     }
 
     .mobile-menu-wrap {
         li {
-            list-style:none; 
+            list-style: none;
             font-size: 2rem;
-        } 
+        }
 
         li.menu-item {
             padding: 2rem 1rem;
         }
 
         li.menu-item-has-children {
-            text-transform: uppercase; 
+            text-transform: uppercase;
             color: $white;
             background: $charcoal;
-            @include link_style($white,$white);
+
+            @include link_style($white, $white);
         }
 
         .sub-menu {
             background: $white;
-            margin-left:0;
-            padding-left:0;
+            margin-left: 0;
+            padding-left: 0;
             display: none;
 
             li {
-                text-transform: normal; 
-                @include link_style($lblue,$lblue);
-                
+                text-transform: normal;
+                text-transform: capitalize;
+
+                @include link_style($lblue, $lblue);
+
                 &:hover {
                     background: $lblue;
-                    @include link_style($white,$white);
+
+                    @include link_style($white, $white);
                 }
-            } 
+            }
         }
     }
 
     .nav-item-controller {
-        float:right; 
+        float: right;
     }
 }

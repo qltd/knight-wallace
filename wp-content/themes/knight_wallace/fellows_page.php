@@ -53,31 +53,29 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
 
 <?php if(!empty($sorted_slides['Knight-Wallace Fellowships'])): ?>
 <section id="slideshow">
-   <div class="row">
-       <div class="large-10 columns large-offset-1">
-    <ul class="bxslider">
-        <?php foreach($sorted_slides['Knight-Wallace Fellowships'] as $slide):?>
-        <li>
-            <div class="row">
-           <div class="medium-1 columns"></div>
-            <?php if(!empty($slide['image'])):?>
-            <div class="medium-4 columns"><?php echo $slide['image']; ?></div>
-            <?php endif; ?>
-                <div class="medium-7 columns">
-                    <div class="win-meta">
-                        <div class="name"><?php echo $slide['name']; ?></div>
-                        <div class="details">
-                        <?php echo $slide['details']; ?>
+    <div class="row">
+        <div class="large-10 columns large-centered">
+            <ul class="bxslider">
+                <?php foreach($sorted_slides['Knight-Wallace Fellowships'] as $slide):?>
+                <li>
+                    <div class="row slide">
+
+                        <div class="medium-4 columns text-right"><?php if(!empty($slide['image'])):?><?php echo $slide['image']; ?><?php endif; ?></div>
+
+                        <div class="medium-8 columns">
+                            <div class="win-meta">
+                                <div class="name"><?php echo $slide['name']; ?></div>
+                                <div class="details">
+                                    <?php echo $slide['details']; ?>
+                                </div>
+                            </div>
+                            <div class="testimonial"><?php echo $slide['testimonial']; ?></div>
                         </div>
                     </div>
-                    <div class="testimonial"><?php echo $slide['testimonial']; ?></div>
-                </div>
-            </div>
-        </li>
-        <?php endforeach; ?>
-    </ul>
-       </div>
-       <div class="large-1 column"></div>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
     </div>
 </section>
 <?php endif; ?>
@@ -199,18 +197,18 @@ if(!empty($alerts)):
                 <div class="large-12 columns">
                     <div class="news-article">
                         <div class="text">
-                        <h4><a href="<?php echo $news[0]->guid; ?>"><?php echo $news[0]->post_title; ?></a></h4>
+                            <h4><a href="<?php echo $news[0]->guid; ?>"><?php echo $news[0]->post_title; ?></a></h4>
                             <div class="date"><?php echo $n1meta['Author'][0]; ?></div>
-                        <div class="tags-list">
-                            <ul>
-                                <?php if(!empty($tags)):?>
-                                <?php foreach($tags as $tag): ?>
-                                <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
-                                <?php endforeach; ?>
-                                <?php endif; ?>
-                            </ul>
-                            <br />
-                        </div>
+                            <div class="tags-list">
+                                <ul>
+                                    <?php if(!empty($tags)):?>
+                                    <?php foreach($tags as $tag): ?>
+                                    <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                                    <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </ul>
+                                <br />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -223,18 +221,18 @@ if(!empty($alerts)):
                 <div class="large-12 columns">
                     <div class="news-article">
                         <div class="text">
-                        <h4><a href="<?php echo $news[1]->guid; ?>"><?php echo $news[1]->post_title; ?></a></h4>
+                            <h4><a href="<?php echo $news[1]->guid; ?>"><?php echo $news[1]->post_title; ?></a></h4>
                             <div class="date"><?php echo $n2meta['Author'][0]; ?></div>
-                        <div class="tags-list">
-                            <ul>
-                                <?php if(!empty($tags1)):?>
-                                <?php foreach($tags1 as $tag1): ?>
-                                <li><a href="/tag/<?php echo $tag1->name; ?>/"><?php echo $tag1->name; ?></a> <span class="divider">|</span></li>
-                                <?php endforeach; ?>
-                                <?php endif; ?>
-                            </ul>
-                            <br />
-                        </div>
+                            <div class="tags-list">
+                                <ul>
+                                    <?php if(!empty($tags1)):?>
+                                    <?php foreach($tags1 as $tag1): ?>
+                                    <li><a href="/tag/<?php echo $tag1->name; ?>/"><?php echo $tag1->name; ?></a> <span class="divider">|</span></li>
+                                    <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </ul>
+                                <br />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -255,19 +253,19 @@ if(!empty($alerts)):
                 <div class="large-12 columns">
                     <div class="news-article">
                         <div class="text">
-                        <h4><a href="/library/<?php echo $libs[0]->post_name; ?>"><?php echo $libs[0]->post_title; ?></a></h4>
-                        <div class="date"><?php echo !empty($l1meta['_library_author']) ? $l1meta['_library_author'][0] : ''; ?></div>
-                        <?php $tagslib = get_the_tags($libs[0]->ID); ?>
-                        <div class="tags-list">
-                            <ul>
-                                <?php if(!empty($tagslib)):?>
-                                <?php foreach($tagslib as $t): ?>
-                                <li><a href="/tag/<?php echo $t->name; ?>/"><?php echo $t->name; ?></a> <span class="divider">|</span></li>
-                                <?php endforeach; ?>
-                                <?php endif; ?>
-                            </ul>
-                            <br />
-                        </div>
+                            <h4><a href="/library/<?php echo $libs[0]->post_name; ?>"><?php echo $libs[0]->post_title; ?></a></h4>
+                            <div class="date"><?php echo !empty($l1meta['_library_author']) ? $l1meta['_library_author'][0] : ''; ?></div>
+                            <?php $tagslib = get_the_tags($libs[0]->ID); ?>
+                            <div class="tags-list">
+                                <ul>
+                                    <?php if(!empty($tagslib)):?>
+                                    <?php foreach($tagslib as $t): ?>
+                                    <li><a href="/tag/<?php echo $t->name; ?>/"><?php echo $t->name; ?></a> <span class="divider">|</span></li>
+                                    <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </ul>
+                                <br />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -279,19 +277,19 @@ if(!empty($alerts)):
                 <div class="large-12 columns">
                     <div class="news-article">
                         <div class="text">
-                        <h4><a href="/library/<?php echo $libs[1]->post_name; ?>"><?php echo $libs[1]->post_title; ?></a></h4>
-                        <div class="date"><?php echo !empty($l2meta['_library_author']) ? $l2meta['_library_author'][0] : ''; ?></div>
-                        <div class="tags-list">
-                            <?php $tagslib1 = get_the_tags($libs[1]->ID); ?>
-                            <ul>
-                                <?php if(!empty($tagslib1)):?>
-                                <?php foreach($tagslib1 as $t1): ?>
-                                <li><a href="/tag/<?php echo $t1->name; ?>/"><?php echo $t1->name; ?></a> <span class="divider">|</span></li>
-                                <?php endforeach; ?>
-                                <?php endif; ?>
-                            </ul>
-                            <br />
-                        </div>
+                            <h4><a href="/library/<?php echo $libs[1]->post_name; ?>"><?php echo $libs[1]->post_title; ?></a></h4>
+                            <div class="date"><?php echo !empty($l2meta['_library_author']) ? $l2meta['_library_author'][0] : ''; ?></div>
+                            <div class="tags-list">
+                                <?php $tagslib1 = get_the_tags($libs[1]->ID); ?>
+                                <ul>
+                                    <?php if(!empty($tagslib1)):?>
+                                    <?php foreach($tagslib1 as $t1): ?>
+                                    <li><a href="/tag/<?php echo $t1->name; ?>/"><?php echo $t1->name; ?></a> <span class="divider">|</span></li>
+                                    <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </ul>
+                                <br />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -307,18 +305,18 @@ if(!empty($alerts)):
 
 <?php if(!empty($tweets)): ?>
 <section id="tweets">
-<?php foreach($tweets as $tweet): ?>
-<div class="tweet-wrap">
-    <div class="row">
-        <div class="small-2 columns">
-            <a href="https://twitter.com/<?php echo $twitter_username; ?>" target="_blank"><i class="fa fa-twitter"></i></a>
-        </div>
-        <div class="small-10 columns">
-        <a href="https://twitter.com/<?php echo $twitter_username; ?>/status/<?php echo $tweet->id_str; ?>" target="_blank"><strong><?php echo '@'.$twitter_username.'</strong><br />'.$tweet->text; ?></a>
+    <?php foreach($tweets as $tweet): ?>
+    <div class="tweet-wrap">
+        <div class="row">
+            <div class="small-2 columns">
+                <a href="https://twitter.com/<?php echo $twitter_username; ?>" target="_blank"><i class="fa fa-twitter"></i></a>
+            </div>
+            <div class="small-10 columns">
+                <a href="https://twitter.com/<?php echo $twitter_username; ?>/status/<?php echo $tweet->id_str; ?>" target="_blank"><strong><?php echo '@'.$twitter_username.'</strong><br />'.$tweet->text; ?></a>
+            </div>
         </div>
     </div>
-</div>
-<?php endforeach; ?>
+    <?php endforeach; ?>
 </section>
 <?php endif; ?>
 <?php get_footer('fellows'); ?>
