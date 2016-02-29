@@ -15,15 +15,6 @@ $pmeta = get_post_meta($post->ID);
 $tags = get_the_tags($post->ID);
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-<?php if(!empty($image)): ?>
-<div class="row">
-    <div class="large-10 columns">
-        <div class="featured-image-wrap">
-            <?php echo $image; ?>
-        </div>
-    </div>
-</div>
-<?php endif; ?>
 <div class="row">
     <div class="large-10 columns large-centered">
         <header class="entry-header">
@@ -39,7 +30,6 @@ $tags = get_the_tags($post->ID);
             </p>
 <?php endif; ?>
             <div class="entry-meta">
-                <?php knight_wallace_posted_on(); ?>
             </div><!-- .entry-meta -->
         </header><!-- .entry-header -->
             <?php if(!empty($tags)):?>
