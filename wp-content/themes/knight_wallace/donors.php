@@ -27,7 +27,7 @@ $donor_type = !empty($this_page_meta['donor']) ? $this_page_meta['donor'][0] : '
 
 <div class="row">
     <div class="large-12 columns">
-        <h1 class="entry-title">Donors List</h1>
+    <h1 class="entry-title"><?php echo $post->post_title; ?></h1>
     </div>
 </div>
 
