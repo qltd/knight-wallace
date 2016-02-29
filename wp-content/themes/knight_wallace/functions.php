@@ -106,7 +106,7 @@ function create_post_type() {
                 'name' => __( 'Knight-Wallace Fellows' ),
                 'singular_name' => __( 'Knight-Wallace Fellow' ),
                 'add_new_item' => __('Add New Knight-Wallace Fellow'),
-                'new_item' => __('New Knight-Wallace Fellow'), 
+                'new_item' => __('New Knight-Wallace Fellow'),
                 'view_item' => __('View Knight-Wallace Fellow'),
                 'edit_item' => __('Edit Knight-Wallace Fellow'),
             ),
@@ -122,7 +122,7 @@ function create_post_type() {
                 'name' => __( 'Livingston Award Winners and Finalists' ),
                 'singular_name' => __( 'Livingston Winner or Finalist' ),
                 'add_new_item' => __('Add New Livingston Winner or Finalist'),
-                'new_item' => __('New Livingston Winner or Finalist'), 
+                'new_item' => __('New Livingston Winner or Finalist'),
                 'view_item' => __('View Livingston Winner or Finalist'),
                 'edit_item' => __('Edit Livingston Winner or Finalist'),
             ),
@@ -138,7 +138,7 @@ function create_post_type() {
                 'name' => __( 'Wallace House Staff' ),
                 'singular_name' => __( 'Wallace House Staff' ),
                 'add_new_item' => __('Add New Wallace House Staff'),
-                'new_item' => __('New Wallace House Staff'), 
+                'new_item' => __('New Wallace House Staff'),
                 'view_item' => __('View Wallace House Staff'),
                 'edit_item' => __('Edit Wallace House Staff'),
             ),
@@ -154,7 +154,7 @@ function create_post_type() {
                 'name' => __( 'Board Members' ),
                 'singular_name' => __( 'Board Member' ),
                 'add_new_item' => __('Add New Board Member'),
-                'new_item' => __('New Board Member'), 
+                'new_item' => __('New Board Member'),
                 'view_item' => __('View Board Member'),
                 'edit_item' => __('Edit Board Member'),
             ),
@@ -170,7 +170,7 @@ function create_post_type() {
                 'name' => __( 'Livingston Award Judges' ),
                 'singular_name' => __( 'Livingston Award Judge' ),
                 'add_new_item' => __('Add New Livingston Award Judge'),
-                'new_item' => __('New Livingston Award Judge'), 
+                'new_item' => __('New Livingston Award Judge'),
                 'view_item' => __('View Livingston Award Judge'),
                 'edit_item' => __('Edit Livingston Award Judge'),
             ),
@@ -186,7 +186,7 @@ function create_post_type() {
                 'name' => __( 'Donors' ),
                 'singular_name' => __( 'Donor' ),
                 'add_new_item' => __('Add New Donor'),
-                'new_item' => __('New Donor'), 
+                'new_item' => __('New Donor'),
                 'view_item' => __('View Donor'),
                 'edit_item' => __('Edit Donor'),
             ),
@@ -203,7 +203,7 @@ function create_post_type() {
                 'name' => __( 'Library' ),
                 'singular_name' => __( 'Library Item' ),
                 'add_new_item' => __('Add New Library Item'),
-                'new_item' => __('New Library Item'), 
+                'new_item' => __('New Library Item'),
                 'view_item' => __('View Library Item'),
                 'edit_item' => __('Edit Library Item'),
             ),
@@ -221,7 +221,7 @@ function create_post_type() {
                 'name' => __( 'Homepage Featured Content Blocks' ),
                 'singular_name' => __( 'Homepage Featured Content Block' ),
                 'add_new_item' => __('Add New Homepage Featured Content Block'),
-                'new_item' => __('New Homepage Featured Content Block'), 
+                'new_item' => __('New Homepage Featured Content Block'),
                 'view_item' => __('View Homepage Featured Content Block'),
                 'edit_item' => __('Edit Homepage Featured Content Block'),
             ),
@@ -237,7 +237,7 @@ function create_post_type() {
                 'name' => __( 'Hero Content' ),
                 'singular_name' => __( 'Hero Content' ),
                 'add_new_item' => __('Add New Hero Content'),
-                'new_item' => __('New Hero Content'), 
+                'new_item' => __('New Hero Content'),
                 'view_item' => __('View Hero Content'),
                 'edit_item' => __('Edit Hero Content'),
             ),
@@ -253,7 +253,7 @@ function create_post_type() {
                 'name' => __( 'Slider Content' ),
                 'singular_name' => __( 'Slider Content' ),
                 'add_new_item' => __('Add New Slider Content'),
-                'new_item' => __('New Slider Content'), 
+                'new_item' => __('New Slider Content'),
                 'view_item' => __('View Slider Content'),
                 'edit_item' => __('Edit Slider Content'),
             ),
@@ -267,14 +267,14 @@ function create_post_type() {
 
 add_action( 'add_meta_boxes', 'add_person_kw_fellow_metaboxes' );//add custom fields for person_kw_fellow type
 add_action( 'add_meta_boxes', 'add_person_livingston_metaboxes' );//add custom fields for Livingston Winner or Finalist
-add_action( 'add_meta_boxes', 'add_person_staff' );//add custom fields for Wallace House Staff 
-add_action( 'add_meta_boxes', 'add_person_board_member' );//add custom fields for Wallace House Staff 
-add_action( 'add_meta_boxes', 'add_person_laj' );//add custom fields for Livingston Award Judge 
-add_action( 'add_meta_boxes', 'add_person_donor' );//add custom fields for Donors 
-add_action( 'add_meta_boxes', 'add_library_metaboxes' );//add custom fields for Library Items 
-add_action( 'add_meta_boxes', 'add_homepage_fcb' );//add custom fields for Featured Content Block 
-add_action( 'add_meta_boxes', 'add_hero_content' );//add custom fields for Featured Content Block 
-add_action( 'add_meta_boxes', 'add_slider_content' );//add custom fields for Fellows Slider 
+add_action( 'add_meta_boxes', 'add_person_staff' );//add custom fields for Wallace House Staff
+add_action( 'add_meta_boxes', 'add_person_board_member' );//add custom fields for Wallace House Staff
+add_action( 'add_meta_boxes', 'add_person_laj' );//add custom fields for Livingston Award Judge
+add_action( 'add_meta_boxes', 'add_person_donor' );//add custom fields for Donors
+add_action( 'add_meta_boxes', 'add_library_metaboxes' );//add custom fields for Library Items
+add_action( 'add_meta_boxes', 'add_homepage_fcb' );//add custom fields for Featured Content Block
+add_action( 'add_meta_boxes', 'add_hero_content' );//add custom fields for Featured Content Block
+add_action( 'add_meta_boxes', 'add_slider_content' );//add custom fields for Fellows Slider
 
 function add_person_kw_fellow_metaboxes() {
     //each meta box is a custom field for our custom content type
@@ -458,14 +458,14 @@ function kw_person_liv_type() {
         'Excellence in Local Reporting',
         'Excellence in National Reporting',
         'Excellence in International Reporting',
-        'Richard M. Clurman Award' 
+        'Richard M. Clurman Award'
     );
     generate_select_box_for_custom_field("kw_person_liv_type",$options);
 }
 
 function kw_person_liv_win() {
     $options = array(
-        'Winner', 
+        'Winner',
         'Co-Winner',
         'Finalist'
     );
@@ -567,7 +567,7 @@ function library_url() {
 
 function library_item_type(){
     $lib_item_types = array(
-        'Article', 
+        'Article',
         'Book',
         'Video',
         'Photojournalism',
@@ -621,7 +621,7 @@ function slider_content_test(){
 
 function slider_content_page(){
     $pages = array(
-        'Knight-Wallace Fellowships', 
+        'Knight-Wallace Fellowships',
         'Livingston Awards'
     );
     generate_select_box_for_custom_field("slider_content_page",$pages);
@@ -633,7 +633,7 @@ function generate_html_for_custom_field($name, $add_noncename=false){
     // Noncename needed to verify where the data originated
     if($add_noncename){
         //we don't need to add this hidden field every time this function is called
-        echo '<input type="hidden" name="kwmeta_noncename" id="kwmeta_noncename" value="' . 
+        echo '<input type="hidden" name="kwmeta_noncename" id="kwmeta_noncename" value="' .
             wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
     }
 
@@ -655,7 +655,7 @@ function generate_select_box_for_custom_field($name,$options){
     foreach($options as $option){
         echo '<option value="'.$option.'"';
         if($saved_data == $option){
-            echo ' selected="selected"'; 
+            echo ' selected="selected"';
         }
         echo '>'.$option.'</option>';
     }
@@ -682,7 +682,7 @@ function generate_textarea_for_custom_field($name){
     echo '<textarea name="_'.$name.'" class="widefat">'.$saved_data.'</textarea>';
 }
 
-//save data in our custom fields! 
+//save data in our custom fields!
 function kw_save_events_meta($post_id, $post) {
     // verify this came from the our screen and with proper authorization,
     // because save_post can be triggered at other times
