@@ -17,10 +17,10 @@ $tags = get_the_tags($post->ID);
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 <div class="row">
-    <div class="large-6 columns">
+    <div class="large-12 columns">
         <header class="library entry-header">
             <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-            <p class="author-name">By: <?php echo !empty($pmeta['_library_author']) ? $pmeta['_library_author'][0] : ''; ?></p>
+            <p class="author-name"><?php echo !empty($pmeta['_library_author']) ? $pmeta['_library_author'][0] : ''; ?></p>
             <p class="publisher"><?php echo !empty($pmeta['_library_publisher']) ? $pmeta['_library_publisher'][0] : '';?></p>
            <div class="tags-list">
                 <ul>

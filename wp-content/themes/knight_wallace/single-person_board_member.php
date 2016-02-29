@@ -17,8 +17,8 @@ get_header('fellows'); ?>
 </section>
 <main id="main" class="site-main post-main" role="main">
 <div class="row">
-    <div class="large-12 columns">
-        <h1 class="text-center">Board of Directors</h1>
+    <div class="large-10 columns large-centered">
+        <h1 class="entry-title text-center">Board of Directors</h1>
 		<?php while ( have_posts() ) : the_post(); ?>
 
 			<?php get_template_part( 'template-parts/content', 'board_member' ); ?>

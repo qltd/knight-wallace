@@ -21,11 +21,27 @@ $sorted_winners = sort_winners($winners, $this_year);
         <h1 class="entry-title">Winners</h1>
     </div>
 </div>
-<div class="row">
-    <div class="large-12 columns">
-        <p class="text-center"><a href="/livingston-awards/winners/past-winners/">See Past Winners</a></p>
+<?php $children = get_pages('child_of='.$post->ID.'&parent='.$post->ID); ?>
+<?php if(!empty($children)): ?>
+<div class="in-this-section-nav">
+    <div class="row">
+        <div class="large-12 columns">
+            <ul class="inline">
+            <?php $c = 0; ?>
+            <?php $count = count($children); ?>
+            <?php foreach($children as $child): ?>
+                <li><a href="<?php echo $child->guid; ?>"><?php echo $child->post_title; ?></a>
+                <?php if($c < $count - 1): ?>
+                    &nbsp;|&nbsp;
+                <?php endif; ?>
+                </li>
+            <?php $c += 1; ?>
+            <?php endforeach; ?>
+            </ul>
+        </div>
     </div>
 </div>
+<?php endif; ?>
 <main class="posts winners-list">
 <?php if(!empty($sorted_winners)): ?>
 <?php foreach($sorted_winners as $win): ?>
