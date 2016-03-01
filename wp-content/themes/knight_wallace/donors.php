@@ -47,7 +47,6 @@ $donor_type = !empty($this_page_meta['donor']) ? $this_page_meta['donor'][0] : '
                         </div>
                         <div class="large-10 columns">
                             <p class="name">
-                                <a href="<?php echo !empty($donor->guid) ? $donor->guid : ''; ?>" class="board-member-link">
                                 <?php echo !empty($pmeta['_kw_person_donor_name']) ? $pmeta['_kw_person_donor_name'][0] : ''; ?>
                             </p>
                             <p class="board-member-title">
