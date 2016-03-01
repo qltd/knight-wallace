@@ -75,7 +75,7 @@ $pmeta = get_post_meta($post->ID);
                   <?php $accord_title = preg_replace("/\]/",'',$accord_title); ?>
                   <?php echo !empty($accord_title) ? $accord_title : 'Accordion '.$acount; ?>
               </a>
-            <div id="panel<?php echo $acount; ?>a" class="content active">
+            <div id="panel<?php echo $acount; ?>a" class="content">
                 <?php echo $accord; ?>
             </div>
           </li>
