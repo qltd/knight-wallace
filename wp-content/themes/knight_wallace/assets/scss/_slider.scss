@@ -8,6 +8,11 @@
     padding-top: 5rem;
     font-size: 2rem;
 
+    @include responsive("640px") {
+        padding-top: 0;
+    }
+
+
     .medium-4 {
         min-width: 200px;
     }
@@ -43,24 +48,49 @@
             max-width: 90%;
             padding: 1.5rem 0 0.5rem;
             margin-bottom: 1.5rem;
+
+            @include responsive("640px") {
+                border-top: none;
+                max-width: none;
+            }
         }
 
         img {
             float: right;
-            max-width: 280px;
+            max-width: 100%;
+
+            @include responsive("640px") {
+                max-width: none;
+                width: 100%;
+                float: none;
+            }
         }
     }
 
     .bx-wrapper .bx-viewport {
         box-shadow: none;
+
+        @include responsive("640px") {
+            li {
+                margin-right: 16px;
+            }
+        }
     }
 
     .bx-wrapper .bx-prev {
         left: -10px;
+
+        @include responsive("640px") {
+            left: 5px;
+        }
     }
 
     .bx-wrapper .bx-next {
         right: -10px;
+
+        @include responsive("640px") {
+            right: 5px;
+        }
     }
 
     .bx-wrapper .bx-prev:after {
@@ -83,6 +113,14 @@
         color: #fff;
         border-radius: 30px;
         text-align: center;
-        font-size: 30px;
+        font-size: 3rem;
+
+        @include responsive("640px") {
+            top: 250px;
+            width: 30px;
+            height: 30px;
+            font-size: 1.6rem;
+            padding-top: 2px;
+        }
     }
 }
