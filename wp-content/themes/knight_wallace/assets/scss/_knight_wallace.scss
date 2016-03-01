@@ -266,9 +266,9 @@ a {
     justify-content: center;
 
     @include responsive("640px") {
-        height: 400px;
+        height: 350px;
         position: relative;
-        margin-bottom: 200px;
+        margin-bottom: 250px;
     }
 
 
@@ -281,9 +281,9 @@ a {
 
         @include responsive("640px") {
             position: absolute;
-            bottom: -160px;
+            bottom: -190px;
             background: $charcoal;
-            height: 160px;
+            height: 190px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -298,6 +298,12 @@ a {
                 font-size: 1.6rem;
                 font-family: $primary-font;
             }
+        }
+
+
+        @include responsive("340px") {
+            bottom: -215px;
+            height: 215px;
         }
     }
 
@@ -338,6 +344,11 @@ a {
             height: 126px;
             max-width: 620px;
 
+            @include responsive("420px") {
+                height: 145px;
+            }
+
+
             &:hover {
                 background: $ublue;
             }
@@ -354,6 +365,16 @@ a {
             font-size: 2rem;
             font-family: $primary-font-bold;
             font-weight: normal;
+
+            @include responsive("1024px") {
+                line-height: 2.2rem;
+            }
+        }
+
+        p {
+            @include responsive("1024px") {
+                line-height: 2.2rem;
+            }
         }
 
         img {
@@ -492,6 +513,12 @@ figure {
 }
 
 /* Breadcrumbs */
+.small-6 {
+    @include responsive("640px") {
+        width: 100% !important;
+    }
+}
+
 .breadcrumb a, .breadcrumb p {
     font-size: 1.8rem;
     color: $lblue;
@@ -500,6 +527,12 @@ figure {
 
 .breadcrumb p {
     text-transform: uppercase;
+
+    @include responsive("640px") {
+        &.share-wrap {
+            display: none;
+        }
+    }
 }
 
 .breadcrumb a {
@@ -558,8 +591,19 @@ figure {
 
         .featured-text {
             height: 100%;
-            padding: 1rem 0;
+            padding: 1rem 0 2rem;
             position: relative;
+
+            @include responsive("1024px") {
+                padding: 1rem 2rem 4rem;
+            }
+
+
+            .button {
+                margin: 5px 0 20px;
+                display: block;
+                max-width: 280px;
+            }
         }
 
         .tags-list {
@@ -626,6 +670,7 @@ figure {
         height: 18rem;
         justify-content: center;
         margin-bottom: 5rem;
+        padding: 0 2rem;
         width: 100%;
 
         &:hover {
@@ -640,6 +685,21 @@ figure {
         padding: 1rem 2rem;
         position: relative;
         display: flex;
+
+        @include responsive("640px") {
+            height: auto;
+            display: block;
+            padding: 1rem 2rem;
+
+            &.books {
+                display: flex;
+            }
+
+            .tags-list {
+                position: static;
+                margin: 5px 0;
+            }
+        }
     }
 
     .text {
@@ -668,6 +728,18 @@ figure {
         width: auto;
         max-width: 246px;
         margin-right: 2rem;
+
+        @include responsive("640px") {
+            width: 100%;
+            max-width: 1000px;
+            max-height: none;
+
+            &.book {
+                max-width: 200px;
+                max-height: 152px;
+                width: auto;
+            }
+        }
     }
 }
 
@@ -742,13 +814,17 @@ figure {
 .library-article {
     margin-top: 5rem !important;
     margin-bottom: 15rem !important;
+
+    @include responsive("1024px") {
+        margin-bottom: 5rem !important;
+    }
 }
 
 .content {
     padding-bottom: 4rem;
 
     @include responsive("1024px") {
-        padding: 0 2rem 4rem;
+        padding: 1rem 0rem 4rem;
     }
 
 
@@ -1088,11 +1164,12 @@ figure {
 
     .name {
         font-size: 2.6rem;
-        line-height: 0;
+        line-height: 2.4rem;
         margin-top: 1.2rem;
+        margin-bottom: 0;
         font-family: $primary-font-bold;
         font-weight: normal;
-        color: $lblue;
+        color: $ublue;
     }
 
     .title {

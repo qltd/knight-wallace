@@ -198,7 +198,7 @@ $sorted_libs = sort_library_items($libs);
         <div class="large-6 columns">
             <div class="row">
                 <div class="large-12 columns">
-                    <div class="news-article">
+                    <div class="news-article books">
 
                                 <?php if(!empty($sorted_libs['Book'][0]['image'])): ?>
                                     <?php echo $sorted_libs['Book'][0]['image']; ?>
@@ -231,7 +231,7 @@ $sorted_libs = sort_library_items($libs);
         <div class="large-6 columns">
             <div class="row news snippet-box">
                 <div class="large-12 columns">
-                    <div class="news-article">
+                    <div class="news-article books">
 
                                 <?php if(!empty($sorted_libs['Book'][1]['image'])): ?>
                                     <?php echo $sorted_libs['Book'][1]['image']; ?>
@@ -266,7 +266,7 @@ $sorted_libs = sort_library_items($libs);
         <div class="large-6 columns"><!--start first column-->
             <div class="row news snippet-box">
                 <div class="large-12 columns">
-                    <div class="news-article">
+                    <div class="news-article books">
 
                                 <?php if(!empty($sorted_libs['Book'][2]['image'])): ?>
                                     <?php echo $sorted_libs['Book'][2]['image']; ?>
@@ -533,7 +533,7 @@ $sorted_libs = sort_library_items($libs);
             </div><!--end first column-->
         </div>
         <div class="large-6 columns">
-            <a href="/wallace-house/library/photojournalism/" class="more-posts">See all Wallace House photojournalism &raquo;</a>
+            <a href="/wallace-house/library/photojournalism/" class="more-posts">See all Wallace House <br />photojournalism &raquo;</a>
         </div>
     </div><!--end second row-->
 </section>

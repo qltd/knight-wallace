@@ -8,7 +8,7 @@
 /**
  * function sort_homepage_featured_content_blocks
  * takes an array of objects, each object is a hompage featured content block
- * returns a multidim array, 3 main items will all relevant content or false if given an invalid array 
+ * returns a multidim array, 3 main items will all relevant content or false if given an invalid array
  * @rdarling42
  * **/
 function sort_homepage_featured_content_blocks($content){
@@ -19,7 +19,7 @@ function sort_homepage_featured_content_blocks($content){
     );
     if(!empty($content)){
         foreach($content as $c){
-            $pmeta = get_post_meta($c->ID); 
+            $pmeta = get_post_meta($c->ID);
             $pimage = get_the_post_thumbnail($c->ID);
             if(!empty($pmeta)){
                 $res[$pmeta["_fcb_which_page"][0]][] = array(
@@ -29,9 +29,9 @@ function sort_homepage_featured_content_blocks($content){
                     'link' => $pmeta["_fcb_link"][0]
                 );
             }
-        } 
+        }
     }else{
-        $res = false; 
+        $res = false;
     }
     return $res;
 }
@@ -44,7 +44,7 @@ function sort_hero_content($content){
     );
     if(!empty($content)){
         foreach($content as $c){
-            $pmeta = get_post_meta($c->ID); 
+            $pmeta = get_post_meta($c->ID);
             $pimage = get_the_post_thumbnail($c->ID);
             if(!empty($pmeta)){
                 $res[$pmeta["_hero_content_which_page"][0]][] = array(
@@ -54,9 +54,9 @@ function sort_hero_content($content){
                     'link' => $pmeta["_hero_content_link"][0]
                 );
             }
-        } 
+        }
     }else{
-        $res = false; 
+        $res = false;
     }
     return $res;
 }
@@ -72,9 +72,9 @@ function sort_hero_content($content){
 
 function random_hero_content($content,$page){
     if(empty($content) || empty($page)){
-        $res = false; 
+        $res = false;
     }else{
-        $count = count($content[$page]);  
+        $count = count($content[$page]);
         $random_number = rand(0,$count - 1);
         $res = $content[$page][$random_number];
     }
@@ -102,7 +102,7 @@ function randomize_and_limit($array,$limit){
 
 function turn_img_tag_to_url($img){
     if(empty($img)){
-        $src = ''; 
+        $src = '';
     }else{
         $doc = new DOMDocument();
         $doc->loadHTML($img);
@@ -128,8 +128,8 @@ function sort_library_items($lib){
             'featured' => array()
         );
         foreach($lib as $li){
-            $pmeta = get_post_meta($li->ID); 
-            $pimage = get_the_post_thumbnail($li->ID);
+            $pmeta = get_post_meta($li->ID);
+            $pimage = get_the_post_thumbnail($li->ID, '', array('class' => strtolower($pmeta['_library_item_type'][0])));
             $tags = get_the_tags($li->ID);
             if(!empty($pmeta) && !empty($pmeta['_library_item_type'])){
                 $cats[$pmeta['_library_item_type'][0]][] = array(
@@ -160,7 +160,7 @@ function sort_library_items($lib){
         }
         $res = $cats;
     }else{
-        $res = false; 
+        $res = false;
     }
     return $res;
 }
@@ -169,7 +169,7 @@ function sort_library_items_sub_cat($lib,$cat){
     if(!empty($lib)){
         $res = array();
         foreach($lib as $li){
-            $pmeta = get_post_meta($li->ID); 
+            $pmeta = get_post_meta($li->ID);
             $pimage = get_the_post_thumbnail($li->ID);
             $tags = get_the_tags($li->ID);
             if(!empty($pmeta) && !empty($pmeta['_library_item_type']) && $pmeta['_library_item_type'][0] == $cat){
@@ -200,7 +200,7 @@ function sort_library_items_sub_cat($lib,$cat){
             }
         }
     }else{
-        $res = false; 
+        $res = false;
     }
 
     return $res;
@@ -215,12 +215,12 @@ function sort_winners($winners, $year='2015'){
     if(!empty($winners)){
         $cowin = array();//array needed to deal with co-winners
         foreach($winners as $win){
-            $pmeta = get_post_meta($win->ID); 
-            if(!empty($pmeta['_kw_person_liv_win']) 
-                && !empty($pmeta['_kw_person_liv_year']) 
-                && is_winner_or_co_winner($pmeta['_kw_person_liv_win'][0]) 
-                && $pmeta['_kw_person_liv_year'][0] == $year 
-                && !empty($pmeta['_kw_person_liv_type']) 
+            $pmeta = get_post_meta($win->ID);
+            if(!empty($pmeta['_kw_person_liv_win'])
+                && !empty($pmeta['_kw_person_liv_year'])
+                && is_winner_or_co_winner($pmeta['_kw_person_liv_win'][0])
+                && $pmeta['_kw_person_liv_year'][0] == $year
+                && !empty($pmeta['_kw_person_liv_type'])
                 && $pmeta['_kw_person_liv_type'][0] != 'Richard M. Clurman Award'){
                     //Here we have a winner that we want to display on the winners page
                     $pimage = get_the_post_thumbnail($win->ID);
@@ -233,11 +233,11 @@ function sort_winners($winners, $year='2015'){
                             //now we need to add the co-winner to the co-winner in res array
                             $add_winner = false;//doesn't need it's own slow in res array
                             foreach($res as $r_key => $r_value){
-                                //loop through existing res array 
+                                //loop through existing res array
                                 if($r_value['lib'] == $lib_item_name){
-                                    $co_winner_name_line = !empty($pmeta['_kw_person_liv_first_name']) ? 
+                                    $co_winner_name_line = !empty($pmeta['_kw_person_liv_first_name']) ?
                                         $pmeta['_kw_person_liv_first_name'][0].' ' : '';
-                                    $co_winner_name_line .= !empty($pmeta['_kw_person_liv_last_name']) ? 
+                                    $co_winner_name_line .= !empty($pmeta['_kw_person_liv_last_name']) ?
                                         $pmeta['_kw_person_liv_last_name'][0].', ' : '';
                                     $co_winner_name_line .= !empty($pmeta['_kw_person_liv_age']) ? $pmeta['_kw_person_liv_age'][0] : '';
                                     $res[$r_key]['co-winner_name_line'] = $co_winner_name_line;
@@ -246,7 +246,7 @@ function sort_winners($winners, $year='2015'){
                             }
 
                         }else{
-                            //we need to add the co-winner to the cowin array 
+                            //we need to add the co-winner to the cowin array
                             $cowin[$lib_item_name] = true;
                             $add_winner = true;//add the winner, it's the first co-winner
                         }
@@ -298,13 +298,13 @@ function sort_finalists($finalists, $year='2015'){
            'Excellence in International Reporting' => array()
         );
         foreach($finalists as $fin){
-            $pmeta = get_post_meta($fin->ID); 
+            $pmeta = get_post_meta($fin->ID);
             $pimage = get_the_post_thumbnail($fin->ID);
-            if(!empty($pmeta['_kw_person_liv_win']) 
-                && !empty($pmeta['_kw_person_liv_year']) 
-                && !is_winner_or_co_winner($pmeta['_kw_person_liv_win'][0]) 
-                && $pmeta['_kw_person_liv_year'][0] == $year 
-                && !empty($pmeta['_kw_person_liv_type']) 
+            if(!empty($pmeta['_kw_person_liv_win'])
+                && !empty($pmeta['_kw_person_liv_year'])
+                && !is_winner_or_co_winner($pmeta['_kw_person_liv_win'][0])
+                && $pmeta['_kw_person_liv_year'][0] == $year
+                && !empty($pmeta['_kw_person_liv_type'])
                 && $pmeta['_kw_person_liv_type'][0] != 'Richard M. Clurman Award'){
                     //Here we have a finalist that we want to display on the finalists page
                     $lib_item_name = !empty($pmeta['_kw_person_liv_lib']) ? $pmeta['_kw_person_liv_lib'][0] : '';
@@ -346,10 +346,10 @@ function get_custom_post_by_title($post_type, $title){
     if(!empty($dig)){
         foreach($dig as $p){
             if($p->post_title == $title){
-                $res = $p; 
+                $res = $p;
                 break;//break because we found what we need
             }
-        } 
+        }
     }
     return $res;
 }
@@ -363,10 +363,10 @@ function sort_past_winners($winners, $year='2015', $type_array=null){
     $res = array();
     if(!empty($winners)){
         foreach($winners as $win){
-            $pmeta = get_post_meta($win->ID); 
+            $pmeta = get_post_meta($win->ID);
             $award_type = !empty($pmeta['_kw_person_liv_type']) ? $pmeta['_kw_person_liv_type'][0] : '';
-            if(!empty($pmeta['_kw_person_liv_win']) 
-                && !empty($pmeta['_kw_person_liv_year']) 
+            if(!empty($pmeta['_kw_person_liv_win'])
+                && !empty($pmeta['_kw_person_liv_year'])
                 && is_winner_or_co_winner($pmeta['_kw_person_liv_win'][0])
                 && is_matching_year($pmeta['_kw_person_liv_year'][0],$year)
                 && is_correct_type($type_array,$award_type)){
@@ -399,11 +399,11 @@ function sort_past_winners($winners, $year='2015', $type_array=null){
 
 function is_matching_year($needle, $haystack){
     if($haystack == 'all'){
-        $res = true; 
+        $res = true;
     }elseif(is_array($haystack)){
-        $res = in_array($needle, $haystack); 
+        $res = in_array($needle, $haystack);
     }else{
-        $res = $needle == $haystack ? true : false; 
+        $res = $needle == $haystack ? true : false;
     }
     return $res;
 }
@@ -418,15 +418,15 @@ function is_correct_type($type_array, $award_type){
     if($award_type == 'Richard M. Clurman Award'){
         $res = false; //we are not including Clurman Award at all
     }elseif(is_null($type_array)){
-        $res = true; 
+        $res = true;
     }elseif(is_array($type_array)){
         $full_name_filter = array(
-            'Excellence in Local Reporting' => 'Local Reporting', 
-            'Excellence in National Reporting' => 'National Reporting', 
-            'Excellence in International Reporting' => 'International Reporting', 
-            'Richard M. Clurman Award' => 'Clurman Award' 
+            'Excellence in Local Reporting' => 'Local Reporting',
+            'Excellence in National Reporting' => 'National Reporting',
+            'Excellence in International Reporting' => 'International Reporting',
+            'Richard M. Clurman Award' => 'Clurman Award'
         );
-        $res = in_array($full_name_filter[$award_type], $type_array); 
+        $res = in_array($full_name_filter[$award_type], $type_array);
     }else{
         //it's possible to just past a string for $type_array to this function
         $res = $type == $award_type ? true : false;
@@ -437,7 +437,7 @@ function is_correct_type($type_array, $award_type){
 
 /**
  * Sort Fellows by year
- * takes an array of objects, each one being a "fellow", and returns only those which 
+ * takes an array of objects, each one being a "fellow", and returns only those which
  * fit the desired year string. if year string is null, returns everything.
  * returns false if array of objects is empty
  *
@@ -447,9 +447,9 @@ function sort_fellows_by_year($fellows,$year=null){
     $res = array();
     if(!empty($fellows)){
         foreach($fellows as $fellow){
-            $pmeta = get_post_meta($fellow->ID); 
-            if(!empty($pmeta['_kw_person_kw_class_year']) 
-                && $pmeta['_kw_person_kw_class_year'][0] == $year 
+            $pmeta = get_post_meta($fellow->ID);
+            if(!empty($pmeta['_kw_person_kw_class_year'])
+                && $pmeta['_kw_person_kw_class_year'][0] == $year
                 || is_null($year)){
                 $res[] = array(
                     'image' => get_the_post_thumbnail($fellow->ID),
@@ -464,7 +464,7 @@ function sort_fellows_by_year($fellows,$year=null){
                     'pic_private' => !empty($pmeta['_kw_person_kw_photo_add']) ? $pmeta['_kw_person_kw_photo_add'][0] : ''
                 );
             }
-        } 
+        }
 
         usort($res,"compareBy");
     }
@@ -484,8 +484,8 @@ function sort_judges($judges){
             'Regional' => array()
         );
         foreach($judges as $judge){
-            $image = get_the_post_thumbnail($judge->ID); 
-            $pmeta = get_post_meta($judge->ID); 
+            $image = get_the_post_thumbnail($judge->ID);
+            $pmeta = get_post_meta($judge->ID);
             if(!empty($pmeta['_kw_person_laj_nat'])){
                 $res[$pmeta['_kw_person_laj_nat'][0]][] = array(
                    'first_name' => !empty($pmeta['_kw_person_laj_first_name']) ? $pmeta['_kw_person_laj_first_name'][0] : '',
@@ -495,14 +495,14 @@ function sort_judges($judges){
                    'image' => $image,
                    'link' => !empty($judge->guid) ? $judge->guid : '',
                    'bio' => !empty($pmeta['_kw_person_laj_bio']) ? $pmeta['_kw_person_laj_bio'][0] : ''
-                ); 
+                );
             }
         }
         //sort results by Alpha Order
         usort($res['National'],"compareBy");
         usort($res['Regional'],"compareBy");
     }else{
-        $res = false; 
+        $res = false;
     }
 
     return $res;
@@ -515,9 +515,9 @@ function sort_judges($judges){
 
 function login_fellows_user($username,$password,$form_id){
     if(empty($username) || empty($password) || empty($form_id)){
-        $res = false; 
+        $res = false;
     }else{
-        $saved_username = get_option('fellows_username'); 
+        $saved_username = get_option('fellows_username');
         $saved_password = get_option('fellows_password');
         $res = $saved_username == $username && $saved_password == $password ? true : false;
     }
@@ -542,7 +542,7 @@ function sort_slider_content($content){
     );
     if(!empty($content)){
         foreach($content as $c){
-            $pmeta = get_post_meta($c->ID); 
+            $pmeta = get_post_meta($c->ID);
             $pimage = get_the_post_thumbnail($c->ID);
             if(!empty($pmeta)){
                 $res[$pmeta["_slider_content_page"][0]][] = array(
@@ -552,9 +552,9 @@ function sort_slider_content($content){
                     'details' => !empty($pmeta['_slider_content_details']) ? $pmeta['_slider_content_details'][0] : ''
                 );
             }
-        } 
+        }
     }else{
-        $res = false; 
+        $res = false;
     }
     return $res;
 }
@@ -568,11 +568,11 @@ function find_featured_news_article($news){
     $res = array();
     if(!empty($news)){
         foreach($news as $new){
-            $pmeta = get_post_meta($new->ID); 
+            $pmeta = get_post_meta($new->ID);
             if(!empty($pmeta['featured']) && $pmeta['featured'][0] == 'featured'){
-                $res[] = $new; 
+                $res[] = $new;
             }
-        } 
+        }
     }
     return $res;
 }
@@ -609,8 +609,8 @@ function sort_board_of_directors($directors){
                 'title' => !empty($pmeta['_person_board_member_title']) ? $pmeta['_person_board_member_title'][0] : '',
                 'ass' => !empty($pmeta['_person_board_member_ass']) ? $pmeta['_person_board_member_ass'][0] : '',
                 'bio' => !empty($pmeta['_person_board_member_bio']) ? $pmeta['_person_board_member_bio'][0] : ''
-            ); 
-        } 
+            );
+        }
         usort($res,"compareBy");
     }
     return $res;
