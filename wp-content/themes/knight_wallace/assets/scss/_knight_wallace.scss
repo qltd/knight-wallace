@@ -816,7 +816,12 @@ figure {
     margin-bottom: 15rem !important;
 
     @include responsive("1024px") {
-        margin-bottom: 5rem !important;
+        margin-top: 3rem !important;
+        margin-bottom: 3rem !important;
+
+        img {
+            margin-bottom: 2rem;
+        }
     }
 }
 
