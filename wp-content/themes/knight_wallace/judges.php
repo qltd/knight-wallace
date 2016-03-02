@@ -44,12 +44,12 @@ $sorted_judges = sort_judges($judges);
                         </div>
                         <div class="medium-10 columns">
                             <p class="name">
-                                <?php echo $judge['first_name'].' '.$judge['last_name']; ?>
+                                <a href="<?php echo $judge['link']; ?>" class="link">
+                                <?php echo $judge['first_name'].' '.$judge['last_name']; ?></a>
                             </p>
                             <p class="title">
                                 <?php echo $judge['title']; ?>, <?php echo $judge['aff']; ?>
                             </p>
-                            <p class="bio"><?php echo $judge['bio']?> </p>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -67,13 +67,14 @@ $sorted_judges = sort_judges($judges);
                         </div>
                         <div class="medium-10 columns">
                             <p class="name">
-                                <?php echo $judge['first_name']; ?>
-                                <?php echo $judge['last_name']; ?>
+                                <a href="<?php echo $judge['link']; ?>" class="link">
+                                <?php echo $judge['first_name']; ?>&nbsp;
+                                <?php echo $judge['last_name']; ?></a>
                             </p>
                             <p class="title">
-                                <?php echo $judge['title']; ?>, <?php echo $judge['aff']; ?>
+                                <?php echo $judge['title']; ?>&nbsp;
+                                <?php echo $judge['aff']; ?>
                             </p>
-                            <p class="bio"><?php echo $judge['bio']?> </p>
                         </div>
                     </div>
                 <?php endforeach; ?>
