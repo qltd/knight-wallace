@@ -1155,6 +1155,13 @@ figure {
         color: $ublue;
         font-family: $primary-font-bold;
         font-weight: normal;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+
+        &.hr {
+            border-top: 1px solid $charcoal;
+            padding-top: 3.5rem;
+        }
     }
 
     .director {
