@@ -95,15 +95,19 @@ $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
                         </a>
                         <?php endif; ?>
                     </p>
-                    <p class="title">
-                        <?php echo $fellow['title']; ?>
-                    </p>
                     <p class="aff">
-                        <span class="job"><?php echo $fellow['job']; ?></span> <?php echo $fellow['aff']; ?>
+                        <span class="job"><?php echo $fellow['job']; ?></span>, <?php echo $fellow['aff']; ?>
                     </p>
+                    <?php if(!empty($fellow['title'])): ?> 
+                    <p class="title">
+                        Study Plan: <?php echo $fellow['title']; ?>
+                    </p>
+                    <?php endif; ?>
+                    <?php if(!empty($fellow['bio'])): ?> 
                     <p class="bio">
                         <?php echo $fellow['bio']; ?>
                     </p>
+                    <?php endif; ?>
                 </div>
             </div>
             <?php endforeach; ?>
