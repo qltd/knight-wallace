@@ -24,9 +24,9 @@ $tags = get_the_tags($post->ID);
                  <?php echo $pmeta['tagline'][0]; ?>
             </p>
 <?php endif; ?>
-<?php if(!empty($pmeta['author'])): ?>
+<?php if(!empty($pmeta['Author'])): ?>
             <p class="author">
-               by <?php echo $pmeta['author'][0]; ?>
+              <?php echo $pmeta['Author'][0]; ?>
             </p>
 <?php endif; ?>
             <div class="entry-meta">
