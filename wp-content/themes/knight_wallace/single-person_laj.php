@@ -18,7 +18,7 @@ get_header('livingston'); ?>
 <main id="main" class="site-main post-main" role="main">
 <div class="row">
     <div class="large-12 columns">
-        <h1 class="text-center">Judges</h1>
+        <h1 class="entry-title text-center">Judges</h1>
 		<?php while ( have_posts() ) : the_post(); ?>
 
 			<?php get_template_part( 'template-parts/content', 'laj' ); ?>
