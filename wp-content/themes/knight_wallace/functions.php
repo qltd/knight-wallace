@@ -311,6 +311,7 @@ function add_person_staff() {
     add_meta_box('kw_person_staff_last_name', 'Last Name', 'kw_person_staff_last_name', 'person_staff', 'normal', 'default');
     add_meta_box('kw_person_staff_title', 'Title', 'kw_person_staff_title', 'person_staff', 'normal', 'default');
     add_meta_box('kw_person_staff_bio', 'Bio', 'kw_person_staff_bio', 'person_staff', 'normal', 'default');
+    add_meta_box('kw_person_staff_order', 'Order', 'kw_person_staff_order', 'person_staff', 'normal', 'default');
 }
 
 function add_person_board_member() {
@@ -511,6 +512,10 @@ function kw_person_staff_title() {
 
 function kw_person_staff_bio() {
     generate_textarea_for_custom_field("kw_person_staff_bio");
+}
+
+function kw_person_staff_order() {
+    generate_html_for_custom_field("kw_person_staff_order");
 }
 
 //Callback functions for Livingston Award Judges, filling custom fields with needed html
@@ -730,6 +735,7 @@ function kw_save_events_meta($post_id, $post) {
     $events_meta['_kw_person_staff_last_name'] = !empty($_POST['_kw_person_staff_last_name']) ? $_POST['_kw_person_staff_last_name'] : null;
     $events_meta['_kw_person_staff_title'] = !empty($_POST['_kw_person_staff_title']) ? $_POST['_kw_person_staff_title'] : null;
     $events_meta['_kw_person_staff_bio'] = !empty($_POST['_kw_person_staff_bio']) ? $_POST['_kw_person_staff_bio'] : null;
+    $events_meta['_kw_person_staff_order'] = !empty($_POST['_kw_person_staff_order']) ? $_POST['_kw_person_staff_order'] : null;
 
     //Livingston Award Judges Custom Fields
     $events_meta['_kw_person_laj_first_name'] = !empty($_POST['_kw_person_laj_first_name']) ? $_POST['_kw_person_laj_first_name'] : null;

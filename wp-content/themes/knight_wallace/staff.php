@@ -13,6 +13,7 @@ include_once('helpers.php');
 //grab our junk
 $alerts = get_posts(array('category_name'=>'alert'));
 $staff = get_posts(array('post_type'=>'person_staff','posts_per_page'=> -1));
+$sorted_staff = sort_staff($staff);
 ?>
 <div class="row">
     <div class="large-12 columns">
@@ -22,27 +23,23 @@ $staff = get_posts(array('post_type'=>'person_staff','posts_per_page'=> -1));
 <main id="main" class="site-main post-main" role="main">
     <div class="row staff">
         <div class="large-10 large-centered columns">
-            <?php if(!empty($staff)): ?>
-                <?php foreach($staff as $s): ?>
-                    <?php
-                    $image = get_the_post_thumbnail($s->ID);
-                    $pmeta = get_post_meta($s->ID);
-                    ?>
+            <?php if(!empty($sorted_staff)): ?>
+                <?php foreach($sorted_staff as $s): ?>
                     <div class="row director">
                         <div class="medium-2 columns">
-                            <div class="image"><?php echo $image; ?></div>
+                            <div class="image"><?php echo $s['image']; ?></div>
                         </div>
                         <div class="medium-10 columns">
                             <p class="name">
-                                <a href="<?php echo !empty($s->guid) ? $s->guid : ''; ?>" class="board-member-link">
-                                <?php echo !empty($pmeta['_kw_person_staff_first_name']) ? $pmeta['_kw_person_staff_first_name'][0] : ''; ?>
-                                <?php echo !empty($pmeta['_kw_person_staff_last_name']) ? $pmeta['_kw_person_staff_last_name'][0] : ''; ?></a>
+                                <a href="<?php echo $s['link']; ?>" class="board-member-link">
+                                <?php echo $s['first_name']; ?>
+                                <?php echo $s['last_name']; ?>
                             </p>
                             <p class="title">
-                                <?php echo !empty($pmeta['_kw_person_staff_title']) ? $pmeta['_kw_person_staff_title'][0] : ''; ?>
+                                <?php echo $s['title']; ?>
                             </p>
                             <p class="bio">
-                                <?php echo !empty($pmeta['_kw_person_staff_bio']) ? $pmeta['_kw_person_staff_bio'][0] : ''; ?>
+                                <?php echo $s['bio']; ?>
                             </p>
                         </div>
                     </div>

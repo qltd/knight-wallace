@@ -579,15 +579,16 @@ function find_featured_news_article($news){
 
 /**
  * Sort by alpha order
- * takes two arguments, a multi dimenstional array of items and the item by which everything should
- * be sorted by, such as "last_name"
- * returns sorted array
- * @rdar
  *
  * */
 
 function compareBy($a, $b) {
     return strcmp($a["last_name"], $b["last_name"]);
+}
+
+//sort by order field
+function orderBy($a, $b) {
+    return strcmp($a["order"], $b["order"]);
 }
 
 /**
@@ -612,6 +613,32 @@ function sort_board_of_directors($directors){
             );
         }
         usort($res,"compareBy");
+    }
+    return $res;
+}
+
+/**
+ * Sort staff members
+ *
+ * */
+
+function sort_staff($staff){
+    $res = array();
+    if(!empty($staff)){
+        foreach($staff as $s){
+            $image = get_the_post_thumbnail($s->ID);
+            $pmeta = get_post_meta($s->ID);
+            $res[] = array(
+                'image' => $image,
+                'link' => !empty($s->guid) ? $s->guid : '',
+                'first_name' => !empty($pmeta['_kw_person_staff_first_name']) ? $pmeta['_kw_person_staff_first_name'][0] : '',
+                'last_name' => !empty($pmeta['_kw_person_staff_last_name']) ? $pmeta['_kw_person_staff_last_name'][0] : '',
+                'title' => !empty($pmeta['_kw_person_staff_title']) ? $pmeta['_kw_person_staff_title'][0] : '',
+                'bio' => !empty($pmeta['_kw_person_staff_bio']) ? $pmeta['_kw_person_staff_bio'][0] : '',
+                'order' => !empty($pmeta['_kw_person_staff_order']) ? $pmeta['_kw_person_staff_order'][0] : ''
+            );
+        } 
+        usort($res,"orderBy");
     }
     return $res;
 }
