@@ -9,6 +9,22 @@
 get_header(); ?>
 
 <?php
+$parent_id = get_post_ancestors($post->ID);
+$parent = !empty($parent_id) ? get_post($parent_id[0]) : false;
+?>
+<?php if(!empty($parent)): ?>
+<section class="breadcrumb">
+<div class="row">
+    <div class="small-6 columns">
+    <a href="<?php echo !empty($parent->guid) ? $parent->guid : ''; ?>" class="breadcrumb-link">
+        <?php echo !empty($parent->post_title) ? $parent->post_title : ''; ?>
+    </a>
+    </div>
+</div>
+</section>
+<?php endif; ?>
+
+<?php
 //grab our junk
 include_once 'helpers.php';
 $news = get_posts(array('category_name'=>'news','posts_per_page'=> -1));

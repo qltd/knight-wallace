@@ -61,12 +61,12 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
         <img src="http://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
         <?php endif; ?>
         <div class="text">
-            <h3><?php echo $sorted_content_blocks['Wallace House'][0]['title']; ?></h3>
-            <p>
-                <a href="<?php echo $sorted_content_blocks['Wallace House'][0]['link']; ?>">
+            <a href="<?php echo $sorted_content_blocks['Wallace House'][0]['link']; ?>">
+                <h3><?php echo $sorted_content_blocks['Wallace House'][0]['title']; ?></h3>
+                <p>
                     <?php echo $sorted_content_blocks['Wallace House'][0]['content']; ?>
-                </a>
-            </p>
+                </p>
+            </a>
         </div>
         <?php endif; ?>
     </div>
@@ -80,12 +80,12 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
         <img src="http://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
         <?php endif; ?>
         <div class="text">
-            <h3><?php echo $sorted_content_blocks['Wallace House'][1]['title']; ?></h3>
-            <p>
-                <a href="<?php echo $sorted_content_blocks['Wallace House'][1]['link']; ?>">
+            <a href="<?php echo $sorted_content_blocks['Wallace House'][1]['link']; ?>">
+                <h3><?php echo $sorted_content_blocks['Wallace House'][1]['title']; ?></h3>
+                <p>
                     <?php echo $sorted_content_blocks['Wallace House'][1]['content']; ?>
-                </a>
-            </p>
+                </p>
+            </a>
         </div>
         <?php endif; ?>
     </div>
@@ -101,12 +101,12 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
         <img src="http://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
         <?php endif; ?>
         <div class="text">
-            <h3><?php echo $sorted_content_blocks['Wallace House'][2]['title']; ?></h3>
-            <p>
-                <a href="<?php echo $sorted_content_blocks['Wallace House'][2]['link']; ?>">
+            <a href="<?php echo $sorted_content_blocks['Wallace House'][2]['link']; ?>">
+                <h3><?php echo $sorted_content_blocks['Wallace House'][2]['title']; ?></h3>
+                <p>
                     <?php echo $sorted_content_blocks['Wallace House'][2]['content']; ?>
-                </a>
-            </p>
+                </p>
+            </a>
         </div>
         <?php endif; ?>
     </div>
@@ -120,12 +120,12 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
         <img src="http://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
         <?php endif; ?>
         <div class="text">
-            <h3><?php echo $sorted_content_blocks['Wallace House'][3]['title']; ?></h3>
-            <p>
-                <a href="<?php echo $sorted_content_blocks['Wallace House'][3]['link']; ?>">
+            <a href="<?php echo $sorted_content_blocks['Wallace House'][3]['link']; ?>">
+                <h3><?php echo $sorted_content_blocks['Wallace House'][3]['title']; ?></h3>
+                <p>
                     <?php echo $sorted_content_blocks['Wallace House'][3]['content']; ?>
-                </a>
-            </p>
+                </p>
+            </a>
         </div>
         <?php endif; ?>
     </div>
@@ -166,7 +166,7 @@ if(!empty($alerts)):
                     <div class="news-article">
                         <div class="text">
                             <h4><a href="<?php echo $news[0]->guid; ?>"><?php echo $news[0]->post_title; ?></a></h4>
-                    
+
                             <div class="date"><?php echo $n1meta['Author'][0]; ?></div>
                             <div class="tags-list">
                                 <ul>
