@@ -66,13 +66,18 @@ $sorted_winners = sort_past_winners($winners,array('2014','2015','2013','2012','
 <div class="row">
     <div class="large-10 large-centered columns">
         <div class="past-winner">
-            <div class="name"><?php echo $win['first_name'].' '.$win['last_name'].', '.$win['age']; ?></div>
+            <div class="name"><?php echo $win['first_name'].' '.$win['last_name']; ?></div>
             <div class="lib-item"><a href="<?php echo $win['library_link']; ?>"><?php echo $win['lib']; ?></a></div>
             <div class="winning">
-                <span class="aff"><?php echo $win['past_aff']?></span> <span class="job"><?php echo $win['past_job']?></span>
+                <span class="aff"><?php echo $win['past_aff']; ?></span> <span class="job"><?php echo $win['past_job']; ?></span>
             </div>
             <div class="current">
-                <span class="aff">Current Affiliation: <?php echo $win['aff']?></span> <span class="job"><?php echo $win['job']?></span>
+            <?php if(!empty($win['aff'])): ?> 
+<span class="aff">Current Affiliation: <?php echo $win['aff']; ?></span>
+            <?php endif; ?>
+            <?php if(!empty($win['job'])): ?>
+                 <span class="job"><?php echo $win['job']; ?></span>
+            <?php endif; ?>
             </div>
             <div class="tags">
                 <?php echo $win['year']; ?> |
