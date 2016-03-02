@@ -48,7 +48,7 @@ $sorted_judges = sort_judges($judges);
                                 <?php echo $judge['first_name'].' '.$judge['last_name']; ?></a>
                             </p>
                             <p class="title">
-                                <?php echo $judge['title']; ?>, <?php echo $judge['aff']; ?>
+                                <?php echo $judge['title']; ?><?php if (!empty($judge['aff'])): ?>,&nbsp;<?php echo $judge['aff']; endif;?>
                             </p>
                         </div>
                     </div>
@@ -68,12 +68,10 @@ $sorted_judges = sort_judges($judges);
                         <div class="medium-10 columns">
                             <p class="name">
                                 <a href="<?php echo $judge['link']; ?>" class="link">
-                                <?php echo $judge['first_name']; ?>&nbsp;
-                                <?php echo $judge['last_name']; ?></a>
+                                <?php echo $judge['first_name']; ?>&nbsp;<?php echo $judge['last_name']; ?></a>
                             </p>
                             <p class="title">
-                                <?php echo $judge['title']; ?>&nbsp;
-                                <?php echo $judge['aff']; ?>
+                                <?php echo $judge['title']; ?><?php if (!empty($judge['aff'])): ?>,&nbsp;<?php echo $judge['aff']; endif;?>
                             </p>
                         </div>
                     </div>

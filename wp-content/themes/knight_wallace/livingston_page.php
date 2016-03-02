@@ -91,12 +91,12 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
         <img src="http://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
         <?php endif; ?>
         <div class="text">
-            <h3><?php echo $sorted_content_blocks['Livingston Awards'][0]['title']; ?></h3>
-            <p>
-                <a href="<?php echo $sorted_content_blocks['Livingston Awards'][0]['link']; ?>">
+            <a href="<?php echo $sorted_content_blocks['Livingston Awards'][0]['link']; ?>">
+                <h3><?php echo $sorted_content_blocks['Livingston Awards'][0]['title']; ?></h3>
+                <p>
                     <?php echo $sorted_content_blocks['Livingston Awards'][0]['content']; ?>
-                </a>
-            </p>
+                </p>
+            </a>
         </div>
         <?php endif; ?>
     </div>
@@ -110,12 +110,12 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
         <img src="http://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
         <?php endif; ?>
         <div class="text">
-            <h3><?php echo $sorted_content_blocks['Livingston Awards'][1]['title']; ?></h3>
-            <p>
-                <a href="<?php echo $sorted_content_blocks['Livingston Awards'][1]['link']; ?>">
+            <a href="<?php echo $sorted_content_blocks['Livingston Awards'][1]['link']; ?>">
+                <h3><?php echo $sorted_content_blocks['Livingston Awards'][1]['title']; ?></h3>
+                <p>
                     <?php echo $sorted_content_blocks['Livingston Awards'][1]['content']; ?>
-                </a>
-            </p>
+                </p>
+            </a>
         </div>
         <?php endif; ?>
     </div>
@@ -131,12 +131,12 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
         <img src="http://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
         <?php endif; ?>
         <div class="text">
-            <h3><?php echo $sorted_content_blocks['Livingston Awards'][2]['title']; ?></h3>
-            <p>
-                <a href="<?php echo $sorted_content_blocks['Livingston Awards'][2]['link']; ?>">
+            <a href="<?php echo $sorted_content_blocks['Livingston Awards'][2]['link']; ?>">
+                <h3><?php echo $sorted_content_blocks['Livingston Awards'][2]['title']; ?></h3>
+                <p>
                     <?php echo $sorted_content_blocks['Livingston Awards'][2]['content']; ?>
-                </a>
-            </p>
+                </p>
+            </a>
         </div>
         <?php endif; ?>
     </div>
@@ -150,12 +150,12 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
         <img src="http://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
         <?php endif; ?>
         <div class="text">
-            <h3><?php echo $sorted_content_blocks['Livingston Awards'][3]['title']; ?></h3>
-            <p>
-                <a href="<?php echo $sorted_content_blocks['Livingston Awards'][3]['link']; ?>">
+            <a href="<?php echo $sorted_content_blocks['Livingston Awards'][3]['link']; ?>">
+                <h3><?php echo $sorted_content_blocks['Livingston Awards'][3]['title']; ?></h3>
+                <p>
                     <?php echo $sorted_content_blocks['Livingston Awards'][3]['content']; ?>
-                </a>
-            </p>
+                </p>
+            </a>
         </div>
         <?php endif; ?>
     </div>

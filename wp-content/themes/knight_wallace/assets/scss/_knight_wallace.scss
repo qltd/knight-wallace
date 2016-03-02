@@ -339,7 +339,6 @@ a {
 
         .text {
             background: $lblue;
-            padding: 1.5rem 3rem 1rem;
             transition: all 0.5s ease;
             height: 126px;
             max-width: 620px;
@@ -352,12 +351,14 @@ a {
             &:hover {
                 background: $ublue;
             }
-        }
 
-        a {
-            color: $white;
-            display: inline-block;
-            font-size: 1.6rem;
+            a {
+                color: $white;
+                display: block;
+                font-size: 1.6rem;
+                padding: 1.5rem 3rem 1rem;
+                height: 100%;
+            }
         }
 
         h3 {
@@ -372,6 +373,8 @@ a {
         }
 
         p {
+            font-size: 1.6rem;
+
             @include responsive("1024px") {
                 line-height: 2.2rem;
             }
@@ -379,6 +382,7 @@ a {
 
         img {
             height: auto;
+            max-width: 620px;
             width: 100%;
         }
     }
