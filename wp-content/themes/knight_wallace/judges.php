@@ -57,7 +57,7 @@ $sorted_judges = sort_judges($judges);
             <?php if(!empty($sorted_judges['Regional'])): ?>
             <div class="row">
                 <div class="large-12 columns">
-                    <h2 class="judge-type">Regional</h2>
+                    <h2 class="judge-type hr">Regional</h2>
                 </div>
             </div>
                 <?php foreach($sorted_judges['Regional'] as $judge): ?>
