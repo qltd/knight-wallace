@@ -19,7 +19,13 @@
         }
     }
 
+    .mobile-menu-trigger {
+        cursor:pointer; 
+    }
+
     .mobile-menu-wrap {
+        display:none;//hide menu on load
+
         li {
             list-style: none;
             font-size: 2rem;

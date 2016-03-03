@@ -11277,16 +11277,25 @@ figure figcaption strong {
     font-size: 1.4rem;
   }
 
-  /* line 23, ../scss/_mobile_nav.scss */
+  /* line 22, ../scss/_mobile_nav.scss */
+  .mobile-menu-trigger {
+    cursor: pointer;
+  }
+
+  /* line 26, ../scss/_mobile_nav.scss */
+  .mobile-menu-wrap {
+    display: none;
+  }
+  /* line 29, ../scss/_mobile_nav.scss */
   .mobile-menu-wrap li {
     list-style: none;
     font-size: 2rem;
   }
-  /* line 28, ../scss/_mobile_nav.scss */
+  /* line 34, ../scss/_mobile_nav.scss */
   .mobile-menu-wrap li.menu-item {
     padding: 2rem 1rem;
   }
-  /* line 32, ../scss/_mobile_nav.scss */
+  /* line 38, ../scss/_mobile_nav.scss */
   .mobile-menu-wrap li.menu-item-has-children {
     text-transform: uppercase;
     color: #FFFFFF;
@@ -11304,14 +11313,14 @@ figure figcaption strong {
   .mobile-menu-wrap li.menu-item-has-children a:link, .mobile-menu-wrap li.menu-item-has-children a:visited {
     color: #FFFFFF;
   }
-  /* line 40, ../scss/_mobile_nav.scss */
+  /* line 46, ../scss/_mobile_nav.scss */
   .mobile-menu-wrap .sub-menu {
     background: #FFFFFF;
     margin-left: 0;
     padding-left: 0;
     display: none;
   }
-  /* line 46, ../scss/_mobile_nav.scss */
+  /* line 52, ../scss/_mobile_nav.scss */
   .mobile-menu-wrap .sub-menu li {
     text-transform: normal;
     text-transform: capitalize;
@@ -11328,7 +11337,7 @@ figure figcaption strong {
   .mobile-menu-wrap .sub-menu li a:link, .mobile-menu-wrap .sub-menu li a:visited {
     color: #0d57aa;
   }
-  /* line 52, ../scss/_mobile_nav.scss */
+  /* line 58, ../scss/_mobile_nav.scss */
   .mobile-menu-wrap .sub-menu li:hover {
     background: #0d57aa;
   }
@@ -11345,7 +11354,7 @@ figure figcaption strong {
     color: #FFFFFF;
   }
 
-  /* line 61, ../scss/_mobile_nav.scss */
+  /* line 67, ../scss/_mobile_nav.scss */
   .nav-item-controller {
     float: right;
   }
