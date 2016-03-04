@@ -41,14 +41,14 @@ $donor_type = !empty($this_page_meta['donor']) ? $this_page_meta['donor'][0] : '
                     $pmeta = get_post_meta($donor->ID);
                     ?>
                     <?php if(!empty($pmeta['_kw_person_donor_type']) && $pmeta['_kw_person_donor_type'][0] == $donor_type): ?>
-                    <div class="row director">
+                    <div class="row">
                         <div class="large-2 columns">
                             <div class="board-member-image"><?php echo $image; ?></div>
                         </div>
                         <div class="large-10 columns">
-                            <p class="name">
+                            <h3 class="name">
                                 <?php echo !empty($pmeta['_kw_person_donor_name']) ? $pmeta['_kw_person_donor_name'][0] : ''; ?>
-                            </p>
+                            </h3>
                             <p class="board-member-title">
                                 <?php echo !empty($pmeta['_kw_person_donor_description']) ? $pmeta['_kw_person_donor_description'][0] : ''; ?>
                             </p>
@@ -64,7 +64,7 @@ $donor_type = !empty($this_page_meta['donor']) ? $this_page_meta['donor'][0] : '
 <?php
 //display alerts
 if(!empty($alerts)):
-?>
+?><br /><br /><br />
 <section id="alerts">
 <?php foreach($alerts as $alert): ?>
 <div class="row alert">

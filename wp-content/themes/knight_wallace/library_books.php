@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Library Books 
+ * Template Name: Library Books
  *
  *
  * @package knight_wallace
@@ -14,11 +14,27 @@ $libs = get_posts(array('post_type'=>'library','posts_per_page'=> -1));
 $sorted_libs = sort_library_items_sub_cat($libs, "Book");
 ?>
 
+<?php
+$parent_id = get_post_ancestors($post->ID);
+$parent = !empty($parent_id) ? get_post($parent_id[0]) : false;
+?>
+<?php if(!empty($parent)): ?>
+<section class="breadcrumb">
+<div class="row">
+    <div class="small-6 columns">
+    <a href="<?php echo !empty($parent->guid) ? $parent->guid : ''; ?>" class="breadcrumb-link">
+        <?php echo !empty($parent->post_title) ? $parent->post_title : ''; ?>
+    </a>
+    </div>
+</div>
+</section>
+<?php endif; ?>
+
 <?php if(!empty($sorted_libs['featured'])): ?>
 <section id="library">
     <div class="row">
         <div class="large-12">
-            <h1 class="text-center">Library</h1>
+            <h1 class="entry-title text-center">Library</h1>
         </div>
     </div>
     <div class="row">
@@ -132,7 +148,7 @@ $sorted_libs = sort_library_items_sub_cat($libs, "Book");
   <ul class="pagination">
     <li class="arrow"><a href="#lib_heading" class="display-page-action" data-page="1">&laquo;</a></li>
     <li class="current"><a href="#lib_heading" class="display-page-action" data-page="1">1</a></li>
-    <?php for($i=2;$i<=$page;$i++): ?>  
+    <?php for($i=2;$i<=$page;$i++): ?>
         <li><a href="#lib_heading" class="display-page-action" data-page="<?php echo $i; ?>"><?php echo $i; ?></a></li>
     <?php endfor; ?>
         <li class="arrow"><a href="#lib_heading" class="display-page-action" data-page="<?php echo $page; ?>">&raquo;</a></li>

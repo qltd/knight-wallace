@@ -86,24 +86,18 @@ $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
                 </div>
                 <div class="medium-10 columns">
                     <p class="name">
-                        <?php if(!empty($fellow['bio'])): ?>
-                        <a href="<?php echo $fellow['link']; ?>" class="link">
-                            <?php endif; ?>
                             <?php echo $fellow['first_name']; ?>&nbsp;
                             <?php echo $fellow['last_name']; ?>
-                            <?php if(!empty($fellow['bio'])): ?>
-                        </a>
-                        <?php endif; ?>
                     </p>
                     <p class="aff">
                         <span class="job"><?php echo $fellow['job']; ?></span>, <?php echo $fellow['aff']; ?>
                     </p>
-                    <?php if(!empty($fellow['title'])): ?> 
+                    <?php if(!empty($fellow['title'])): ?>
                     <p class="title">
                         Study Plan: <?php echo $fellow['title']; ?>
                     </p>
                     <?php endif; ?>
-                    <?php if(!empty($fellow['bio'])): ?> 
+                    <?php if(!empty($fellow['bio'])): ?>
                     <p class="bio">
                         <?php echo $fellow['bio']; ?>
                     </p>

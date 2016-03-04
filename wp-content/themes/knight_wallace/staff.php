@@ -47,7 +47,7 @@ $sorted_staff = sort_staff($staff);
                         </div>
                         <div class="medium-10 columns">
                             <p class="name">
-                                <a href="<?php echo $s['link']; ?>" class="board-member-link">
+
                                 <?php echo $s['first_name']; ?>
                                 <?php echo $s['last_name']; ?>
                             </p>

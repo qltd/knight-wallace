@@ -587,6 +587,7 @@ figure {
     .featured {
         background: $myellow;
         margin: 4rem 0;
+        text-align: center;
 
         .author {
             font-size: 1.6rem;
@@ -594,6 +595,7 @@ figure {
         }
 
         .featured-text {
+            text-align: left;
             height: 100%;
             padding: 1rem 0 2rem;
             position: relative;
@@ -606,7 +608,7 @@ figure {
             .button {
                 margin: 5px 0 20px;
                 display: block;
-                max-width: 280px;
+                max-width: 220px;
             }
         }
 
@@ -636,6 +638,11 @@ figure {
         img {
             height: auto;
             width: 100%;
+
+            &.book {
+                max-width: 400px;
+                max-height: 500px;
+            }
         }
 
         p {
@@ -926,7 +933,7 @@ figure {
     }
 
     .name {
-        color: $ublue;
+        color: $charcoal;
         font-size: 2.6rem;
         line-height: 3.4rem;
         font-family: $primary-font-bold;
@@ -1214,8 +1221,9 @@ figure {
 
     .aff, .bio {
         font-size: 2rem;
-        color: $ublue;
+        color: $charcoal;
         line-height: 2.8rem;
+        margin-bottom: 0;
     }
 }
 

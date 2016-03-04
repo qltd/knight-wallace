@@ -170,7 +170,7 @@ function sort_library_items_sub_cat($lib,$cat){
         $res = array();
         foreach($lib as $li){
             $pmeta = get_post_meta($li->ID);
-            $pimage = get_the_post_thumbnail($li->ID);
+            $pimage = get_the_post_thumbnail($li->ID, '', array('class' => strtolower($pmeta['_library_item_type'][0])));
             $tags = get_the_tags($li->ID);
             if(!empty($pmeta) && !empty($pmeta['_library_item_type']) && $pmeta['_library_item_type'][0] == $cat){
                 $res[] = array(
@@ -637,7 +637,7 @@ function sort_staff($staff){
                 'bio' => !empty($pmeta['_kw_person_staff_bio']) ? $pmeta['_kw_person_staff_bio'][0] : '',
                 'order' => !empty($pmeta['_kw_person_staff_order']) ? $pmeta['_kw_person_staff_order'][0] : ''
             );
-        } 
+        }
         usort($res,"orderBy");
     }
     return $res;
