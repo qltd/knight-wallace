@@ -588,6 +588,12 @@ figure {
     }
 }
 
+.no-breadcrumb {
+    @include responsive("640px") {
+        margin-top: 3rem !important;
+    }
+}
+
 /* Library */
 #library {
     .featured {
@@ -752,9 +758,9 @@ figure {
             max-height: none;
 
             &.book {
-                max-width: 200px;
+                max-width: 100px;
                 max-height: 152px;
-                width: auto;
+                width: 100%;
             }
         }
     }
@@ -1225,6 +1231,10 @@ figure {
 
     .director {
         margin-bottom: 5rem;
+
+        @include responsive("640px") {
+            margin-top: 3rem;
+        }
     }
 
     .past-fellow {
@@ -1240,7 +1250,7 @@ figure {
 
         @include responsive("640px") {
             padding-left: 0.9375rem;
-            margin-top: 3rem;
+            margin-top: 1rem;
         }
     }
 

@@ -550,7 +550,7 @@ $sorted_libs = sort_library_items($libs);
             </div><!--end first column-->
         </div>
         <div class="large-6 columns">
-            <a href="/wallace-house/library/photojournalism/" class="more-posts">See all Wallace House <br />photojournalism &raquo;</a>
+            <a href="/wallace-house/library/photojournalism/" class="more-posts">See all Wallace House photojournalism &raquo;</a>
         </div>
     </div><!--end second row-->
 </section>

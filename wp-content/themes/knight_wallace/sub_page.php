@@ -7,8 +7,8 @@
 
 get_header(); ?>
 
-<?php 
-$parent_id = get_post_ancestors($post->ID); 
+<?php
+$parent_id = get_post_ancestors($post->ID);
 $parent = !empty($parent_id) ? get_post($parent_id[0]) : false;
 ?>
 
@@ -24,7 +24,7 @@ $parent = !empty($parent_id) ? get_post($parent_id[0]) : false;
 </section>
 <?php endif; ?>
 
-  <main class="wallace-house-subpage">
+  <main class="wallace-house-subpage <?php if(empty($parent)): ?>no-breadcrumb<?php endif; ?>">
     <div class="row">
       <div class="large-12 columns">
     <?php while ( have_posts() ) : the_post(); ?>
