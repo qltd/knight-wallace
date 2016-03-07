@@ -73,7 +73,7 @@ $sorted_winners = sort_past_winners($winners,array('2014','2015','2013','2012','
             </div>
             <div class="current">
             <?php if(!empty($win['job'])): ?>
-                 <span class="job">Current Affiliation: <?php echo $win['job']; ?>,</span>
+                 <span class="job">Current Assignment: <?php echo $win['job']; ?>,</span>
             <?php endif; ?>
             <?php if(!empty($win['aff'])): ?> 
                 <span class="aff"><?php echo $win['aff']; ?></span>

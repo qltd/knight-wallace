@@ -22,12 +22,21 @@ if(!empty($_GET['action'])){
             foreach($sorted_winners as $win){
                 $res .= '
 <div class="row">
-    <div class="large-12 columns">
+    <div class="large-10 large-centered columns">
         <div class="past-winner">
-            <div class="name">'.$win['first_name'].' '.$win['last_name'].','.$win['age'].'</div>
+            <div class="name">'.$win['first_name'].' '.$win['last_name'].'</div>
             <div class="lib-item"><a href="'.$win['library_link'].'">'.$win['lib'].'</a></div> 
-            <div class="aff">'.$win['aff'].'</div> 
-            <div class="job">'.$win['job'].'</div> 
+            <div class="winning">
+                <span class="job">'.$win['past_job'].',</span> <span class="aff">'.$win['past_aff'].'</span> 
+            </div>
+            <div class="current">';
+            if(!empty($win['job'])){
+                $res .= '<span class="job">Current Assignment: '.$win['job'].', </span>';
+            }
+            if(!empty($win['aff'])){
+                $res .= '<span class="aff">'.$win['aff'].'</span>';
+            }
+            $res .= '</div>
             <div class="tags">'.$win['year'].' | '.$win['winner'].' | '.$win['type'].'</div>
         </div>
     </div>
