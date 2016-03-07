@@ -47,7 +47,7 @@ $sorted_board_members = sort_board_of_directors($board_members);
                                 <?php echo $board_member['title']; ?>,
                                 <?php echo $board_member['ass']; ?>
                             </p>
-                                <p class="bio"><?php echo $board_member['bio']; ?> </p>
+                                <div class="bio"><?php echo $board_member['bio']; ?> </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
