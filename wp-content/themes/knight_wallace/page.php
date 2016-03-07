@@ -167,7 +167,7 @@ if(!empty($alerts)):
                         <div class="text">
                             <h4><a href="<?php echo $news[0]->guid; ?>"><?php echo $news[0]->post_title; ?></a></h4>
 
-                            <div class="date"><?php echo $n1meta['Author'][0]; ?></div>
+                            <div class="date"><?php echo !empty($n1meta['Author']) ? $n1meta['Author'][0] : ''; ?></div>
                             <div class="tags-list">
                                 <ul>
                                     <?php if(!empty($tags)):?>
@@ -191,7 +191,7 @@ if(!empty($alerts)):
                     <div class="news-article">
                         <div class="text">
                             <h4><a href="<?php echo $news[1]->guid; ?>"><?php echo $news[1]->post_title; ?></a></h4>
-                            <div class="date"><?php echo $n2meta['Author'][0]; ?></div>
+                            <div class="date"><?php echo !empty($n2meta['Author']) ? $n2meta['Author'][0] : ''; ?></div>
                             <div class="tags-list">
                                 <ul>
                                     <?php if(!empty($tags1)):?>
