@@ -103,7 +103,7 @@ $parent = !empty($parent_id) ? get_post($parent_id[0]) : false;
         <div class="large-6 columns">
             <div class="row">
                 <div class="large-12 columns">
-                    <div class="news-article">
+                    <div class="news-article books">
                         <?php if(!empty($slib['image'])): ?>
                             <?php echo $slib['image']; ?>
                         <?php else: ?>
