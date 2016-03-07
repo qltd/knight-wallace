@@ -18,7 +18,7 @@ $sorted_libs = sort_library_items_sub_cat($libs, "Article");
 <section id="library">
     <div class="row">
         <div class="large-12">
-            <h1 class="text-center">Library</h1>
+            <h1 class="entry-title text-center">Library</h1>
         </div>
     </div>
     <div class="row">
@@ -133,7 +133,7 @@ $sorted_libs = sort_library_items_sub_cat($libs, "Article");
   <ul class="pagination">
     <li class="arrow"><a href="#lib_heading" class="display-page-action" data-page="1">&laquo;</a></li>
     <li class="current"><a href="#lib_heading" class="display-page-action" data-page="1">1</a></li>
-    <?php for($i=2;$i<=$page;$i++): ?>  
+    <?php for($i=2;$i<=$page;$i++): ?>
         <li><a href="#lib_heading" class="display-page-action" data-page="<?php echo $i; ?>"><?php echo $i; ?></a></li>
     <?php endfor; ?>
         <li class="arrow"><a href="#lib_heading" class="display-page-action" data-page="<?php echo $page; ?>">&raquo;</a></li>

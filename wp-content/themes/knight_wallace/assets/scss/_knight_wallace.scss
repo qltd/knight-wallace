@@ -609,7 +609,7 @@ figure {
         .featured-text {
             text-align: left;
             height: 100%;
-            padding: 1rem 0 2rem;
+            padding: 1rem 1.5rem 2rem 0;
             position: relative;
 
             @include responsive("1024px") {
@@ -1226,6 +1226,10 @@ figure {
     .judge {
         .featured-image-wrap {
             margin-top: 1rem;
+
+            @include responsive("640px") {
+                text-align: left;
+            }
         }
     }
 
@@ -1271,11 +1275,11 @@ figure {
         color: $charcoal;
     }
 
-    .aff, .bio {
+    .aff, .aff p, .bio, .bio p {
         font-size: 2rem;
         color: $charcoal;
         line-height: 2.8rem;
-        margin-bottom: 0;
+        margin-bottom: 1.25rem;
     }
 }
 
