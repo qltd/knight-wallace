@@ -208,7 +208,7 @@ if(!empty($alerts)):
             </div>
             <?php endif; ?>
             <div class="row">
-                <div class="large-12 columns"><a href="#" class="more-posts">See all Wallace House news &raquo;</a></div>
+                <div class="large-12 columns"><a href="/wallace-house/news/" class="more-posts">See all Wallace House news &raquo;</a></div>
             </div>
         </div>
         <!--end display first news item-->
@@ -264,7 +264,7 @@ if(!empty($alerts)):
             </div>
             <?php endif; ?>
             <div class="row">
-                <div class="large-12 columns"><a href="#" class="more-posts">See all Wallace House library items &raquo;</a></div>
+                <div class="large-12 columns"><a href="/wallace-house/library/" class="more-posts">See all Wallace House library items &raquo;</a></div>
             </div>
         </div>
     </div>
