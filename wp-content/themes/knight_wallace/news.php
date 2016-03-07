@@ -30,7 +30,6 @@ include_once 'helpers.php';
 $news = get_posts(array('category_name'=>'news','posts_per_page'=> -1));
 $featured = find_featured_news_article($news);
 ?>
-
 <div class="row">
     <div class="large-12 columns">
         <h1 class="entry-title text-center">News</h1>
@@ -73,7 +72,7 @@ $featured = find_featured_news_article($news);
                     <ul>
                         <?php if(!empty($sorted_libs['featured'][0]['tags'])): ?>
                             <?php foreach($sorted_libs['featured'][0]['tags'] as $tag): ?>
-                            <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                            <li><a href="/tag/<?php echo replace_space($tag->name,"-"); ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </ul>
@@ -107,7 +106,7 @@ $featured = find_featured_news_article($news);
                                 <ul>
                                     <?php if(!empty($tags)):?>
                                     <?php foreach($tags as $tag): ?>
-                                    <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                                    <li><a href="/tag/<?php echo replace_space($tag->name,"-"); ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
                                     <?php endforeach; ?>
                                     <?php endif; ?>
                                 </ul>

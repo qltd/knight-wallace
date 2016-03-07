@@ -642,3 +642,13 @@ function sort_staff($staff){
     }
     return $res;
 }
+
+/**
+ * replace spaces with provided character, such as dashes
+ *
+ *
+ * */
+
+function replace_space($string, $replacement){
+    return str_replace(" ",$replacement,$string);
+}
