@@ -380,7 +380,7 @@ function sort_past_winners($winners, $year='2015', $type_array=null){
                         'age' => !empty($pmeta['_kw_person_liv_age']) ? $pmeta['_kw_person_liv_age'][0] : '',
                         'ass' => !empty($pmeta['_kw_person_liv_ass']) ? $pmeta['_kw_person_liv_ass'][0] : '',
                         'job' => !empty($pmeta['_kw_person_liv_job']) ? $pmeta['_kw_person_liv_job'][0] : '',
-                        'aff' => !empty($pmeta['_kw_person_liv_aff']) ? $pmeta['_kw_person_liv_aff'][0] : '',
+                        'aff' => !empty($pmeta['_kw_person_liv_ass']) ? $pmeta['_kw_person_liv_ass'][0] : '',
                         'lib' => $lib_item_name,
                         'id' => $win->ID,
                         'library_link' => !empty($lib_item) ? '?post_type=library&p='.$lib_item->ID : '',
