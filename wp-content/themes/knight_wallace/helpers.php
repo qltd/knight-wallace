@@ -652,3 +652,16 @@ function sort_staff($staff){
 function replace_space($string, $replacement){
     return str_replace(" ",$replacement,$string);
 }
+
+/**
+ * Return an array of years based on year given
+ *
+ * */
+
+function year_array($year){
+    $res = array();
+    for($i=$year;$i>1981;$i--){
+        $res[] = $i;
+    }
+    return $res;
+}

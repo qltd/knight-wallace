@@ -10,9 +10,11 @@ get_header('livingston'); ?>
 <?php
 include_once('helpers.php');
 //grab our junk
+$current_year_global = get_option('fellows_current_year');
 $alerts = get_posts(array('category_name'=>'alert'));
 $winners = get_posts(array('post_type'=>'person_livingston','posts_per_page'=> -1));
-$sorted_winners = sort_past_winners($winners,array('2014','2015','2013','2012','2011','2010','2009','2008','2007','2006'));
+$year_array = year_array($current_year_global);
+$sorted_winners = sort_past_winners($winners,$year_array);
 ?>
 <section class="breadcrumb">
 <div class="row">
@@ -23,7 +25,7 @@ $sorted_winners = sort_past_winners($winners,array('2014','2015','2013','2012','
 </section>
 <div class="row">
     <div class="large-12 columns">
-        <h1 class="entry-title">Past Winners</h1>
+        <h1 class="entry-title" id="page_title">Past Winners</h1>
     </div>
 </div>
 <section id="past_winners_control">
@@ -62,8 +64,10 @@ $sorted_winners = sort_past_winners($winners,array('2014','2015','2013','2012','
 </section>
 <main class="posts winners-list past">
 <?php if(!empty($sorted_winners)): ?>
+<?php $page = 1;?>
+<?php $pager_count = 0;?>
 <?php foreach($sorted_winners as $win): ?>
-<div class="row">
+<div class="row pager page-<?php echo $page; ?>">
     <div class="large-10 large-centered columns">
         <div class="past-winner">
             <div class="name"><?php echo $win['first_name'].' '.$win['last_name']; ?></div>
@@ -87,7 +91,27 @@ $sorted_winners = sort_past_winners($winners,array('2014','2015','2013','2012','
         </div>
     </div>
 </div>
+<?php $pager_count += 1; ?>
+<?php if($pager_count >= 20):?>
+    <?php $page += 1; //increase what page we are on?>
+    <?php $pager_count = 0; //reset pager count ?>
+<?php endif; ?>
 <?php endforeach; ?>
+
+<!--pagination controls-->
+<br />
+<div class="pagination-centered">
+  <ul class="pagination">
+    <li class="arrow"><a href="#page_title" class="display-page-action" data-page="1">&laquo;</a></li>
+    <li class="current"><a href="#page_title" class="display-page-action" data-page="1">1</a></li>
+    <?php for($i=2;$i<=$page;$i++): ?>
+        <li><a href="#page_title" class="display-page-action" data-page="<?php echo $i; ?>"><?php echo $i; ?></a></li>
+    <?php endfor; ?>
+        <li class="arrow"><a href="#page_title" class="display-page-action" data-page="<?php echo $page; ?>">&raquo;</a></li>
+  </ul>
+</div>
+<br />
+<!--end pagination controls-->
 <?php endif; ?>
 </main>
 
