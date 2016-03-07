@@ -24,14 +24,12 @@ $sorted_finalists = sort_finalists($finalists, $this_year);
 <main class="posts winners-list">
 <div class="fin-local">
 <div class="row">
-    <div class="large-12 columns">
-        <h2 class="entry-title">Excellence in Local Reporting</h2>
-    </div>
-</div>
+    <div class="large-10 large-centered columns">
+        <h2 class="type">Excellence in Local Reporting</h2>
 <?php if(!empty($sorted_finalists['Excellence in Local Reporting'])): ?>
 <?php foreach($sorted_finalists['Excellence in Local Reporting'] as $fin): ?>
 <div class="row">
-    <div class="large-10 large-centered columns">
+    <div class="large-12 columns">
         <div class="la-winner">
             <div class="name"><?php echo $fin['first_name'].' '.$fin['last_name'].', '.$fin['aff']; ?></div>
             <div class="lib-item"><a href="<?php echo $fin['library_link']; ?>">&ldquo;<?php echo $fin['lib']; ?>&rdquo;</a></div>
@@ -40,18 +38,18 @@ $sorted_finalists = sort_finalists($finalists, $this_year);
 </div>
 <?php endforeach; ?>
 <?php endif; ?>
+   </div>
+</div>
 </div>
 
 <div class="fin-national">
 <div class="row">
-    <div class="large-12 columns">
-        <h2 class="entry-title">Excellence in National Reporting</h2>
-    </div>
-</div>
+    <div class="large-10 large-centered columns">
+        <h2 class="type">Excellence in National Reporting</h2>
 <?php if(!empty($sorted_finalists['Excellence in National Reporting'])): ?>
 <?php foreach($sorted_finalists['Excellence in National Reporting'] as $fin): ?>
 <div class="row">
-    <div class="large-10 large-centered columns">
+    <div class="large-12 columns">
         <div class="la-winner">
             <div class="name"><?php echo $fin['first_name'].' '.$fin['last_name'].', '.$fin['aff']; ?></div>
             <div class="lib-item"><a href="<?php echo $fin['library_link']; ?>">&ldquo;<?php echo $fin['lib']; ?>&rdquo;</a></div>
@@ -64,14 +62,12 @@ $sorted_finalists = sort_finalists($finalists, $this_year);
 
 <div class="fin-international">
 <div class="row">
-    <div class="large-12 columns">
-        <h2 class="entry-title">Excellence in International Reporting</h2>
-    </div>
-</div>
+    <div class="large-10 large-centered columns">
+        <h2 class="type">Excellence in International Reporting</h2>
 <?php if(!empty($sorted_finalists['Excellence in International Reporting'])): ?>
 <?php foreach($sorted_finalists['Excellence in International Reporting'] as $fin): ?>
 <div class="row">
-    <div class="large-10 large-centered columns">
+    <div class="large-12 columns">
         <div class="la-winner">
             <div class="name"><?php echo $fin['first_name'].' '.$fin['last_name'].', '.$fin['aff']; ?></div>
             <div class="lib-item"><a href="<?php echo $fin['library_link']; ?>">&ldquo;<?php echo $fin['lib']; ?>&rdquo;</a></div>

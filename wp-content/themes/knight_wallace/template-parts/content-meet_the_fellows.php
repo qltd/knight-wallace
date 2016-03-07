@@ -76,9 +76,7 @@ $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
                         </div>
                         <div class="large-10 columns">
                             <p class="name">
-                                <a href="<?php echo $fellow['link']; ?>" class="link">
-                                <?php echo $fellow['first_name']; ?>&nbsp;
-                                <?php echo $fellow['last_name']; ?></a>
+                                <?php echo $fellow['first_name']; ?>&nbsp;<?php echo $fellow['last_name']; ?>
                             </p>
                             <p class="title">
                             <?php echo $fellow['title']; ?>
