@@ -67,7 +67,7 @@ $sorted_libs = sort_library_items($libs);
                     <ul>
                         <?php if(!empty($sorted_libs['featured'][0]['tags'])): ?>
                             <?php foreach($sorted_libs['featured'][0]['tags'] as $tag): ?>
-                            <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                            <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </ul>
@@ -118,7 +118,7 @@ $sorted_libs = sort_library_items($libs);
                                 <ul>
                                 <?php if(!empty($sorted_libs['Article'][0]['tags'])): ?>
                                     <?php foreach($sorted_libs['Article'][0]['tags'] as $tag): ?>
-                                    <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                                    <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                                 </ul>
@@ -150,7 +150,7 @@ $sorted_libs = sort_library_items($libs);
                                         <ul>
                                         <?php if(!empty($sorted_libs['Article'][1]['tags'])): ?>
                                             <?php foreach($sorted_libs['Article'][1]['tags'] as $tag): ?>
-                                            <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                                            <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
                                         </ul>
@@ -184,7 +184,7 @@ $sorted_libs = sort_library_items($libs);
                                         <ul>
                                         <?php if(!empty($sorted_libs['Article'][2]['tags'])): ?>
                                             <?php foreach($sorted_libs['Article'][2]['tags'] as $tag): ?>
-                                            <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                                            <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
                                         </ul>
@@ -234,7 +234,7 @@ $sorted_libs = sort_library_items($libs);
                                         <ul>
                                         <?php if(!empty($sorted_libs['Book'][0]['tags'])): ?>
                                             <?php foreach($sorted_libs['Book'][0]['tags'] as $tag): ?>
-                                            <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                                            <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
                                         </ul>
@@ -267,7 +267,7 @@ $sorted_libs = sort_library_items($libs);
                                         <ul>
                                         <?php if(!empty($sorted_libs['Book'][1]['tags'])): ?>
                                             <?php foreach($sorted_libs['Book'][1]['tags'] as $tag): ?>
-                                            <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                                            <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
                                         </ul>
@@ -302,7 +302,7 @@ $sorted_libs = sort_library_items($libs);
                                         <ul>
                                         <?php if(!empty($sorted_libs['Book'][2]['tags'])): ?>
                                             <?php foreach($sorted_libs['Book'][2]['tags'] as $tag): ?>
-                                            <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                                            <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
                                         </ul>
@@ -352,7 +352,7 @@ $sorted_libs = sort_library_items($libs);
                                         <ul>
                                         <?php if(!empty($sorted_libs['Video'][0]['tags'])): ?>
                                             <?php foreach($sorted_libs['Video'][0]['tags'] as $tag): ?>
-                                            <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                                            <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
                                         </ul>
@@ -385,7 +385,7 @@ $sorted_libs = sort_library_items($libs);
                                         <ul>
                                         <?php if(!empty($sorted_libs['Video'][1]['tags'])): ?>
                                             <?php foreach($sorted_libs['Video'][1]['tags'] as $tag): ?>
-                                            <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                                            <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
                                         </ul>
@@ -420,7 +420,7 @@ $sorted_libs = sort_library_items($libs);
                                         <ul>
                                         <?php if(!empty($sorted_libs['Video'][2]['tags'])): ?>
                                             <?php foreach($sorted_libs['Video'][2]['tags'] as $tag): ?>
-                                            <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                                            <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
                                         </ul>
@@ -470,7 +470,7 @@ $sorted_libs = sort_library_items($libs);
                                         <ul>
                                         <?php if(!empty($sorted_libs['Photojournalism'][0]['tags'])): ?>
                                             <?php foreach($sorted_libs['Photojournalism'][0]['tags'] as $tag): ?>
-                                            <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                                            <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
                                         </ul>
@@ -503,7 +503,7 @@ $sorted_libs = sort_library_items($libs);
                                         <ul>
                                         <?php if(!empty($sorted_libs['Photojournalism'][1]['tags'])): ?>
                                             <?php foreach($sorted_libs['Photojournalism'][1]['tags'] as $tag): ?>
-                                            <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                                            <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
                                         </ul>
@@ -538,7 +538,7 @@ $sorted_libs = sort_library_items($libs);
                                         <ul>
                                         <?php if(!empty($sorted_libs['Photojournalism'][2]['tags'])): ?>
                                             <?php foreach($sorted_libs['Photojournalism'][2]['tags'] as $tag): ?>
-                                            <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                                            <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
                                         </ul>
@@ -588,7 +588,7 @@ $sorted_libs = sort_library_items($libs);
                                         <ul>
                                         <?php if(!empty($sorted_libs['Journal'][0]['tags'])): ?>
                                             <?php foreach($sorted_libs['Journal'][0]['tags'] as $tag): ?>
-                                            <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                                            <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
                                         </ul>
@@ -621,7 +621,7 @@ $sorted_libs = sort_library_items($libs);
                                         <ul>
                                         <?php if(!empty($sorted_libs['Journal'][1]['tags'])): ?>
                                             <?php foreach($sorted_libs['Journal'][1]['tags'] as $tag): ?>
-                                            <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                                            <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
                                         </ul>
@@ -656,7 +656,7 @@ $sorted_libs = sort_library_items($libs);
                                         <ul>
                                         <?php if(!empty($sorted_libs['Journal'][2]['tags'])): ?>
                                             <?php foreach($sorted_libs['Journal'][2]['tags'] as $tag): ?>
-                                            <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                                            <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
                                         </ul>
