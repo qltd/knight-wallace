@@ -172,7 +172,7 @@ if(!empty($alerts)):
                                 <ul>
                                     <?php if(!empty($tags)):?>
                                     <?php foreach($tags as $tag): ?>
-                                    <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                                    <li><a href="/tag/<?php echo replace_space($tag->name,'-'); ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
                                     <?php endforeach; ?>
                                     <?php endif; ?>
                                 </ul>
@@ -196,7 +196,7 @@ if(!empty($alerts)):
                                 <ul>
                                     <?php if(!empty($tags1)):?>
                                     <?php foreach($tags1 as $tag1): ?>
-                                    <li><a href="/tag/<?php echo $tag1->name; ?>/"><?php echo $tag1->name; ?></a> <span class="divider">|</span></li>
+                                    <li><a href="/tag/<?php echo replace_space($tag1->name,'-'); ?>/"><?php echo $tag1->name; ?></a> <span class="divider">|</span></li>
                                     <?php endforeach; ?>
                                     <?php endif; ?>
                                 </ul>
@@ -229,7 +229,7 @@ if(!empty($alerts)):
                             <ul>
                                 <?php if(!empty($tagslib)):?>
                                 <?php foreach($tagslib as $t): ?>
-                                <li><a href="/tag/<?php echo $t->name; ?>/"><?php echo $t->name; ?></a> <span class="divider">|</span></li>
+                                <li><?php echo $t->name; ?> <span class="divider">|</span></li>
                                 <?php endforeach; ?>
                                 <?php endif; ?>
                             </ul>
@@ -252,7 +252,7 @@ if(!empty($alerts)):
                                 <ul>
                                     <?php if(!empty($tagslib1)):?>
                                     <?php foreach($tagslib1 as $t1): ?>
-                                    <li><a href="/tag/<?php echo $t1->name; ?>/"><?php echo $t1->name; ?></a> <span class="divider">|</span></li>
+                                    <li><?php echo $t1->name; ?> <span class="divider">|</span></li>
                                     <?php endforeach; ?>
                                     <?php endif; ?>
                                 </ul>
