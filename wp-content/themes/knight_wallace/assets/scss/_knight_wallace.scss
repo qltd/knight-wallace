@@ -143,7 +143,7 @@ a {
     line-height: 1.8rem;
     margin-left: -3rem;
     margin-top: -0.3rem;
-    font-family: $primary-font;
+    font-family: $primary-font-condensed;
 
     @include responsive("1024px") {
         margin-left: 100px;
@@ -580,6 +580,12 @@ figure {
             width: 100%;
         }
     }
+
+    input[type=submit] {
+        margin-top: 1rem;
+        padding: 1rem 2rem;
+        float: right;
+    }
 }
 
 /* Library */
@@ -1001,6 +1007,42 @@ figure {
         font-weight: normal;
         color: $ublue;
         margin-bottom: 10px;
+    }
+}
+
+.fin-local, .fin-national, .fin-international {
+    > .row .large-10 {
+        border-bottom: 1px solid $charcoal;
+        padding-bottom: 4rem;
+        margin-bottom: 6rem;
+    }
+
+    .la-winner {
+        padding: 1rem 0 2rem;
+        border-bottom: none;
+
+        .name {
+            font-size: 2.4rem;
+            line-height: 3.4rem;
+            color: $ublue;
+        }
+    }
+
+    .type {
+        background: $ublue;
+        color: $white;
+        display: inline-block;
+        font-size: 1.4rem;
+        line-height: 1.8rem;
+        text-transform: uppercase;
+        padding: 3px 10px;
+        margin-bottom: 2rem;
+    }
+}
+
+.fin-international {
+    > .row .large-10 {
+        border-bottom: none;
     }
 }
 

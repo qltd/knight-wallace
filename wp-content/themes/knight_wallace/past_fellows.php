@@ -94,7 +94,7 @@ $current_year_global = get_option('fellows_current_year');
                                     <?php echo $fellow['first_name']; ?>&nbsp;<?php echo $fellow['last_name']; ?>
                             </p>
                             <p class="aff">
-                                <span class="job"><?php echo $fellow['job']; ?></span> <?php echo $fellow['aff']; ?>
+                                <span class="job"><?php echo $fellow['job']; ?></span>,  <?php echo $fellow['aff']; ?>
                             </p>
                             <p class="title">
                                 <?php echo $fellow['title']; ?>
