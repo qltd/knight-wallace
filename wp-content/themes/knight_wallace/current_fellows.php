@@ -86,7 +86,7 @@ $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
                 </div>
                 <div class="medium-10 columns">
                     <p class="name">
-                            <?php echo $fellow['first_name']; ?>&nbsp;
+                            <?php echo $fellow['first_name']; ?>
                             <?php echo $fellow['last_name']; ?>
                     </p>
                     <p class="aff">

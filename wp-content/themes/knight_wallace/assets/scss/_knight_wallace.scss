@@ -82,6 +82,10 @@ a {
     }
 }
 
+address {
+    font-style: normal;
+}
+
 .row {
     max-width: 128.0rem;
 }
@@ -948,7 +952,7 @@ figure {
 
     li, p {
         font-size: 2rem;
-        color: $ublue;
+        color: $charcoal;
         line-height: 2.8rem;
     }
 
@@ -957,7 +961,11 @@ figure {
     }
 
     a {
-        text-decoration: underline;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }
 
@@ -1117,6 +1125,10 @@ figure {
         line-height: 2rem;
         margin-bottom: 12px;
         display: inline-block;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 
     a.show-more {
@@ -1462,7 +1474,7 @@ figure {
         .content {
             background: #e5e5e5;
             font-size: 2rem;
-            color: $ublue;
+            color: $charcoal;
             line-height: 2.4rem;
             padding: 1.5rem;
         }
