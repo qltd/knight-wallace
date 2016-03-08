@@ -152,4 +152,9 @@ $(document).ready(function(){
             $('.back-to-top-button').fadeIn();
         }
     });
+
+    //Search
+    $('.search-form-trigger').click(function(){
+        $('.search-form-wrap').toggleClass('open-search');
+    });
 });

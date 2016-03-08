@@ -32,7 +32,18 @@
                 <li><a href="<?php echo $eye->url; ?>"><?php echo $eye->title; ?></a> | </li>
                 <?php endforeach; ?>
             <?php endif; ?>
-          <li><a href=""><i class="fa fa-search"></i></a></li>
+          <li>
+            <div class="row">
+                <div class="small-2 columns">
+                    <i class="fa fa-search search-form-trigger"></i>
+                </div> 
+                <div class="small-10 columns">
+                    <div class="search-form-wrap">
+                     <?php the_widget( 'WP_Widget_Search' ); ?>
+                    </div>
+                </div>
+            </div>
+          </li>
         </ul>
       </div>
     </div>

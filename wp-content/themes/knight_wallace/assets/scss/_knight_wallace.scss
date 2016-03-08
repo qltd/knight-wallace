@@ -129,6 +129,38 @@ a {
     }
 }
 
+//Search
+.search-form-trigger{
+    cursor:pointer;
+    position:relative;
+    left:0.6rem;
+    top: 0.5rem;
+}
+
+.search-form-wrap {
+
+    input.search-field {
+        width: 0; 
+        height: 0;
+        padding: 0;
+        border: 0;
+        visibility:hidden;
+        transition: all 0.5s ease;
+    }
+    .screen-reader-text {display:none;}
+    .search-submit {display:none;}
+
+    &.open-search {
+
+        input.search-field {
+            width: 100%; 
+            height: auto;
+            padding: 0.5rem;
+            visibility: visible;
+        }
+    }
+}
+
 .logo {
     display: block;
     margin-bottom: 4rem;
