@@ -11472,7 +11472,7 @@ figure figcaption strong {
   margin-bottom: 1rem;
   font-weight: normal;
 }
-@media (max-width: 640px) {
+@media (max-width: 750px) {
   /* line 23, ../scss/_slider.scss */
   #slideshow div.testimonial {
     font-size: 1.4rem;
@@ -11486,7 +11486,7 @@ figure figcaption strong {
   font-size: 2.6rem;
   line-height: 2.6rem;
 }
-@media (max-width: 640px) {
+@media (max-width: 750px) {
   /* line 37, ../scss/_slider.scss */
   #slideshow div.name {
     font-size: 2rem;
@@ -11494,15 +11494,15 @@ figure figcaption strong {
 }
 /* line 48, ../scss/_slider.scss */
 #slideshow div.details {
-  font-size: 1.6rem;
+  font-size: 1rem;
   line-height: 2.6rem;
   font-family: UniversLTPro-45Light, sans-serif;
 }
-@media (max-width: 640px) {
+@media (max-width: 750px) {
   /* line 48, ../scss/_slider.scss */
   #slideshow div.details {
-    font-size: 1.8rem;
-    line-height: 2.4rem;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
   }
 }
 /* line 59, ../scss/_slider.scss */
@@ -11602,8 +11602,15 @@ figure figcaption strong {
  * @rdar
  *
  * */
-@media (max-width: 632px) {
+/* Text fix for iphones */
+@media screen and (max-device-width: 480px) {
   /* line 9, ../scss/_res.scss */
+  body {
+    -webkit-text-size-adjust: none;
+  }
+}
+@media (max-width: 632px) {
+  /* line 16, ../scss/_res.scss */
   .landing-page-content-blocks img {
     display: none;
   }

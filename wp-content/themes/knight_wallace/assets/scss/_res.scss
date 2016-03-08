@@ -4,10 +4,17 @@
  *
  * */
 
-@media(max-width: 632px){
+/* Text fix for iphones */
+@media screen and (max-device-width: 480px) {
+    body {
+        -webkit-text-size-adjust: none;
+    }
+}
+
+@media (max-width: 632px) {
     .landing-page-content-blocks {
-       img {
-           display:none; 
-       }  
+        img {
+            display: none;
+        }
     }
 }

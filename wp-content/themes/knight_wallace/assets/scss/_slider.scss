@@ -28,7 +28,7 @@
             margin-bottom: 1rem;
             font-weight: normal;
 
-            @include responsive("640px") {
+            @include responsive("750px") {
                 font-size: 1.4rem;
                 line-height: 1.8rem;
             }
@@ -40,19 +40,19 @@
             font-size: 2.6rem;
             line-height: 2.6rem;
 
-            @include responsive("640px") {
+            @include responsive("750px") {
                 font-size: 2rem;
             }
         }
 
         &.details {
-            font-size: 1.6rem;
+            font-size: 1rem;
             line-height: 2.6rem;
             font-family: $primary-font;
 
-            @include responsive("640px") {
-                font-size: 1.8rem;
-                line-height: 2.4rem;
+            @include responsive("750px") {
+                font-size: 1.4rem;
+                line-height: 1.8rem;
             }
         }
 
