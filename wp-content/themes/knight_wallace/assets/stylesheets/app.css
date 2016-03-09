@@ -11689,6 +11689,11 @@ figure figcaption strong {
   .landing-page-content-blocks img {
     display: none;
   }
+
+  /* line 21, ../scss/_res.scss */
+  .reveal-modal {
+    min-height: 0 !important;
+  }
 }
 /**
  * Some styles needed for the pager
