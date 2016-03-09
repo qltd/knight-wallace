@@ -555,7 +555,7 @@ figure {
 /* Breadcrumbs */
 .small-6 {
     @include responsive("640px") {
-        width: 100% !important;
+//        width: 100% !important;
     }
 }
 
@@ -570,7 +570,10 @@ figure {
 
     @include responsive("640px") {
         &.share-wrap {
-            display: none;
+//            display: none;
+            a{
+                margin-left:0; 
+            }
         }
     }
 }
