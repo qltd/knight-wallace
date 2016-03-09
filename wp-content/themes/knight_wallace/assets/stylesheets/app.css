@@ -10683,7 +10683,7 @@ figure figcaption strong {
   text-align: center;
   font-family: UniversLTPro-65Bold, sans-serif;
   font-weight: normal;
-  margin: 8rem 0 4rem;
+  margin: 4rem 0;
 }
 @media (max-width: 1024px) {
   /* line 845, ../scss/_knight_wallace.scss */
