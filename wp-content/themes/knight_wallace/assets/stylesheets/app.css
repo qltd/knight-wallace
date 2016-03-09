@@ -11493,19 +11493,28 @@ figure figcaption strong {
     font-size: 2rem;
     position: relative;
     top: 0.4rem;
+    background: #e5e5e5;
+    float: right;
+    margin-right: 1rem;
+    padding: 0.5rem;
   }
 
-  /* line 94, ../scss/_mobile_nav.scss */
+  /* line 97, ../scss/_mobile_nav.scss */
   .mobile-search-form input {
     position: relative;
     left: 1rem;
     top: 0.4rem;
+    background: #e5e5e5;
+    font-size: 1.5rem;
+    padding: 1.5rem;
+    box-shadow: none;
+    border: none;
   }
-  /* line 99, ../scss/_mobile_nav.scss */
+  /* line 107, ../scss/_mobile_nav.scss */
   .mobile-search-form .screen-reader-text {
     display: none;
   }
-  /* line 100, ../scss/_mobile_nav.scss */
+  /* line 108, ../scss/_mobile_nav.scss */
   .mobile-search-form .search-submit {
     display: none;
   }
