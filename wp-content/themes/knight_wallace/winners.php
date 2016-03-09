@@ -16,6 +16,13 @@ $this_year = !empty($this_page_meta['year']) ? $this_page_meta['year'][0] : null
 $winners = get_posts(array('post_type'=>'person_livingston','posts_per_page'=> -1));
 $sorted_winners = sort_winners($winners, $this_year);
 ?>
+<section class="breadcrumb">
+<div class="row">
+    <div class="small-6 columns">
+        <a href="/livingston-awards/" class="library-link">Livingston Awards</a>
+    </div>
+</div>
+</section>
 <div class="row">
     <div class="large-12 columns">
         <h1 class="entry-title">Winners</h1>

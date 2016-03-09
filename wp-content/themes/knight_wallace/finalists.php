@@ -16,6 +16,13 @@ $this_year = !empty($this_page_meta['year']) ? $this_page_meta['year'][0] : null
 $finalists = get_posts(array('post_type'=>'person_livingston','posts_per_page'=> -1));
 $sorted_finalists = sort_finalists($finalists, $this_year);
 ?>
+<section class="breadcrumb">
+<div class="row">
+    <div class="small-6 columns">
+        <a href="/livingston-awards/" class="library-link">Livingston Awards</a>
+    </div>
+</div>
+</section>
 <div class="row">
     <div class="large-12 columns">
         <h1 class="entry-title">Finalists</h1>
@@ -31,7 +38,11 @@ $sorted_finalists = sort_finalists($finalists, $this_year);
 <div class="row">
     <div class="large-12 columns">
         <div class="la-winner">
-            <div class="name"><?php echo $fin['first_name'].' '.$fin['last_name'].', '.$fin['aff']; ?></div>
+            <div class="name"><?php echo $fin['first_name'].' '.$fin['last_name']; ?>
+            <?php if(!empty($fin['aff'])):?>
+                , <?php echo $fin['aff']; ?>
+            <?php endif;?>
+            </div>
             <div class="lib-item"><a href="<?php echo $fin['library_link']; ?>">&ldquo;<?php echo $fin['lib']; ?>&rdquo;</a></div>
         </div>
     </div>
