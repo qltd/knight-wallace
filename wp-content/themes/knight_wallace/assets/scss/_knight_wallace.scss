@@ -175,7 +175,7 @@ address {
 }
 
 .section-title {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     line-height: 1.8rem;
     margin-left: -3rem;
     margin-top: -0.3rem;
@@ -183,7 +183,7 @@ address {
 
     @include responsive("1024px") {
         margin-left: 100px;
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
 
 
