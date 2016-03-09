@@ -11,7 +11,7 @@ get_header(); ?>
 <section class="breadcrumb">
 <div class="row">
     <div class="small-6 columns">
-        <a href="/wallace-house/library/" class="library-link">All Library Items</a>
+        <a href="/wallace-house/library/" class="library-link">&nbsp;All Library Items</a>
     </div>
     <div class="small-6 columns text-right">
         <p class="share-wrap">Share:

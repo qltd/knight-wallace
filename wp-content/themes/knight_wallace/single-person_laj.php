@@ -11,7 +11,7 @@ get_header('livingston'); ?>
 <section class="breadcrumb">
 <div class="row">
     <div class="small-6 columns">
-        <a href="/livingston-awards/judges/" class="link">All Judges</a>
+        <a href="/livingston-awards/judges/" class="link">&nbsp;All Judges</a>
     </div>
 </div>
 </section>

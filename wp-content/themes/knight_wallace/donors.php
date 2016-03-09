@@ -21,7 +21,7 @@ $sorted_donors = sort_donors($donors,$donor_type);
 <section class="breadcrumb">
 <div class="row">
     <div class="small-6 columns">
-        <a href="/wallace-house/about/our-donors/" class="library-link">Our Donors</a>
+        <a href="/wallace-house/about/our-donors/" class="library-link">&nbsp;Our Donors</a>
     </div>
 </div>
 </section>

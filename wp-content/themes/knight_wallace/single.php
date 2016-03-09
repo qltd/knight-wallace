@@ -12,7 +12,7 @@ get_header(); ?>
 <section class="breadcrumb">
 <div class="row">
     <div class="small-6 columns">
-        <a href="/wallace-house/news/" class="library-link">All News</a>
+        <a href="/wallace-house/news/" class="library-link">&nbsp;All News</a>
     </div>
     <div class="small-6 columns text-right">
         <p class="share-wrap">Share:

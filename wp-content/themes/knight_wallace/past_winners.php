@@ -19,7 +19,7 @@ $sorted_winners = sort_past_winners($winners,$year_array);
 <section class="breadcrumb">
 <div class="row">
     <div class="small-6 columns">
-        <a href="/livingston-awards/winners/" class="link">Current Winners</a>
+        <a href="/livingston-awards/winners/" class="link">&nbsp;Current Winners</a>
     </div>
 </div>
 </section>

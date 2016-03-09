@@ -22,7 +22,7 @@ $current_year_global = get_option('fellows_current_year');
 <section class="breadcrumb">
 <div class="row">
     <div class="small-6 columns">
-        <a href="/knight-wallace/our-fellows/" class="library-link ">Current Fellows</a>
+        <a href="/knight-wallace/our-fellows/" class="library-link ">&nbsp;Current Fellows</a>
     </div>
 </div>
 </section>

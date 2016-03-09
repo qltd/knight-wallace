@@ -19,7 +19,7 @@ $sorted_winners = sort_winners($winners, $this_year);
 <section class="breadcrumb">
 <div class="row">
     <div class="small-6 columns">
-        <a href="/livingston-awards/" class="library-link">Livingston Awards</a>
+        <a href="/livingston-awards/" class="library-link">&nbsp;Livingston Awards</a>
     </div>
 </div>
 </section>

@@ -11,7 +11,7 @@ get_header('fellows'); ?>
 <section class="breadcrumb">
 <div class="row">
     <div class="small-6 columns">
-        <a href="/knight-wallace-fellowships/board-members/" class="link">All Board Members</a>
+        <a href="/knight-wallace-fellowships/board-members/" class="link">&nbsp;All Board Members</a>
     </div>
 </div>
 </section>

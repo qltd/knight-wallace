@@ -21,7 +21,7 @@ $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
 <section class="breadcrumb">
     <div class="row">
         <div class="small-6 columns">
-            <a href="/knight-wallace/" class="library-link">Knight-Wallace Fellowships</a>
+            <a href="/knight-wallace/" class="library-link">&nbsp;Knight-Wallace Fellowships</a>
         </div>
     </div>
 </section>

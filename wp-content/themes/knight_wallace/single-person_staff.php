@@ -11,7 +11,7 @@ get_header(); ?>
 <section class="breadcrumb">
 <div class="row">
     <div class="small-6 columns">
-        <a href="" class="link">All Staff</a>
+        <a href="/wallace-house/staff/" class="link">&nbsp;All Staff</a>
     </div>
 </div>
 </section>
