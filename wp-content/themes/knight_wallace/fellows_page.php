@@ -203,7 +203,7 @@ if(!empty($alerts)):
                                 <ul>
                                     <?php if(!empty($tags)):?>
                                     <?php foreach($tags as $tag): ?>
-                                    <li><a href="/tag/<?php echo replace_space($tag->name,'-'); ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                                    <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
                                     <?php endforeach; ?>
                                     <?php endif; ?>
                                 </ul>
@@ -227,7 +227,7 @@ if(!empty($alerts)):
                                 <ul>
                                     <?php if(!empty($tags1)):?>
                                     <?php foreach($tags1 as $tag1): ?>
-                                    <li><a href="/tag/<?php echo replace_space($tag1->name,'-'); ?>/"><?php echo $tag1->name; ?></a> <span class="divider">|</span></li>
+                                    <li><?php echo $tag1->name; ?> <span class="divider">|</span></li>
                                     <?php endforeach; ?>
                                     <?php endif; ?>
                                 </ul>

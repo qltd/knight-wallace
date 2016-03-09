@@ -72,7 +72,7 @@ $featured = find_featured_news_article($news);
                     <ul>
                         <?php if(!empty($sorted_libs['featured'][0]['tags'])): ?>
                             <?php foreach($sorted_libs['featured'][0]['tags'] as $tag): ?>
-                            <li><a href="/tag/<?php echo replace_space($tag->name,"-"); ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                            <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </ul>
