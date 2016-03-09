@@ -102,6 +102,11 @@ $(document).ready(function(){
         $('.mobile-menu-wrap').slideToggle();
     });
 
+    //mobile search
+    $('.mobile-search-icon').click(function(){
+        $('.mobile-menu-wrap .search-form').submit(); 
+    });
+
     //slider
     $('.bxslider').bxSlider({
         auto: true,

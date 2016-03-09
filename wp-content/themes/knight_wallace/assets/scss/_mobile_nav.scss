@@ -5,7 +5,7 @@
 }
 
 @media (max-width: 1024px) {
-    #main_nav {
+    #main_nav,#eyebrow {
         display: none;
     }
 
@@ -43,6 +43,19 @@
             @include link_style($white, $white);
         }
 
+        #menu-mobile > li {
+             
+            text-transform: uppercase;
+            color: $white;
+            background: $charcoal;
+            &>a {
+                color:$white; 
+                &:link,&:hover,&:visited {
+                    color:$white; 
+                }
+            }
+        }
+
         .sub-menu {
             background: $white;
             margin-left: 0;
@@ -66,5 +79,24 @@
 
     .nav-item-controller {
         float: right;
+    }
+
+    .mobile-search-icon{
+        cursor:pointer;
+        position:relative;
+        font-size: 2rem;
+        position: relative;
+        top: 0.4rem;
+    }
+
+    .mobile-search-form {
+
+        input {
+            position: relative;
+            left: 1rem;
+            top: 0.4rem; 
+        } 
+        .screen-reader-text {display:none;}
+        .search-submit {display:none;}
     }
 }

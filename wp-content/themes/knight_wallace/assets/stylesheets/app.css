@@ -11375,7 +11375,7 @@ figure figcaption strong {
 }
 @media (max-width: 1024px) {
   /* line 8, ../scss/_mobile_nav.scss */
-  #main_nav {
+  #main_nav, #eyebrow {
     display: none;
   }
 
@@ -11427,13 +11427,27 @@ figure figcaption strong {
     color: #FFFFFF;
   }
   /* line 46, ../scss/_mobile_nav.scss */
+  .mobile-menu-wrap #menu-mobile > li {
+    text-transform: uppercase;
+    color: #FFFFFF;
+    background: #555555;
+  }
+  /* line 51, ../scss/_mobile_nav.scss */
+  .mobile-menu-wrap #menu-mobile > li > a {
+    color: #FFFFFF;
+  }
+  /* line 53, ../scss/_mobile_nav.scss */
+  .mobile-menu-wrap #menu-mobile > li > a:link, .mobile-menu-wrap #menu-mobile > li > a:hover, .mobile-menu-wrap #menu-mobile > li > a:visited {
+    color: #FFFFFF;
+  }
+  /* line 59, ../scss/_mobile_nav.scss */
   .mobile-menu-wrap .sub-menu {
     background: #FFFFFF;
     margin-left: 0;
     padding-left: 0;
     display: none;
   }
-  /* line 52, ../scss/_mobile_nav.scss */
+  /* line 65, ../scss/_mobile_nav.scss */
   .mobile-menu-wrap .sub-menu li {
     text-transform: normal;
     text-transform: capitalize;
@@ -11450,7 +11464,7 @@ figure figcaption strong {
   .mobile-menu-wrap .sub-menu li a:link, .mobile-menu-wrap .sub-menu li a:visited {
     color: #0d57aa;
   }
-  /* line 58, ../scss/_mobile_nav.scss */
+  /* line 71, ../scss/_mobile_nav.scss */
   .mobile-menu-wrap .sub-menu li:hover {
     background: #0d57aa;
   }
@@ -11467,9 +11481,33 @@ figure figcaption strong {
     color: #FFFFFF;
   }
 
-  /* line 67, ../scss/_mobile_nav.scss */
+  /* line 80, ../scss/_mobile_nav.scss */
   .nav-item-controller {
     float: right;
+  }
+
+  /* line 84, ../scss/_mobile_nav.scss */
+  .mobile-search-icon {
+    cursor: pointer;
+    position: relative;
+    font-size: 2rem;
+    position: relative;
+    top: 0.4rem;
+  }
+
+  /* line 94, ../scss/_mobile_nav.scss */
+  .mobile-search-form input {
+    position: relative;
+    left: 1rem;
+    top: 0.4rem;
+  }
+  /* line 99, ../scss/_mobile_nav.scss */
+  .mobile-search-form .screen-reader-text {
+    display: none;
+  }
+  /* line 100, ../scss/_mobile_nav.scss */
+  .mobile-search-form .search-submit {
+    display: none;
   }
 }
 /**
