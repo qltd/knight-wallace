@@ -989,7 +989,7 @@ figure {
     }
 
     .name {
-        color: $charcoal;
+        color: $ublue;
         font-size: 2.6rem;
         line-height: 3.4rem;
         font-family: $primary-font-bold;
@@ -1030,6 +1030,7 @@ figure {
             display: block;
             max-width: 250px;
             margin-top: 1rem;
+            text-align:left;
         }
     }
 
