@@ -15,6 +15,7 @@ $alerts = get_posts(array('category_name'=>'alert'));
 $donors = get_posts(array('post_type'=>'person_donor','posts_per_page' => -1));
 $this_page_meta = get_post_meta($post->ID);
 $donor_type = !empty($this_page_meta['donor']) ? $this_page_meta['donor'][0] : '';
+$sorted_donors = sort_donors($donors,$donor_type);
 ?>
 
 <section class="breadcrumb">
@@ -34,27 +35,21 @@ $donor_type = !empty($this_page_meta['donor']) ? $this_page_meta['donor'][0] : '
 <main id="main" class="site-main post-main" role="main">
     <div class="row board-of-directors">
         <div class="large-10 large-centered columns">
-            <?php if(!empty($donors)): ?>
-                <?php foreach($donors as $donor): ?>
-                    <?php
-                    $image = get_the_post_thumbnail($donor->ID);
-                    $pmeta = get_post_meta($donor->ID);
-                    ?>
-                    <?php if(!empty($pmeta['_kw_person_donor_type']) && $pmeta['_kw_person_donor_type'][0] == $donor_type): ?>
+            <?php if(!empty($sorted_donors)): ?>
+                <?php foreach($sorted_donors as $donor): ?>
                     <div class="row">
                         <div class="large-2 columns">
-                            <div class="board-member-image"><?php echo $image; ?></div>
+                            <div class="board-member-image"><?php echo $donor['image']; ?></div>
                         </div>
                         <div class="large-10 columns">
                             <h3 class="name">
-                                <?php echo !empty($pmeta['_kw_person_donor_name']) ? $pmeta['_kw_person_donor_name'][0] : ''; ?>
+                                <?php echo $donor['name']; ?>
                             </h3>
                             <p class="board-member-title">
-                                <?php echo !empty($pmeta['_kw_person_donor_description']) ? $pmeta['_kw_person_donor_description'][0] : ''; ?>
+                                <?php echo $donor['description']; ?>
                             </p>
                         </div>
                     </div>
-                    <?php endif; ?>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>

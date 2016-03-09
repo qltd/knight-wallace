@@ -591,6 +591,10 @@ function orderBy($a, $b) {
     return strcmp($a["order"], $b["order"]);
 }
 
+function sortByName($a, $b) {
+    return strcmp($a["name"], $b["name"]);
+}
+
 /**
  * Sort board of directors
  *
@@ -662,6 +666,30 @@ function year_array($year){
     $res = array();
     for($i=$year;$i>1981;$i--){
         $res[] = $i;
+    }
+    return $res;
+}
+
+/**
+ * Sort Donors
+ *
+ * */
+
+function sort_donors($donors,$type){
+    $res = array();
+    if(!empty($donors)){
+        foreach($donors as $donor){
+            $image = get_the_post_thumbnail($donor->ID);
+            $pmeta = get_post_meta($donor->ID);
+            if(!empty($pmeta['_kw_person_donor_type']) && $pmeta['_kw_person_donor_type'][0] == $type){
+                $res[] = array(
+                    'image' => $image,
+                    'name' => !empty($pmeta['_kw_person_donor_name']) ? $pmeta['_kw_person_donor_name'][0] : '',
+                    'description' => !empty($pmeta['_kw_person_donor_description']) ? $pmeta['_kw_person_donor_description'][0] : ''
+                );
+            }
+        } 
+        usort($res,"sortByName");//alpha order
     }
     return $res;
 }
