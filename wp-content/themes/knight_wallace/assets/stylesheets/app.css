@@ -11362,6 +11362,13 @@ figure figcaption strong {
   padding: 1.5rem;
 }
 
+/* line 1489, ../scss/_knight_wallace.scss */
+.tagline.dynamic-temp {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
 @media (min-width: 1024px) {
   /* line 2, ../scss/_mobile_nav.scss */
   #mobile_nav {

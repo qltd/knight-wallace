@@ -324,7 +324,8 @@ function sort_finalists($finalists, $year='2015'){
                         'library_link' => !empty($lib_item) ? '?post_type=library&p='.$lib_item->ID : '',
                         'library_image' => $lib_image,
                         'winner_quote' => !empty($pmeta['_kw_person_liv_quote']) ? $pmeta['_kw_person_liv_quote'][0] : '',
-                        'lib_item_des' => !empty($lib_item) ? $lib_item->post_content : ''
+                        'lib_item_des' => !empty($lib_item) ? $lib_item->post_content : '',
+                        'winning_aff' => !empty($pmeta['_kw_person_liv_win_aff']) ? $pmeta['_kw_person_liv_win_aff'][0] : ''
                     );
             }
         }

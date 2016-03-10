@@ -28,6 +28,11 @@ $sorted_finalists = sort_finalists($finalists, $this_year);
         <h1 class="entry-title">Finalists</h1>
     </div>
 </div>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="tagline dynamic-temp"><?php echo !empty($post->post_content) ? $post->post_content : '';?></div> 
+    </div>
+</div>
 <main class="posts winners-list">
 <div class="fin-local">
 <div class="row">
@@ -38,12 +43,11 @@ $sorted_finalists = sort_finalists($finalists, $this_year);
 <div class="row">
     <div class="large-12 columns">
         <div class="la-winner">
-            <div class="name"><?php echo $fin['first_name'].' '.$fin['last_name']; ?>
-            <?php if(!empty($fin['aff'])):?>
-                , <?php echo $fin['aff']; ?>
-            <?php endif;?>
-            </div>
+            <div class="name"><?php echo $fin['first_name'].' '.$fin['last_name']; ?></div>
             <div class="lib-item"><a href="<?php echo $fin['library_link']; ?>">&ldquo;<?php echo $fin['lib']; ?>&rdquo;</a></div>
+            <?php if(!empty($fin['winning_aff'])):?>
+                <div class="aff"><?php echo $fin['winning_aff']; ?></div>
+            <?php endif;?>
         </div>
     </div>
 </div>
@@ -62,8 +66,11 @@ $sorted_finalists = sort_finalists($finalists, $this_year);
 <div class="row">
     <div class="large-12 columns">
         <div class="la-winner">
-            <div class="name"><?php echo $fin['first_name'].' '.$fin['last_name'].', '.$fin['aff']; ?></div>
+            <div class="name"><?php echo $fin['first_name'].' '.$fin['last_name']; ?></div>
             <div class="lib-item"><a href="<?php echo $fin['library_link']; ?>">&ldquo;<?php echo $fin['lib']; ?>&rdquo;</a></div>
+            <?php if(!empty($fin['winning_aff'])):?>
+                <div class="aff"><?php echo $fin['winning_aff']; ?></div>
+            <?php endif;?>
         </div>
     </div>
 </div>
@@ -80,8 +87,11 @@ $sorted_finalists = sort_finalists($finalists, $this_year);
 <div class="row">
     <div class="large-12 columns">
         <div class="la-winner">
-            <div class="name"><?php echo $fin['first_name'].' '.$fin['last_name'].', '.$fin['aff']; ?></div>
+            <div class="name"><?php echo $fin['first_name'].' '.$fin['last_name']; ?></div>
             <div class="lib-item"><a href="<?php echo $fin['library_link']; ?>">&ldquo;<?php echo $fin['lib']; ?>&rdquo;</a></div>
+            <?php if(!empty($fin['winning_aff'])):?>
+                <div class="aff"><?php echo $fin['winning_aff']; ?></div>
+            <?php endif;?>
         </div>
     </div>
 </div>
