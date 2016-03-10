@@ -11561,7 +11561,7 @@ figure figcaption strong {
   font-size: 2.6rem;
   line-height: 2.6rem;
 }
-@media (max-width: 750px) {
+@media (max-width: 640px) {
   /* line 37, ../scss/_slider.scss */
   #slideshow div.name {
     font-size: 2rem;
@@ -11569,7 +11569,7 @@ figure figcaption strong {
 }
 /* line 48, ../scss/_slider.scss */
 #slideshow div.details {
-  font-size: 1rem;
+  font-size: 1.8rem;
   line-height: 2.6rem;
   font-family: UniversLTPro-45Light, sans-serif;
 }
