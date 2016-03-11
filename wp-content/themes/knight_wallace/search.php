@@ -20,11 +20,11 @@ get_header(); ?>
 			</header><!-- .page-header -->
 
 			<?php while ( have_posts() ) : the_post(); ?>
-           <div class="row">
+           <div class="row search-result">
                <div class="large-10 columns large-centered">
                     <?php get_template_part( 'template-parts/content', 'search' ); ?>
-                </div> 
-            </div> 
+                </div>
+            </div>
 
 			<?php endwhile; ?>
 
