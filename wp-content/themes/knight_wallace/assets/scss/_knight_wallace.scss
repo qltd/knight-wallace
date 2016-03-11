@@ -702,9 +702,21 @@ figure {
             }
         }
 
-        p {
+        ul {
+            margin-left: 2rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        p, li {
             font-size: 1.8rem;
             line-height: 1.4;
+        }
+
+        .tags-list li {
+            font-size: 1.2rem;
         }
     }
 }
@@ -963,6 +975,9 @@ figure {
         font-size: 2rem;
         color: $charcoal;
         line-height: 2.8rem;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        -ms-word-break: break-all;
     }
 
     li {
@@ -1247,6 +1262,7 @@ figure {
         font-size: 1.2rem;
         line-height: 2.4rem;
         font-family: $primary-font;
+        text-transform: uppercase;
     }
 }
 
