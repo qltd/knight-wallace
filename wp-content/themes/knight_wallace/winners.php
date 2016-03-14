@@ -49,6 +49,11 @@ $sorted_winners = sort_winners($winners, $this_year);
     </div>
 </div>
 <?php endif; ?>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="tagline dynamic-temp"><?php echo !empty($post->post_content) ? $post->post_content : '';?></div> 
+    </div>
+</div>
 <main class="posts winners-list">
 <?php if(!empty($sorted_winners)): ?>
 <?php foreach($sorted_winners as $win): ?>
