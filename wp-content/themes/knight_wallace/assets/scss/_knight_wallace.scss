@@ -1376,6 +1376,13 @@ ul.pagination {
         line-height: 2.8rem;
         margin-bottom: 1.25rem;
     }
+
+    .page-template-current_fellows &, .page-template-past_fellows & {
+        .aff {
+            font-size: 1.6rem;
+            margin-bottom: 0;
+        }
+    }
 }
 
 .fellow-class-image {
