@@ -113,6 +113,7 @@ function create_post_type() {
             'public' => true,
             'has_archive' => true,
             'supports' => array( 'title', 'thumbnail', 'revisions' ),
+            'exclude_from_search' => true,
             'rewrite' => array("slug" => "kw-fellow")
         )
     );
@@ -129,6 +130,7 @@ function create_post_type() {
             'public' => true,
             'has_archive' => true,
             'supports' => array( 'title', 'thumbnail', 'revisions' ),
+            'exclude_from_search' => true,
             'rewrite' => array("slug" => "livingston-award-winners-finalists")
         )
     );
@@ -161,6 +163,7 @@ function create_post_type() {
             'public' => true,
             'has_archive' => true,
             'supports' => array( 'title', 'thumbnail', 'revisions' ),
+            'exclude_from_search' => true,
             'rewrite' => array("slug" => "board-member")
         )
     );
@@ -193,6 +196,7 @@ function create_post_type() {
             'public' => true,
             'has_archive' => true,
             'supports' => array( 'title', 'thumbnail', 'revisions' ),
+            'exclude_from_search' => true,
             'rewrite' => array("slug" => "donor")
         )
     );
@@ -228,6 +232,7 @@ function create_post_type() {
             'public' => true,
             'has_archive' => true,
             'supports' => array('title','thumbnail','revisions','editor'),
+            'exclude_from_search' => true,
             'rewrite' => array("slug" => "featured-content-block"),
         )
     );
@@ -244,6 +249,7 @@ function create_post_type() {
             'public' => true,
             'has_archive' => true,
             'supports' => array('title','thumbnail','revisions','editor'),
+            'exclude_from_search' => true,
             'rewrite' => array("slug" => "hero-content"),
         )
     );
@@ -260,6 +266,7 @@ function create_post_type() {
             'public' => true,
             'has_archive' => true,
             'supports' => array('title','thumbnail','revisions','editor'),
+            'exclude_from_search' => true,
             'rewrite' => array("slug" => "slider-content"),
         )
     );
