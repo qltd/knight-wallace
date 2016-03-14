@@ -45,7 +45,7 @@ $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
                 <div class="large-12 columns">
                     <?php $count = 1;?>
                     <div class="row">
-                        <?php for($i=$this_year;$i>1990;$i--): ?>
+                        <?php for($i=$this_year;$i>1973;$i--): ?>
                         <div class="medium-3 small-6 columns">
                             <a href="/knight-wallace/our-fellows/<?php echo $i - 1 .'-'. $i; ?>/"><?php echo $i - 1 .'-'. $i; ?></a>
                         </div>
