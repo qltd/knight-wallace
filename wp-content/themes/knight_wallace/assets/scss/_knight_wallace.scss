@@ -724,6 +724,28 @@ figure {
     }
 }
 
+ul.pagination {
+    li {
+        margin: 2rem 0 3rem;
+
+        a {
+            font-size: 1.8rem !important;
+            font-family: $primary-font;
+
+            &:hover {
+                background: $lblue;
+                color: #fff;
+            }
+        }
+
+        &.current {
+            a {
+                background: $ublue;
+            }
+        }
+    }
+}
+
 .story-list {
     .page-template-news & {
         margin-bottom: 6rem;
