@@ -161,7 +161,7 @@ address {
 
     &.open-search {
         input.search-field {
-            width: 100%;
+            width: 160px;
             height: auto;
             padding: 0.5rem;
             visibility: visible;
@@ -909,6 +909,7 @@ ul.pagination {
         margin: 0;
         font-size: 2.6rem;
         text-align: left;
+        line-height: 3.4rem;
     }
 
     .author-name, .publisher {

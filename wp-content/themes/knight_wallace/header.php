@@ -36,7 +36,7 @@
             <div class="row">
                 <div class="small-2 columns">
                     <i class="fa fa-search search-form-trigger"></i>
-                </div> 
+                </div>
                 <div class="small-10 columns">
                     <div class="search-form-wrap">
                      <?php the_widget( 'WP_Widget_Search' ); ?>
@@ -152,14 +152,12 @@ $ni3_title = !empty($main_menu[2]->title) ? $main_menu[2]->title : "Menu Item";
      <div class="large-12 columns nopadding">
         <?php wp_nav_menu(array('menu'=>'mobile')); ?>
             <div class="row">
-                <div class="small-10 columns">
+                <div class="small-11 small-centered columns">
                     <div class="mobile-search-form">
                      <?php the_widget( 'WP_Widget_Search' ); ?>
+                     <i class="fa fa-search mobile-search-icon"></i>
                     </div>
                 </div>
-                <div class="small-2 columns">
-                    <i class="fa fa-search mobile-search-icon"></i>
-                </div> 
             </div>
     </div>
 </div>

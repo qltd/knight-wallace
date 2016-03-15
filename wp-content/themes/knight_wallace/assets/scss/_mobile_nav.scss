@@ -5,7 +5,7 @@
 }
 
 @media (max-width: 1024px) {
-    #main_nav,#eyebrow {
+    #main_nav, #eyebrow {
         display: none;
     }
 
@@ -20,11 +20,11 @@
     }
 
     .mobile-menu-trigger {
-        cursor:pointer; 
+        cursor: pointer;
     }
 
     .mobile-menu-wrap {
-        display:none;//hide menu on load
+        display: none; //hide menu on load
 
         li {
             list-style: none;
@@ -44,14 +44,15 @@
         }
 
         #menu-mobile > li {
-             
             text-transform: uppercase;
             color: $white;
             background: $charcoal;
-            &>a {
-                color:$white; 
-                &:link,&:hover,&:visited {
-                    color:$white; 
+
+            & > a {
+                color: $white;
+
+                &:link, &:hover, &:visited {
+                    color: $white;
                 }
             }
         }
@@ -81,30 +82,35 @@
         float: right;
     }
 
-    .mobile-search-icon{
-        cursor:pointer;
-        position:relative;
+    .mobile-search-icon {
+        cursor: pointer;
+        position: relative;
         font-size: 2rem;
         position: relative;
-        top: 0.4rem;
-        background: $white-gray;
-        float:right;
-        margin-right:1rem;
+        top: -4.1rem;
+        float: right;
+        margin-right: 1rem;
         padding: 0.5rem;
+        z-index: 2;
     }
 
     .mobile-search-form {
         input {
             position: relative;
-            left: 1rem;
-            top: 0.4rem; 
+            top: 0.4rem;
             background: $white-gray;
-            font-size:1.5rem;
-            padding:1.5rem;
-            box-shadow:none;
-            border:none;
-        } 
-        .screen-reader-text {display:none;}
-        .search-submit {display:none;}
+            font-size: 1.5rem;
+            padding: 2rem 3rem 2rem 1.5rem;
+            box-shadow: none;
+            border: none;
+        }
+
+        .screen-reader-text {
+            display: none;
+        }
+
+        .search-submit {
+            display: none;
+        }
     }
 }
