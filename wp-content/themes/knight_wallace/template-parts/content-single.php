@@ -36,7 +36,7 @@ $tags = get_the_tags($post->ID);
             <div class="tags-list inline">
                 <ul>
                     <?php foreach($tags as $tag): ?>
-                    <li><a href="/tag/<?php echo $tag->name; ?>/"><?php echo $tag->name; ?></a> <span class="divider">|</span></li>
+                    <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
                     <?php endforeach; ?>
                 </ul>
                 <br />
