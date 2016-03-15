@@ -287,6 +287,33 @@ function sort_winners($winners, $year='2015'){
 }
 
 /**
+ * Sort winners by award type 
+ * takes an array of already sorted winners with information already grabbed
+ * the area it takes is created by the sort_winners function
+ *
+ * */
+function sort_winners_by_award_type($winners){
+    $res = array();
+    if(!empty($winners)){
+        foreach($winners as $win){
+            //we can assume there will always be 3 results for the winners
+            switch($win['type']){
+            case 'Excellence in Local Reporting':
+                $res[0] = $win;
+                break;
+            case 'Excellence in National Reporting':
+                $res[1] = $win;
+                break;
+            case 'Excellence in International Reporting':
+                $res[2] = $win;
+                break;
+            }
+        }
+    }
+    return $res;
+}
+
+/**
  * Sort Finalists
  * */
 

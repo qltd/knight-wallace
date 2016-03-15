@@ -15,6 +15,7 @@ $this_page_meta = get_post_meta($post->ID);
 $this_year = !empty($this_page_meta['year']) ? $this_page_meta['year'][0] : null;
 $winners = get_posts(array('post_type'=>'person_livingston','posts_per_page'=> -1));
 $sorted_winners = sort_winners($winners, $this_year);
+$sorted_winners_by_award_type = sort_winners_by_award_type($sorted_winners);
 ?>
 <section class="breadcrumb">
 <div class="row">
@@ -55,8 +56,9 @@ $sorted_winners = sort_winners($winners, $this_year);
     </div>
 </div>
 <main class="posts winners-list">
-<?php if(!empty($sorted_winners)): ?>
-<?php foreach($sorted_winners as $win): ?>
+<?php if(!empty($sorted_winners_by_award_type)): ?>
+<?php ksort($sorted_winners_by_award_type); //needed to set the keys of the array into numerical order ?>
+<?php foreach($sorted_winners_by_award_type as $k => $win): ?>
 <div class="row">
     <div class="large-10 large-centered columns">
         <div class="la-winner">
