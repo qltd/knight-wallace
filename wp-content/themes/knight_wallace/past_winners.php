@@ -36,7 +36,7 @@ $sorted_winners = sort_past_winners($winners,$year_array);
         <p class="control-label">Refine by year:</p>
         <?php $year = date('Y'); ?>
         <ul class="years">
-        <?php for($i=0;$i<20;$i++): ?>
+        <?php for($i=$year;$i>1982;$i--): ?>
             <?php $year = $year - 1; ?>
             <li>
             <input type="checkbox" name="year" value="<?php echo $year; ?>" /><label for="year"><?php echo $year; ?></label>
