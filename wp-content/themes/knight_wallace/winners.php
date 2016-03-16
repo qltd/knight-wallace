@@ -69,7 +69,8 @@ $sorted_winners_by_award_type = sort_winners_by_award_type($sorted_winners);
                 <?php endif; ?> 
             </div>
             <div class="lib-item"><a href="<?php echo $win['library_link']; ?>">&ldquo;<?php echo $win['lib']; ?>&rdquo;</a></div>
-            <div class="aff"><?php echo $win['aff']?></div>
+            <div class="aff"><?php echo $win['past_aff']; ?></div>
+            <br />
             <div class="descrip"><?php echo $win['lib_item_des']; ?></div>
             <div class="row winner-quote">
                 <div class="large-2 columns">
