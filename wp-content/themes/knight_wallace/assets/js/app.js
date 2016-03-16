@@ -123,12 +123,12 @@ $(document).ready(function(){
         event.preventDefault();
         //show the page
         var page = $(this).attr('data-page');
-        console.log(page);
         $('.pager').slideUp();
         $('.page-'+page).slideDown();
         //update pager nav to active
         $('.pagination .current').removeClass('current');
-        $(this).parent().addClass('current');
+        //$(this).parent().addClass('current');
+        $('.page-control-'+page).addClass('current');
         //slide to the top
         var target = this.hash;
         var $target = $(target);

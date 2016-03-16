@@ -148,9 +148,9 @@ $parent = !empty($parent_id) ? get_post($parent_id[0]) : false;
 <div class="pagination-centered">
   <ul class="pagination">
     <li class="arrow"><a href="#lib_heading" class="display-page-action" data-page="1">&laquo;</a></li>
-    <li class="current"><a href="#lib_heading" class="display-page-action" data-page="1">1</a></li>
+    <li class="current page-control-1"><a href="#lib_heading" class="display-page-action" data-page="1">1</a></li>
     <?php for($i=2;$i<=$page;$i++): ?>
-        <li><a href="#lib_heading" class="display-page-action" data-page="<?php echo $i; ?>"><?php echo $i; ?></a></li>
+        <li class="page-control-<?php echo $i; ?>"><a href="#lib_heading" class="display-page-action" data-page="<?php echo $i; ?>"><?php echo $i; ?></a></li>
     <?php endfor; ?>
         <li class="arrow"><a href="#lib_heading" class="display-page-action" data-page="<?php echo $page; ?>">&raquo;</a></li>
   </ul>

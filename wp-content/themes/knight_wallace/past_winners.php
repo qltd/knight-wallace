@@ -103,9 +103,9 @@ $sorted_winners = sort_past_winners($winners,$year_array);
 <div class="pagination-centered">
   <ul class="pagination">
     <li class="arrow"><a href="#page_title" class="display-page-action" data-page="1">&laquo;</a></li>
-    <li class="current"><a href="#page_title" class="display-page-action" data-page="1">1</a></li>
+    <li class="current page-control-1"><a href="#page_title" class="display-page-action" data-page="1">1</a></li>
     <?php for($i=2;$i<=$page;$i++): ?>
-        <li><a href="#page_title" class="display-page-action" data-page="<?php echo $i; ?>"><?php echo $i; ?></a></li>
+        <li class="page-control-<?php echo $i; ?>"><a href="#page_title" class="display-page-action" data-page="<?php echo $i; ?>"><?php echo $i; ?></a></li>
     <?php endfor; ?>
         <li class="arrow"><a href="#page_title" class="display-page-action" data-page="<?php echo $page; ?>">&raquo;</a></li>
   </ul>
