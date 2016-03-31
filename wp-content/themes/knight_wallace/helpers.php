@@ -356,6 +356,11 @@ function sort_finalists($finalists, $year='2015'){
                     );
             }
         }
+        //sort 3 arrays alpha by last name
+        usort($res['Excellence in Local Reporting'],'compareBy');
+        usort($res['Excellence in National Reporting'],'compareBy');
+        usort($res['Excellence in International Reporting'],'compareBy');
+
     }else{
         $res = false;
     }
