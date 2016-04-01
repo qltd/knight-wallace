@@ -616,7 +616,8 @@ function find_featured_news_article($news){
  * */
 
 function compareBy($a, $b) {
-    return strcmp($a["last_name"], $b["last_name"]);
+    //return strcmp($a["last_name"], $b["last_name"]);
+    return compare_strings_with_special_characters($a["last_name"], $b["last_name"]);
 }
 
 //sort by order field
@@ -626,6 +627,32 @@ function orderBy($a, $b) {
 
 function sortByName($a, $b) {
     return strcmp($a["name"], $b["name"]);
+}
+
+//function to sort strings with special characters
+function compare_strings_with_special_characters($a,$b){
+    $c1 = strlen($a);
+    $c2 = strlen($b);
+    $c = $c1 > $c2 ? $c2 : $c1;
+    for($i=0;$i<$c;$i++){
+        if($a[$i] != $b[$i]){
+            if($a[$i] > $b[$i]){
+                $res = -1;
+            }else{
+                $res = 1; 
+            }
+        }
+    }
+    if(empty($res)){
+        if($c1 == $c2){
+            $res = 0; 
+        }elseif($c1 > $c2){
+            $res = -1; 
+        }else{
+            $res = 1; 
+        }
+    }
+   return $res; 
 }
 
 /**
