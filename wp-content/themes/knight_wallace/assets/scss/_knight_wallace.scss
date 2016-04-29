@@ -19,17 +19,17 @@
 }
 
 /* WP image alignment classes */
-img.alignright {
+img.alignright, figure.alignright {
     float: right;
     margin: 0 0 1em 1em;
 }
 
-img.alignleft {
+img.alignleft, figure.alignright {
     float: left;
     margin: 0 1em 1em 0;
 }
 
-img.aligncenter {
+img.aligncenter, figure.aligncenter {
     display: block;
     margin-left: auto;
     margin-right: auto;

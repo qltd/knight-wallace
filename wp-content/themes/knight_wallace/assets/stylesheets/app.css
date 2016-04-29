@@ -9770,19 +9770,19 @@ th.hide-for-touch {
  */
 /* WP image alignment classes */
 /* line 22, ../scss/_knight_wallace.scss */
-img.alignright {
+img.alignright, figure.alignright {
   float: right;
   margin: 0 0 1em 1em;
 }
 
 /* line 27, ../scss/_knight_wallace.scss */
-img.alignleft {
+img.alignleft, figure.alignright {
   float: left;
   margin: 0 1em 1em 0;
 }
 
 /* line 32, ../scss/_knight_wallace.scss */
-img.aligncenter {
+img.aligncenter, figure.aligncenter {
   display: block;
   margin-left: auto;
   margin-right: auto;
