@@ -9776,7 +9776,7 @@ img.alignright, figure.alignright {
 }
 
 /* line 27, ../scss/_knight_wallace.scss */
-img.alignleft, figure.alignright {
+img.alignleft, figure.alignleft {
   float: left;
   margin: 0 1em 1em 0;
 }
