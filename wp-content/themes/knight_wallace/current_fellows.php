@@ -90,7 +90,7 @@ $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
                             <?php echo $fellow['last_name']; ?>
                     </p>
                     <p class="aff">
-                        <span class="job"><?php echo $fellow['job']; ?></span>, <?php echo $fellow['aff']; ?>
+                    <span class="job"><?php echo $fellow['job']; ?></span><?php if(!empty($fellow['aff'])): ?>, <?php echo $fellow['aff']; ?><?php endif; ?>
                     </p>
                     <?php if(!empty($fellow['title'])): ?>
                     <p class="title">
