@@ -415,7 +415,7 @@ $sorted_libs = sort_library_items($libs);
                                             <?php echo $sorted_libs['Video'][2]['title']; ?>
                                         </a>
                                     </h4>
-                                    <div class="date"><?php echo $sorted_libs['Book'][2]['author']; ?></div>
+                                    <div class="date"><?php echo $sorted_libs['Video'][2]['author']; ?></div>
                                     <div class="tags-list">
                                         <ul>
                                         <?php if(!empty($sorted_libs['Video'][2]['tags'])): ?>
