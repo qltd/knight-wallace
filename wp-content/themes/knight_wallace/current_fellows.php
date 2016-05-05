@@ -98,9 +98,9 @@ $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
                     </p>
                     <?php endif; ?>
                     <?php if(!empty($fellow['bio'])): ?>
-                    <p class="bio">
+                    <div class="bio">
                         <?php echo $fellow['bio']; ?>
-                    </p>
+                    </div>
                     <?php endif; ?>
                 </div>
             </div>
