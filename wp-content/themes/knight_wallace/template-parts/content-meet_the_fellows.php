@@ -81,9 +81,9 @@ $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
                             <p class="title">
                             <?php echo $fellow['title']; ?>
                             </p>
-                            <p class="bio">
+                            <div class="bio">
                             <?php echo $fellow['bio_private']; ?>
-                            </p>
+                            </div>
                         </div>
                     </div>
                 <?php endforeach; ?>

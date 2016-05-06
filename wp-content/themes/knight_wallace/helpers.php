@@ -51,7 +51,7 @@ function sort_hero_content($content){
                     'title' => $c->post_title,
                     'image' => !empty($pimage) ? $pimage : false,
                     'content' => $c->post_content,
-                    'link' => $pmeta["_hero_content_link"][0]
+                    'link' => !empty($pmeta["_hero_content_link"][0]) ? $pmeta["_hero_content_link"][0] : ''
                 );
             }
         }
