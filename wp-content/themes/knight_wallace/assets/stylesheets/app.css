@@ -11426,7 +11426,7 @@ ul.pagination li.current a {
 
 /* line 1565, ../scss/_knight_wallace.scss */
 #past_winners_control .years li input:nth-child(3) {
-  margin-left: 1rem;
+  margin-left: 2rem;
 }
 
 @media (min-width: 1024px) {
