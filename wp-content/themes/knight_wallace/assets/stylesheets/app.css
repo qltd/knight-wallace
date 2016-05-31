@@ -11424,6 +11424,11 @@ ul.pagination li.current a {
   border-bottom: none;
 }
 
+/* line 1565, ../scss/_knight_wallace.scss */
+#past_winners_control .years li input:nth-child(3) {
+  margin-left: 1rem;
+}
+
 @media (min-width: 1024px) {
   /* line 2, ../scss/_mobile_nav.scss */
   #mobile_nav {
