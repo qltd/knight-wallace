@@ -225,10 +225,9 @@ function sort_winners($winners, $year='2015'){
                     //Here we have a winner that we want to display on the winners page
                     $pimage = get_the_post_thumbnail($win->ID);
                     $lib_item_name = !empty($pmeta['_kw_person_liv_lib']) ? $pmeta['_kw_person_liv_lib'][0] : '';
-
                     if($pmeta['_kw_person_liv_win'][0] == 'Co-Winner'){
                         //we need to do some special stuff for co-winners
-                        if(in_array($lib_item_name,$cowin)){
+                        if(array_key_exists($lib_item_name,$cowin)){
                             //we have already found the co-winners co-winner
                             //now we need to add the co-winner to the co-winner in res array
                             $add_winner = false;//doesn't need it's own slow in res array
@@ -240,8 +239,8 @@ function sort_winners($winners, $year='2015'){
                                     $co_winner_name_line .= !empty($pmeta['_kw_person_liv_last_name']) ?
                                         $pmeta['_kw_person_liv_last_name'][0].', ' : '';
                                     $co_winner_name_line .= !empty($pmeta['_kw_person_liv_age']) ? $pmeta['_kw_person_liv_age'][0] : '';
-                                    $res[$r_key]['co-winner_name_line'] = $co_winner_name_line;
-                                    $res[$r_key]['co-winner_image'] = $pimage;
+                                    $res[$r_key]['co-winner_name_line'][] = $co_winner_name_line;
+                                    $res[$r_key]['co-winner_image'][] = $pimage;
                                 }
                             }
 

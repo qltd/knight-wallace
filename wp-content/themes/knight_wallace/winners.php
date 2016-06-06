@@ -63,10 +63,24 @@ $sorted_winners_by_award_type = sort_winners_by_award_type($sorted_winners);
     <div class="large-10 large-centered columns">
         <div class="la-winner">
             <div class="type"><?php echo $win['type']; ?></div>
-            <div class="name"><?php echo $win['first_name'].' '.$win['last_name'].', '.$win['age']; ?>
-                <?php if(isset($win['co-winner_name_line'])): ?>
-                    <?php echo 'and '.$win['co-winner_name_line']; ?>
+            <div class="name"><?php $name_line = $win['first_name'].' '.$win['last_name'].', '.$win['age']; ?>
+                <?php if(!empty($win['co-winner_name_line'])): ?>
+                    <?php $count_of_cwnl = count($win['co-winner_name_line']); ?>
+                    <?php if($count_of_cwnl <= 1): ?>
+                        <?php $name_line .= ' and '.$win['co-winner_name_line'][0]; ?>
+                    <?php else: ?>
+                        <?php $ccwnl = 0; ?>
+                        <?php foreach($win['co-winner_name_line'] as $cwnl): ?>
+                            <?php if($count_of_cwnl - 1 == $ccwnl): ?>
+                                <?php $name_line .= ' and '.$cwnl; ?>
+                            <?php else: ?>
+                                <?php $name_line .= ', '.$cwnl; ?>
+                            <?php endif; ?>
+                            <?php $ccwnl += 1; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 <?php endif; ?> 
+                <?php echo $name_line;?>
             </div>
             <div class="lib-item"><a href="<?php echo $win['library_link']; ?>">&ldquo;<?php echo $win['lib']; ?>&rdquo;</a></div>
             <?php if(!empty($win['past_aff'])): ?>
@@ -78,11 +92,13 @@ $sorted_winners_by_award_type = sort_winners_by_award_type($sorted_winners);
                 <div class="large-2 columns">
                     <div class="a-image"><?php echo $win['image']; ?></div>
                     <div class="small-name"><?php echo $win['first_name'].' '.$win['last_name'].', '.$win['age']; ?></div>
-                <?php if(isset($win['co-winner_image'])): ?>
-                    <div class="a-image"><?php echo $win['co-winner_image']; ?></div>
-                <?php endif; ?> 
-                <?php if(isset($win['co-winner_name_line'])): ?>
-                    <div class="small-name"><?php echo $win['co-winner_name_line']; ?></div>
+                <?php if(!empty($win['co-winner_image']) && !empty($win['co-winner_name_line'])): ?>
+                    <?php $ccw = 0; ?>
+                    <?php foreach($win['co-winner_name_line'] as $co_win):?>
+                        <div class="a-image"><?php echo $win['co-winner_image'][$ccw]; ?></div>
+                        <div class="small-name"><?php echo $co_win; ?></div>
+                        <?php $ccw += 1;?>
+                    <?php endforeach;?>
                 <?php endif; ?> 
                 </div>
                 <div class="large-10 columns quote"><?php echo $win['winner_quote']; ?></div>
