@@ -1080,8 +1080,17 @@ ul.pagination {
         }
     }
 
-    .winner-quote {
+    .winner-quote, .winner-authors {
         margin-top: 2rem;
+
+        .author {
+            float: left;
+            margin-right: 7px;
+
+            @include responsive("630px") {
+                float: none;
+            }
+        }
     }
 
     .quote {
@@ -1562,7 +1571,7 @@ ul.pagination {
 
 //Past Winners gray box tweak
 #past_winners_control {
-.years li input:nth-child(3) {
+    .years li input:nth-child(3) {
         margin-left: 2rem;
     }
 }

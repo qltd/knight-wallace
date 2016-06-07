@@ -88,15 +88,15 @@ $sorted_winners_by_award_type = sort_winners_by_award_type($sorted_winners);
             <?php endif; ?>
             <br />
             <div class="descrip"><?php echo $win['lib_item_des']; ?></div>
-            <div class="row winner-quote">
-                <div class="medium-2 columns">
+            <div class="winner-authors">
+                <div class="author">
                     <div class="a-image"><?php echo $win['image']; ?></div>
                     <div class="small-name"><?php echo $win['first_name'].' '.$win['last_name'].', '.$win['age']; ?></div>
                 </div>
                 <?php if(!empty($win['co-winner_image']) && !empty($win['co-winner_name_line'])): ?>
                     <?php $ccw = 0; ?>
                     <?php foreach($win['co-winner_name_line'] as $co_win):?>
-                        <div class="medium-2 end columns">
+                        <div class="author">
                             <div class="a-image"><?php echo $win['co-winner_image'][$ccw]; ?></div>
                             <div class="small-name"><?php echo $co_win; ?></div>
                         </div>
@@ -105,7 +105,7 @@ $sorted_winners_by_award_type = sort_winners_by_award_type($sorted_winners);
                 <?php endif; ?>
             </div>
             <div class="row winner-quote">
-                <div class="large-10 columns quote"><?php echo $win['winner_quote']; ?></div>
+                <div class="large-12 columns quote"><?php echo $win['winner_quote']; ?></div>
             </div>
             <div class="image"><?php echo $win['library_image']; ?></div>
         </div>
