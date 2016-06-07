@@ -52,7 +52,7 @@ $sorted_winners_by_award_type = sort_winners_by_award_type($sorted_winners);
 <?php endif; ?>
 <div class="row">
     <div class="large-12 columns">
-        <div class="tagline dynamic-temp"><?php echo !empty($post->post_content) ? $post->post_content : '';?></div> 
+        <div class="tagline dynamic-temp"><?php echo !empty($post->post_content) ? $post->post_content : '';?></div>
     </div>
 </div>
 <main class="posts winners-list">
@@ -79,7 +79,7 @@ $sorted_winners_by_award_type = sort_winners_by_award_type($sorted_winners);
                             <?php $ccwnl += 1; ?>
                         <?php endforeach; ?>
                     <?php endif; ?>
-                <?php endif; ?> 
+                <?php endif; ?>
                 <?php echo $name_line;?>
             </div>
             <div class="lib-item"><a href="<?php echo $win['library_link']; ?>">&ldquo;<?php echo $win['lib']; ?>&rdquo;</a></div>
@@ -89,18 +89,22 @@ $sorted_winners_by_award_type = sort_winners_by_award_type($sorted_winners);
             <br />
             <div class="descrip"><?php echo $win['lib_item_des']; ?></div>
             <div class="row winner-quote">
-                <div class="large-2 columns">
+                <div class="medium-2 columns">
                     <div class="a-image"><?php echo $win['image']; ?></div>
                     <div class="small-name"><?php echo $win['first_name'].' '.$win['last_name'].', '.$win['age']; ?></div>
+                </div>
                 <?php if(!empty($win['co-winner_image']) && !empty($win['co-winner_name_line'])): ?>
                     <?php $ccw = 0; ?>
                     <?php foreach($win['co-winner_name_line'] as $co_win):?>
-                        <div class="a-image"><?php echo $win['co-winner_image'][$ccw]; ?></div>
-                        <div class="small-name"><?php echo $co_win; ?></div>
+                        <div class="medium-2 end columns">
+                            <div class="a-image"><?php echo $win['co-winner_image'][$ccw]; ?></div>
+                            <div class="small-name"><?php echo $co_win; ?></div>
+                        </div>
                         <?php $ccw += 1;?>
                     <?php endforeach;?>
-                <?php endif; ?> 
-                </div>
+                <?php endif; ?>
+            </div>
+            <div class="row winner-quote">
                 <div class="large-10 columns quote"><?php echo $win['winner_quote']; ?></div>
             </div>
             <div class="image"><?php echo $win['library_image']; ?></div>
