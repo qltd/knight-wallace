@@ -13,7 +13,8 @@ include_once('helpers.php');
 $current_year_global = get_option('fellows_current_year');
 $alerts = get_posts(array('category_name'=>'alert'));
 $winners = get_posts(array('post_type'=>'person_livingston','posts_per_page'=> -1));
-$year_array = year_array($current_year_global);
+$year_to_start_from = $current_year_global - 1;
+$year_array = year_array($year_to_start_from);
 $sorted_winners = sort_past_winners($winners,$year_array);
 ?>
 <section class="breadcrumb">
