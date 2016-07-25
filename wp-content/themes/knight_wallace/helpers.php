@@ -740,6 +740,29 @@ function sort_donors($donors,$type){
     return $res;
 }
 
+/*
+ * Sort Events
+ *
+ * */
+
+function sort_events($events){
+    $res = array(
+        'past_events' => array(),
+        'future_events' => array()
+    );
+    if(!empty($events)){
+        $current_date = time();
+        foreach($events as $event){
+            if(strtotime($event->post_date) > $current_date){
+                $res['future_events'][] = $event; 
+            }else{
+                $res['past_events'][] = $event; 
+            }
+        }
+    }
+    return $res;
+}
+
 /**
  * Utilities
  *
