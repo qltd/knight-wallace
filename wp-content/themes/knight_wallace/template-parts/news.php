@@ -12,6 +12,7 @@
                     <div class="news-article">
                         <div class="text">
                             <h4><a href="<?php echo $new->guid; ?>"><?php echo $new->post_title; ?></a></h4>
+                            <div class="date"><?php echo date('F d, Y',strtotime($new->post_date)); ?></div>
                         <?php $nmeta = get_post_meta($new->ID); ?>
                         <?php if(!empty($nmeta['Author'])): ?>
                             <div class="date"><?php echo $nmeta['Author'][0]; ?></div>

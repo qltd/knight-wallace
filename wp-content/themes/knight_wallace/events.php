@@ -40,10 +40,12 @@ $sorted_events = sort_events($news);
 <?php include_once(locate_template('template-parts/featured.php')); ?>
 
 <?php if(!empty($sorted_events['future_events'])):?>
-   <div class="future-events">
+   <div class="future-events story-list">
         <div class="row">
             <div class="large-12 columns">
-                <h3 class="heading">Upcoming Events</h3>
+                <div class="heading">
+                    <h3 class="">Upcoming Events</h3>
+                </div>
             </div>
         </div>
 <?php $news = $sorted_events['future_events']; ?>
@@ -51,10 +53,12 @@ $sorted_events = sort_events($news);
    </div> 
 <?php endif; ?>
 <?php if(!empty($sorted_events['past_events'])):?>
-   <div class="future-events">
+   <div class="future-events story-list">
         <div class="row">
             <div class="large-12 columns">
-                <h3 class="heading">Past Events</h3>
+                <div class="heading">
+                    <h3 class="">Past Events</h3>
+                </div>
             </div>
         </div>
 <?php $news = $sorted_events['past_events']; ?>
