@@ -35,11 +35,11 @@
           <li>
             <div class="row">
                 <div class="small-2 columns">
-                    <i class="fa fa-search search-form-trigger"></i>
+                    <a href="/search"><i class="fa fa-search search-form-trigger"></i></a>
                 </div>
                 <div class="small-10 columns">
                     <div class="search-form-wrap">
-                     <?php the_widget( 'WP_Widget_Search' ); ?>
+                     <?php  //the_widget( 'WP_Widget_Search' ); ?>
                     </div>
                 </div>
             </div>
