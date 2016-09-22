@@ -297,6 +297,11 @@ function add_person_kw_fellow_metaboxes() {
     add_meta_box('kw_person_kw_current_job_title', 'Job Title', 'kw_person_kw_current_job_title', 'person_kw_fellow', 'normal', 'default');
     add_meta_box('kw_person_kw_aff', 'Affiliation', 'kw_person_kw_aff', 'person_kw_fellow', 'normal', 'default');
     add_meta_box('kw_person_kw_lib', 'Library Item', 'kw_person_kw_lib', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_special', 'Specialty', 'kw_person_kw_special', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_location', 'Location', 'kw_person_kw_location', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_personal_email', 'Personal Email', 'kw_person_kw_personal_email', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_personal_phone', 'Personal Phone', 'kw_person_kw_personal_phone', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_prv', 'Display Alumni?', 'kw_person_kw_prv', 'person_kw_fellow', 'normal', 'default');
 }
 
 function add_person_livingston_metaboxes() {
