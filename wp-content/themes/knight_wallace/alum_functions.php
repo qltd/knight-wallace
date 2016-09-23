@@ -12,7 +12,10 @@ function sort_alum($alum){
         $opt_in_alum = remove_opt_outs($alum);
         $sorted_by_location = sort_alum_by("_kw_person_kw_location",$opt_in_alum);
         $sorted_by_speciality = sort_alum_by("_kw_person_kw_special",$opt_in_alum);
-        $res = array($sorted_by_location,$sorted_by_speciality);
+        $res = array(
+            'location' => $sorted_by_location,
+            'special' => $sorted_by_speciality
+        );
     }    
     return $res;
 }
@@ -34,6 +37,7 @@ function sort_alum_by($field,$alum){
     $res = array();
     foreach($alum as $a){
         $pmeta = get_post_meta($a->ID);
+        $a = add_in_special_field_data($pmeta,$a);
         if(array_key_exists($pmeta[$field][0],$res)){
             $res[$pmeta[$field][0]][] = $a;
         }else{
@@ -42,4 +46,15 @@ function sort_alum_by($field,$alum){
         } 
     }
     return $res;
+}
+
+function add_in_special_field_data($pmeta,$fellow){
+    $fellow->extra_data = array(
+        'location' => $pmeta["_kw_person_kw_location"][0],
+        'special' => $pmeta["_kw_person_kw_special"][0],
+        'phone' => $pmeta["_kw_person_kw_personal_phone"][0],
+        'email' => $pmeta["_kw_person_kw_personal_email"][0],
+        'permission' => $pmeta["_kw_person_kw_prv"][0],
+    );
+    return $fellow;
 }
