@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Alumni Locater
+ * Template Name: Alumni Locator
  *
  *
  * @package knight_wallace
