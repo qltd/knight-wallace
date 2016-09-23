@@ -31,7 +31,7 @@ $alum = sort_alum($fellows);
   <main class="fellows-sub-page alum-locate">
     <div class="row">
       <div class="large-12 columns">
-            <p id="alum_view_switch">View by Location</p>
+            <p id="alum_view_switch" >View by Location</p>
       </div>
     </div>
     <div class="row" id="alum_view_special">
@@ -66,7 +66,7 @@ $alum = sort_alum($fellows);
             </ul>
       </div>
     </div>
-    <div class="row" id="alum_view_location">
+    <div class="row disappear" id="alum_view_location">
       <div class="large-12 columns">
             <?php $bcount = 1; ?>
             <ul class="accordion" data-accordion>
