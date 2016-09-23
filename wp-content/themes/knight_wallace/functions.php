@@ -449,6 +449,25 @@ function kw_person_kw_lib() {
     generate_html_for_custom_field("kw_person_kw_lib");
 }
 
+function kw_person_kw_special() {
+    generate_html_for_custom_field("kw_person_kw_special");
+}
+
+function kw_person_kw_location() {
+    generate_html_for_custom_field("kw_person_kw_location");
+}
+
+function kw_person_kw_personal_email() {
+    generate_html_for_custom_field("kw_person_kw_personal_email");
+}
+
+function kw_person_kw_personal_phone() {
+    generate_html_for_custom_field("kw_person_kw_personal_phone");
+}
+
+function kw_person_kw_prv() {
+    generate_html_for_custom_field("kw_person_kw_prv");
+}
 //Fill Livingstion Awards type custom fields with html
 function kw_person_liv_first_name() {
     //pass in true for the noncename once per custom type
@@ -726,6 +745,11 @@ function kw_save_events_meta($post_id, $post) {
     $events_meta['_kw_person_kw_current_job_title'] = !empty($_POST['_kw_person_kw_current_job_title']) ? $_POST['_kw_person_kw_current_job_title'] : null;
     $events_meta['_kw_person_kw_aff'] = !empty($_POST['_kw_person_kw_aff']) ? $_POST['_kw_person_kw_aff'] : null;
     $events_meta['_kw_person_kw_lib'] = !empty($_POST['_kw_person_kw_lib']) ? $_POST['_kw_person_kw_lib'] : null;
+    $events_meta['_kw_person_kw_special'] = !empty($_POST['_kw_person_kw_special']) ? $_POST['_kw_person_kw_special'] : null;
+    $events_meta['_kw_person_kw_location'] = !empty($_POST['_kw_person_kw_location']) ? $_POST['_kw_person_kw_location'] : null;
+    $events_meta['_kw_person_kw_personal_email'] = !empty($_POST['_kw_person_kw_personal_email']) ? $_POST['_kw_person_kw_personal_email'] : null;
+    $events_meta['_kw_person_kw_personal_phone'] = !empty($_POST['_kw_person_kw_personal_phone']) ? $_POST['_kw_person_kw_personal_phone'] : null;
+    $events_meta['_kw_person_kw_prv'] = !empty($_POST['_kw_person_kw_prv']) ? $_POST['_kw_person_kw_prv'] : null;
 
     //Livingston Winners Custom Fields
     $events_meta['_kw_person_liv_first_name'] = !empty($_POST['_kw_person_liv_first_name']) ? $_POST['_kw_person_liv_first_name'] : null;
