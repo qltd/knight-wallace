@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Fellows Sub Page 
+ * Template Name: Alumni Locater
  *
  *
  * @package knight_wallace
@@ -9,12 +9,14 @@
 get_header('fellows'); ?>
 
 <?php 
-include_once('helpers.php');
+include_once('alum_functions.php');
 $parent_id = get_post_ancestors($post->ID); 
 $parent = !empty($parent_id) ? get_post($parent_id[0]) : false;
 //get fellows
 $fellows = get_posts(array('post_type'=>'person_kw_fellow','posts_per_page'=> -1));
-
+var_dump(count($fellows));
+$alum = sort_alum($fellows);
+var_dump(count($alum));
 ?>
 
 <?php if(!empty($parent)): ?>

@@ -5,157 +5,41 @@
  *
  * */
 
-function sort_homepage_featured_content_blocks($content){
-    $res = array(
-        'Wallace House' => array(),
-        'Knight-Wallace Fellowships' => array(),
-        'Livingston Awards' => array(),
-    );
-    if(!empty($content)){
-        foreach($content as $c){
-            $pmeta = get_post_meta($c->ID);
-            $pimage = get_the_post_thumbnail($c->ID);
-            if(!empty($pmeta)){
-                $res[$pmeta["_fcb_which_page"][0]][] = array(
-                    'title' => $c->post_title,
-                    'image' => !empty($pimage) ? $pimage : false,
-                    'content' => $c->post_content,
-                    'link' => $pmeta["_fcb_link"][0]
-                );
-            }
-        }
-    }else{
-        $res = false;
-    }
-    return $res;
-}
-
-function sort_hero_content($content){
-    $res = array(
-        'Wallace House' => array(),
-        'Knight-Wallace Fellowships' => array(),
-        'Livingston Awards' => array(),
-    );
-    if(!empty($content)){
-        foreach($content as $c){
-            $pmeta = get_post_meta($c->ID);
-            $pimage = get_the_post_thumbnail($c->ID);
-            if(!empty($pmeta)){
-                $res[$pmeta["_hero_content_which_page"][0]][] = array(
-                    'title' => $c->post_title,
-                    'image' => !empty($pimage) ? $pimage : false,
-                    'content' => $c->post_content,
-                    'link' => !empty($pmeta["_hero_content_link"][0]) ? $pmeta["_hero_content_link"][0] : ''
-                );
-            }
-        }
-    }else{
-        $res = false;
-    }
-    return $res;
-}
-
-/**
- * function random_hero_content
- * takes 2 arguments, the first is a multidim array containing hero content from all 3 pages
- * the second is which page we are displaying this on
- * returns a simple array of hero content to display
- * @rdarling42
- *
- * */
-
-function random_hero_content($content,$page){
-    if(empty($content) || empty($page)){
-        $res = false;
-    }else{
-        $count = count($content[$page]);
-        $random_number = rand(0,$count - 1);
-        $res = $content[$page][$random_number];
-    }
-    return $res;
-}
-
-//randomize any array and limit an array
-function randomize_and_limit($array,$limit){
+function sort_alum($alum){
+    //main sort alumni function
     $res = array();
-    $count = count($array);
-    for($i=0;$i<$limit;$i++){
-        $random_number = rand(0,$count - 1);
-        $res[] = $array[$random_number];
+    if(!empty($alum)){
+        $opt_in_alum = remove_opt_outs($alum);
+        $sorted_by_location = sort_alum_by("_kw_person_kw_location",$opt_in_alum);
+        $sorted_by_speciality = sort_alum_by("_kw_person_kw_special",$opt_in_alum);
+        $res = array($sorted_by_location,$sorted_by_speciality);
+    }    
+    return $res;
+}
+
+function remove_opt_outs($alum){
+    //this function strips out the alum who have opted out or have never been included
+    //assumes will not be given an empty array
+    $res = array();
+    foreach($alum as $a){
+        $pmeta = get_post_meta($a->ID);
+        if(!empty($pmeta["_kw_person_kw_prv"][0]) && $pmeta["_kw_person_kw_prv"][0] != '0'){
+            $res[] = $a;
+        } 
     }
     return $res;
 }
 
-/**
- * function turn_img_tag_to_url
- * takes 1 argumant, an html image tag
- * returns the value of the src attribute
- * @rdarling42
- *
- * */
-
-function turn_img_tag_to_url($img){
-    if(empty($img)){
-        $src = '';
-    }else{
-        $doc = new DOMDocument();
-        $doc->loadHTML($img);
-        $xpath = new DOMXPath($doc);
-        $src = $xpath->evaluate("string(//img/@src)");
-    }
-    return $src;
-}
-
-/**
- * Sort Library Items
- *
- **/
-
-function sort_library_items($lib){
-    if(!empty($lib)){
-        $cats = array(
-            'Article' => array(),
-            'Book' => array(),
-            'Video' => array(),
-            'Photojournalism' => array(),
-            'Journal' => array(),
-            'featured' => array()
-        );
-        foreach($lib as $li){
-            $pmeta = get_post_meta($li->ID);
-            $pimage = get_the_post_thumbnail($li->ID, '', array('class' => strtolower($pmeta['_library_item_type'][0])));
-            $tags = get_the_tags($li->ID);
-            if(!empty($pmeta) && !empty($pmeta['_library_item_type'])){
-                $cats[$pmeta['_library_item_type'][0]][] = array(
-                    'content' => $li->post_content,
-                    'title' => $li->post_title,
-                    'link' => "/?post_type=library&p={$li->ID}",
-                    'slug' => $li->post_name,
-                    'image' => $pimage,
-                    'publisher' => !empty($pmeta['_library_publisher'][0]) ? $pmeta['_library_publisher'][0] : '',
-                    'author' => !empty($pmeta['_library_author'][0]) ? $pmeta['_library_author'][0] : '',
-                    'date' => $li->post_date,
-                    'tags' => $tags
-                );
-            }
-            if(!empty($pmeta['_library_featured'])){
-                $cats['featured'][] = array(
-                    'content' => $li->post_content,
-                    'title' => $li->post_title,
-                    'link' => "/?post_type=library&p={$li->ID}",
-                    'slug' => $li->post_name,
-                    'image' => $pimage,
-                    'publisher' => !empty($pmeta['_library_publisher'][0]) ? $pmeta['_library_publisher'][0] : '',
-                    'author' => !empty($pmeta['_library_author'][0]) ? $pmeta['_library_author'][0] : '',
-                    'date' => $li->post_date,
-                    'tags' => $tags
-                );
-            }
-        }
-        $res = $cats;
-    }else{
-        $res = false;
+function sort_alum_by($field,$alum){
+    $res = array();
+    foreach($alum as $a){
+        $pmeta = get_post_meta($a->ID);
+        if(array_key_exists($pmeta[$field][0],$res)){
+            $res[$pmeta[$field][0]][] = $a;
+        }else{
+            $res[$pmeta[$field][0]] = array();
+            $res[$pmeta[$field][0]][] = $a;
+        } 
     }
     return $res;
 }
-
