@@ -302,6 +302,7 @@ function add_person_kw_fellow_metaboxes() {
     add_meta_box('kw_person_kw_personal_email', 'Personal Email', 'kw_person_kw_personal_email', 'person_kw_fellow', 'normal', 'default');
     add_meta_box('kw_person_kw_personal_phone', 'Personal Phone', 'kw_person_kw_personal_phone', 'person_kw_fellow', 'normal', 'default');
     add_meta_box('kw_person_kw_prv', 'Display Alumni?', 'kw_person_kw_prv', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_username', 'WP Username', 'kw_person_kw_username', 'person_kw_fellow', 'normal', 'default');
 }
 
 function add_person_livingston_metaboxes() {
@@ -463,6 +464,10 @@ function kw_person_kw_personal_email() {
 
 function kw_person_kw_personal_phone() {
     generate_html_for_custom_field("kw_person_kw_personal_phone");
+}
+
+function kw_person_kw_username() {
+    generate_html_for_custom_field("kw_person_kw_username");
 }
 
 function kw_person_kw_prv() {
@@ -750,6 +755,7 @@ function kw_save_events_meta($post_id, $post) {
     $events_meta['_kw_person_kw_personal_email'] = !empty($_POST['_kw_person_kw_personal_email']) ? $_POST['_kw_person_kw_personal_email'] : null;
     $events_meta['_kw_person_kw_personal_phone'] = !empty($_POST['_kw_person_kw_personal_phone']) ? $_POST['_kw_person_kw_personal_phone'] : null;
     $events_meta['_kw_person_kw_prv'] = !empty($_POST['_kw_person_kw_prv']) ? $_POST['_kw_person_kw_prv'] : null;
+    $events_meta['_kw_person_kw_username'] = !empty($_POST['_kw_person_kw_username']) ? $_POST['_kw_person_kw_username'] : null;
 
     //Livingston Winners Custom Fields
     $events_meta['_kw_person_liv_first_name'] = !empty($_POST['_kw_person_liv_first_name']) ? $_POST['_kw_person_liv_first_name'] : null;
