@@ -1021,3 +1021,6 @@ function show_future_posts($posts)
              return $posts;
 }
 add_filter('the_posts', 'show_future_posts');
+
+// Add a custom user role
+add_role( 'alumni', __('Alumni'),array());
