@@ -58,3 +58,20 @@ function add_in_special_field_data($pmeta,$fellow){
     );
     return $fellow;
 }
+
+function use_alum($alum,$fellows){
+    //alum is username of alum
+    //fellows is array of fellows
+    $res = array();
+    if(!empty($fellows)){
+        foreach($fellows as $fellow){
+            $pmeta = get_post_meta($fellow->ID);
+            if(!empty($pmeta["_kw_person_kw_username"][0]) && $pmeta["_kw_person_kw_username"][0] == $alum){
+                $fellow = add_in_special_field_data($pmeta,$fellow);
+                $res[] = $fellow;
+                break;
+            } 
+        }
+    }
+    return $res;
+}
