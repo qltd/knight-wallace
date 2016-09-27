@@ -15,6 +15,9 @@ $parent = !empty($parent_id) ? get_post($parent_id[0]) : false;
 //get fellows
 $fellows = get_posts(array('post_type'=>'person_kw_fellow','posts_per_page'=> -1));
 $alum = sort_alum($fellows);
+//current user
+$user = wp_get_current_user();
+$alum_loggedin = !empty($user) && $user->roles[0] == 'administrator' || $user->roles[0] == 'alumni' ? true : false;
 ?>
 
 <?php if(!empty($parent)): ?>
@@ -52,8 +55,10 @@ $alum = sort_alum($fellows);
                                     <?php echo $spv_ai->post_title; ?>
                                 </h3>
                                     <p><?php echo !empty($spv_ai->extra_data['location']) ? $spv_ai->extra_data['location'] : '';?></p>
+                                    <?php if($alum_loggedin): ?>
                                     <p><?php echo !empty($spv_ai->extra_data['phone']) ? $spv_ai->extra_data['phone'] : '';?></p>
                                     <p><?php echo !empty($spv_ai->extra_data['email']) ? $spv_ai->extra_data['email'] : '';?></p>
+                                    <?php endif; ?>
                             </div>
                             
                         </div>
@@ -84,8 +89,12 @@ $alum = sort_alum($fellows);
                                     <?php echo $spv_aib->post_title; ?>
                                 </h3>
                                     <p><?php echo !empty($spv_aib->extra_data['special']) ? $spv_aib->extra_data['special'] : '';?></p>
+
+                                    <?php if($alum_loggedin): ?>
                                     <p><?php echo !empty($spv_aib->extra_data['phone']) ? $spv_aib->extra_data['phone'] : '';?></p>
                                     <p><?php echo !empty($spv_aib->extra_data['email']) ? $spv_aib->extra_data['email'] : '';?></p>
+                                    <?php endif; ?>
+
                             </div>
                             
                         </div>
