@@ -6,6 +6,9 @@
  *
  * @package knight_wallace
  */
+if(!session_id()){
+    session_start();
+}
 
 if ( ! function_exists( 'knight_wallace_setup' ) ) :
 /**

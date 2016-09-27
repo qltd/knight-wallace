@@ -9,6 +9,10 @@ get_header(); ?>
 
 <?php
 include_once('alum_functions.php');
+if(isset($_POST['update_alumni']) && $_POST['update_alumni'] == session_id()){
+    global $wpdb;
+    
+}
 $parent_id = get_post_ancestors($post->ID);
 $parent = !empty($parent_id) ? get_post($parent_id[0]) : false;
 //get current user
@@ -45,7 +49,7 @@ if(!empty($user) && $user->roles[0] == 'administrator' || $user->roles[0] == 'al
         <?php if(!empty($alum)): ?>
             <h2><?php echo $alum[0]->post_title; ?></h2>
             <h3>Current Information: </h3>
-            <form id="alum_update_form" method="post">
+            <form id="alum_update_form" method="post" action="/alumni-profile">
                <div class="row">
                    <div class="medium-6 columns">
                         <label for="location">Location</label>
@@ -110,6 +114,8 @@ if(!empty($user) && $user->roles[0] == 'administrator' || $user->roles[0] == 'al
                 </div> 
                <div class="row">
                    <div class="medium-6 columns">
+                   <input type="hidden" name="update_alumni" value="<?php echo session_id(); ?>" />
+                        <input type="hidden" name="alum_id" value="" />
                         <input type="submit" name="submit" value="update" />
                     </div> 
                 </div> 
