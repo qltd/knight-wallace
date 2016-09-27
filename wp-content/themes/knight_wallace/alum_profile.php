@@ -11,7 +11,29 @@ get_header(); ?>
 include_once('alum_functions.php');
 if(isset($_POST['update_alumni']) && $_POST['update_alumni'] == session_id()){
     global $wpdb;
-    
+    if(!empty($_POST['alum_id'])){
+        $update_special = update_post_meta($_POST['alum_id'],'_kw_person_kw_special',$_POST['special']);
+        $update_location = update_post_meta($_POST['alum_id'],'_kw_person_kw_location',$_POST['location']);
+        $update_email = update_post_meta($_POST['alum_id'],'_kw_person_kw_personal_email',$_POST['email']);
+        $update_phone = update_post_meta($_POST['alum_id'],'_kw_person_kw_personal_phone',$_POST['phone']);
+        $update_permissions = update_post_meta($_POST['alum_id'],'_kw_person_kw_prv',$_POST['permission']);
+        if(!$update_special && !$update_location && !$update_email && !$update_phone && !$update_permissions ){
+            $res_message = '<div data-alert class="alert-box info radius">Nothing updated
+                            <a href="#" class="close">&times;</a></div>';
+        }else{
+            $res_message = '<div data-alert class="alert-box success radius">Successfully updated: '; 
+            $res_message .= !$update_special ? '' : '<br />Speciality';
+            $res_message .= !$update_location ? '' : '<br />Location';
+            $res_message .= !$update_email ? '' : '<br />Email';
+            $res_message .= !$update_phone ? '' : '<br />Phone';
+            $res_message .= !$update_permissions ? '' : '<br />Permissions';
+            $res_message .= '<a href="#" class="close">&times;</a></div>';
+        }
+    }else{
+        $res_message = '<div data-alert class="alert-box warning radius">
+                        Sorry, we can not do that right now.<a href="#" class="close">&times;</a></div>'; 
+    }    
+    echo $res_message;
 }
 $parent_id = get_post_ancestors($post->ID);
 $parent = !empty($parent_id) ? get_post($parent_id[0]) : false;
@@ -115,8 +137,8 @@ if(!empty($user) && $user->roles[0] == 'administrator' || $user->roles[0] == 'al
                <div class="row">
                    <div class="medium-6 columns">
                    <input type="hidden" name="update_alumni" value="<?php echo session_id(); ?>" />
-                        <input type="hidden" name="alum_id" value="" />
-                        <input type="submit" name="submit" value="update" />
+                   <input type="hidden" name="alum_id" value="<?php echo $alum[0]->ID; ?>" />
+                        <input type="submit" name="submit" value="update" class="button" />
                     </div> 
                 </div> 
             </form>
