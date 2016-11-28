@@ -169,6 +169,10 @@ address {
     }
 }
 
+input.gsc-input {
+    height: 100px;
+}
+
 .logo {
     display: block;
     margin-bottom: 4rem;
@@ -435,6 +439,11 @@ address {
     &.inline {
         position: static;
         bottom: auto;
+
+        &.post {
+            display: block;
+            margin-top: 15px;
+        }
     }
 
     ul {
@@ -459,6 +468,20 @@ address {
                 text-transform: uppercase;
             }
         }
+    }
+}
+
+blockquote {
+    border-left: 4px solid $lblue;
+    margin-left: 6rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 4rem;
+
+    p {
+        font-style: italic;
+        padding: 0;
+        color: $ublue !important;
     }
 }
 
@@ -1004,6 +1027,17 @@ ul.pagination {
         overflow-wrap: break-word;
         word-wrap: break-word;
         -ms-word-break: break-all;
+
+        &.tagline {
+            font-style: italic;
+            margin-top: -9px;
+            color: $ublue;
+        }
+
+        &.author, &.date {
+            font-size: 1.6rem;
+            margin-bottom: 0;
+        }
     }
 
     li {
@@ -1553,6 +1587,7 @@ ul.pagination {
     text-align: center;
     font-size: 1.5rem;
     margin-bottom: 2rem;
+    font-style: normal;
 }
 
 /* Search Results */
