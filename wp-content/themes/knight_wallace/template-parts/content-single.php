@@ -27,7 +27,7 @@ $tags = get_the_tags($post->ID);
 <p class="date"><?php echo get_the_date('F d, Y'); ?></p>
 <?php if(!empty($pmeta['Author'])): ?>
             <p class="author">
-              By <?php echo $pmeta['Author'][0]; ?>
+              <?php echo $pmeta['Author'][0]; ?>
             </p>
 <?php endif; ?>
             <div class="entry-meta">
