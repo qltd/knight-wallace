@@ -170,7 +170,15 @@ address {
 }
 
 input.gsc-input {
-    height: 100px;
+    height: 50px;
+    font-size: 2rem;
+}
+
+input.gsc-search-button {
+    height: 50px;
+    margin-top: -9px;
+    font-size: 2rem;
+    background: $lblue;
 }
 
 .logo {
