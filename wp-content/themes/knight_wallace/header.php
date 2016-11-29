@@ -151,14 +151,14 @@ $ni3_title = !empty($main_menu[2]->title) ? $main_menu[2]->title : "Menu Item";
 <div class="row mobile-menu-wrap">
      <div class="large-12 columns nopadding">
         <?php wp_nav_menu(array('menu'=>'mobile')); ?>
-            <div class="row">
+            <?php /* <div class="row">
                 <div class="small-11 small-centered columns">
                     <div class="mobile-search-form">
                      <?php the_widget( 'WP_Widget_Search' ); ?>
                      <i class="fa fa-search mobile-search-icon"></i>
                     </div>
                 </div>
-            </div>
+            </div> */ ?>
     </div>
 </div>
 </nav>
