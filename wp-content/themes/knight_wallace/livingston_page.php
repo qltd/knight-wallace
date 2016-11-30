@@ -215,7 +215,7 @@ if(!empty($alerts)):
             <?php endif; ?>
             <?php if(!empty($news[1])): ?>
             <?php $tags1 = get_the_tags($news[1]->ID); ?>
-            <?php $n2meta = get_post_meta($news[0]->ID); ?>
+            <?php $n2meta = get_post_meta($news[1]->ID); ?>
             <div class="row news snippet-box">
                 <div class="large-12 columns">
                     <div class="news-article">
