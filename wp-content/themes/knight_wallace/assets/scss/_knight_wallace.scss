@@ -388,6 +388,12 @@ input.gsc-search-button {
     margin-bottom: 6rem;
     margin-top: 5rem;
 
+    .row:last-child {
+        .columns {
+            margin-bottom: 0;
+        }
+    }
+
     .columns {
         color: $white;
         margin-bottom: 2rem;
@@ -497,12 +503,13 @@ blockquote {
 }
 
 #alerts {
-    margin-bottom: 8rem;
+    margin-bottom: 6rem;
 }
 
 .alert {
     background: $white-gray;
     margin-bottom: 2rem;
+    max-width: 126rem;
 
     .large-4 {
         background: $red;
@@ -781,6 +788,8 @@ ul.pagination {
 }
 
 .story-list {
+    margin-top: 5rem;
+
     .page-template-news & {
         margin-bottom: 6rem;
     }
@@ -808,7 +817,6 @@ ul.pagination {
         font-size: 2rem;
         height: 18rem;
         justify-content: center;
-        margin-bottom: 5rem;
         padding: 0 2rem;
         width: 100%;
 
@@ -883,7 +891,8 @@ ul.pagination {
 }
 
 .tweet-wrap {
-    margin-bottom: 2rem;
+    margin: 5rem auto 0 auto;
+    max-width: 126.5rem;
 
     .row {
         background: #e5e5e5;

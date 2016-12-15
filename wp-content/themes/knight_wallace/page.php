@@ -49,107 +49,6 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
 </section>
 <?php endif; //end if get_post_thumbnail ?>
 
-<main id="main" class="posts landing-page-content-blocks">
-<div class="row">
-    <div class="medium-6 columns">
-        <?php if(!empty($sorted_content_blocks['Wallace House'][0])): ?>
-        <?php if(!empty($sorted_content_blocks['Wallace House'][0]['image'])): ?>
-        <a href="<?php echo $sorted_content_blocks['Wallace House'][0]['link']; ?>">
-            <?php echo $sorted_content_blocks['Wallace House'][0]['image']; ?>
-        </a>
-        <?php else: ?>
-        <img src="http://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
-        <?php endif; ?>
-        <div class="text">
-            <a href="<?php echo $sorted_content_blocks['Wallace House'][0]['link']; ?>">
-                <h3><?php echo $sorted_content_blocks['Wallace House'][0]['title']; ?></h3>
-                <p>
-                    <?php echo $sorted_content_blocks['Wallace House'][0]['content']; ?>
-                </p>
-            </a>
-        </div>
-        <?php endif; ?>
-    </div>
-    <div class="medium-6 columns">
-        <?php if(!empty($sorted_content_blocks['Wallace House'][1])): ?>
-        <?php if(!empty($sorted_content_blocks['Wallace House'][1]['image'])): ?>
-        <a href="<?php echo $sorted_content_blocks['Wallace House'][1]['link']; ?>">
-            <?php echo $sorted_content_blocks['Wallace House'][1]['image']; ?>
-        </a>
-        <?php else: ?>
-        <img src="http://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
-        <?php endif; ?>
-        <div class="text">
-            <a href="<?php echo $sorted_content_blocks['Wallace House'][1]['link']; ?>">
-                <h3><?php echo $sorted_content_blocks['Wallace House'][1]['title']; ?></h3>
-                <p>
-                    <?php echo $sorted_content_blocks['Wallace House'][1]['content']; ?>
-                </p>
-            </a>
-        </div>
-        <?php endif; ?>
-    </div>
-</div>
-<div class="row">
-    <div class="medium-6 columns">
-        <?php if(!empty($sorted_content_blocks['Wallace House'][2])): ?>
-        <?php if(!empty($sorted_content_blocks['Wallace House'][2]['image'])): ?>
-        <a href="<?php echo $sorted_content_blocks['Wallace House'][2]['link']; ?>">
-            <?php echo $sorted_content_blocks['Wallace House'][2]['image']; ?>
-        </a>
-        <?php else: ?>
-        <img src="http://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
-        <?php endif; ?>
-        <div class="text">
-            <a href="<?php echo $sorted_content_blocks['Wallace House'][2]['link']; ?>">
-                <h3><?php echo $sorted_content_blocks['Wallace House'][2]['title']; ?></h3>
-                <p>
-                    <?php echo $sorted_content_blocks['Wallace House'][2]['content']; ?>
-                </p>
-            </a>
-        </div>
-        <?php endif; ?>
-    </div>
-    <div class="medium-6 columns">
-        <?php if(!empty($sorted_content_blocks['Wallace House'][3])): ?>
-        <?php if(!empty($sorted_content_blocks['Wallace House'][3]['image'])): ?>
-        <a href="<?php echo $sorted_content_blocks['Wallace House'][3]['link']; ?>">
-            <?php echo $sorted_content_blocks['Wallace House'][3]['image']; ?>
-        </a>
-        <?php else: ?>
-        <img src="http://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
-        <?php endif; ?>
-        <div class="text">
-            <a href="<?php echo $sorted_content_blocks['Wallace House'][3]['link']; ?>">
-                <h3><?php echo $sorted_content_blocks['Wallace House'][3]['title']; ?></h3>
-                <p>
-                    <?php echo $sorted_content_blocks['Wallace House'][3]['content']; ?>
-                </p>
-            </a>
-        </div>
-        <?php endif; ?>
-    </div>
-</div>
-</main>
-<?php
-//display alerts
-if(!empty($alerts)):
-?>
-<section id="alerts">
-    <?php foreach($alerts as $alert): ?>
-    <div class="row alert">
-        <div class="large-4 columns">
-            <p>
-                <strong><?php echo $alert->post_title; ?></strong>
-            <br /><?php echo $alert->post_excerpt; ?></p>
-        </div>
-        <div class="large-8 columns">
-            <p><?php echo $alert->post_content; ?></p>
-        </div>
-    </div>
-    <?php endforeach; ?>
-</section>
-<?php endif; ?>
 <!--news-->
 <section class="story-list news">
     <div class="row">
@@ -267,8 +166,109 @@ if(!empty($alerts)):
             </div>
         </div>
     </div>
-
-
 </section>
+
+<main id="main" class="posts landing-page-content-blocks">
+<div class="row">
+    <div class="medium-6 columns">
+        <?php if(!empty($sorted_content_blocks['Wallace House'][0])): ?>
+        <?php if(!empty($sorted_content_blocks['Wallace House'][0]['image'])): ?>
+        <a href="<?php echo $sorted_content_blocks['Wallace House'][0]['link']; ?>">
+            <?php echo $sorted_content_blocks['Wallace House'][0]['image']; ?>
+        </a>
+        <?php else: ?>
+        <img src="http://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
+        <?php endif; ?>
+        <div class="text">
+            <a href="<?php echo $sorted_content_blocks['Wallace House'][0]['link']; ?>">
+                <h3><?php echo $sorted_content_blocks['Wallace House'][0]['title']; ?></h3>
+                <p>
+                    <?php echo $sorted_content_blocks['Wallace House'][0]['content']; ?>
+                </p>
+            </a>
+        </div>
+        <?php endif; ?>
+    </div>
+    <div class="medium-6 columns">
+        <?php if(!empty($sorted_content_blocks['Wallace House'][1])): ?>
+        <?php if(!empty($sorted_content_blocks['Wallace House'][1]['image'])): ?>
+        <a href="<?php echo $sorted_content_blocks['Wallace House'][1]['link']; ?>">
+            <?php echo $sorted_content_blocks['Wallace House'][1]['image']; ?>
+        </a>
+        <?php else: ?>
+        <img src="http://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
+        <?php endif; ?>
+        <div class="text">
+            <a href="<?php echo $sorted_content_blocks['Wallace House'][1]['link']; ?>">
+                <h3><?php echo $sorted_content_blocks['Wallace House'][1]['title']; ?></h3>
+                <p>
+                    <?php echo $sorted_content_blocks['Wallace House'][1]['content']; ?>
+                </p>
+            </a>
+        </div>
+        <?php endif; ?>
+    </div>
+</div>
+<div class="row">
+    <div class="medium-6 columns">
+        <?php if(!empty($sorted_content_blocks['Wallace House'][2])): ?>
+        <?php if(!empty($sorted_content_blocks['Wallace House'][2]['image'])): ?>
+        <a href="<?php echo $sorted_content_blocks['Wallace House'][2]['link']; ?>">
+            <?php echo $sorted_content_blocks['Wallace House'][2]['image']; ?>
+        </a>
+        <?php else: ?>
+        <img src="http://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
+        <?php endif; ?>
+        <div class="text">
+            <a href="<?php echo $sorted_content_blocks['Wallace House'][2]['link']; ?>">
+                <h3><?php echo $sorted_content_blocks['Wallace House'][2]['title']; ?></h3>
+                <p>
+                    <?php echo $sorted_content_blocks['Wallace House'][2]['content']; ?>
+                </p>
+            </a>
+        </div>
+        <?php endif; ?>
+    </div>
+    <div class="medium-6 columns">
+        <?php if(!empty($sorted_content_blocks['Wallace House'][3])): ?>
+        <?php if(!empty($sorted_content_blocks['Wallace House'][3]['image'])): ?>
+        <a href="<?php echo $sorted_content_blocks['Wallace House'][3]['link']; ?>">
+            <?php echo $sorted_content_blocks['Wallace House'][3]['image']; ?>
+        </a>
+        <?php else: ?>
+        <img src="http://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
+        <?php endif; ?>
+        <div class="text">
+            <a href="<?php echo $sorted_content_blocks['Wallace House'][3]['link']; ?>">
+                <h3><?php echo $sorted_content_blocks['Wallace House'][3]['title']; ?></h3>
+                <p>
+                    <?php echo $sorted_content_blocks['Wallace House'][3]['content']; ?>
+                </p>
+            </a>
+        </div>
+        <?php endif; ?>
+    </div>
+</div>
+</main>
+<?php
+//display alerts
+if(!empty($alerts)):
+?>
+<section id="alerts">
+    <?php foreach($alerts as $alert): ?>
+    <div class="row alert">
+        <div class="large-4 columns">
+            <p>
+                <strong><?php echo $alert->post_title; ?></strong>
+            <br /><?php echo $alert->post_excerpt; ?></p>
+        </div>
+        <div class="large-8 columns">
+            <p><?php echo $alert->post_content; ?></p>
+        </div>
+    </div>
+    <?php endforeach; ?>
+</section>
+<?php endif; ?>
+
 
 <?php get_footer(); ?>
