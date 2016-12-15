@@ -179,7 +179,6 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
                 <a href="https://twitter.com/<?php echo $twitter_username; ?>"><i class="fa fa-twitter"></i></a>
             </div>
             <div class="small-10 columns">
-                <pre><?php print_r($twitter); ?></pre>
                 <a href="https://twitter.com/<?php echo $twitter_username; ?>/status/<?php echo $tweet->id_str; ?>" target="_blank"><strong><?php echo '@'.$twitter_username.'</strong><br />'.$tweet->text; ?></a>
             </div>
         </div>
