@@ -16,6 +16,8 @@ include_once('helpers.php');
 $alerts = get_posts(array('category_name'=>'alert'));
 $news = get_posts(array('category_name'=>'news'));
 $libs = get_posts(array('post_type'=>'library'));
+$events = get_posts(array('category_name'=>'events','post_status'=>'any','posts_per_page'=> 2 ));
+$sorted_events = sort_events($events);
 $content_blocks = get_posts(array('post_type'=>'homepage_fcb','posts_per_page'=>200));
 $sorted_content_blocks = sort_homepage_featured_content_blocks($content_blocks);
 $hero = get_posts(array('post_type'=>'hero_content','posts_per_page'=>200));
@@ -48,6 +50,156 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
     </div>
 </section>
 <?php endif; //end if get_post_thumbnail ?>
+
+<!--news-->
+<section class="story-list news">
+    <div class="row">
+        <!--display first news item-->
+        <div class="large-6 columns">
+            <div class="heading">
+                <h3>Recent News</h3>
+            </div>
+            <?php if(!empty($news[0])): ?>
+            <?php $tags = get_the_tags($news[0]->ID); ?>
+            <?php $n1meta = get_post_meta($news[0]->ID); ?>
+            <div class="row news snippet-box">
+                <div class="large-12 columns">
+                    <div class="news-article">
+                        <div class="text">
+                            <h4><a href="<?php echo $news[0]->guid; ?>"><?php echo $news[0]->post_title; ?></a></h4>
+                            <div class="date"><?php echo !empty($n1meta['Author']) ? $n1meta['Author'][0] : ''; ?></div>
+                            <div class="tags-list">
+                                <ul>
+                                    <?php if(!empty($tags)):?>
+                                    <?php foreach($tags as $tag): ?>
+                                    <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
+                                    <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </ul>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
+            <?php if(!empty($news[1])): ?>
+            <?php $tags1 = get_the_tags($news[1]->ID); ?>
+            <?php $n2meta = get_post_meta($news[1]->ID); ?>
+            <div class="row news snippet-box">
+                <div class="large-12 columns">
+                    <div class="news-article">
+                        <div class="text">
+                            <h4><a href="<?php echo $news[1]->guid; ?>"><?php echo $news[1]->post_title; ?></a></h4>
+                            <div class="date"><?php echo !empty($n2meta['Author']) ? $n2meta['Author'][0] : ''; ?></div>
+                            <div class="tags-list">
+                                <ul>
+                                    <?php if(!empty($tags1)):?>
+                                    <?php foreach($tags1 as $tag1): ?>
+                                    <li><?php echo $tag1->name; ?> <span class="divider">|</span></li>
+                                    <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </ul>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
+            <div class="row">
+                <div class="large-12 columns"><a href="/wallace-house/news/" class="more-posts">See all Wallace House news &raquo;</a></div>
+            </div>
+        </div>
+        <!--end display first news item-->
+        <!--Library Item-->
+        <div class="large-6 columns">
+            <?php if(!empty($sorted_events['future_events'])): ?>
+                <div class="heading">
+                     <h3>Events</h3>
+                </div>
+                <?php foreach ($events as $event): ?>
+                    <div class="row news snippet-box">
+                        <div class="large-12 columns">
+                            <div class="news-article"> <div class="text">
+                                <h4><a href="<?php echo get_permalink($event->ID); ?>"><?php echo $event->post_title; ?></a></h4>
+                                <?php $tagslib = get_the_tags($event->ID); ?>
+                                <div class="tags-list">
+                                    <ul>
+                                        <?php if(!empty($tagslib)):?>
+                                        <?php foreach($tagslib as $t): ?>
+                                        <li><?php echo $t->name; ?> <span class="divider">|</span></li>
+                                        <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </ul>
+                                    <br />
+                                </div></div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="heading">
+                    <h3>From The Wallace House Library</h3>
+                </div>
+                <?php if(!empty($libs[0])): ?>
+                <?php $l1meta = get_post_meta($libs[0]->ID); ?>
+                <div class="row news snippet-box">
+                    <div class="large-12 columns">
+                        <div class="news-article"> <div class="text">
+                            <h4><a href="/library/<?php echo $libs[0]->post_name; ?>"><?php echo $libs[0]->post_title; ?></a></h4>
+                            <div class="date"><?php echo !empty($l1meta['_library_author']) ? $l1meta['_library_author'][0] : ''; ?></div>
+                            <?php $tagslib = get_the_tags($libs[0]->ID); ?>
+                            <div class="tags-list">
+                                <ul>
+                                    <?php if(!empty($tagslib)):?>
+                                    <?php foreach($tagslib as $t): ?>
+                                    <li><?php echo $t->name; ?> <span class="divider">|</span></li>
+                                    <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </ul>
+                                <br />
+                            </div></div>
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php if(!empty($libs[1])): ?>
+                <?php $l2meta = get_post_meta($libs[1]->ID); ?>
+                <div class="row news snippet-box">
+                    <div class="large-12 columns">
+                        <div class="news-article">
+                            <div class="text">
+                                <h4><a href="/library/<?php echo $libs[1]->post_name; ?>"><?php echo $libs[1]->post_title; ?></a></h4>
+                            <div class="date"><?php echo !empty($l2meta['_library_author']) ? $l2meta['_library_author'][0] : ''; ?></div>
+                                <div class="tags-list">
+                                    <?php $tagslib1 = get_the_tags($libs[1]->ID); ?>
+                                    <ul>
+                                        <?php if(!empty($tagslib1)):?>
+                                        <?php foreach($tagslib1 as $t1): ?>
+                                        <li><?php echo $t1->name; ?> <span class="divider">|</span></li>
+                                        <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </ul>
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
+            <?php endif; ?>
+            <div class="row">
+                <?php if(!empty($sorted_events['future_events'])): ?>
+                    <div class="large-12 columns"><a href="/wallace-house/events/" class="more-posts">See all Wallace House Events &raquo;</a></div>
+                <?php else: ?>
+                    <div class="large-12 columns"><a href="/wallace-house/library/" class="more-posts">See all Wallace House library items &raquo;</a></div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</section>
 
 <main id="main" class="posts landing-page-content-blocks">
 <div class="row">
@@ -150,126 +302,6 @@ if(!empty($alerts)):
     <?php endforeach; ?>
 </section>
 <?php endif; ?>
-<!--news-->
-<section class="story-list news">
-    <div class="row">
-        <!--display first news item-->
-        <div class="large-6 columns">
-            <div class="heading">
-                <h3>Recent News</h3>
-            </div>
-            <?php if(!empty($news[0])): ?>
-            <?php $tags = get_the_tags($news[0]->ID); ?>
-            <?php $n1meta = get_post_meta($news[0]->ID); ?>
-            <div class="row news snippet-box">
-                <div class="large-12 columns">
-                    <div class="news-article">
-                        <div class="text">
-                            <h4><a href="<?php echo $news[0]->guid; ?>"><?php echo $news[0]->post_title; ?></a></h4>
 
-                            <div class="date"><?php echo !empty($n1meta['Author']) ? $n1meta['Author'][0] : ''; ?></div>
-                            <div class="tags-list">
-                                <ul>
-                                    <?php if(!empty($tags)):?>
-                                    <?php foreach($tags as $tag): ?>
-                                    <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
-                                    <?php endforeach; ?>
-                                    <?php endif; ?>
-                                </ul>
-                                <br />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <?php endif; ?>
-            <?php if(!empty($news[1])): ?>
-            <?php $tags1 = get_the_tags($news[1]->ID); ?>
-            <?php $n2meta = get_post_meta($news[0]->ID); ?>
-            <div class="row news snippet-box">
-                <div class="large-12 columns">
-                    <div class="news-article">
-                        <div class="text">
-                            <h4><a href="<?php echo $news[1]->guid; ?>"><?php echo $news[1]->post_title; ?></a></h4>
-                            <div class="date"><?php echo !empty($n2meta['Author']) ? $n2meta['Author'][0] : ''; ?></div>
-                            <div class="tags-list">
-                                <ul>
-                                    <?php if(!empty($tags1)):?>
-                                    <?php foreach($tags1 as $tag1): ?>
-                                    <li><?php echo $tag1->name; ?> <span class="divider">|</span></li>
-                                    <?php endforeach; ?>
-                                    <?php endif; ?>
-                                </ul>
-                                <br />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <?php endif; ?>
-            <div class="row">
-                <div class="large-12 columns"><a href="/wallace-house/news/" class="more-posts">See all Wallace House news &raquo;</a></div>
-            </div>
-        </div>
-        <!--end display first news item-->
-        <!--Library Item-->
-        <div class="large-6 columns">
-            <div class="heading">
-                <h3>From the Wallace House Library</h3>
-            </div>
-            <?php if(!empty($libs[0])): ?>
-            <?php $l1meta = get_post_meta($libs[0]->ID); ?>
-            <div class="row news snippet-box">
-                <div class="large-12 columns">
-                    <div class="news-article"> <div class="text">
-                        <h4><a href="/library/<?php echo $libs[0]->post_name; ?>"><?php echo $libs[0]->post_title; ?></a></h4>
-                        <div class="date"><?php echo !empty($l1meta['_library_author']) ? $l1meta['_library_author'][0] : ''; ?></div>
-                        <?php $tagslib = get_the_tags($libs[0]->ID); ?>
-                        <div class="tags-list">
-                            <ul>
-                                <?php if(!empty($tagslib)):?>
-                                <?php foreach($tagslib as $t): ?>
-                                <li><?php echo $t->name; ?> <span class="divider">|</span></li>
-                                <?php endforeach; ?>
-                                <?php endif; ?>
-                            </ul>
-                            <br />
-                        </div></div>
-                    </div>
-                </div>
-            </div>
-            <?php endif; ?>
-            <?php if(!empty($libs[1])): ?>
-            <?php $l2meta = get_post_meta($libs[1]->ID); ?>
-            <div class="row news snippet-box">
-                <div class="large-12 columns">
-                    <div class="news-article">
-                        <div class="text">
-                            <h4><a href="/library/<?php echo $libs[1]->post_name; ?>"><?php echo $libs[1]->post_title; ?></a></h4>
-                        <div class="date"><?php echo !empty($l2meta['_library_author']) ? $l2meta['_library_author'][0] : ''; ?></div>
-                            <div class="tags-list">
-                                <?php $tagslib1 = get_the_tags($libs[1]->ID); ?>
-                                <ul>
-                                    <?php if(!empty($tagslib1)):?>
-                                    <?php foreach($tagslib1 as $t1): ?>
-                                    <li><?php echo $t1->name; ?> <span class="divider">|</span></li>
-                                    <?php endforeach; ?>
-                                    <?php endif; ?>
-                                </ul>
-                                <br />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <?php endif; ?>
-            <div class="row">
-                <div class="large-12 columns"><a href="/wallace-house/library/" class="more-posts">See all Wallace House library items &raquo;</a></div>
-            </div>
-        </div>
-    </div>
-
-
-</section>
 
 <?php get_footer(); ?>

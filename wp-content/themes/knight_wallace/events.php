@@ -1,6 +1,6 @@
 <?php
 /**
-* Template Name: Events 
+* Template Name: Events
 *
 *
 * @package knight_wallace
@@ -50,7 +50,7 @@ $sorted_events = sort_events($news);
         </div>
 <?php $news = $sorted_events['future_events']; ?>
 <?php include(locate_template('template-parts/news.php')); ?>
-   </div> 
+   </div>
 <?php endif; ?>
 <?php if(!empty($sorted_events['past_events'])):?>
    <div class="future-events story-list">
@@ -63,7 +63,7 @@ $sorted_events = sort_events($news);
         </div>
 <?php $news = $sorted_events['past_events']; ?>
 <?php include(locate_template('template-parts/news.php')); ?>
-   </div> 
+   </div>
 <?php endif; ?>
 
 <?php get_footer(); ?>

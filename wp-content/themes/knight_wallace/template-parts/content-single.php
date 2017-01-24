@@ -24,6 +24,7 @@ $tags = get_the_tags($post->ID);
                  <?php echo $pmeta['tagline'][0]; ?>
             </p>
 <?php endif; ?>
+<p class="date"><?php echo get_the_date('F d, Y'); ?></p>
 <?php if(!empty($pmeta['Author'])): ?>
             <p class="author">
               <?php echo $pmeta['Author'][0]; ?>
@@ -32,8 +33,9 @@ $tags = get_the_tags($post->ID);
             <div class="entry-meta">
             </div><!-- .entry-meta -->
         </header><!-- .entry-header -->
+
             <?php if(!empty($tags)):?>
-            <div class="tags-list inline">
+            <div class="tags-list inline post">
                 <ul>
                     <?php foreach($tags as $tag): ?>
                     <li><?php echo $tag->name; ?> <span class="divider">|</span></li>

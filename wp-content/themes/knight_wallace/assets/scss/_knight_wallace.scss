@@ -169,6 +169,21 @@ address {
     }
 }
 
+input.gsc-input {
+    height: 50px;
+    font-size: 2rem;
+}
+
+input.gsc-search-button {
+    height: 50px;
+    margin-top: -9px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+    background: $lblue;
+    padding: 0 4rem;
+}
+
 .logo {
     display: block;
     margin-bottom: 4rem;
@@ -373,6 +388,12 @@ address {
     margin-bottom: 6rem;
     margin-top: 5rem;
 
+    .row:last-child {
+        .columns {
+            margin-bottom: 0;
+        }
+    }
+
     .columns {
         color: $white;
         margin-bottom: 2rem;
@@ -435,6 +456,11 @@ address {
     &.inline {
         position: static;
         bottom: auto;
+
+        &.post {
+            display: block;
+            margin-top: 15px;
+        }
     }
 
     ul {
@@ -462,13 +488,28 @@ address {
     }
 }
 
+blockquote {
+    border-left: 4px solid $lblue;
+    margin-left: 6rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 4rem;
+
+    p {
+        font-style: italic;
+        padding: 0;
+        color: $ublue !important;
+    }
+}
+
 #alerts {
-    margin-bottom: 8rem;
+    margin-bottom: 6rem;
 }
 
 .alert {
     background: $white-gray;
     margin-bottom: 2rem;
+    max-width: 126rem;
 
     .large-4 {
         background: $red;
@@ -747,6 +788,8 @@ ul.pagination {
 }
 
 .story-list {
+    margin-top: 5rem;
+
     .page-template-news & {
         margin-bottom: 6rem;
     }
@@ -774,7 +817,6 @@ ul.pagination {
         font-size: 2rem;
         height: 18rem;
         justify-content: center;
-        margin-bottom: 5rem;
         padding: 0 2rem;
         width: 100%;
 
@@ -849,7 +891,8 @@ ul.pagination {
 }
 
 .tweet-wrap {
-    margin-bottom: 2rem;
+    margin: 5rem auto 0 auto;
+    max-width: 126.5rem;
 
     .row {
         background: #e5e5e5;
@@ -1004,6 +1047,17 @@ ul.pagination {
         overflow-wrap: break-word;
         word-wrap: break-word;
         -ms-word-break: break-all;
+
+        &.tagline {
+            font-style: italic;
+            margin-top: -9px;
+            color: $ublue;
+        }
+
+        &.author, &.date {
+            font-size: 1.6rem;
+            margin-bottom: 0;
+        }
     }
 
     li {
@@ -1553,6 +1607,7 @@ ul.pagination {
     text-align: center;
     font-size: 1.5rem;
     margin-bottom: 2rem;
+    font-style: normal;
 }
 
 /* Search Results */
