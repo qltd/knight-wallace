@@ -114,7 +114,7 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
         <!--end display first news item-->
         <!--Library Item-->
         <div class="large-6 columns">
-            <?php if(!empty($sorted_events['future_events'])): ?>
+            <?php if(!empty($events)): ?>
                 <div class="heading">
                      <h3>Events</h3>
                 </div>
@@ -191,7 +191,7 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
                 <?php endif; ?>
             <?php endif; ?>
             <div class="row">
-                <?php if(!empty($sorted_events['future_events'])): ?>
+                <?php if(!empty($events['future_events'])): ?>
                     <div class="large-12 columns"><a href="/wallace-house/events/" class="more-posts">See all Wallace House Events &raquo;</a></div>
                 <?php else: ?>
                     <div class="large-12 columns"><a href="/wallace-house/library/" class="more-posts">See all Wallace House library items &raquo;</a></div>
