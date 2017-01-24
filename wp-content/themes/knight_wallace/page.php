@@ -164,30 +164,31 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
                     </div>
                 </div>
                 <?php endif; ?>
-            <?php endif; ?>
-            <?php if(!empty($libs[1])): ?>
-            <?php $l2meta = get_post_meta($libs[1]->ID); ?>
-            <div class="row news snippet-box">
-                <div class="large-12 columns">
-                    <div class="news-article">
-                        <div class="text">
-                            <h4><a href="/library/<?php echo $libs[1]->post_name; ?>"><?php echo $libs[1]->post_title; ?></a></h4>
-                        <div class="date"><?php echo !empty($l2meta['_library_author']) ? $l2meta['_library_author'][0] : ''; ?></div>
-                            <div class="tags-list">
-                                <?php $tagslib1 = get_the_tags($libs[1]->ID); ?>
-                                <ul>
-                                    <?php if(!empty($tagslib1)):?>
-                                    <?php foreach($tagslib1 as $t1): ?>
-                                    <li><?php echo $t1->name; ?> <span class="divider">|</span></li>
-                                    <?php endforeach; ?>
-                                    <?php endif; ?>
-                                </ul>
-                                <br />
+
+                <?php if(!empty($libs[1])): ?>
+                <?php $l2meta = get_post_meta($libs[1]->ID); ?>
+                <div class="row news snippet-box">
+                    <div class="large-12 columns">
+                        <div class="news-article">
+                            <div class="text">
+                                <h4><a href="/library/<?php echo $libs[1]->post_name; ?>"><?php echo $libs[1]->post_title; ?></a></h4>
+                            <div class="date"><?php echo !empty($l2meta['_library_author']) ? $l2meta['_library_author'][0] : ''; ?></div>
+                                <div class="tags-list">
+                                    <?php $tagslib1 = get_the_tags($libs[1]->ID); ?>
+                                    <ul>
+                                        <?php if(!empty($tagslib1)):?>
+                                        <?php foreach($tagslib1 as $t1): ?>
+                                        <li><?php echo $t1->name; ?> <span class="divider">|</span></li>
+                                        <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </ul>
+                                    <br />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <?php endif; ?>
             <?php endif; ?>
             <div class="row">
                 <?php if(!empty($sorted_events['future_events'])): ?>
