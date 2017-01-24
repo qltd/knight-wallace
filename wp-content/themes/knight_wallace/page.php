@@ -116,7 +116,7 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
         <div class="large-6 columns">
             <?php if(!empty($sorted_events['future_events'])): ?>
                 <div class="heading">
-                    <h3>Events</h3>
+                     <h3>Events</h3>
                 </div>
                 <?php foreach ($events as $event): ?>
                     <div class="row news snippet-box">
