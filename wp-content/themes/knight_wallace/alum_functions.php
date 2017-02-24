@@ -33,17 +33,28 @@ function remove_opt_outs($alum){
     return $res;
 }
 
+// $field = meta key
+// creates an associative array of meta values and adds each fellow post object to the appropriate array
 function sort_alum_by($field,$alum){
     $res = array();
     foreach($alum as $a){
+
         $pmeta = get_post_meta($a->ID);
-        $a = add_in_special_field_data($pmeta,$a);
-        if(array_key_exists($pmeta[$field][0],$res)){
-            $res[$pmeta[$field][0]][] = $a;
-        }else{
-            $res[$pmeta[$field][0]] = array();
-            $res[$pmeta[$field][0]][] = $a;
-        } 
+        $a = add_in_special_field_data($pmeta,$a); // why is this done here? can we just do this once instead?
+
+        // some meta values may contain comma separated lists of items
+        // so let's loop through each of those items
+        $pmeta_values = $pmeta[$field][0];
+        $pmeta_values = explode(', ',$pmeta_values);
+        foreach ($pmeta_values as $value){
+            if(array_key_exists($value, $res)){
+                $res[$value][] = $a;
+            }
+            else {
+                $res[$value] = array();
+                $res[$value][] = $a;
+            }
+        }
     }
     return $res;
 }
@@ -52,9 +63,12 @@ function add_in_special_field_data($pmeta,$fellow){
     $fellow->extra_data = array(
         'location' => $pmeta["_kw_person_kw_location"][0],
         'special' => $pmeta["_kw_person_kw_special"][0],
+        'available_for' => $pmeta["_kw_person_kw_available_for"][0],
+        'additional_info' => $pmeta["_kw_person_kw_additional_info"][0],
         'phone' => $pmeta["_kw_person_kw_personal_phone"][0],
         'email' => $pmeta["_kw_person_kw_personal_email"][0],
-        'permission' => $pmeta["_kw_person_kw_prv"][0],
+        'twitter' => $pmeta["_kw_person_kw_personal_twitter"][0],
+        'permission' => $pmeta["_kw_person_kw_prv"][0]
     );
     return $fellow;
 }
