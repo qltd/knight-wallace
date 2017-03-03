@@ -42,7 +42,7 @@ $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
             <?php $c = 0; ?>
             <?php $count = count($children); ?>
             <?php foreach($children as $child): ?>
-                <li><a href="<?php echo $child->guid; ?>"><?php echo $child->post_title; ?></a>
+                <li><a href="<?php echo get_permalink($child->ID); ?>"><?php echo $child->post_title; ?></a>
                 <?php if($c < $count - 1): ?>
                     &nbsp;|&nbsp;
                 <?php endif; ?>

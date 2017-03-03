@@ -299,13 +299,20 @@ function add_person_kw_fellow_metaboxes() {
     add_meta_box('kw_person_kw_study_pro_title', 'Study Project Title', 'kw_person_kw_study_pro_title', 'person_kw_fellow', 'normal', 'default');
     add_meta_box('kw_person_kw_current_job_title', 'Job Title', 'kw_person_kw_current_job_title', 'person_kw_fellow', 'normal', 'default');
     add_meta_box('kw_person_kw_aff', 'Affiliation', 'kw_person_kw_aff', 'person_kw_fellow', 'normal', 'default');
-    add_meta_box('kw_person_kw_lib', 'Library Item', 'kw_person_kw_lib', 'person_kw_fellow', 'normal', 'default');
+    //add_meta_box('kw_person_kw_lib', 'Library Item', 'kw_person_kw_lib', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_locator_current_job_title', 'Current Job Title', 'kw_person_kw_locator_current_job_title', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_current_aff', 'Current Affiliation', 'kw_person_kw_current_aff', 'person_kw_fellow', 'normal', 'default');
     add_meta_box('kw_person_kw_special', 'Specialty', 'kw_person_kw_special', 'person_kw_fellow', 'normal', 'default');
-    add_meta_box('kw_person_kw_location', 'Location', 'kw_person_kw_location', 'person_kw_fellow', 'normal', 'default');
-    add_meta_box('kw_person_kw_personal_email', 'Personal Email', 'kw_person_kw_personal_email', 'person_kw_fellow', 'normal', 'default');
-    add_meta_box('kw_person_kw_personal_phone', 'Personal Phone', 'kw_person_kw_personal_phone', 'person_kw_fellow', 'normal', 'default');
-    add_meta_box('kw_person_kw_prv', 'Display Alumni?', 'kw_person_kw_prv', 'person_kw_fellow', 'normal', 'default');
-    add_meta_box('kw_person_kw_username', 'WP Username', 'kw_person_kw_username', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_city', 'Current Location - City', 'kw_person_kw_city', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_state', 'Current Location - State (leave blank if outside USA)', 'kw_person_kw_state', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_country', 'Current Location - Country (leave blank if USA)', 'kw_person_kw_country', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_available_for', 'Available For (private)', 'kw_person_kw_available_for', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_additional_info', 'Additional Info (private)', 'kw_person_kw_additional_info', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_personal_email', 'Personal Email (private)', 'kw_person_kw_personal_email', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_personal_phone', 'Personal Phone (private)', 'kw_person_kw_personal_phone', 'person_kw_fellow', 'normal', 'default');
+    add_meta_box('kw_person_kw_personal_twitter', 'Personal Twitter Handle (private)', 'kw_person_kw_personal_twitter', 'person_kw_fellow', 'normal', 'default');
+    //add_meta_box('kw_person_kw_prv', 'Display Alumni?', 'kw_person_kw_prv', 'person_kw_fellow', 'normal', 'default');
+    //add_meta_box('kw_person_kw_username', 'WP Username', 'kw_person_kw_username', 'person_kw_fellow', 'normal', 'default');
 }
 
 function add_person_livingston_metaboxes() {
@@ -449,16 +456,40 @@ function kw_person_kw_aff() {
     generate_html_for_custom_field("kw_person_kw_aff");
 }
 
-function kw_person_kw_lib() {
-    generate_html_for_custom_field("kw_person_kw_lib");
+// function kw_person_kw_lib() {
+//     generate_html_for_custom_field("kw_person_kw_lib");
+// }
+
+function kw_person_kw_locator_current_job_title() {
+    generate_html_for_custom_field("kw_person_kw_locator_current_job_title");
+}
+
+function kw_person_kw_current_aff() {
+    generate_html_for_custom_field("kw_person_kw_current_aff");
 }
 
 function kw_person_kw_special() {
     generate_html_for_custom_field("kw_person_kw_special");
 }
 
-function kw_person_kw_location() {
-    generate_html_for_custom_field("kw_person_kw_location");
+function kw_person_kw_city() {
+    generate_html_for_custom_field("kw_person_kw_city");
+}
+
+function kw_person_kw_state() {
+    generate_html_for_custom_field("kw_person_kw_state");
+}
+
+function kw_person_kw_country() {
+    generate_html_for_custom_field("kw_person_kw_country");
+}
+
+function kw_person_kw_available_for() {
+    generate_html_for_custom_field("kw_person_kw_available_for");
+}
+
+function kw_person_kw_additional_info() {
+    generate_html_for_custom_field("kw_person_kw_additional_info");
 }
 
 function kw_person_kw_personal_email() {
@@ -469,13 +500,18 @@ function kw_person_kw_personal_phone() {
     generate_html_for_custom_field("kw_person_kw_personal_phone");
 }
 
-function kw_person_kw_username() {
-    generate_html_for_custom_field("kw_person_kw_username");
+function kw_person_kw_personal_twitter() {
+    generate_html_for_custom_field("kw_person_kw_personal_twitter");
 }
 
-function kw_person_kw_prv() {
-    generate_html_for_custom_field("kw_person_kw_prv");
-}
+// function kw_person_kw_username() {
+//     generate_html_for_custom_field("kw_person_kw_username");
+// }
+
+// function kw_person_kw_prv() {
+//     generate_html_for_custom_field("kw_person_kw_prv");
+// }
+
 //Fill Livingstion Awards type custom fields with html
 function kw_person_liv_first_name() {
     //pass in true for the noncename once per custom type
@@ -752,13 +788,20 @@ function kw_save_events_meta($post_id, $post) {
     $events_meta['_kw_person_kw_study_pro_title'] = !empty($_POST['_kw_person_kw_study_pro_title']) ? $_POST['_kw_person_kw_study_pro_title'] : null;
     $events_meta['_kw_person_kw_current_job_title'] = !empty($_POST['_kw_person_kw_current_job_title']) ? $_POST['_kw_person_kw_current_job_title'] : null;
     $events_meta['_kw_person_kw_aff'] = !empty($_POST['_kw_person_kw_aff']) ? $_POST['_kw_person_kw_aff'] : null;
-    $events_meta['_kw_person_kw_lib'] = !empty($_POST['_kw_person_kw_lib']) ? $_POST['_kw_person_kw_lib'] : null;
+    //$events_meta['_kw_person_kw_lib'] = !empty($_POST['_kw_person_kw_lib']) ? $_POST['_kw_person_kw_lib'] : null;
+    $events_meta['_kw_person_kw_locator_current_job_title'] = !empty($_POST['_kw_person_kw_locator_current_job_title']) ? $_POST['_kw_person_kw_locator_current_job_title'] : null;
+    $events_meta['_kw_person_kw_current_aff'] = !empty($_POST['_kw_person_kw_current_aff']) ? $_POST['_kw_person_kw_current_aff'] : null;
     $events_meta['_kw_person_kw_special'] = !empty($_POST['_kw_person_kw_special']) ? $_POST['_kw_person_kw_special'] : null;
-    $events_meta['_kw_person_kw_location'] = !empty($_POST['_kw_person_kw_location']) ? $_POST['_kw_person_kw_location'] : null;
+    $events_meta['_kw_person_kw_city'] = !empty($_POST['_kw_person_kw_city']) ? $_POST['_kw_person_kw_city'] : null;
+    $events_meta['_kw_person_kw_state'] = !empty($_POST['_kw_person_kw_state']) ? $_POST['_kw_person_kw_state'] : null;
+    $events_meta['_kw_person_kw_country'] = !empty($_POST['_kw_person_kw_country']) ? $_POST['_kw_person_kw_country'] : null;
+    $events_meta['_kw_person_kw_available_for'] = !empty($_POST['_kw_person_kw_available_for']) ? $_POST['_kw_person_kw_available_for'] : null;
+    $events_meta['_kw_person_kw_additional_info'] = !empty($_POST['_kw_person_kw_additional_info']) ? $_POST['_kw_person_kw_additional_info'] : null;
     $events_meta['_kw_person_kw_personal_email'] = !empty($_POST['_kw_person_kw_personal_email']) ? $_POST['_kw_person_kw_personal_email'] : null;
     $events_meta['_kw_person_kw_personal_phone'] = !empty($_POST['_kw_person_kw_personal_phone']) ? $_POST['_kw_person_kw_personal_phone'] : null;
-    $events_meta['_kw_person_kw_prv'] = !empty($_POST['_kw_person_kw_prv']) ? $_POST['_kw_person_kw_prv'] : null;
-    $events_meta['_kw_person_kw_username'] = !empty($_POST['_kw_person_kw_username']) ? $_POST['_kw_person_kw_username'] : null;
+    $events_meta['_kw_person_kw_personal_twitter'] = !empty($_POST['_kw_person_kw_personal_twitter']) ? $_POST['_kw_person_kw_personal_twitter'] : null;
+    //$events_meta['_kw_person_kw_prv'] = !empty($_POST['_kw_person_kw_prv']) ? $_POST['_kw_person_kw_prv'] : null;
+    //$events_meta['_kw_person_kw_username'] = !empty($_POST['_kw_person_kw_username']) ? $_POST['_kw_person_kw_username'] : null;
 
     //Livingston Winners Custom Fields
     $events_meta['_kw_person_liv_first_name'] = !empty($_POST['_kw_person_liv_first_name']) ? $_POST['_kw_person_liv_first_name'] : null;
@@ -1033,3 +1076,95 @@ add_filter('the_posts', 'show_future_posts');
 
 // Add a custom user role
 add_role( 'alumni', __('Alumni'),array());
+
+// Hide front end WP toolbar for Alumni users
+add_action('after_setup_theme', 'remove_admin_bar');
+function remove_admin_bar() {
+    if (current_user_can('alumni') && !is_admin()) {
+        show_admin_bar(false);
+    }
+}
+
+
+
+
+add_filter('login_redirect', 'my_login_redirect', 10, 3);    
+function my_login_redirect($redirect_to, $requested_redirect_to, $user) {
+    $referrer = $_SERVER['HTTP_REFERER'];
+    
+    // let's not mess with the default wp-admin/wp-login.php pages
+    if( !empty( $referrer ) && !strstr( $referrer,'wp-login' ) && !strstr( $referrer,'wp-admin' ) ) {
+
+        if (is_wp_error($user)) {
+
+            //Login failed, find out why...
+            $error_types = array_keys($user->errors);
+
+            //Otherwise just get the first error (as far as I know there will only ever be one)
+            if (is_array($error_types) && !empty($error_types)) {
+                $error_type = $error_types[0];
+            }
+            $updated_url = add_query_arg(
+                array(
+                    'login' => 'failed',
+                    'reason' => $error_type
+                ),
+                $referrer
+            );
+            //$redirect_to = $updated_url;
+            //return $redirect_to;
+            wp_redirect( $updated_url ); 
+            exit;
+        }
+        else {
+            wp_redirect( 'http://knight-wallace:8888/knight-wallace/sign-in/' );
+        }
+    }
+    
+    // return the default redirect url
+    return $redirect_to;
+    
+}
+
+// checks if current user has the Alumni role
+function is_alumni_user(){
+    $wp_user = wp_get_current_user();
+
+    if(!$wp_user){ return 'error'; }
+
+    if( $wp_user->roles[0] === 'alumni' || $wp_user->roles[0] === 'administrator') { return true; }
+    return false; 
+
+}
+
+function login_error(){
+
+    if( isset($_GET['login']) ){ $login = $_GET['login']; }
+    if( isset($_GET['reason']) ){ $reason = $_GET['reason']; }
+
+    if(!$login || !$reason){ return; }
+
+    switch ($reason) {
+        case 'empty_username':
+            $error_message = 'The username field is empty.';
+            break;
+        case 'empty_password':
+            $error_message = 'The password field is empty.';
+            break;
+        case 'invalid_username':
+            $error_message = 'Invalid username';
+            break;
+        case 'incorrect_password':
+            $error_message = 'The password you entered is incorrect';
+            break;
+        default:
+            $error_message = 'Sorry, an unknown error occured when logging you in.';
+            break;
+    }
+
+    return '<p><strong>ERROR</strong>: '.$error_message.'</p>';
+
+}
+
+
+
