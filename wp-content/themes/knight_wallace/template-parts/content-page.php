@@ -40,7 +40,7 @@ $pmeta = get_post_meta($post->ID);
             <?php $c = 0; ?>
             <?php $count = count($children); ?>
             <?php foreach($children as $child): ?>
-                <li><a href="<?php echo $child->guid; ?>"><?php echo $child->post_title; ?></a>
+                <li><a href="<?php echo get_permalink($child->ID); ?>"><?php echo $child->post_title; ?></a>
                 <?php if($c < $count - 1): ?>
                     &nbsp;|&nbsp;
                 <?php endif; ?>
@@ -52,6 +52,27 @@ $pmeta = get_post_meta($post->ID);
     </div>
 </div>
 <?php endif; ?>
+
+
+<?php 
+// custom local navigation for the Alumni Locator page 
+if(get_page_template_slug() == 'alum_locate.php'):
+$sort_by = htmlspecialchars($_GET['alumni-sort-by']); // determine the current 'search by' term
+?>
+<div class="in-this-section-nav">
+    <div class="row">
+        <div class="large-12 columns">
+            <ul class="inline">
+                <li><?php if(!$sort_by || $sort_by === 'usa'): ?>USA<?php else : ?><a href="<?php get_permalink(); ?>?alumni-sort-by=usa">USA</a><?php endif; ?>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
+                <li><?php if($sort_by === 'worldwide'): ?>Worldwide<?php else : ?><a href="<?php get_permalink(); ?>?alumni-sort-by=worldwide">Worldwide</a><?php endif; ?>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
+                <li><?php if($sort_by === 'subject'): ?>By Subject Matter<?php else : ?><a href="<?php get_permalink(); ?>?alumni-sort-by=subject">By Subject Matter</a><?php endif; ?></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+
+
 <div class="row">
     <div class="large-10 large-centered columns">
         <div class="content">
