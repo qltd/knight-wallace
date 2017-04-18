@@ -162,4 +162,10 @@ $(document).ready(function(){
     $('.search-form-trigger').click(function(){
         $('.search-form-wrap').toggleClass('open-search');
     });
+
+    //alum locater
+    $('#alum_view_switch').click(function(){
+       $('#alum_view_special').slideToggle();  
+       $('#alum_view_location').slideToggle();  
+    });
 });

@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Fellows Login (for alumni only content)
+ * Template Name: Custom Login Pages
  *
  * @package knight_wallace
  */
@@ -28,7 +28,7 @@ $parent = !empty($parent_id) ? get_post($parent_id[0]) : false;
     <div class="row">
       <div class="large-12 columns">
     <?php while ( have_posts() ) : the_post(); ?>
-        <?php get_template_part( 'template-parts/content', 'alumni-only' ); ?>
+        <?php get_template_part( 'template-parts/content', 'page' ); ?>
     <?php endwhile; // End of the loop. ?>
       </div>
     </div>

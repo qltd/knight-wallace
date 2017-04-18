@@ -12,6 +12,11 @@
 <?php
 $image = get_the_post_thumbnail();
 $pmeta = get_post_meta($post->ID);
+
+// determine if current user logged in and is an Alumni user
+$is_user_logged_in = is_user_logged_in();
+$is_alumi_user = is_alumni_user();
+        
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -31,52 +36,56 @@ $pmeta = get_post_meta($post->ID);
         </header><!-- .entry-header -->
     </div>
 </div>
-<?php $children = get_pages('child_of='.$post->ID.'&parent='.$post->ID); ?>
-<?php if(!empty($children)): ?>
-<div class="in-this-section-nav">
-    <div class="row">
-        <div class="large-12 columns">
-            <ul class="inline">
-            <?php $c = 0; ?>
-            <?php $count = count($children); ?>
-            <?php foreach($children as $child): ?>
-                <li><a href="<?php echo get_permalink($child->ID); ?>"><?php echo $child->post_title; ?></a>
-                <?php if($c < $count - 1): ?>
-                    &nbsp;|&nbsp;
-                <?php endif; ?>
-                </li>
-            <?php $c += 1; ?>
-            <?php endforeach; ?>
-            </ul>
-        </div>
-    </div>
-</div>
-<?php endif; ?>
-
 
 <?php 
-// custom local navigation for the Alumni Locator page 
-if(get_page_template_slug() == 'alum_locate.php'):
-$sort_by = htmlspecialchars($_GET['alumni-sort-by']); // determine the current 'search by' term
-?>
-<div class="in-this-section-nav">
-    <div class="row">
-        <div class="large-12 columns">
-            <ul class="inline">
-                <li><?php if(!$sort_by || $sort_by === 'usa'): ?>USA<?php else : ?><a href="<?php get_permalink(); ?>?alumni-sort-by=usa">USA</a><?php endif; ?>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-                <li><?php if($sort_by === 'worldwide'): ?>Worldwide<?php else : ?><a href="<?php get_permalink(); ?>?alumni-sort-by=worldwide">Worldwide</a><?php endif; ?>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-                <li><?php if($sort_by === 'subject'): ?>By Subject Matter<?php else : ?><a href="<?php get_permalink(); ?>?alumni-sort-by=subject">By Subject Matter</a><?php endif; ?></li>
-            </ul>
+if($is_user_logged_in && $is_alumi_user): // only show local nav for alumni users ?>
+    <?php $children = get_pages('child_of='.$post->ID.'&parent='.$post->ID); ?>
+    <?php if(!empty($children)): ?>
+    <div class="in-this-section-nav">
+        <div class="row">
+            <div class="large-12 columns">
+                <ul class="inline">
+                <?php $c = 0; ?>
+                <?php $count = count($children); ?>
+                <?php foreach($children as $child): ?>
+                    <li><a href="<?php echo get_permalink($child->ID); ?>"><?php echo $child->post_title; ?></a>
+                    <?php if($c < $count - 1): ?>
+                        &nbsp;|&nbsp;
+                    <?php endif; ?>
+                    </li>
+                <?php $c += 1; ?>
+                <?php endforeach; ?>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
+    <?php endif; ?>
 <?php endif; ?>
-
 
 <div class="row">
     <div class="large-10 large-centered columns">
         <div class="content">
-            <?php the_content(); ?>
+            <?php 
+            // if current user is logged in, and IS an Alumni, display Alumni content 
+            if($is_user_logged_in && $is_alumi_user):
+                the_content();
+
+            // if current user is logged in, but is NOT an Alumni
+            elseif($is_user_logged_in && !$is_alumi_user):
+                echo '<p>Sorry, you are logged in, but you must be an Alumni to view this content.</p>';
+
+            // otherwise, show login form
+            else :
+                // if we have errors, let's show them
+                if( isset($_GET['login']) ){ echo login_error(); }
+                ?>
+                <div class="large-8 large-centered columns">
+                <p>Please log in to view this content.</p>
+                    <?php // output login form
+                    wp_login_form(array('form_id' => 'alumni_login_form')); 
+                    ?>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>
