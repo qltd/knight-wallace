@@ -11,8 +11,12 @@ get_header('fellows'); ?>
 <?php
 include_once('helpers.php');
 //grab our junk
+//get_post_id_by_meta_key_and_value('year', date('Y') - 1)
 $this_page_meta = get_post_meta($post->ID);
-$this_year = !empty($this_page_meta['year']) ? $this_page_meta['year'][0] : null;
+$this_year = !empty($this_page_meta['year']) ? $this_page_meta['year'][0] : date('Y') - 1;
+// if this is the default past fellows page without a year, get the most recent past year
+$pid = !empty($this_page_meta['year']) ?  $post->ID : get_post_id_by_meta_key_and_value('year', date('Y') - 1);
+
 $alerts = get_posts(array('category_name'=>'alert'));
 $fellows = get_posts(array('post_type'=>'person_kw_fellow','posts_per_page'=> -1));
 $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
@@ -77,10 +81,10 @@ $current_year_global = get_option('fellows_current_year');
 <?php endif; ?>
 
 <main id="main" class="site-main post-main" role="main">
-    <?php if (get_the_post_thumbnail($post->ID)): ?>
+    <?php if (get_the_post_thumbnail($pid)): ?>
     <div class="row">
         <div class="large-12 columns">
-            <div class="fellow-class-image"><?php echo get_the_post_thumbnail($post->ID); ?></div>
+            <div class="fellow-class-image"><?php echo get_the_post_thumbnail($pid); ?></div>
         </div>
     </div>
     <?php endif; ?>

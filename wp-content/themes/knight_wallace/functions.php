@@ -1088,10 +1088,10 @@ function remove_admin_bar() {
 
 
 
-add_filter('login_redirect', 'my_login_redirect', 10, 3);    
+add_filter('login_redirect', 'my_login_redirect', 10, 3);
 function my_login_redirect($redirect_to, $requested_redirect_to, $user) {
     $referrer = $_SERVER['HTTP_REFERER'];
-    
+
     // let's not mess with the default wp-admin/wp-login.php pages
     if( !empty( $referrer ) && !strstr( $referrer,'wp-login' ) && !strstr( $referrer,'wp-admin' ) ) {
 
@@ -1113,17 +1113,17 @@ function my_login_redirect($redirect_to, $requested_redirect_to, $user) {
             );
             //$redirect_to = $updated_url;
             //return $redirect_to;
-            wp_redirect( $updated_url ); 
+            wp_redirect( $updated_url );
             exit;
         }
         else {
             wp_redirect( 'http://knight-wallace:8888/knight-wallace/sign-in/' );
         }
     }
-    
+
     // return the default redirect url
     return $redirect_to;
-    
+
 }
 
 // checks if current user has the Alumni role
@@ -1133,7 +1133,7 @@ function is_alumni_user(){
     if(!$wp_user){ return 'error'; }
 
     if( $wp_user->roles[0] === 'alumni' || $wp_user->roles[0] === 'administrator') { return true; }
-    return false; 
+    return false;
 
 }
 
@@ -1168,3 +1168,27 @@ function login_error(){
 
 
 
+if (!function_exists('get_post_id_by_meta_key_and_value')) {
+    /**
+     * Get post id from meta key and value
+     * @param string $key
+     * @param mixed $value
+     * @return int|bool
+     * @author David M&aring;rtensson <david.martensson@gmail.com>
+     */
+    function get_post_id_by_meta_key_and_value($key, $value) {
+        global $wpdb;
+        $meta = $wpdb->get_results("SELECT * FROM `".$wpdb->postmeta."` WHERE meta_key='".$wpdb->escape($key)."' AND meta_value='".$wpdb->escape($value)."'");
+
+        if (is_array($meta) && !empty($meta)) {
+            foreach($meta as $m){
+                if (wp_get_post_parent_id($m->post_id) == 789){
+                    return $m->post_id;
+                }
+            }
+        }
+        else {
+            return false;
+        }
+    }
+}

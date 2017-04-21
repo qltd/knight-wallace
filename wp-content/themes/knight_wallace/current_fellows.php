@@ -32,48 +32,19 @@ $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
     </div>
 </div>
 
-<?php if(!is_null($this_year)): ?>
-<section class="year-control">
+<div class="in-this-section-nav">
     <div class="row">
         <div class="large-12 columns">
-            <div class="row">
-                    <div class="large-12 columns">
-                        <h4>VIEW BY CLASS YEAR:</h4>
-                    </div>
-            </div>
-            <div class="row years">
-                <div class="large-12 columns">
-                    <?php $count = 1;?>
-                    <div class="row">
-                        <?php for($i=$this_year-1;$i>1973;$i--): ?>
-                        <div class="medium-3 small-6 columns">
-                            <a href="/knight-wallace/our-fellows/<?php echo $i - 1 .'-'. $i; ?>/"><?php echo $i - 1 .'-'. $i; ?></a>
-                        </div>
-                        <?php if($count == 4): ?>
-                    </div>
-                    <div class="row">
-                        <?php $count = 0; ?>
-                        <?php endif; ?>
-                        <?php $count += 1; ?>
-                        <?php endfor; ?>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="medium-9 columns"></div>
-            <div class="medium-3 small-6 columns">
-                <a href="#" class="show-more">More &raquo;</a>
-            </div>
-        </div>
-    </section>
-    <div class="row">
-        <div class="large-12 columns">
-            <h2 class="entry-sub-title text-center"><?php echo $this_year - 1 .'-'. $this_year; ?> Fellows</h2>
+            <ul class="inline">
+                <li>
+                    <a href="<?php echo get_permalink(7157); ?>">Past Fellows</a>
+                    <?php /* |
+                    <a href="#">Alumni Locator</a> */ ?>
+                </li>
+            </ul>
         </div>
     </div>
-    <?php endif; ?>
+</div>
 
     <main id="main" class="site-main post-main" role="main">
     <div class="row board-of-directors">
