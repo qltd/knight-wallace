@@ -16,7 +16,7 @@ $pmeta = get_post_meta($post->ID);
 // determine if current user logged in and is an Alumni user
 $is_user_logged_in = is_user_logged_in();
 $is_alumi_user = is_alumni_user();
-        
+
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -37,36 +37,25 @@ $is_alumi_user = is_alumni_user();
     </div>
 </div>
 
-<?php 
+<?php
 if($is_user_logged_in && $is_alumi_user): // only show local nav for alumni users ?>
-    <?php $children = get_pages('child_of='.$post->ID.'&parent='.$post->ID); ?>
-    <?php if(!empty($children)): ?>
     <div class="in-this-section-nav">
         <div class="row">
             <div class="large-12 columns">
                 <ul class="inline">
-                <?php $c = 0; ?>
-                <?php $count = count($children); ?>
-                <?php foreach($children as $child): ?>
-                    <li><a href="<?php echo get_permalink($child->ID); ?>"><?php echo $child->post_title; ?></a>
-                    <?php if($c < $count - 1): ?>
-                        &nbsp;|&nbsp;
-                    <?php endif; ?>
-                    </li>
-                <?php $c += 1; ?>
-                <?php endforeach; ?>
+                    <li><a href="<?php echo get_permalink(7248); ?>">Alumni Locator</a> &nbsp;|&nbsp; </li>
+                    <li><a href="<?php echo get_permalink(7182); ?>">Past Fellows By Class Year</a></li>
                 </ul>
             </div>
         </div>
     </div>
-    <?php endif; ?>
 <?php endif; ?>
 
 <div class="row">
     <div class="large-10 large-centered columns">
         <div class="content">
-            <?php 
-            // if current user is logged in, and IS an Alumni, display Alumni content 
+            <?php
+            // if current user is logged in, and IS an Alumni, display Alumni content
             if($is_user_logged_in && $is_alumi_user):
                 the_content();
 
@@ -82,7 +71,7 @@ if($is_user_logged_in && $is_alumi_user): // only show local nav for alumni user
                 <div class="large-8 large-centered columns">
                 <p>Please log in to view this content.</p>
                     <?php // output login form
-                    wp_login_form(array('form_id' => 'alumni_login_form')); 
+                    wp_login_form(array('form_id' => 'alumni_login_form'));
                     ?>
                 </div>
             <?php endif; ?>

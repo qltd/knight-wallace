@@ -651,6 +651,7 @@ function library_item_type(){
         'Article',
         'Book',
         'Video',
+        'Audio',
         'Photojournalism',
         'Journal'
     );
