@@ -70,6 +70,7 @@ function knight_wallace_setup() {
 		'aside',
 		'image',
 		'video',
+                      'audio',
 		'quote',
 		'link',
 	) );
