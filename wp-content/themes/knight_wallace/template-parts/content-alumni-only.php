@@ -69,7 +69,7 @@ if($is_user_logged_in && $is_alumi_user): // only show local nav for alumni user
                 if( isset($_GET['login']) ){ echo login_error(); }
                 ?>
                 <div class="large-8 large-centered columns">
-                <p>Please log in to view this content.</p>
+                <p>Please log in to view this content.</p><br />
                     <?php // output login form
                     wp_login_form(array('form_id' => 'alumni_login_form'));
                     ?>
