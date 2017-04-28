@@ -43,7 +43,7 @@ if($is_user_logged_in && $is_alumi_user): // only show local nav for alumni user
         <div class="row">
             <div class="large-12 columns">
                 <ul class="inline">
-                    <li><a href="<?php echo get_permalink(7248); ?>">Alumni Locator</a> &nbsp;|&nbsp; </li>
+                    <li><a href="<?php echo get_permalink(7503); ?>">Alumni Locator</a> &nbsp;|&nbsp; </li>
                     <li><a href="<?php echo get_permalink(7182); ?>">Past Fellows By Class Year</a></li>
                 </ul>
             </div>

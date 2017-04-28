@@ -1630,3 +1630,47 @@ ul.pagination {
         margin-left: 2rem;
     }
 }
+
+// Alumni Form
+#wpcf7-f7501-p793-o2 {
+    max-width: 640px;
+    margin: 2rem auto;
+
+    input[type=text], select {
+        height: 4rem;
+        font-size: 2rem;
+    }
+
+    label {
+        clear: both;
+        font-size: 2rem;
+        margin-left: 20px;
+        display: block;
+    }
+
+    input[type=checkbox] {
+        margin-left: -20px;
+        float: left;
+        margin-top: 8px;
+    }
+
+    input[type=submit] {
+        background: $lblue;
+        border: none;
+        color: $white;
+        font-size: 1.8rem;
+        font-weight: bold;
+        height: 4.4rem;
+        width: 25%;
+        padding: 0;
+        float: right;
+    }
+}
+
+.checkbox-col {
+    width: 50%;
+    float: left;
+    padding-right: 2rem;
+    padding-left: 3rem;
+    margin-bottom: 3rem;
+}
