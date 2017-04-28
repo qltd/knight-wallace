@@ -1674,3 +1674,14 @@ ul.pagination {
     padding-left: 3rem;
     margin-bottom: 3rem;
 }
+
+#alumni_login_form {
+    label {
+        font-size: 2rem;
+    }
+
+    input[type=text], input[type=password] {
+        height: 4rem;
+        font-size: 2rem;
+    }
+}

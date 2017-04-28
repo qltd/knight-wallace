@@ -3207,6 +3207,10 @@ ul.pagination li.current a { background: #00274c; }
 
 .checkbox-col { width: 50%; float: left; padding-right: 2rem; padding-left: 3rem; margin-bottom: 3rem; }
 
+#alumni_login_form label { font-size: 2rem; }
+
+#alumni_login_form input[type=text], #alumni_login_form input[type=password] { height: 4rem; font-size: 2rem; }
+
 @media (min-width: 1025px) { #mobile_nav { display: none; } }
 
 @media (max-width: 1025px) { #main_nav, #eyebrow { display: none; }

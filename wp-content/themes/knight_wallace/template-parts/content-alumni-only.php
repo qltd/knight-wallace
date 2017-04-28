@@ -32,7 +32,7 @@ $is_alumi_user = is_alumni_user();
 <div class="row">
     <div class="large-10 large-centered columns">
         <header class="entry-header">
-            <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+            <?php echo ($is_user_logged_in) ? '<h1 class="entry-title">Welcome Alumni</h1>' : the_title( '<h1 class="entry-title">', '</h1>' ); ?>
         </header><!-- .entry-header -->
     </div>
 </div>
