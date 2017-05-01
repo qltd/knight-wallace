@@ -36,9 +36,7 @@ $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
     <div class="row">
         <div class="large-12 columns">
             <ul class="inline">
-                <li>
-                    <a href="<?php echo get_permalink(7503); ?>">Alumni Locator</a> |
-                </li>
+
                 <li>
                     <a href="<?php echo get_permalink(7182); ?>">Past Fellows By Class Year</a>
                 </li>
