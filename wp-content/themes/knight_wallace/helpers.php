@@ -123,6 +123,7 @@ function sort_library_items($lib){
             'Article' => array(),
             'Book' => array(),
             'Video' => array(),
+            'Audio' => array(),
             'Photojournalism' => array(),
             'Journal' => array(),
             'featured' => array()

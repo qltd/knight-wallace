@@ -438,6 +438,124 @@ $sorted_libs = sort_library_items($libs);
 </section>
 <?php endif; ?>
 
+<?php if(!empty($sorted_libs['Audio'])): ?>
+<section class="story-list library" id="audio">
+    <div class="row headings">
+        <div class="large-12 columns">
+            <div class="heading">
+                <h3>Audio</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row"><!--start first row-->
+        <div class="large-6 columns">
+            <div class="row">
+                <div class="large-12 columns">
+                    <div class="news-article">
+
+                                <?php if(!empty($sorted_libs['Audio'][0]['image'])): ?>
+                                    <?php echo $sorted_libs['Audio'][0]['image']; ?>
+                                <?php else: ?>
+                                    <div style="min-height: 140px;"></div>
+                                <?php endif; ?>
+
+                                <div class="text">
+                                    <h4>
+                                        <a href="<?php echo $sorted_libs['Audio'][0]['link']; ?>">
+                                            <?php echo $sorted_libs['Audio'][0]['title']; ?>
+                                        </a>
+                                    </h4>
+                                    <div class="date"><?php echo $sorted_libs['Audio'][0]['author']; ?></div>
+                                    <div class="tags-list">
+                                        <ul>
+                                        <?php if(!empty($sorted_libs['Audio'][0]['tags'])): ?>
+                                            <?php foreach($sorted_libs['Audio'][0]['tags'] as $tag): ?>
+                                            <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                        </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="large-6 columns">
+            <div class="row news snippet-box">
+                <div class="large-12 columns">
+                    <div class="news-article">
+
+                                <?php if(!empty($sorted_libs['Audio'][1]['image'])): ?>
+                                    <?php echo $sorted_libs['Audio'][1]['image']; ?>
+                                <?php else: ?>
+                                    <div style="min-height: 140px;"></div>
+                                <?php endif; ?>
+
+                                <div class="text">
+                                    <h4>
+                                        <a href="<?php echo $sorted_libs['Audio'][1]['link']; ?>">
+                                            <?php echo $sorted_libs['Audio'][1]['title']; ?>
+                                        </a>
+                                    </h4>
+                                    <div class="date"><?php echo $sorted_libs['Audio'][1]['author']; ?></div>
+                                    <div class="tags-list">
+                                        <ul>
+                                        <?php if(!empty($sorted_libs['Audio'][1]['tags'])): ?>
+                                            <?php foreach($sorted_libs['Audio'][1]['tags'] as $tag): ?>
+                                            <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                        </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--end first row-->
+    <div class="row"><!--start second row-->
+        <div class="large-6 columns"><!--start first column-->
+            <div class="row news snippet-box">
+                <div class="large-12 columns">
+                    <div class="news-article">
+
+                                <?php if(!empty($sorted_libs['Audio'][2]['image'])): ?>
+                                    <?php echo $sorted_libs['Audio'][2]['image']; ?>
+                                <?php else: ?>
+                                    <div style="min-height: 140px;"></div>
+                                <?php endif; ?>
+
+                                <div class="text">
+                                    <h4>
+                                        <a href="<?php echo $sorted_libs['Audio'][2]['link']; ?>">
+                                            <?php echo $sorted_libs['Audio'][2]['title']; ?>
+                                        </a>
+                                    </h4>
+                                    <div class="date"><?php echo $sorted_libs['Audio'][2]['author']; ?></div>
+                                    <div class="tags-list">
+                                        <ul>
+                                        <?php if(!empty($sorted_libs['Audio'][2]['tags'])): ?>
+                                            <?php foreach($sorted_libs['Audio'][2]['tags'] as $tag): ?>
+                                            <li><?php echo $tag->name; ?> <span class="divider">|</span></li>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                        </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div><!--end row news snippet-box-->
+            </div><!--end first column-->
+        </div>
+        <div class="large-6 columns">
+            <a href="/wallace-house/library/audio/" class="more-posts">See all Wallace House audio &raquo;</a>
+        </div>
+    </div><!--end second row-->
+</section>
+<?php endif; // end audio ?>
+
 <?php if(!empty($sorted_libs['Photojournalism'])): ?>
 <section class="story-list library" id="photojournalism">
     <div class="row headings">
