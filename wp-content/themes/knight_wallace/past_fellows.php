@@ -16,7 +16,7 @@ $this_page_meta = get_post_meta($post->ID);
 $current_year_global = get_option('fellows_current_year');
 $this_year = !empty($this_page_meta['year']) ? $this_page_meta['year'][0] : $current_year_global;
 // if this is the default past fellows page without a year, get the most recent past year
-$pid = !empty($this_page_meta['year']) ?  $post->ID : get_post_id_by_meta_key_and_value('year', date('Y') - 1);
+$pid = !empty($this_page_meta['year']) ?  $post->ID : get_post_id_by_meta_key_and_value('year', $current_year_global);
 
 $alerts = get_posts(array('category_name'=>'alert'));
 $fellows = get_posts(array('post_type'=>'person_kw_fellow','posts_per_page'=> -1));
