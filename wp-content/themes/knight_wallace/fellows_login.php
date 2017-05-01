@@ -5,7 +5,7 @@
  * @package knight_wallace
  */
 
-get_header(); ?>
+get_header('fellows'); ?>
 
 <?php
 $parent_id = get_post_ancestors($post->ID);

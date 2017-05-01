@@ -3195,6 +3195,18 @@ ul.pagination li.current a { background: #00274c; }
 
 #past_winners_control .years li input:nth-child(3) { margin-left: 2rem; }
 
+#wpcf7-f7501-p793-o2 { max-width: 640px; margin: 2rem auto; }
+
+#wpcf7-f7501-p793-o2 input[type=text], #wpcf7-f7501-p793-o2 select { height: 4rem; font-size: 2rem; }
+
+#wpcf7-f7501-p793-o2 label { clear: both; font-size: 2rem; margin-left: 20px; display: block; }
+
+#wpcf7-f7501-p793-o2 input[type=checkbox] { margin-left: -20px; float: left; margin-top: 8px; }
+
+#wpcf7-f7501-p793-o2 input[type=submit] { background: #0d57aa; border: none; color: #FFFFFF; font-size: 1.8rem; font-weight: bold; height: 4.4rem; width: 25%; padding: 0; float: right; }
+
+.checkbox-col { width: 50%; float: left; padding-right: 2rem; padding-left: 3rem; margin-bottom: 3rem; }
+
 @media (min-width: 1025px) { #mobile_nav { display: none; } }
 
 @media (max-width: 1025px) { #main_nav, #eyebrow { display: none; }
