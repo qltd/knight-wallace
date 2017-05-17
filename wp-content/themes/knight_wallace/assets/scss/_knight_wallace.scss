@@ -1665,6 +1665,10 @@ ul.pagination {
         padding: 0;
         float: right;
     }
+
+    .current-affiliation {
+        margin-bottom: 4rem;
+    }
 }
 
 .checkbox-col {
@@ -1673,6 +1677,15 @@ ul.pagination {
     padding-right: 2rem;
     padding-left: 3rem;
     margin-bottom: 3rem;
+
+    @include responsive("730px") {
+        width: 100%;
+        float: none;
+
+        &.left {
+            margin-bottom: 1.2rem;
+        }
+    }
 }
 
 #alumni_login_form {

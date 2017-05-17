@@ -3205,7 +3205,12 @@ ul.pagination li.current a { background: #00274c; }
 
 #wpcf7-f7501-p793-o2 input[type=submit] { background: #0d57aa; border: none; color: #FFFFFF; font-size: 1.8rem; font-weight: bold; height: 4.4rem; width: 25%; padding: 0; float: right; }
 
+#wpcf7-f7501-p793-o2 .current-affiliation { margin-bottom: 4rem; }
+
 .checkbox-col { width: 50%; float: left; padding-right: 2rem; padding-left: 3rem; margin-bottom: 3rem; }
+
+@media (max-width: 730px) { .checkbox-col { width: 100%; float: none; }
+  .checkbox-col.left { margin-bottom: 1.2rem; } }
 
 #alumni_login_form label { font-size: 2rem; }
 
