@@ -82,7 +82,7 @@ $sorted_libs = sort_library_items($libs);
 <?php else: ?>
     <div class="row">
         <div class="large-12">
-            <h1 class="text-center">Library</h1>
+            <h1 class="entry-title text-center">Library</h1>
         </div>
     </div>
 <?php endif; ?>
