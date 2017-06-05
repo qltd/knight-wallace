@@ -573,7 +573,8 @@ function is_fellows_user_logged_in($session){
 function sort_slider_content($content){
     $res = array(
         'Knight-Wallace Fellowships' => array(),
-        'Livingston Awards' => array()
+        'Livingston Awards' => array(),
+        'Donate' => array()
     );
     if(!empty($content)){
         foreach($content as $c){
