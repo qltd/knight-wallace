@@ -100,4 +100,4 @@ $sorted_slides = sort_slider_content($slides);
 </section>
 <?php endif; ?>
 
-<?php get_footer('fellows'); ?>
+<?php get_footer(); ?>
