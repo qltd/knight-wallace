@@ -988,6 +988,10 @@ ul.pagination {
 .content {
     padding-bottom: 4rem;
 
+    &.donate {
+      padding-bottom: 0;
+    }
+
     @include responsive("1024px") {
         padding: 1rem 0rem 4rem;
     }

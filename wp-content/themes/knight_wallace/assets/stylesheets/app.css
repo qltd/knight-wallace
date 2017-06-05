@@ -2965,6 +2965,8 @@ ul.pagination li.current a { background: #00274c; }
 
 .content { padding-bottom: 4rem; }
 
+.content.donate { padding-bottom: 0; }
+
 @media (max-width: 1024px) { .content { padding: 1rem 0rem 4rem; } }
 
 .content h1 { font-size: 4.4rem; line-height: 4.4rem; color: #00274c; font-family: UniversLTPro-65Bold, sans-serif; font-weight: normal; }
@@ -3286,6 +3288,8 @@ ul.pagination li.current a { background: #00274c; }
 #slideshow .bx-wrapper .bx-controls-direction a { text-indent: 0px; width: 42px; height: 42px; background: #f5c300; color: #fff; border-radius: 30px; text-align: center; font-size: 3rem; }
 
 @media (max-width: 640px) { #slideshow .bx-wrapper .bx-controls-direction a { top: 250px; width: 30px; height: 30px; font-size: 1.6rem; padding-top: 2px; } }
+
+.slideshow-donate { margin-bottom: 6rem; }
 
 /** Responsive styles @rdar */
 /* Text fix for iphones */

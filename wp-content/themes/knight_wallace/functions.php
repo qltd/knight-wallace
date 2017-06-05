@@ -704,7 +704,8 @@ function slider_content_test(){
 function slider_content_page(){
     $pages = array(
         'Knight-Wallace Fellowships',
-        'Livingston Awards'
+        'Livingston Awards',
+        'Donate'
     );
     generate_select_box_for_custom_field("slider_content_page",$pages);
 }
