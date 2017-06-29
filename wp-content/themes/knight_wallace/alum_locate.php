@@ -8,9 +8,9 @@
 
 get_header('fellows'); ?>
 
-<?php 
+<?php
 include_once('alum_functions.php');
-$parent_id = get_post_ancestors($post->ID); 
+$parent_id = get_post_ancestors($post->ID);
 $parent = !empty($parent_id) ? get_post($parent_id[0]) : false;
 
 // current user
@@ -21,9 +21,9 @@ $alum_loggedin = !empty($user) && $user->roles[0] == 'administrator' || $user->r
 // get fellows
 $alum = get_posts(array(
   'post_type'       => 'person_kw_fellow',
-  'posts_per_page'  => -1, 
+  'posts_per_page'  => -1,
   'meta_key'        => '_kw_person_kw_fellow_last_name',
-  'orderby'         => 'meta_value', 
+  'orderby'         => 'meta_value',
   'order'           => 'ASC'
   )
 );
@@ -44,7 +44,7 @@ $alum_sorted_by_metafield = sort_alum($sort_by, $alum);
 <section class="breadcrumb">
 <div class="row">
     <div class="small-6 columns">
-    <a href="<?php echo !empty($parent->guid) ? $parent->guid : ''; ?>" class="breadcrumb-link">
+    <a href="<?php echo !empty($parent->guid) ? get_permalink($parent->ID) : ''; ?>" class="breadcrumb-link">
         <?php echo !empty($parent->post_title) ? $parent->post_title : ''; ?>
     </a>
     </div>
@@ -59,7 +59,7 @@ $alum_sorted_by_metafield = sort_alum($sort_by, $alum);
         <?php while ( have_posts() ) : the_post(); ?>
           <?php get_template_part( 'template-parts/content', 'page' ); ?>
         <?php endwhile; // End of the loop. ?>
-        
+
         <div class="row">
           <div class="large-10 large-centered columns">
 
@@ -72,7 +72,7 @@ $alum_sorted_by_metafield = sort_alum($sort_by, $alum);
                   </a>
                 <div id="<?php echo sanitize_title_with_dashes($special_key); ?>" class="content">
                     <?php foreach($special_value as $spv_ai): ?>
-                    <?php 
+                    <?php
 
                       $name =                 $spv_ai->post_title;
                       $class_year =           !empty($spv_ai->extra_data['class_year']) ? $spv_ai->extra_data['class_year'] : null;
@@ -96,7 +96,7 @@ $alum_sorted_by_metafield = sort_alum($sort_by, $alum);
                                 <h3>
                                     <?php echo $name; ?><?php if($class_year_abbr){ echo ' '.$class_year_abbr; }?>
                                 </h3>
-                                    
+
                                     <?php if($current_job_title || $current_affiliation): ?>
                                     <p>
                                       <?php if($current_job_title): ?><em>Job title: </em><?=$current_job_title;?><?php endif; ?>
@@ -104,12 +104,12 @@ $alum_sorted_by_metafield = sort_alum($sort_by, $alum);
                                       <?php if($current_affiliation): ?><em>Current Affiliation: </em><?=$current_affiliation;?><?php endif; ?>
                                     </p>
                                     <?php endif; ?>
-                                    
-                                    
+
+
                                     <?php if ($state || $country || $city): ?>
                                     <p>
                                       <?php if ($state || $country): ?>
-                                        <em>Location:</em> 
+                                        <em>Location:</em>
                                         <?=$state;?>
                                         <?=$country;?>
                                         <br />
@@ -120,15 +120,15 @@ $alum_sorted_by_metafield = sort_alum($sort_by, $alum);
                                       <?php endif; ?>
                                     </p>
                                     <?php endif; ?>
-                                    
+
                                     <?php if($specialties): ?><p><em>Subject-matter specialties:</em> <?=$specialties;?><?php endif; ?>
-                                    
+
                                     <?php if($alum_loggedin): ?>
-                                      
+
                                       <?php if($available_for): ?><p><em>Available for:</em> <?=$available_for;?><?php endif; ?>
                                       <?php if($additional_info): ?><p><em>Additional information:</em> <?=$additional_info;?><?php endif; ?>
 
-                                      
+
                                       <?php if( $phone || $email || $twitter ): ?>
                                       <p>
                                         <?php if($phone){ echo $phone.'<br />'; } ?>
@@ -141,7 +141,7 @@ $alum_sorted_by_metafield = sort_alum($sort_by, $alum);
                             </div>
                             <br />
                         </div>
-                    </div>  
+                    </div>
                     <?php endforeach; ?>
                 </div>
               </li>

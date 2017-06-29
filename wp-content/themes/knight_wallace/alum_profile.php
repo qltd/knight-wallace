@@ -21,7 +21,7 @@ if(isset($_POST['update_alumni']) && $_POST['update_alumni'] == session_id()){
             $res_message = '<div data-alert class="alert-box info radius">Nothing updated
                             <a href="#" class="close">&times;</a></div>';
         }else{
-            $res_message = '<div data-alert class="alert-box success radius">Successfully updated: '; 
+            $res_message = '<div data-alert class="alert-box success radius">Successfully updated: ';
             $res_message .= !$update_special ? '' : '<br />Speciality';
             $res_message .= !$update_location ? '' : '<br />Location';
             $res_message .= !$update_email ? '' : '<br />Email';
@@ -31,8 +31,8 @@ if(isset($_POST['update_alumni']) && $_POST['update_alumni'] == session_id()){
         }
     }else{
         $res_message = '<div data-alert class="alert-box warning radius">
-                        Sorry, we can not do that right now.<a href="#" class="close">&times;</a></div>'; 
-    }    
+                        Sorry, we can not do that right now.<a href="#" class="close">&times;</a></div>';
+    }
     echo $res_message;
 }
 $parent_id = get_post_ancestors($post->ID);
@@ -49,7 +49,7 @@ if(!empty($user) && $user->roles[0] == 'administrator' || $user->roles[0] == 'al
 <section class="breadcrumb">
 <div class="row">
     <div class="small-6 columns">
-    <a href="<?php echo !empty($parent->guid) ? $parent->guid : ''; ?>" class="breadcrumb-link">
+    <a href="<?php echo !empty($parent->guid) ? get_permalink($parent->ID) : ''; ?>" class="breadcrumb-link">
         <?php echo !empty($parent->post_title) ? $parent->post_title : ''; ?>
     </a>
     </div>
@@ -75,72 +75,72 @@ if(!empty($user) && $user->roles[0] == 'administrator' || $user->roles[0] == 'al
                <div class="row">
                    <div class="medium-6 columns">
                         <label for="location">Location</label>
-                    </div> 
+                    </div>
                    <div class="medium-6 columns">
-                        <input type="text" name="location" placeholder="Your current location" 
-                        value="<?php echo !empty($alum[0]->extra_data['location']) ? 
+                        <input type="text" name="location" placeholder="Your current location"
+                        value="<?php echo !empty($alum[0]->extra_data['location']) ?
                                         $alum[0]->extra_data['location'] : ''; ?>" />
-                    </div> 
-                </div> 
+                    </div>
+                </div>
                <div class="row">
                    <div class="medium-6 columns">
                         <label for="special">Speciality</label>
-                    </div> 
+                    </div>
                    <div class="medium-6 columns">
-                        <input type="text" name="special" placeholder="Your speciality" 
-                         value="<?php echo !empty($alum[0]->extra_data['special']) ? 
+                        <input type="text" name="special" placeholder="Your speciality"
+                         value="<?php echo !empty($alum[0]->extra_data['special']) ?
                                         $alum[0]->extra_data['special'] : ''; ?>" />
-                    </div> 
-                </div> 
+                    </div>
+                </div>
                <div class="row">
                    <div class="medium-6 columns">
                         <label for="phone">Phone</label>
-                    </div> 
+                    </div>
                    <div class="medium-6 columns">
-                        <input type="text" name="phone" placeholder="Your phone number" 
-                         value="<?php echo !empty($alum[0]->extra_data['phone']) ? 
+                        <input type="text" name="phone" placeholder="Your phone number"
+                         value="<?php echo !empty($alum[0]->extra_data['phone']) ?
                                         $alum[0]->extra_data['phone'] : ''; ?>" />
-                    </div> 
-                </div> 
+                    </div>
+                </div>
                <div class="row">
                    <div class="medium-6 columns">
                         <label for="email">Email</label>
-                   </div> 
+                   </div>
                    <div class="medium-6 columns">
-                        <input type="email" name="email" placeholder="Your email" 
-                         value="<?php echo !empty($alum[0]->extra_data['email']) ? 
+                        <input type="email" name="email" placeholder="Your email"
+                         value="<?php echo !empty($alum[0]->extra_data['email']) ?
                                         $alum[0]->extra_data['email'] : ''; ?>" />
-                    </div> 
-                </div> 
+                    </div>
+                </div>
                <div class="row">
                    <div class="medium-6 columns">
                         <label for="permission">Display Your Name?</label>
                         <p><em>If public, email and phone number will still only be shown privately.</em></p>
-                    </div> 
+                    </div>
                    <div class="medium-6 columns">
                         <select name="permission">
-                            <option value="2" 
-                                <?php echo !empty($alum[0]->extra_data['permission']) && 
+                            <option value="2"
+                                <?php echo !empty($alum[0]->extra_data['permission']) &&
                                 $alum[0]->extra_data['permission'] == '2' ?
                                 'selected' : ''; ?>>Publicly</option>
                             <option value="1"
-                                <?php echo !empty($alum[0]->extra_data['permission']) && 
+                                <?php echo !empty($alum[0]->extra_data['permission']) &&
                                 $alum[0]->extra_data['permission'] == '1' ?
                                 'selected' : ''; ?>>Privately (logged in Alumni)</option>
                             <option value="0"
-                                <?php echo !empty($alum[0]->extra_data['permission']) && 
+                                <?php echo !empty($alum[0]->extra_data['permission']) &&
                                 $alum[0]->extra_data['permission'] == '0' ?
                                 'selected' : ''; ?>>Do not show at all</option>
                         </select>
-                    </div> 
-                </div> 
+                    </div>
+                </div>
                <div class="row">
                    <div class="medium-6 columns">
                    <input type="hidden" name="update_alumni" value="<?php echo session_id(); ?>" />
                    <input type="hidden" name="alum_id" value="<?php echo $alum[0]->ID; ?>" />
                         <input type="submit" name="submit" value="update" class="button" />
-                    </div> 
-                </div> 
+                    </div>
+                </div>
             </form>
             <br />
             <br />
