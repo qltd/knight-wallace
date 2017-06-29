@@ -30,7 +30,7 @@ get_header(); ?>
                 <div class="large-12 columns">
                     <div class="news-article">
                         <div class="text">
-                            <h4><a href="<?php echo $post->guid; ?>"><?php echo $post->post_title; ?></a></h4>
+                            <h4><a href="<?php echo get_permalink($post->ID); ?>"><?php echo $post->post_title; ?></a></h4>
                         <?php $nmeta = get_post_meta($post->ID); ?>
                         <?php if(!empty($nmeta['Author'])): ?>
                             <div class="date"><?php echo $nmeta['Author'][0]; ?></div>
