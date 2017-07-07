@@ -981,7 +981,7 @@ add_action( 'widgets_init', 'knight_wallace_widgets_init' );
  */
 function knight_wallace_scripts() {
     wp_enqueue_style('font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
-    wp_enqueue_style( 'knight_wallace-style', get_stylesheet_uri() . '/assets/stylesheets/app.css', array('font-awesome'));
+    wp_enqueue_style( 'knight_wallace-style', get_stylesheet_directory_uri() . '/assets/stylesheets/app.css', array('font-awesome'));
     wp_enqueue_style('bx-slider', get_stylesheet_directory_uri() . '/assets/bxslider/jquery.bxslider.css');
 
 
