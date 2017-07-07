@@ -1,9 +1,9 @@
 /*
 Theme Name: knight_wallace
 Theme URI: http://qltd.com/
-Author: Ramsey Darling, Q ltd 
+Author: Ramsey Darling, Matthew Restorff, Q ltd
 Author URI: http://qltd.com/
-Description: Website for Knight Wallace 
+Description: Website for Knight Wallace
 Version: 1.0.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -19,5 +19,3 @@ Underscores is distributed under the terms of the GNU GPL v2 or later.
 Normalizing styles have been helped along thanks to the fine work of
 Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
 **/
-
-@import "assets/stylesheets/app.css";
