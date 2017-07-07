@@ -1,8 +1,8 @@
 // Foundation JavaScript
 // Documentation can be found at: http://foundation.zurb.com/docs
-$(document).foundation();
+jQuery(document).foundation();
 
-$(document).ready(function(){
+jQuery(document).ready(function($){
 
     //grab original active menu
     var active_menu = $('.primary.active').attr('data-sub-nav-menu');
@@ -104,7 +104,7 @@ $(document).ready(function(){
 
     //mobile search
     $('.mobile-search-icon').click(function(){
-        $('.mobile-menu-wrap .search-form').submit(); 
+        $('.mobile-menu-wrap .search-form').submit();
     });
 
     //slider
@@ -165,7 +165,7 @@ $(document).ready(function(){
 
     //alum locater
     $('#alum_view_switch').click(function(){
-       $('#alum_view_special').slideToggle();  
-       $('#alum_view_location').slideToggle();  
+       $('#alum_view_special').slideToggle();
+       $('#alum_view_location').slideToggle();
     });
 });

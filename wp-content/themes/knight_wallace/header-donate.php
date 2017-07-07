@@ -16,10 +16,7 @@
 <link rel="profile" href="http://gmpg.org/xfn/11">
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
 <?php wp_head(); ?>
-<script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/bower_components/modernizr/modernizr.js"></script>
-<link href="<?php echo get_stylesheet_directory_uri(); ?>/assets/bxslider/jquery.bxslider.css" rel="stylesheet" />
 </head>
 
 <body <?php body_class(); ?> id="wallace_house_page">
