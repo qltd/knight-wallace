@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Fellows Sub Page 
+ * Template Name: Fellows Sub Page
  *
  *
  * @package knight_wallace
@@ -8,8 +8,8 @@
 
 get_header('fellows'); ?>
 
-<?php 
-$parent_id = get_post_ancestors($post->ID); 
+<?php
+$parent_id = get_post_ancestors($post->ID);
 $parent = !empty($parent_id) ? get_post($parent_id[0]) : false;
 ?>
 
@@ -21,6 +21,7 @@ $parent = !empty($parent_id) ? get_post($parent_id[0]) : false;
         <?php echo !empty($parent->post_title) ? $parent->post_title : ''; ?>
     </a>
     </div>
+    <?php get_template_part('template-parts/share'); ?>
 </div>
 </section>
 <?php endif; ?>

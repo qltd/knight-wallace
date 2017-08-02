@@ -6,8 +6,8 @@ Author URI: http://premium.wpmudev.org/
 Contributors: WPMUDEV
 Tags: Optimization, Caching, Speed, Performance, Faster, PageSpeed, Gzip, Compression, Minify, Minification, CloudFlare
 Requires at least: 3.5
-Tested up to: 4.8
-Stable tag: 1.5.2
+Tested up to: 4.7.3
+Stable tag: 1.5.5
 License: GPL v2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
 Make your site load faster with file compression, minification and browser caching – because when it comes to pagespeed, every millisecond counts!
@@ -105,6 +105,24 @@ Minification is a great way to speed up your site but moving combining and rearr
 
 
 == Changelog ==
+
+= 1.5.4.1 ( 2017-07-17 ) =
+- Fix: Bug in Performance Report
+- Fix: Fatal error on activation on the free versioon
+- Fix: HTML tags in Cloudflare module
+
+= 1.5.4 ( 2017-07-13 ) =
+- Fix: Cron reports were stuck on a loop on some WordPress installations
+- Fix: Issue with reports and calculating UTC time
+- Fix: Minification was duplicating inline styles
+- Fix: IE incompatibility in magnification screen
+- Fix: Compatibility with Contact Form 7
+- Fix: Mobile menus not working on Performance and Minification pages
+- Enhance: Remove jQuery and jQuery migrate from minification process
+- Enhance: Minor style changes and updates
+- Enhance: Cron reports functionality
+- Enhance: Code optimization
+- Enhance: Admin area performance improvements
 
 = 1.5.3 ( 2017-06-21 ) =
 - Fix: Avada & Google Maps scripts incompatibility

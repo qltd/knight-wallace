@@ -22,6 +22,7 @@ $sorted_winners_by_award_type = sort_winners_by_award_type($sorted_winners);
     <div class="small-6 columns">
         <a href="/livingston-awards/" class="library-link">&nbsp;Livingston Awards</a>
     </div>
+    <?php get_template_part('template-parts/share'); ?>
 </div>
 </section>
 <div class="row">

@@ -23,6 +23,7 @@ $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
         <div class="small-6 columns">
             <a href="/knight-wallace/" class="library-link">&nbsp;Knight-Wallace Fellowships</a>
         </div>
+        <?php get_template_part('template-parts/share'); ?>
     </div>
 </section>
 
