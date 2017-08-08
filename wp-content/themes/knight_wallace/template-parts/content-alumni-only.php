@@ -73,7 +73,7 @@ if($is_user_logged_in && $is_alumi_user): // only show local nav for alumni user
 
                     <p>We've created a private web space for our alumni to network and keep connected. Please sign in here to access the restricted Alumni Locator portal to learn more about your fellow Fellows, their work, locations, areas of interest and ways to get in touch.</p>
 
-                    <p>For alumni only. If you need access or help with your private username and password, please contact <a href="mailto:brieck@umich.edu">Birgit Rieck</a>.  </p>
+                    <p>For alumni only. If you need access or help with your private username and password, please contact <a href="mailto:brieck@umich.edu">Birgit Rieck</a>.  </p><br /><br />
 
                     <?php // output login form
                     wp_login_form(array('form_id' => 'alumni_login_form'));
