@@ -31,7 +31,7 @@ $pmeta = get_post_meta($post->ID);
         </header><!-- .entry-header -->
     </div>
 </div>
-<?php $children = get_pages('child_of='.$post->ID.'&parent='.$post->ID); ?>
+<?php $children = get_pages('child_of='.$post->ID.'sort_column=menu_order&parent='.$post->ID); ?>
 <?php if(!empty($children)): ?>
 <div class="in-this-section-nav">
     <div class="row">
@@ -54,8 +54,8 @@ $pmeta = get_post_meta($post->ID);
 <?php endif; ?>
 
 
-<?php 
-// custom local navigation for the Alumni Locator page 
+<?php
+// custom local navigation for the Alumni Locator page
 if(get_page_template_slug() == 'alum_locate.php'):
 $sort_by = htmlspecialchars($_GET['alumni-sort-by']); // determine the current 'search by' term
 ?>
