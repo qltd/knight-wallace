@@ -31,7 +31,7 @@ $pmeta = get_post_meta($post->ID);
         </header><!-- .entry-header -->
     </div>
 </div>
-<?php $children = get_pages('child_of='.$post->ID.'sort_column=menu_order&parent='.$post->ID); ?>
+<?php $children = get_pages(array('child_of' => $post->ID, 'parent' => $post->ID, 'sort_column' => 'menu_order')); ?>
 <?php if(!empty($children)): ?>
 <div class="in-this-section-nav">
     <div class="row">
