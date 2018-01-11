@@ -28,7 +28,7 @@ get_header(); ?>
 <?php if(!empty($cat[0]->name) && $cat[0]->name == 'Events'): ?>
         <h1 class="entry-title text-center">Events</h1>
 <?php else: ?>
-        <h1 class="entry-title text-center">News</h1>
+        <!-- <h1 class="entry-title text-center">News</h1> -->
 <?php endif;  ?>
 		<?php while ( have_posts() ) : the_post(); ?>
 
