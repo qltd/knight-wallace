@@ -9,7 +9,10 @@ const Row = ( _element, _filter, _filter_sec ) => {
         $combine = $el.find( '.toggle-combine' ),
         $minify = $el.find( '.toggle-minify' ),
         $posFooter = $el.find( '.toggle-position-footer' ),
-        $disableIcon = $el.find( '.toggle-cross > i' );
+        $defer = $el.find( '.toggle-defer' ),
+        $inline = $el.find( '.toggle-inline' ),
+        $disableIcon = $el.find( '.toggle-cross > i' ),
+        $selectCheckbox = $el.find( '.wphb-minification-file-select input[type=checkbox]' );
 
     if ( _filter_sec ) {
         filterSecondary = _filter_sec.toLowerCase();
@@ -68,12 +71,18 @@ const Row = ( _element, _filter, _filter_sec ) => {
             return selected;
         },
 
+        isType: function( type ) {
+            return type === $selectCheckbox.attr( 'data-type' )
+        },
+
         select: function() {
             selected = true;
+			$selectCheckbox.prop( 'checked', true );
         },
 
         unSelect: function() {
             selected = false;
+			$selectCheckbox.prop( 'checked', false );
         },
 
         change: function( what, value ) {
@@ -86,6 +95,14 @@ const Row = ( _element, _filter, _filter_sec ) => {
                     $combine.prop( 'checked', value );
                     break;
                 }
+                case 'defer': {
+                    $defer.prop( 'checked', value );
+                    break;
+                }
+				case 'inline': {
+					$inline.prop( 'checked', value );
+					break;
+				}
                 case 'include': {
                     $disableIcon.removeClass();
                     $include.prop( 'checked', value );

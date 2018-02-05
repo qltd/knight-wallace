@@ -8,19 +8,11 @@
  * @return string
  */
 function wphb_src_to_path( $src ) {
-
 	$path = ltrim( parse_url( $src, PHP_URL_PATH ), '/' );
 	$path = path_join( $_SERVER['DOCUMENT_ROOT'], $path );
 
-
 	return apply_filters( 'wphb_src_to_path', $path, $src );
 }
-
-function wphb_include_sources_collector() {
-	/** @noinspection PhpIncludeInspection */
-	include_once( wphb_plugin_dir() . 'core/modules/minify/class-sources-collector.php' );
-}
-
 
 /**
  * Return the server type (Apache, NGINX...)
@@ -47,14 +39,12 @@ function wphb_get_server_type() {
 			if ( is_wp_error( $response ) ) {
 				// Bad luck
 				$type = 'apache';
-			}
-			else {
+			} else {
 				$server = strtolower( wp_remote_retrieve_header( $response, 'server' ) );
 				// Could be LiteSpeed too
 				$type = strpos( $server, 'nginx' ) !== false ? 'nginx' : 'apache';
 				update_site_option( 'wphb-server-type', $type );
 			}
-
 		} elseif ( $is_nginx ) {
 			$type = 'nginx';
 			update_site_option( 'wphb-server-type', $type );
@@ -65,14 +55,10 @@ function wphb_get_server_type() {
 			$type = 'IIS 7';
 			update_site_option( 'wphb-server-type', $type );
 		}
-
-
 	}
 
 	return apply_filters( 'wphb_get_server_type', $type );
 }
-
-
 
 /**
  * Get a list of server types
@@ -81,30 +67,37 @@ function wphb_get_server_type() {
  */
 function wphb_get_servers() {
 	return array(
-		'apache' => 'Apache',
-		'LiteSpeed' => 'LiteSpeed',
-		'nginx' => 'NGINX',
-		'iis' => 'IIS',
-		'iis-7' => 'IIS 7'
+		'apache'     => 'Apache',
+		'LiteSpeed'  => 'LiteSpeed',
+		'nginx'      => 'NGINX',
+		'iis'        => 'IIS',
+		'iis-7'      => 'IIS 7',
+		'cloudflare' => 'Cloudflare',
 	);
 }
 
 /**
+ * Get servers dropdown
  *
  * @param array $args
+ * @param bool  $cloudflare  Add Cloudflare to the server list.
  */
-function wphb_get_servers_dropdown( $args = array() ) {
+function wphb_get_servers_dropdown( $args = array(), $cloudflare = true ) {
 
 	$defaults = array(
-		'class' => '',
-		'id' => '',
-		'name' => 'wphb-server-type',
-		'selected' => false
+		'class'    => '',
+		'id'       => '',
+		'name'     => 'wphb-server-type',
+		'selected' => false,
 	);
 
 	$args = wp_parse_args( $args, $defaults );
 
 	$servers = wphb_get_servers();
+
+	if ( ! $cloudflare ) {
+		unset( $servers['cloudflare'] );
+	}
 
 	if ( ! $args['id'] )
 		$args['id'] = $args['name'];
@@ -123,85 +116,16 @@ function wphb_get_servers_dropdown( $args = array() ) {
 
 }
 
-
-function wphb_is_htaccess_writable() {
-	if ( ! function_exists( 'get_home_path' ) ) {
-		require_once( ABSPATH . 'wp-admin/includes/file.php' );
-	}
-
-	$home_path = get_home_path();
-	$writable = ( ! file_exists( $home_path . '.htaccess' ) && is_writable( $home_path ) ) || is_writable( $home_path . '.htaccess' );
-	return $writable;
-}
-
-function wphb_is_htaccess_written( $module ) {
-	if ( ! function_exists( 'get_home_path' ) ) {
-		require_once( ABSPATH . 'wp-admin/includes/file.php' );
-	}
-
-	if ( ! function_exists( 'extract_from_markers' ) ) {
-		require_once( ABSPATH . 'wp-admin/includes/misc.php' );
-	}
-
-	$home_path = get_home_path();
-	$existing_rules  = array_filter( extract_from_markers( $home_path . '.htaccess', 'WP-HUMMINGBIRD-' . strtoupper( $module ) ) );
-	return ! empty( $existing_rules );
-}
-
-function wphb_save_htaccess( $module ) {
-	if ( wphb_is_htaccess_written( $module ) )
-		return false;
-
-	$home_path = get_home_path();
-	$htaccess_file = $home_path.'.htaccess';
-
-	if ( wphb_is_htaccess_writable() ) {
-		$code = wphb_get_code_snippet( $module, 'apache' );
-		$code = explode( "\n", $code );
-		return insert_with_markers( $htaccess_file, 'WP-HUMMINGBIRD-' . strtoupper( $module ), $code );
-	}
-
-	return false;
-}
-
-function wphb_unsave_htaccess( $module ) {
-	if ( ! wphb_is_htaccess_written( $module ) )
-		return false;
-
-	$home_path = get_home_path();
-	$htaccess_file = $home_path.'.htaccess';
-
-	if ( wphb_is_htaccess_writable() ) {
-		return insert_with_markers( $htaccess_file, 'WP-HUMMINGBIRD-' . strtoupper( $module ), '' );
-	}
-
-
-	return false;
-}
-
-
-function wphb_log( $message, $module ) {
-	if ( defined( 'WPHB_DEBUG_LOG' ) ) {
-		// @TODO: Change the file folder
-		$date = current_time( 'mysql' );
-		if ( ! is_string( $message ) ) {
-			$message = print_r( $message, true );
-		}
-
-		if ( is_array( $message ) || is_object( $message ) ) {
-			$message = print_r( $message, true );
-		}
-
-		$message = '[' . $date . '] ' . $message;
-//		$cache_dir = wphb_get_cache_dir();
-//		$file = $cache_dir . $module . '.log';
-//		file_put_contents( $file, $message . "\n", FILE_APPEND );
-	}
-}
-
-
 function wphb_membership_modal() {
 	include_once( wphb_plugin_dir() . 'admin/views/modals/membership-modal.php' );
+}
+
+/**
+ * Modal that is shown when switching from basic to advanced minification view.
+ * @since 1.7.1
+ */
+function wphb_minification_advanced_modal() {
+	include_once( wphb_plugin_dir() . 'admin/views/modals/minification-advanced-modal.php' );
 }
 
 /**
@@ -211,15 +135,6 @@ function wphb_membership_modal() {
  */
 function wphb_check_files_modal() {
 	include_once( wphb_plugin_dir() . 'admin/views/modals/check-files-modal.php' );
-}
-
-/**
- * Modal for enable cdn
- *
- * @since 1.5.0
- */
-function wphb_enable_cdn_modal() {
-	include_once( wphb_plugin_dir() . 'admin/views/modals/enable-cdn-modal.php' );
 }
 
 /**
@@ -247,6 +162,15 @@ function wphb_check_performance_modal() {
  */
 function wphb_quick_setup_modal() {
 	include_once( wphb_plugin_dir() . 'admin/views/modals/quick-setup-modal.php' );
+}
+
+/**
+ * Dismiss report modal (performance report)
+ *
+ * @since 1.6.2
+ */
+function wphb_dismiss_report_modal() {
+	include_once( wphb_plugin_dir() . 'admin/views/modals/dismiss-report-modal.php' );
 }
 
 /**
@@ -290,6 +214,9 @@ function wphb_plugin_page_link() {
 function wphb_update_membership_link() {
 	return "https://premium.wpmudev.org/membership/#profile-menu-tabs";
 }
+function wphb_live_chat_link() {
+	return 'https://premium.wpmudev.org/live-support/';
+}
 
 function wphb_support_link() {
 	if ( wphb_is_member() ) {
@@ -297,10 +224,6 @@ function wphb_support_link() {
 	} else {
 		return 'https://wordpress.org/support/plugin/hummingbird-performance';
 	}
-}
-
-function wphb_cdn_link() {
-    return "https://premium.wpmudev.org/blog/should-you-use-cdn/";
 }
 
 /**
@@ -314,19 +237,27 @@ function wphb_enqueue_admin_scripts( $ver ) {
 	wp_enqueue_script( 'wphb-admin', $file, array( 'jquery', 'underscore' ), $ver );
 
 	$i10n = array(
-		'recheckURL' => add_query_arg( 'run', 'true', wphb_get_admin_menu_url( 'caching' ) ),
-		'htaccessErrorURL' => add_query_arg( 'htaccess-error', 'true', wphb_get_admin_menu_url( 'caching' ) ),
-		'cacheEnabled' => wphb_is_htaccess_written('caching')
+		'recheckURL' => add_query_arg( array(
+				'view' => 'browser',
+				'run'  => 'true',
+			), wphb_get_admin_menu_url( 'caching' ) ),
+		'htaccessErrorURL' => add_query_arg( array(
+				'view'           => 'browser',
+				'htaccess-error' => 'true',
+			), wphb_get_admin_menu_url( 'caching' ) ),
+		'cacheEnabled' => WP_Hummingbird_Module_Server::is_htaccess_written( 'caching' )
 	);
 	wp_localize_script( 'wphb-admin', 'wphbCachingStrings', $i10n );
 
-	$i10n = array(
-		'checkFilesNonce' => wp_create_nonce( 'wphb-minification-check-files' ),
-		'chartNonce' => wp_create_nonce( 'wphb-chart' ),
-		'finishedCheckURLsLink' => wphb_get_admin_menu_url( 'minification' ),
-		'discardAlert' => __( 'Are you sure? All your changes will be lost', 'wphb' ),
-	);
-	wp_localize_script( 'wphb-admin', 'wphbMinificationStrings', $i10n );
+	if ( wphb_can_execute_php() ) {
+		$i10n = array(
+			'checkFilesNonce' => wp_create_nonce( 'wphb-minification-check-files' ),
+			'chartNonce' => wp_create_nonce( 'wphb-chart' ),
+			'finishedCheckURLsLink' => wphb_get_admin_menu_url( 'minification' ),
+			'discardAlert' => __( 'Are you sure? All your changes will be lost', 'wphb' ),
+		);
+		wp_localize_script( 'wphb-admin', 'wphbMinificationStrings', $i10n );
+	}
 
 	$i10n = array(
 		'finishedTestURLsLink' => wphb_get_admin_menu_url( 'performance' ),
@@ -373,13 +304,30 @@ function wphb_enqueue_admin_scripts( $ver ) {
 		'nonces' => array(
 			'HBFetchNonce' => wp_create_nonce( 'wphb-fetch' )
 		),
-		'strings' => array(
-			'discardAlert' => __( 'Are you sure? All your changes will be lost', 'wphb' ),
-		),
-		'links' => array(
-			'minification' => wphb_get_admin_menu_url( 'minification' )
-		)
 	);
+
+	if ( wphb_can_execute_php() ) {
+		$i10n = array_merge( $i10n, array(
+			'minification' => array(
+				'is' => array(
+					'scanning' => wphb_minification_is_scanning_files(),
+					'scanned' => wphb_minification_is_scan_finished(),
+				),
+				'get' => array(
+					'currentScanStep' => wphb_minification_get_current_scan_step(),
+					'totalSteps' => wphb_minification_get_scan_steps_number(),
+					'showCDNModal' => ! is_multisite(),
+				),
+			),
+			'strings' => array(
+				'discardAlert' => __( 'Are you sure? All your changes will be lost', 'wphb' ),
+			),
+			'links' => array(
+				'minification' => wphb_get_admin_menu_url( 'minification' ),
+			),
+		) );
+	}
+
 	wp_localize_script( 'wphb-admin', 'wphb', $i10n );
 }
 
@@ -392,25 +340,25 @@ function wphb_get_api() {
 
 function wphb_get_caching_frequencies() {
 	return array(
-		'1h/A3600' => __( '1 hour', 'wphb' ),
-		'3h/A10800' => __( '3 hours', 'wphb' ),
-		'4h/A14400' => __( '4 hours', 'wphb' ),
-		'5h/A18000' => __( '5 hours', 'wphb' ),
-		'6h/A21600' => __( '6 hours', 'wphb' ),
-		'12h/A43200' => __( '12 hours', 'wphb' ),
-		'16h/A57600' => __( '16 hours', 'wphb' ),
-		'20h/A72000' => __( '20 hours', 'wphb' ),
-		'1d/A86400' => __( '1 day', 'wphb' ),
-		'2d/A172800' => __( '2 days', 'wphb' ),
-		'3d/A259200' => __( '3 days', 'wphb' ),
-		'4d/A345600' => __( '4 days', 'wphb' ),
-		'5d/A432000' => __( '5 days', 'wphb' ),
-		'8d/A691200' => __( '8 days', 'wphb' ),
+		'1h/A3600'     => __( '1 hour', 'wphb' ),
+		'3h/A10800'    => __( '3 hours', 'wphb' ),
+		'4h/A14400'    => __( '4 hours', 'wphb' ),
+		'5h/A18000'    => __( '5 hours', 'wphb' ),
+		'6h/A21600'    => __( '6 hours', 'wphb' ),
+		'12h/A43200'   => __( '12 hours', 'wphb' ),
+		'16h/A57600'   => __( '16 hours', 'wphb' ),
+		'20h/A72000'   => __( '20 hours', 'wphb' ),
+		'1d/A86400'    => __( '1 day', 'wphb' ),
+		'2d/A172800'   => __( '2 days', 'wphb' ),
+		'3d/A259200'   => __( '3 days', 'wphb' ),
+		'4d/A345600'   => __( '4 days', 'wphb' ),
+		'5d/A432000'   => __( '5 days', 'wphb' ),
+		'8d/A691200'   => __( '8 days', 'wphb' ),
 		'16d/A1382400' => __( '16 days', 'wphb' ),
 		'24d/A2073600' => __( '24 days', 'wphb' ),
-		'1M/A2592000' => __( '1 month', 'wphb' ),
-		'2M/A5184000' => __( '2 months', 'wphb' ),
-		'3M/A7776000' => __( '3 months', 'wphb' ),
+		'1M/A2592000'  => __( '1 month', 'wphb' ),
+		'2M/A5184000'  => __( '2 months', 'wphb' ),
+		'3M/A7776000'  => __( '3 months', 'wphb' ),
 		'6M/A15552000' => __( '6 months', 'wphb' ),
 		'1y/A31536000' => __( '1 year', 'wphb' ),
 	);
@@ -418,74 +366,95 @@ function wphb_get_caching_frequencies() {
 
 function wphb_get_caching_cloudflare_frequencies() {
 	return array(
-		7200 =>	__( '2 hours', 'wphb' ),
-		10800 => __( '3 hours', 'wphb' ),
-		14400 => __( '4 hours', 'wphb' ),
-		18000 => __( '5 hours', 'wphb' ),
-		28800 => __( '8 hours', 'wphb' ),
-		43200 => __( '12 hours', 'wphb' ),
-		57600 => __( '16 hours', 'wphb' ),
-		72000 => __( '20 hours', 'wphb' ),
-		86400 => __( '1 day', 'wphb' ),
-		172800 => __( '2 days', 'wphb' ),
-		259200 => __( '3 days', 'wphb' ),
-		345600 => __( '4 days', 'wphb' ),
-		432000 => __( '5 days', 'wphb' ),
-		691200 => __( '8 days', 'wphb' ),
-		1382400 => __( '16 days', 'wphb' ),
-		2073600 => __( '24 days', 'wphb' ),
-		2592000 => __( '1 month', 'wphb' ),
-		5184000 => __( '2 months', 'wphb' ),
+		7200     => __( '2 hours', 'wphb' ),
+		10800    => __( '3 hours', 'wphb' ),
+		14400    => __( '4 hours', 'wphb' ),
+		18000    => __( '5 hours', 'wphb' ),
+		28800    => __( '8 hours', 'wphb' ),
+		43200    => __( '12 hours', 'wphb' ),
+		57600    => __( '16 hours', 'wphb' ),
+		72000    => __( '20 hours', 'wphb' ),
+		86400    => __( '1 day', 'wphb' ),
+		172800   => __( '2 days', 'wphb' ),
+		259200   => __( '3 days', 'wphb' ),
+		345600   => __( '4 days', 'wphb' ),
+		432000   => __( '5 days', 'wphb' ),
+		691200   => __( '8 days', 'wphb' ),
+		1382400  => __( '16 days', 'wphb' ),
+		2073600  => __( '24 days', 'wphb' ),
+		2592000  => __( '1 month', 'wphb' ),
+		5184000  => __( '2 months', 'wphb' ),
 		15552000 => __( '6 months', 'wphb' ),
-		31536000 => __( '1 year', 'wphb' )
+		31536000 => __( '1 year', 'wphb' ),
 	);
 }
 
-function wphb_get_caching_cloudflare_frequencies_dropdown( $args = array() ) {
+/**
+ * Convert CloudFlare frequency to normal. Used when updating the custom code in browser caching.
+ *
+ * @param bool $cloudflare_frequency  Cloudflare frequency to convert.
+ * @return string Caching frequency.
+ */
+function wphb_convert_cloudflare_frequency( $cloudflare_frequency ) {
+	$frequencies = array(
+		7200     => '2h/A7200',
+		10800    => '3h/A10800',
+		14400    => '4h/A14400',
+		18000    => '5h/A18000',
+		28800    => '8h/A28800',
+		43200    => '12h/A43200',
+		57600    => '16h/A57600',
+		72000    => '20h/A72000',
+		86400    => '1d/A86400',
+		172800   => '2d/A172800',
+		259200   => '3d/A259200',
+		345600   => '4d/A345600',
+		432000   => '5d/A432000',
+		691200   => '8d/A691200',
+		1382400  => '16d/A1382400',
+		2073600  => '24d/A2073600',
+		2592000  => '1M/A2592000',
+		5184000  => '2M/A5184000',
+		15552000 => '6M/A15552000',
+		31536000 => '1y/A31536000',
+	);
+
+	return $frequencies[ $cloudflare_frequency ];
+}
+
+/**
+ * Prepare dropdown select with caching expiry settings.
+ *
+ * @param array $args        Arguments list.
+ * @param bool  $cloudflare  Get Cloudflare frequencies.
+ */
+function wphb_get_caching_frequencies_dropdown( $args = array(), $cloudflare = false ) {
 	$defaults = array(
-		'selected' => false,
-		'name' => 'expiry-select',
-		'id' => false,
-		'class' => '',
-		'data-type' => ''
+		'selected'  => false,
+		'name'      => 'expiry-select',
+		'id'        => false,
+		'class'     => '',
+		'data-type' => '',
 	);
 
 	$args = wp_parse_args( $args, $defaults );
 
-	if ( ! $args['id'] )
+	if ( ! $args['id'] ) {
 		$args['id'] = $args['name'];
+	}
 
+	if ( $cloudflare ) {
+		$frequencies = wphb_get_caching_cloudflare_frequencies();
+	} else {
+		$frequencies = wphb_get_caching_frequencies();
+	}
 
 	?>
 	<select id="<?php echo esc_attr( $args['id'] ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>" class="<?php echo esc_attr( $args['class'] ); ?>" data-type="<?php echo esc_attr( $args['data-type'] ); ?>">
-		<?php foreach ( wphb_get_caching_cloudflare_frequencies() as $key => $value ): ?>
+		<?php foreach ( $frequencies as $key => $value ) : ?>
 			<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $args['selected'], $key ); ?>><?php echo $value; ?></option>
 		<?php endforeach; ?>
 	</select>
-	<?php
-}
-
-function wphb_get_caching_frequencies_dropdown( $args = array() ) {
-	$defaults = array(
-		'selected' => false,
-		'name' => 'expiry-select',
-		'id' => false,
-		'class' => '',
-		'data-type' => ''
-	);
-
-	$args = wp_parse_args( $args, $defaults );
-
-	if ( ! $args['id'] )
-		$args['id'] = $args['name'];
-
-
-	?>
-		<select id="<?php echo esc_attr( $args['id'] ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>" class="<?php echo esc_attr( $args['class'] ); ?>" data-type="<?php echo esc_attr( $args['data-type'] ); ?>">
-			<?php foreach ( wphb_get_caching_frequencies() as $key => $value ): ?>
-				<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $args['selected'], $key ); ?>><?php echo $value; ?></option>
-			<?php endforeach; ?>
-		</select>
 	<?php
 }
 
@@ -501,8 +470,8 @@ function wphb_human_read_time_diff( $seconds ) {
 		return false;
 	}
 
-	$year_in_seconds   = 60 * 60 * 24 * 365.25;
-	$month_in_seconds  = 60 * 60 * 24 * ( 365.25 / 12 );
+	$year_in_seconds   = 60 * 60 * 24 * 365;
+	$month_in_seconds  = 60 * 60 * 24 * 30;
 	$day_in_seconds    = 60 * 60 * 24;
 	$hour_in_seconds   = 60 * 60;
 	$minute_in_seconds = 60;
@@ -624,12 +593,13 @@ function wphb_get_admin_capability() {
 /**
  * Get code snippet for a module and server type
  *
- * @param string $module Module name
- * @param string $server_type Server type (nginx, apache...)
+ * @param string $module Module name.
+ * @param string $server_type Server type (nginx, apache...).
+ * @param array  $expiry_times Type expiry times (javascript, css...).
  *
  * @return string Code snippet
  */
-function wphb_get_code_snippet( $module, $server_type = '' ) {
+function wphb_get_code_snippet( $module, $server_type = '', $expiry_times = array() ) {
 
 	/** @var WP_Hummingbird_Module_Server $module */
 	$module = wphb_get_module( $module );
@@ -639,7 +609,7 @@ function wphb_get_code_snippet( $module, $server_type = '' ) {
 	if ( ! $server_type )
 		$server_type = wphb_get_server_type();
 
-	return apply_filters( 'wphb_code_snippet', $module->get_server_code_snippet( $server_type ), $server_type, $module );
+	return apply_filters( 'wphb_code_snippet', $module->get_server_code_snippet( $server_type, $expiry_times ), $server_type, $module );
 }
 
 /**
@@ -670,7 +640,7 @@ function wphb_get_days_of_week() {
 function wphb_get_times() {
 	$data = array();
 	for ( $i = 0; $i < 24; $i ++ ) {
-		foreach ( apply_filters( 'wphb_scan_get_times_interval', array( '00', '30' ) ) as $min ) {
+		foreach ( apply_filters( 'wphb_scan_get_times_interval', array( '00' ) ) as $min ) {
 			$time          = $i . ':' . $min;
 			$data[ $time ] = apply_filters( 'wphb_scan_get_times_hour_min', $time );
 		}
@@ -681,17 +651,18 @@ function wphb_get_times() {
 
 
 /**
- * Display the still having trouble link if it's a member
- *
- * @internal
+ * Display start a live chat link for pro user or open support ticket for non-pro user.
  */
 function _wphb_still_having_trouble_link() {
-	if ( ! wphb_is_member() ) {
-		return;
+	if ( wphb_is_member() ) {
+		?>
+		<p><?php esc_html_e( 'Still having trouble? ', 'wphb' ); ?><a target="_blank" href="<?php echo wphb_live_chat_link(); ?>"><?php esc_html_e( 'Start a live chat.', 'wphb' ); ?></a></p>
+		<?php
+	} else {
+		?>
+		<p><?php esc_html_e( 'Still having trouble? ', 'wphb' ); ?><a target="_blank" href="<?php echo wphb_support_link(); ?>"><?php esc_html_e( 'Open a support ticket.', 'wphb' ); ?></a></p>
+		<?php
 	}
-	?>
-	<p><?php _e( 'Still having trouble? ', 'wphb' ); ?><a target="_blank" href="<?php echo wphb_support_link(); ?>"><?php _e( 'Open a support ticket.', 'wphb' ); ?></a></p>
-	<?php
 }
 
 /**
@@ -732,7 +703,7 @@ function wphb_get_display_name( $id ) {
  * @return bool True if the pro folder is available
  */
 function wphb_load_pro() {
-	if ( class_exists( 'WP_Hummingbird_Pro' ) && is_a( wp_hummingbird()->pro, 'WP_Hummingbird_Pro' ) ) {
+	if ( class_exists( 'WP_Hummingbird_Pro' ) && ( wp_hummingbird()->pro instanceof WP_Hummingbird_Pro ) ) {
 		// Already loaded
 		return true;
 	}
@@ -748,4 +719,72 @@ function wphb_load_pro() {
 	}
 
 	return false;
+}
+/**
+ * Get documentation URL.
+ *
+ * @param $page string Page slug.
+ * @param $view string View slug.
+ * @return string
+ * @since 1.7.0
+ */
+function wphb_get_documentation_url( $page, $view = '' ) {
+	switch ( $page ) {
+		case 'wphb-performance':
+			if ( 'reports' === $view ):
+				$anchor = '#chapter-7';
+			else:
+				$anchor = '#chapter-1';
+			endif;
+			break;
+		case 'wphb-caching':
+			$anchor = '#chapter-2';
+			break;
+		case 'wphb-gzip':
+			$anchor = '#chapter-3';
+			break;
+		case 'wphb-minification':
+			$anchor = '#chapter-4';
+			break;
+		case 'wphb-uptime':
+			$anchor = '#chapter-6';
+			break;
+		default:
+			$anchor = '';
+	}
+
+	return 'https://premium.wpmudev.org/docs/wpmu-dev-plugins/hummingbird/' . $anchor;
+}
+
+/**
+ * Get the proper HTTP2 status via a curl call.
+ *
+ * @since 1.7.1
+ */
+function wphb_get_http2_status() {
+	if ( isset( $_SERVER['SERVER_PROTOCOL'] ) && 'HTTP/2.0' === $_SERVER['SERVER_PROTOCOL'] ) {
+		return true;
+	}
+
+	$ch = curl_init();
+	curl_setopt_array($ch, array(
+		CURLOPT_URL            => get_home_url(),
+		CURLOPT_HEADER         => true,
+		CURLOPT_NOBODY         => true,
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_HTTP_VERSION   => 3, // cURL will attempt to make an HTTP/2.0 request (can downgrade to HTTP/1.1)
+	));
+	$response = curl_exec($ch);
+
+	if ($response !== false && ( strpos($response, "HTTP/2.0") === 0 || strpos($response, "HTTP/2") === 0 )) {
+		$status = true;
+	} elseif ($response !== false) {
+		$status = false;
+	} else {
+		$status = new WP_Error( curl_error( $ch ) );
+	}
+
+	curl_close($ch);
+
+	return $status;
 }

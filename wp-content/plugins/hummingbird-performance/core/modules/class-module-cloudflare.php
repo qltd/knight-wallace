@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Class WP_Hummingbird_Module_Cloudflare
+ */
 class WP_Hummingbird_Module_Cloudflare extends WP_Hummingbird_Module {
 
 	/**
@@ -16,15 +19,13 @@ class WP_Hummingbird_Module_Cloudflare extends WP_Hummingbird_Module {
 	 */
 	protected $name = 'Cloudflare';
 
-
 	/**
 	 * Initializes Minify module
 	 */
 	public function init() {
 		if ( self::has_cloudflare() ) {
 			add_filter( 'wp_hummingbird_is_active_module_' . $this->get_slug(), '__return_true' );
-		}
-		else {
+		} else {
 			add_filter( 'wp_hummingbird_is_active_module_' . $this->get_slug(), '__return_false' );
 		}
 	}
@@ -40,7 +41,7 @@ class WP_Hummingbird_Module_Cloudflare extends WP_Hummingbird_Module {
 	 */
 	public static function has_cloudflare( $force = false ) {
 		if ( isset( $_GET['wphb-check-cf'] ) ) {
-			// If we're checking do not try to check again or it will return a timeout
+			// If we're checking do not try to check again or it will return a timeout.
 			return (bool) get_site_option( 'wphb-is-cloudflare' );
 		}
 		if ( $force ) {
@@ -51,18 +52,18 @@ class WP_Hummingbird_Module_Cloudflare extends WP_Hummingbird_Module {
 
 		if ( ! is_numeric( $is_cloudflare ) || $force ) {
 			$url = add_query_arg( 'wphb-check-cf', 'true', home_url() );
-			$head = wp_remote_head( $url, array( 'sslverify' => false ) );
+			$head = wp_remote_head( $url, array(
+				'sslverify' => false,
+			) );
 			if ( is_wp_error( $head ) ) {
 				// Something weird happened
 				$is_cloudflare = false;
-			}
-			else {
+			} else {
 				$headers = wp_remote_retrieve_headers( $head );
 				if ( isset( $headers['server'] ) && strpos( $headers['server'], 'cloudflare' ) > -1 ) {
 					$is_cloudflare = true;
 					update_site_option( 'wphb-is-cloudflare', 1 );
-				}
-				else {
+				} else {
 					$is_cloudflare = false;
 					update_site_option( 'wphb-is-cloudflare', 0 );
 				}
@@ -85,8 +86,6 @@ class WP_Hummingbird_Module_Cloudflare extends WP_Hummingbird_Module {
 	public function get_plan() {
 		return wphb_get_setting( 'cloudflare-plan' );
 	}
-
-
 
 	/**
 	 * Tries to set the same caching rules in CF
@@ -190,7 +189,7 @@ class WP_Hummingbird_Module_Cloudflare extends WP_Hummingbird_Module {
 			'gif' => $settings['caching_expiry_images'],
 			'mp3' => $settings['caching_expiry_media'],
 			'mp4' => $settings['caching_expiry_media'],
-			'ico' => $settings['caching_expiry_media']
+			'ico' => $settings['caching_expiry_media'],
 		);
 
 		foreach ( $_expirations as $filetype => $time ) {
@@ -221,21 +220,21 @@ class WP_Hummingbird_Module_Cloudflare extends WP_Hummingbird_Module {
 	public static function page_rule_targets( $filetype ) {
 		return array(
 			array(
-				'target' => 'url',
+				'target'     => 'url',
 				'constraint' => array(
 					'operator' => 'matches',
-					'value' => '*caninomag.es*.' . $filetype
-				)
-			)
+					'value'    => '*caninomag.es*.' . $filetype,
+				),
+			),
 		);
 	}
 
 	public static function page_rule_actions( $time ) {
 		return array(
 			array(
-				'id' => 'browser_cache_ttl',
-				'value' => $time
-			)
+				'id'    => 'browser_cache_ttl',
+				'value' => $time,
+			),
 		);
 	}
 
@@ -254,7 +253,6 @@ class WP_Hummingbird_Module_Cloudflare extends WP_Hummingbird_Module {
 	/**
 	 * Register a rule added to CF so they can be listed them later
 	 *
-	 * @param $id
 	 * @param $filetype
 	 */
 	public function unregister_caching_page_rule( $filetype ) {
@@ -276,7 +274,7 @@ class WP_Hummingbird_Module_Cloudflare extends WP_Hummingbird_Module {
 	}
 
 	/**
-	 * Get a list of CloudFlare zones
+	 * Get a list of Cloudflare zones
 	 *
 	 * @return WP_Error|array
 	 */
@@ -297,7 +295,7 @@ class WP_Hummingbird_Module_Cloudflare extends WP_Hummingbird_Module {
 			$zones[] = array(
 				'value' => $zone->id,
 				'label' => $zone->name,
-				'plan' => $zone->plan->legacy_id
+				'plan'  => $zone->plan->legacy_id,
 			);
 		}
 
@@ -305,7 +303,6 @@ class WP_Hummingbird_Module_Cloudflare extends WP_Hummingbird_Module {
 			// Get the next page
 			return $this->get_zones_list( ++$page, $zones );
 		}
-
 
 		return $zones;
 	}
@@ -338,7 +335,7 @@ class WP_Hummingbird_Module_Cloudflare extends WP_Hummingbird_Module {
 		$value = absint( $value );
 		$freqs = wphb_get_caching_cloudflare_frequencies();
 		if ( ! $value || ! array_key_exists( $value, $freqs ) ) {
-			return new WP_Error( 'cf_invalid_value', __( 'Invalid CloudFlare expiration value', 'wphb' ) );
+			return new WP_Error( 'cf_invalid_value', __( 'Invalid Cloudflare expiration value', 'wphb' ) );
 		}
 
 		return $api->cloudflare->set_caching_expiration( $zone, $value );
@@ -357,7 +354,14 @@ class WP_Hummingbird_Module_Cloudflare extends WP_Hummingbird_Module {
 		return $result->result->value;
 	}
 
-	public function purge_cache() {
+	/**
+	 * Implement abstract parent method for clearing cache.
+	 *
+	 * @since 1.7.1 Changed name from purge_cache to clear_cache
+	 *
+	 * @return mixed
+	 */
+	public function clear_cache() {
 		$zone = wphb_get_setting( 'cloudflare-zone' );
 		$api = wphb_get_api();
 		$api->cloudflare->set_auth_email( wphb_get_setting( 'cloudflare-email' ) );
@@ -366,6 +370,4 @@ class WP_Hummingbird_Module_Cloudflare extends WP_Hummingbird_Module {
 		return $result->result;
 	}
 
-
 }
-

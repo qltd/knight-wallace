@@ -1,7 +1,8 @@
 <?php
-//if uninstall not called from WordPress exit
-if ( !defined( 'WP_UNINSTALL_PLUGIN' ) )
+// If uninstall not called from WordPress exit.
+if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit();
+}
 
 if ( ! function_exists( 'is_plugin_active' ) ) {
 	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
@@ -30,12 +31,14 @@ $option_names = $wpdb->get_col(
 	)
 );
 
-foreach ( $option_names as $name )
+foreach ( $option_names as $name ) {
 	delete_option( $name );
+}
 
 delete_option( 'wphb_process_queue' );
 delete_transient( 'wphb-minification-errors' );
 delete_option( 'wphb-minify-server-errors' );
+delete_option( 'wphb-minification-files-scanned' );
 
 delete_option( 'wphb_settings' );
 delete_site_option( 'wphb_settings' );
@@ -45,5 +48,30 @@ delete_site_option( 'wphb-pro' );
 
 delete_site_option( 'wphb-is-cloudflare' );
 delete_site_option( 'wphb-quick-setup' );
-delete_site_option( 'wphb-notice-free-rated-show' );
 delete_site_option( 'wphb-free-install-date' );
+
+delete_site_option( 'wphb-caching-data' );
+delete_site_option( 'wphb-gzip-data' );
+delete_site_option( 'wphb-server-type' );
+
+delete_site_option( 'wphb-last-report-dismissed' );
+
+// Clean notices.
+delete_site_option( 'wphb-notice-free-rated-show' );
+delete_site_option( 'wphb-notice-cache-cleaned' );
+delete_site_option( 'wphb-cloudflare-dash-notice' );
+// Minification notices
+delete_site_option( 'wphb-notice-http2-info-show' );
+delete_site_option( 'wphb-notice-minification-optimized-show' );
+delete_site_option( 'wphb-minification-view' );
+
+// Clean all cron.
+wp_clear_scheduled_hook( 'wphb_performance_scan' );
+
+if ( ! class_exists( 'WP_Hummingbird_Filesystem' ) ) {
+	include_once( plugin_dir_path( __FILE__ ) . '/core/class-filesystem.php' );
+}
+$fs = WP_Hummingbird_Filesystem::instance();
+if ( ! is_wp_error( $fs->status ) ) {
+	$fs->clean_up();
+}

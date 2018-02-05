@@ -20,21 +20,40 @@ function Fetcher() {
     }
 
     const methods = {
-        /**
-         * Caching module actions.
+		/**
+         * Notices actions.
+		 */
+		notice: {
+			/**
+             * Dismiss notice
+			 * @param id Notice id.
+			 */
+			dismiss: ( id ) => {
+		        const action = actionPrefix + 'notice_dismiss';
+		        return request( action, { id }, 'POST' );
+            },
+            /**
+             * Dismiss CloudFlare dash notice
+             */
+            dismissCloudflareDash: () => {
+                const action = actionPrefix + 'cf_notice_dismiss';
+                return request( action, {}, 'POST' );
+            }
+        },
+		/**
+		 * Caching module actions.
          */
         caching: {
             /**
              * Set expiration for browser caching.
              *
              * @param type File type.
-             * @param value Expiry value.
+             * @param expiry_times Type expiry times.
              */
-            setExpiration: ( type, value ) => {
+            setExpiration: ( type, expiry_times ) => {
                 const action = actionPrefix + 'caching_set_expiration';
-                return request( action, { type, value }, 'POST' );
+                return request( action, { type, expiry_times }, 'POST' );
             },
-
             /**
              * Set server type.
              *
@@ -49,10 +68,11 @@ function Fetcher() {
              * Reload snippet.
              *
              * @param type Server type.
+             * @param expiry_times Type expiry times.
              */
-            reloadSnippets: ( type ) => {
+            reloadSnippets: ( type, expiry_times ) => {
                 const action = actionPrefix + 'caching_reload_snippet';
-                return request( action, { type }, 'POST' )
+                return request( action, { type, expiry_times }, 'POST' )
                     .then( ( response ) => {
                         return response;
                     });
@@ -64,7 +84,7 @@ function Fetcher() {
          */
         cloudflare: {
 			/**
-			 * Connect to CloudFlare.
+			 * Connect to Cloudflare.
 			 *
 			 * @param step
 			 * @param formData
@@ -79,7 +99,7 @@ function Fetcher() {
             },
 
             /**
-             * Set expiry for CloudFlare cache.
+             * Set expiry for Cloudflare cache.
              *
              * @param value Expiry value.
              */
@@ -89,7 +109,7 @@ function Fetcher() {
             },
 
 			/**
-             * Purge CloudFlare cache.
+             * Purge Cloudflare cache.
 			 */
 			purgeCache: () => {
                 const action = actionPrefix + 'cloudflare_purge_cache';
@@ -144,17 +164,24 @@ function Fetcher() {
                 return request( action, { value }, 'POST' );
             },
 
+			/**
+			 * Toggle minification advanced mode.
+			 *
+			 * @param value
+			 */
+			toggleView: ( value ) => {
+            	const action = actionPrefix + 'minification_toggle_view';
+            	return request( action, { value }, 'POST' );
+			},
+
             /**
              * Start minification check.
              *
              * @param progress
              */
-            startCheck: ( progress ) => {
+            startCheck: () => {
                 const action = actionPrefix + 'minification_start_check';
-                return request( action, { progress }, 'POST' )
-                    .then( ( response ) => {
-                        return response;
-                    });
+                return request( action, {}, 'POST' );
             },
 
             /**
@@ -163,12 +190,20 @@ function Fetcher() {
              * @param progress
              * @param step
              */
-            checkStep: ( progress, step ) => {
+            checkStep: ( step ) => {
                 const action = actionPrefix + 'minification_check_step';
-                return request( action, { progress, step }, 'POST' )
+                return request( action, { step }, 'POST' )
                     .then( ( response ) => {
                         return response;
                     });
+            },
+
+            /**
+             * Finish minification process.
+             */
+            finishCheck: () => {
+                const action = actionPrefix + 'minification_finish_scan';
+                return request( action, {}, 'POST' );
             },
 
 			/**
@@ -207,7 +242,6 @@ function Fetcher() {
                     .then( ( response ) => {
                         return response;
                     });
-
             },
 
             /**

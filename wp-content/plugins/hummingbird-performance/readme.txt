@@ -4,25 +4,26 @@ Version:
 Author: WPMU DEV
 Author URI: http://premium.wpmudev.org/
 Contributors: WPMUDEV
-Tags: Optimization, Caching, Speed, Performance, Faster, PageSpeed, Gzip, Compression, Minify, Minification, CloudFlare
-Requires at least: 3.5
-Tested up to: 4.7.3
-Stable tag: 1.5.5
-License: GPL v2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+Tags: Optimization, Caching, Speed, Performance, Faster, PageSpeed, Gzip, Compression, Minify, Minification, Cloudflare, Gravatar
+Requires at least: 4.6
+Tested up to: 4.9.2
+Requires PHP: 5.2
+Stable tag: 1.7.1
+License: GPLv2
+License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
-Make your site load faster with file compression, minification and browser caching – because when it comes to pagespeed, every millisecond counts!
-
+Make your site load faster with file compression, minification and a complete set of cache tools – because when it comes to pagespeed, every millisecond counts!
 
 
 == Description ==
 
-<strong>Hummingbird</strong> zips through your site and finds new ways to boost page speed with fine-tuned controls over <strong>file compression</strong>, <strong>minification</strong> and <strong>browser caching</strong>. Load your pages quicker and score higher on <a href="https://developers.google.com/speed/pagespeed/insights/">Google PageSpeed Insights</a> with Hummingbird site optimization.
+<strong>Hummingbird</strong> zips through your site and finds new ways to boost page speed with fine-tuned controls over <strong>file compression</strong>, <strong>minification</strong> and <strong>full-page, browser and Gravatar caching</strong>. Load your pages quicker and score higher on <a href="https://developers.google.com/speed/pagespeed/insights/">Google PageSpeed Insights</a> with Hummingbird site optimization.
 
 = Features Available in Hummingbird Include: =
 
 * Performance Reports - Pro tips for running your site at super speed
 * Minification - Position, minify and combine files for top performance
-* Browser Caching - Reward repeat visitors with faster load times
+* Caching Suite - Load pages faster with full-page, Gravatar and browser cache tools
 * GZIP Compression - Blazing fast HTML, JavaScript, and stylesheet transfer
 
 
@@ -38,6 +39,9 @@ Hummingbird even has one-click improvements for quickly optimizing performance.
 ★★★★★ <br>
 “Hummingbird took me from 32 to 84 on Google page speed plus made my site 50% faster on GTmetrix!” - <a href="https://premium.wpmudev.org/profile/nicolastergiopoulos">Nicolas</a>
 
+★★★★★ <br>
+“I just built a real bloated sack of crap of a WP site, and after configuring Hummingbird and letting it do its thing, the site is actually *fast* — much faster than it has any right to be...I’m impressed.” - <a href="https://wordpress.org/support/topic/better-than-i-deserve-2/">Cacarr</a>
+
 = Minification =
 
 Did you know that the more files you add to your site’s the header, the slower it will load? With Hummingbird, you can easily customize the load position of your files to increase your page speed.
@@ -49,13 +53,13 @@ Quickly reorder, compress and reposition files with Hummingbird’s minification
 Hummingbird has GZIP powers to make sharing your site more efficient.
 Sending zipped files is faster and can save you money on hosting. And don’t worry about setup, send Hummingbird instructions with the click of a button and she’ll handle the rest.
 
-= Browser Cache =
+= Full-Page, Browser and Gravatar Cache =
 
-Make your site load even faster for returning visitors. Browser caching stores content in your visitor’s browser so they don't have to download things twice.
+Make your site load even faster for with Hummingbirds complete set of cache tools that give your visitor’s a fastor browsing experience. Including full-page, broswer and Gravatar caching.
 
 = Built-in Cloudflare Integration =
 
-Hummingbird can be used to control your <a href="https://www.cloudflare.com/">CloudFlare</a> browser cache settings as well! Simply add your CloudFlare API details and configure away.
+Hummingbird can be used to control your <a href="https://www.cloudflare.com/">Cloudflare</a> browser cache settings as well! Simply add your Cloudflare API details and configure away.
 
 Hummingbird is a one of a kind WordPress performance optimization plugin that can make your site run at superspeed, for free!
 
@@ -67,31 +71,27 @@ However, if you'd like automated scanning, uptime monitoring, enhanced minify co
 
 = Do I need Hummingbird if I already have WP Rocket or W3 Total Cache? =
 
-Yes! If you already use WP Rocket or W3 Total Cache the special monitoring tools Hummingbird offers makes it worth it. To ensure compatibility only activate overlapping features in one of the plugins.
+Yes! Of course our cache suite is more than enough but if you already use WP Rocket or W3 Total Cache the special monitoring tools Hummingbird offers still make it worth it. To ensure compatibility only activate overlapping features in one of the plugins.
 
-= Does Hummingbird work with CloudFlare? =
+= Does Hummingbird work with Cloudflare? =
 
-Yes! Hummingbird is built to take full advantage of CloudFlare features. Just plug in your API to get started.
-
-= Does Hummingbird work with plugins like WP Super Cache, Batcache or the full page caching feature my Managed WordPress host offers? =
-
-Yes! Plugins like WP Super Cache and Batcache and Managed WordPress Hosting that offer full page only HTML caching are actually recommended by Hummingbird to give your users the fastest browsing experience possible for your site.
+Yes! Hummingbird is built to take full advantage of Cloudflare features. Just plug in your API to get started.
 
 = Does Hummingbird work with WooCommerce? =
-
-Yes! Hummingbird only caches browser assets, like images, stylesheets & scripts (not cookies). Because we leave full page caching to dedicated plugins, Hummingbird works great with ecommerce plugins like WooCommerce and MarketPress.
+Yes! Hummingbird works great with ecommerce plugins like WooCommerce and MarketPress. For best results, when configuring full-page cache, follow the WooCommerce recommended cache settings. Hummingbird will exclude the cart, my account and checkout pages to keep content dynamic.
 
 = Somebody help! I turned on Minification and it broke my site!? =
 
-Minification is a great way to speed up your site but moving combining and rearranging files can also mess with styling and break functionality. We recommend making incremental changes and testing your site as you go so you can undo the changes if something breaks. And remember, don’t panic. If something goes wrong you can start over with the click of a button :)
+Minification is a great way to speed up your site but moving, combining and rearranging files can also mess with styling and break functionality. We recommend making incremental changes and testing your site as you go so you can undo the changes if something breaks. And remember, don’t panic. If something goes wrong you can start over with the click of a button :)
 
 
 
 == Screenshots ==
 
-1. Minification lets you combine and reposition files.
-2. Scan your site for optimization tips and tricks.
-3. Use suggestions to make improvments and speed up your site.
+1. Scan your site for optimization tips and tricks.
+2. Use the complete suite of cache tools to speed up load times.
+3. Minification lets you combine and reposition files.
+4. Use suggestions to make improvments and speed up your site.
 
 
 
@@ -106,7 +106,91 @@ Minification is a great way to speed up your site but moving combining and rearr
 
 == Changelog ==
 
-= 1.5.4.1 ( 2017-07-17 ) =
+= 1.7.1 ( 2017-01-15 ) =
+- New: Download log button in page caching module
+- New: Minification screen has been split into beginner and advanced views
+- New: Minification advanced view allows manipulations with jquery, jquery-core and jquery-migrate files
+- Enhance: Page caching module checking for wp-content directory and wp-config.php file
+- Enhance: Hummingbird will convert any path to regex expression in exclusion rules in page caching module
+- Enhance: Compatibility with Bedrock
+- Enhance: Detection and handling of WP_CACHE constant in wp-config.php file
+- Enhance: More informative tooltips for caching modules
+- Fix: Minification not always correctly detecting when HTTP/2 is used
+- Fix: Cloudflare integration shows empty zone when website domain includes www
+- Fix: Notices during page/post edit when page caching is active
+
+= 1.7.0.3 ( 2017-11-14 ) =
+- New: Debugging option for page caching
+- New: Support for DONOTCACHEPAGE
+- Fix: Ability to disable minification on multisite
+- Fix: Rating message shown on Pro version and without a 7 day delay
+- Enhance: Description on clear cache notice
+- Enhance: Better support for clearing cache for post/page taxonomies
+- Enhance: Do not try to cache pages if advanced-cache.php can't load page caching class
+
+= 1.7.0.2 ( 2017-11-07 ) =
+- Fix: Clear cache notices will not auto activate minification
+- Fix: Inability to update performance reports settings
+- Enhance: Improve page caching descriptions
+
+= 1.7.0.1 ( 2017-11-02 ) =
+-Fix: White screen when trying to clear cache after plugin/theme update on multisite install
+
+= 1.7.0 ( 2017-11-02 ) =
+- New: Page caching
+- New: Inline styles in minification
+- New: Documentation link for all modules
+- New: Gravatar widget on dashboard page
+- Enhance: Code optimization and improvements aimed at improving performance in wp-admin
+- Enhance: Add type icons to browser caching and gzip compression pages
+- Enhance: Improved UX in the dashboard, browser caching and gzip modules
+- Enhance: Better notice handling
+- Enhance: Browser caching will auto check status on expiry settings update
+- Fix: Cache expiry time not shown correctly for month and year
+- Fix: Performance tests not running from quick setup modal
+- Fix: Minified files not hosted on CDN
+- Fix: Expiry times not displayed correctly for month and year periods
+
+= 1.6.2 ( 2017-10-02 ) =
+- Fix: API spamming issue
+
+= 1.6.1 ( 2017-09-13 ) =
+- New: Add font types to browser and cache rules
+- New: Automatic detection of HTTP/2 and disable of combine function in minification
+- Enhance: Add a button to the cache page for saving settings (instead of ajax)
+- Enhance: Add a scrollbar to expiry settings dropdown
+- Enhance: Better sync between Hummingbird and the Hub
+- Enhance: Improve error and zone handling for Cloudflare
+- Enhance: Links to support articles will now open in a new window
+- Enhance: Gravatar caching will respect the classes of original HTML elements
+- Enhance: Accessibility on hidden form elements
+- Enhance: Gzip module page layout
+- Enhance: Add Gravatar support when using get_avatar_url()
+- Fix: Uninstall will clean out all the database rows, created by the plugin
+- Fix: Layout issues on caching page
+- Fix: Notice styles
+- Fix: Do not cache Gravatars in admin
+- Fix: Update translation strings
+- Fix: Minification link visible in admin bar for non-admins in multisite
+- Fix: Incorrect date on dashboard and Uptime module when site is down
+
+= 1.6.0 ( 2017-08-07 ) =
+- New: Gravatar caching
+- New: Caching module layout
+- New: Ability to defer scripts in minification
+- Enhance: Better detect GZIP and browser cache
+- Enhance: Do not minify files that are already minified by a theme or a plugin
+- Enhance: Better support for older PHP versions (5.2 and 5.3)
+- Enhance: Improve admin notice styles, make notices dismissable
+- Enhance: Improve dashboard layout
+- Enhance: Better connectivity with the Hub
+- Enhance: Better support for support for screen readers
+- Fix: Overlapping issues in dashboard
+- Fix: PHP notices on dashboard page and during activation/deactivation
+- Fix: Minification not working on some subsites in a network
+- Fix: Minification stuck at 10% on some installs
+
+= 1.5.5 ( 2017-07-17 ) =
 - Fix: Bug in Performance Report
 - Fix: Fatal error on activation on the free versioon
 - Fix: HTML tags in Cloudflare module
@@ -115,7 +199,7 @@ Minification is a great way to speed up your site but moving combining and rearr
 - Fix: Cron reports were stuck on a loop on some WordPress installations
 - Fix: Issue with reports and calculating UTC time
 - Fix: Minification was duplicating inline styles
-- Fix: IE incompatibility in magnification screen
+- Fix: IE incompatibility in minification screen
 - Fix: Compatibility with Contact Form 7
 - Fix: Mobile menus not working on Performance and Minification pages
 - Enhance: Remove jQuery and jQuery migrate from minification process
@@ -165,7 +249,7 @@ Minification is a great way to speed up your site but moving combining and rearr
 - Enhance: Do not combine assets by default
 - Enhance: Uptime data is synced with WPMU DEV servers every 3 minutes
 - Enhance: Minification stats calculations improvements
-- Enhance: CloudFlare admin menu has been removed and integrated into Browser Cache screen
+- Enhance: Cloudflare admin menu has been removed and integrated into Browser Cache screen
 - Fix: When performance test is run for the first time, previous score improvement was "Pending"
 - Fix: stylesheets with @import directives were always displayed as "Pending"
 - Fix: Various minor improvements and bug fixes
@@ -182,7 +266,7 @@ Minification is a great way to speed up your site but moving combining and rearr
 - Fix: Keep handle name when only one handle is enqueued in a group for better compatibility with wp_script_is function
 - Fix: add_inline_scripts/styles did not work for plugins that inject inlines too late
 - Fix: Sometimes assets are not enqueued under https if the site is SSL
-- Enhance: CloudFlare box - Show a message if there are no zones available
+- Enhance: Cloudflare box - Show a message if there are no zones available
 - Some other minor fixes/improvements
 
 = 1.4.1 ( 2017-01-12 ) =
@@ -194,7 +278,7 @@ Minification is a great way to speed up your site but moving combining and rearr
 - New: Brand new minification engine
 - New: Minified files are now processed in WPMUDEV's servers
 - New: Users can use WPMUDEV's CDN to store minified files
-- New: Clear CloudFlare cache feature
+- New: Clear Cloudflare cache feature
 - Fix: PHP code in stylesheets could potentially be exposed
 - Enhancement: stylesheets with @import directives are not minified anymore due to multiple issues that were causing
 - Some admin styles improvements
@@ -207,24 +291,24 @@ Minification is a great way to speed up your site but moving combining and rearr
 
 = 1.3.4 ( 2016-10-03 ) =
 - PHP 5.3 required for minification
-- Fix: Javascript improvements in CloudFlare box
+- Fix: Javascript improvements in Cloudflare box
 - Fix: Missing Hummingbird icon in admin bar
-- Enhancement: CloudFlare now auto selects domain
+- Enhancement: Cloudflare now auto selects domain
 - Enhancement: Improved caching detection
 - Other minor improvements
 
 = 1.3.3 ( 2016-09-02 ) =
-- Fix: Parse error in CloudFlare module when ASP tags detection was active in PHP
+- Fix: Parse error in Cloudflare module when ASP tags detection was active in PHP
 
 = 1.3.2 ( 2016-08-22 ) =
-- Fix: Error when detecting CloudFlare on activation
+- Fix: Error when detecting Cloudflare on activation
 
 = 1.3.1 ( 2016-08-17 ) =
-- Fix: CloudFlare was only showing 20 sites max
+- Fix: Cloudflare was only showing 20 sites max
 - Fix: Parse error in PHP < 5.3 installations
 
 = 1.3 ( 2016-08-15 ) =
-- New: CloudFlare integration
+- New: Cloudflare integration
 - New: LiteSpeed server detection
 - Enhance: Clear minification cache when a plugin/theme is activated/deactivated
 - Enhance: New better Javascript compressor

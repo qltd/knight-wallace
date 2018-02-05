@@ -1,46 +1,56 @@
-<ul class="dev-list dev-list-stats">
-    <div class="content">
-        <p><?php _e( 'Compress, combine and position your assets to dramatically improve your page load speed.', 'wphb' ); ?></p>
-    </div>
+<?php
+/**
+ * Minification meta box on dashboard page.
+ *
+ * @package Hummingbird
+ *
+ * @var float  $compressed_size          Overall compressed files size in Kb.
+ * @var float  $compressed_size_scripts  Amount of space saved by compressing JavaScript.
+ * @var float  $compressed_size_styles   Amount of space saved by compressing CSS.
+ * @var int    $enqueued_files           Number of enqueued files.
+ * @var float  $original_size            Overall original file size in Kb.
+ * @var float  $percentage               Percentage saved.
+ */
 
-
-    <li class="dev-list-stats-item">
-        <span class="list-label list-label-stats"><?php _e( 'Total Enqueued Files', 'wphb' ); ?></span>
-        <span class="list-detail list-detail-stats list-detail-stats-heading"><?php echo $enqueued_files; ?></span>
-    </li>
-
-    <li class="dev-list-stats-item">
-        <span class="list-label list-label-stats list-label-stats-pills"><?php _e( 'Total Size Reductions', 'wphb' ); ?></span>
-        <span class="list-detail list-detail-stats">
-            <div class="wphb-pills-group">
-                <span class="wphb-pills with-arrow right grey"><?php echo $original_size; ?>KB</span>
-                <span class="wphb-pills"><?php echo $compressed_size; ?>KB</span>
-            </div>
-        </span>
-    </li><!-- end dev-list-stats-item -->
-
-    <li class="dev-list-stats-item">
-        <span class="list-label list-label-stats"><?php _e( 'Total % Reductions', 'wphb' ); ?></span>
-        <span class="list-detail list-detail-stats list-detail-stats-heading"><?php echo $percentage; ?>%</span>
-    </li><!-- end dev-list-stats-item -->
-
-    <li class="dev-list-stats-item">
-        <span class="list-label list-label-stats list-label-stats-filename">
-            <span class="wphb-filename-extension wphb-filename-extension-js"><?php _e( 'JS', 'wphb' ); ?></span>
-            <p><?php _e( 'Scripts', 'wphb' ); ?></p>
-        </span>
-        <span class="list-detail list-detail-stats list-detail-stats-heading"><?php echo $compressed_size_scripts; ?>KB</span>
-    </li><!-- end dev-list-stats-item -->
-
-    <li class="dev-list-stats-item">
-        <span class="list-label list-label-stats list-label-stats-filename">
-            <span class="wphb-filename-extension wphb-filename-extension-css"><?php _e( 'CSS', 'wphb' ); ?></span>
-            <p><?php _e( 'Stylesheets', 'wphb' ); ?></p>
-        </span>
-        <span class="list-detail list-detail-stats list-detail-stats-heading"><?php echo $compressed_size_styles; ?>KB</span>
-    </li><!-- end dev-list-stats-item -->
-</ul>
-
-<div class="buttons">
-    <a href="<?php echo esc_url( $minification_url ); ?>" class="button button-ghost" name="submit"><?php esc_attr_e( 'Configure', 'wphb' ); ?></a>
+?>
+<div class="content">
+	<p><?php esc_html_e( 'Compress, combine and position your assets to dramatically improve your page load speed.', 'wphb' ); ?></p>
 </div>
+
+<div class="wphb-dash-table two-columns">
+	<div class="wphb-dash-table-row">
+		<div><?php esc_html_e( 'Total Enqueued Files', 'wphb' ); ?></div>
+		<div><?php echo absint( $enqueued_files ); ?></div>
+	</div>
+
+	<div class="wphb-dash-table-row">
+		<div><?php esc_html_e( 'Total Size Reductions', 'wphb' ); ?></div>
+		<div>
+			<div class="wphb-pills-group">
+				<span class="wphb-pills with-arrow right grey"><?php echo esc_html( $original_size ); ?>KB</span>
+				<span class="wphb-pills"><?php echo esc_html( $compressed_size ); ?>KB</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="wphb-dash-table-row">
+		<div><?php esc_html_e( 'Total % Reductions', 'wphb' ); ?></div>
+		<div><?php echo esc_html( $percentage ); ?>%</div>
+	</div>
+
+	<div class="wphb-dash-table-row">
+		<div>
+			<span class="wphb-filename-extension wphb-filename-extension-js"><?php esc_html_e( 'JS', 'wphb' ); ?></span>
+			<?php esc_html_e( 'JavaScript', 'wphb' ); ?>
+		</div>
+		<div><?php echo esc_html( $compressed_size_scripts ); ?>KB</div>
+	</div>
+
+	<div class="wphb-dash-table-row">
+		<div>
+			<span class="wphb-filename-extension wphb-filename-extension-css"><?php esc_html_e( 'CSS', 'wphb' ); ?></span>
+			<?php esc_html_e( 'CSS', 'wphb' ); ?>
+		</div>
+		<div><?php echo esc_html( $compressed_size_styles ); ?>KB</div>
+	</div>
+</div><!-- end wphb-dash-table -->

@@ -6,15 +6,33 @@ class WP_Hummingbird_Module_Uptime extends WP_Hummingbird_Module {
 	public function init() {}
 	public function run() {}
 
-	public static function get_last_report( $time, $force = false ) {
+	/**
+	 * Implement abstract parent method for clearing cache.
+	 *
+	 * @since 1.7.1
+	 */
+	public function clear_cache() {
+		delete_site_transient( 'wphb-uptime-last-report' );
+		delete_site_transient( 'wphb-uptime-last-error' );
+	}
 
+	/**
+	 * Get last report.
+	 *
+	 * @since 1.7.1 Removed static property.
+	 * @param $time
+	 * @param bool $force
+	 *
+	 * @return bool|WP_Error
+	 */
+	public function get_last_report( $time, $force = false ) {
 		if ( ! wphb_is_member() ) {
 			return new WP_Error( 'uptime-membership', __( 'You need to be a WPMU DEV Member', 'wphb' ) );
 		}
 
 		$current_reports = get_site_transient( 'wphb-uptime-last-report' );
 		if ( ! isset( $current_reports[ $time ] ) || $force ) {
-			self::refresh_report( $time );
+			$this->refresh_report( $time );
 			$current_reports = get_site_transient( 'wphb-uptime-last-report' );
 		}
 
@@ -27,14 +45,16 @@ class WP_Hummingbird_Module_Uptime extends WP_Hummingbird_Module {
 
 	/**
 	 * Get latest report from server
+	 *
+	 * @since 1.7.1 Removed static property.
 	 */
-	public static function refresh_report( $time = 'day' ) {
-		/** @var WP_Hummingbird_API $api */
+	public function refresh_report( $time = 'day' ) {
+		/* @var WP_Hummingbird_API $api */
 		$api = wphb_get_api();
 		$results = $api->uptime->check( $time );
 
- 		if ( is_wp_error( $results ) && 412 === $results->get_error_code() ) {
-			// Uptime has been deactivated
+		if ( is_wp_error( $results ) && 412 === $results->get_error_code() ) {
+			// Uptime has been deactivated.
 			self::disable_locally();
 			delete_site_transient( 'wphb-uptime-last-report' );
 			return;
@@ -46,7 +66,7 @@ class WP_Hummingbird_Module_Uptime extends WP_Hummingbird_Module {
 		}
 
 		$current_reports[ $time ] = $results;
-		// Save for 2 minutes
+		// Save for 2 minutes.
 		set_site_transient( 'wphb-uptime-last-report', $current_reports, 120 );
 	}
 
@@ -63,32 +83,34 @@ class WP_Hummingbird_Module_Uptime extends WP_Hummingbird_Module {
 		$cached = get_site_transient( 'wphb-uptime-remotely-enabled' );
 		if ( 'yes' === $cached ) {
 			return true;
-		}
-		elseif ( 'no' === $cached ) {
+		} elseif ( 'no' === $cached ) {
 			return false;
 		}
 
 		$api = wphb_get_api();
 		$result = $api->uptime->is_enabled();
-		set_site_transient( 'wphb-uptime-remotely-enabled', $result ? 'yes' : 'no', 180 ); // save for 3 minutes
+		set_site_transient( 'wphb-uptime-remotely-enabled', $result ? 'yes' : 'no', 300 ); // save for 5 minutes
 		return $result;
 	}
 
-
 	/**
 	 * Enable Uptime local and remotely
+	 *
+	 * @since 1.7.1 Remove static property
 	 */
-	public static function enable() {
-		self::clear_cache();
+	public function enable() {
+		$this->clear_cache();
 		self::enable_locally();
 		return self::enable_remotely();
 	}
 
 	/**
 	 * Disable Uptime local and remotely
+	 *
+	 * @since 1.7.1 Removed static property
 	 */
-	public static function disable() {
-		self::clear_cache();
+	public function disable() {
+		$this->clear_cache();
 		self::disable_locally();
 		self::disable_remotely();
 	}
@@ -132,13 +154,5 @@ class WP_Hummingbird_Module_Uptime extends WP_Hummingbird_Module {
 		return get_site_transient( 'wphb-uptime-last-error' );
 	}
 
-
-	/**
-	 * Clear Performance Module cache
-	 */
-	public static function clear_cache() {
-		delete_site_transient( 'wphb-uptime-last-report' );
-		delete_site_transient( 'wphb-uptime-last-error' );
-	}
 }
 

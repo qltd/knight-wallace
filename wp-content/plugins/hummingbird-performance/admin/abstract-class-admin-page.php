@@ -4,22 +4,30 @@ abstract class WP_Hummingbird_Admin_Page {
 
 	protected $slug = '';
 
-	public $page_id = null;
-
 	protected $meta_boxes = array();
 
 	protected $tabs = array();
 
-	/**
-	 * In order to avoid duplicated notices,
-	 * we save notices IDs here
-	 *
-	 * @var array
-	 */
-	protected static $displayed_notices = array();
+	public $page_id = null;
 
-	public function __construct( $slug, $page_title, $menu_title, $parent = false, $render = true  ) {
+	/**
+	 * @var WP_Hummingbird_Admin_Notices
+	 */
+	protected $admin_notices;
+
+	/**
+	 * WP_Hummingbird_Admin_Page constructor.
+	 *
+	 * @param string $slug        Module slug.
+	 * @param string $page_title  Page title.
+	 * @param string $menu_title  Menu title.
+	 * @param bool   $parent      Parent or not.
+	 * @param bool   $render      Render the page.
+	 */
+	public function __construct( $slug, $page_title, $menu_title, $parent = false, $render = true ) {
 		$this->slug = $slug;
+
+		$this->admin_notices = WP_Hummingbird_Admin_Notices::get_instance();
 
 		if ( ! $parent ) {
 			$this->page_id = add_menu_page(
@@ -30,8 +38,7 @@ abstract class WP_Hummingbird_Admin_Page {
 				$render ? array( $this, 'render' ) : null,
 				'none'
 			);
-		}
-		else {
+		} else {
 			$this->page_id = add_submenu_page(
 				$parent,
 				$page_title,
@@ -42,12 +49,12 @@ abstract class WP_Hummingbird_Admin_Page {
 			);
 		}
 
-
-		add_action( 'load-' . $this->page_id, array( $this, 'register_meta_boxes' ) );
-		add_action( 'load-' . $this->page_id, array( $this, 'on_load' ) );
-		add_action( 'load-' . $this->page_id, array( $this, 'trigger_load_action' ) );
-		add_filter( 'load-' . $this->page_id, array( $this, 'add_screen_hooks' ) );
-
+		if ( $render ) {
+			add_action( 'load-' . $this->page_id, array( $this, 'register_meta_boxes' ) );
+			add_action( 'load-' . $this->page_id, array( $this, 'on_load' ) );
+			add_action( 'load-' . $this->page_id, array( $this, 'trigger_load_action' ) );
+			add_filter( 'load-' . $this->page_id, array( $this, 'add_screen_hooks' ) );
+		}
 	}
 
 	/**
@@ -68,12 +75,18 @@ abstract class WP_Hummingbird_Admin_Page {
 
 	/**
 	 * Load an admin view
+	 *
+	 * @param $name
+	 * @param array $args
+	 * @param bool $echo
+	 *
+	 * @return string
 	 */
 	public function view( $name, $args = array(), $echo = true ) {
-		$file = wphb_plugin_dir() . "admin/views/$name.php";
+		$file = wphb_plugin_dir() . "admin/views/{$name}.php";
 		$content = '';
 
-		if ( is_file ( $file ) ) {
+		if ( is_file( $file ) ) {
 
 			ob_start();
 
@@ -92,16 +105,16 @@ abstract class WP_Hummingbird_Admin_Page {
 			$content = ob_get_clean();
 		}
 
-		if ( ! $echo )
+		if ( ! $echo ) {
 			return $content;
+		}
 
 		echo $content;
-
 	}
 
 	protected function view_exists( $name ) {
-		$file = wphb_plugin_dir() . "admin/views/$name.php";
-		return is_file ( $file );
+		$file = wphb_plugin_dir() . "admin/views/{$name}.php";
+		return is_file( $file );
 	}
 
 	/**
@@ -109,16 +122,14 @@ abstract class WP_Hummingbird_Admin_Page {
 	 */
 	public function add_screen_hooks() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-		add_action( 'admin_notices', array(  $this, 'notices' ) );
-		add_action( 'network_admin_notices', array(  $this, 'notices' ) );
+		add_action( 'admin_notices', array( $this, 'notices' ) );
+		add_action( 'network_admin_notices', array( $this, 'notices' ) );
 	}
 
 	public function notices() {}
 
-
 	/**
-	 * Function triggered when the page is loaded
-	 * before render any content
+	 * Function triggered when the page is loaded before render any content
 	 */
 	public function on_load() {}
 
@@ -127,11 +138,13 @@ abstract class WP_Hummingbird_Admin_Page {
 		WDEV_Plugin_Ui::load( wphb_plugin_url() . 'externals/shared-ui' );
 
 		// Styles
-		wp_enqueue_style( 'wphb-admin', wphb_plugin_url() . 'admin/assets/css/admin.css', array(), WPHB_VERSION );
+		wp_enqueue_style( 'wphb-admin', wphb_plugin_url() . 'admin/assets/css/app.css', array(), WPHB_VERSION );
 
 		// Scripts
 		wphb_enqueue_admin_scripts( WPHB_VERSION );
 
+		// TODO: remove this once it's fixed in Smush
+		wp_dequeue_style( 'wp-smushit-admin-css' );
 	}
 
 	/**
@@ -150,24 +163,35 @@ abstract class WP_Hummingbird_Admin_Page {
 	 */
 	public function add_meta_box( $id, $title, $callback = '', $callback_header = '', $callback_footer = '', $context = 'main', $args = array() ) {
 		$default_args = array(
-			'box_class'			=> 'dev-box',
-			'box_header_class'	=> 'box-title',
-			'box_content_class'	=> 'box-content',
-			'box_footer_class'	=> 'box-footer'
+			'box_class'         => 'dev-box',
+			'box_header_class'  => 'box-title',
+			'box_content_class' => 'box-content',
+			'box_footer_class'  => 'box-footer',
 		);
 
 		$args = wp_parse_args( $args, $default_args );
 
-		if ( ! isset( $this->meta_boxes[ $this->slug ] ) )
+		if ( ! isset( $this->meta_boxes[ $this->slug ] ) ) {
 			$this->meta_boxes[ $this->slug ] = array();
+		}
 
-		if ( ! isset( $this->meta_boxes[ $this->slug ][ $context ] ) )
+		if ( ! isset( $this->meta_boxes[ $this->slug ][ $context ] ) ) {
 			$this->meta_boxes[ $this->slug ][ $context ] = array();
+		}
 
-		if ( !isset($this->meta_boxes[ $this->slug ][ $context ] ) )
+		if ( ! isset( $this->meta_boxes[ $this->slug ][ $context ] ) ) {
 			$this->meta_boxes[ $this->slug ][ $context ] = array();
+		}
 
-		$meta_box = array('id' => $id, 'title' => $title, 'callback' => $callback, 'callback_header' => $callback_header, 'callback_footer' => $callback_footer, 'args' => $args );
+		$meta_box = array(
+			'id'              => $id,
+			'title'           => $title,
+			'callback'        => $callback,
+			'callback_header' => $callback_header,
+			'callback_footer' => $callback_footer,
+			'args'            => $args,
+		);
+
 		/**
 		 * Allow to filter a WP Hummingbird Metabox
 		 *
@@ -188,16 +212,23 @@ abstract class WP_Hummingbird_Admin_Page {
 	 * @param string $context
 	 */
 	protected function do_meta_boxes( $context = 'main' ) {
-		if ( empty( $this->meta_boxes[ $this->slug ][ $context ] ) )
+		if ( empty( $this->meta_boxes[ $this->slug ][ $context ] ) ) {
 			return;
+		}
 
 		do_action_ref_array( 'wphb_admin_do_meta_boxes_' . $this->slug, array( &$this ) );
 
 		foreach ( $this->meta_boxes[ $this->slug ][ $context ] as $id => $box ) {
-			$args = array( 'title' => $box['title'], 'id' => $id, 'callback' => $box['callback'], 'callback_header' => $box['callback_header'], 'callback_footer' => $box['callback_footer'], 'args' => $box['args'] );
+			$args = array(
+				'title'           => $box['title'],
+				'id'              => $id,
+				'callback'        => $box['callback'],
+				'callback_header' => $box['callback_header'],
+				'callback_footer' => $box['callback_footer'],
+				'args'            => $box['args'],
+			);
 			$this->view( 'meta-box', $args );
 		}
-
 	}
 
 	/**
@@ -210,15 +241,17 @@ abstract class WP_Hummingbird_Admin_Page {
 	/**
 	 * Renders the template header that is repeated on every page.
 	 * From WPMU DEV Dashboard
-	 *
 	 */
 	protected function render_header() {
-
 		?>
 		<section id="header">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+			<div class="actions">
+				<a href="<?php echo esc_url( wphb_get_documentation_url( $this->slug, $this->get_current_tab() ) ); ?>" target="_blank" class="button button-ghost documentation-button">
+					<?php esc_html_e( 'View Documentation', 'wphb' ); ?>
+				</a>
+			</div>
 		</section><!-- end header -->
-
 		<?php
 	}
 
@@ -227,18 +260,16 @@ abstract class WP_Hummingbird_Admin_Page {
 	 */
 	public function render() {
 		?>
-
 		<div id="container" class="wrap wrap-wp-hummingbird wrap-wp-hummingbird-page <?php echo 'wrap-' . $this->slug; ?>">
-
-		<?php
+			<?php
 			if ( isset( $_GET['updated'] ) ) :
-				$this->show_notice( 'updated', __( 'Settings Updated', 'wphb' ), 'success' );
+				$this->admin_notices->show( 'updated', __( 'Settings Updated', 'wphb' ), 'success' );
 			endif;
 
 			$this->render_header();
 
 			$this->render_inner_content();
-		?>
+			?>
 			<div class="footer-love">
 				<?php printf( __( 'Made with %s by WPMU DEV', 'wphb' ), '<span class="dashicons-heart dashicons"></span>' ); ?>
 			</div>
@@ -246,7 +277,7 @@ abstract class WP_Hummingbird_Admin_Page {
 
 		<script>
 			jQuery(document).ready( function() {
-				WPHB_Admin.getModule( 'notices' );
+				window.WPHB_Admin.getModule( 'notices' );
 			});
 
 			// Avoid moving dashboard notice under h2
@@ -264,36 +295,6 @@ abstract class WP_Hummingbird_Admin_Page {
 	}
 
 	/**
-	 * Show an admin notice
-	 *
-	 * @param string $id Unique identificator for the notice
-	 * @param string $message The notice text
-	 * @param string $class Class for the notice wrapper
-	 * @param bool|false $dismissable if is dissmisable or not
-	 */
-	public function show_notice( $id, $message, $class = 'error', $dismissable = false ) {
-		// Is already dismissed ?
-		if ( $dismissable && get_user_meta( get_current_user_id(), 'wphb-notice-' . $id ) )
-			return;
-
-		if ( ! current_user_can( wphb_get_admin_capability() ) )
-			return;
-
-		if ( in_array( $id, self::$displayed_notices ) )
-			return;
-
-		$nonce = '';
-		if ( $dismissable ) {
-			$nonce = wp_create_nonce( 'wphb-dismiss' );
-		}
-
-		$args = compact( 'message', 'id', 'class', 'dismissable', 'nonce' );
-		$this->view( 'notice', $args );
-
-		self::$displayed_notices[] = $id;
-	}
-
-	/**
 	 * Return this menu page URL
 	 *
 	 * @return string
@@ -302,9 +303,9 @@ abstract class WP_Hummingbird_Admin_Page {
 		if ( is_multisite() && is_network_admin() ) {
 			global $_parent_pages;
 
-			if ( isset( $_parent_pages[$this->slug] ) ) {
-				$parent_slug = $_parent_pages[$this->slug];
-				if ( $parent_slug && ! isset( $_parent_pages[$parent_slug] ) ) {
+			if ( isset( $_parent_pages[ $this->slug ] ) ) {
+				$parent_slug = $_parent_pages[ $this->slug ];
+				if ( $parent_slug && ! isset( $_parent_pages[ $parent_slug ] ) ) {
 					$url = network_admin_url( add_query_arg( 'page', $this->slug, $parent_slug ) );
 				} else {
 					$url = network_admin_url( 'admin.php?page=' . $this->slug );
@@ -313,11 +314,10 @@ abstract class WP_Hummingbird_Admin_Page {
 				$url = '';
 			}
 
-			$url = esc_url($url);
+			$url = esc_url( $url );
 
 			return $url;
-		}
-		else {
+		} else {
 			return menu_page_url( $this->slug, false );
 		}
 	}
@@ -354,7 +354,9 @@ abstract class WP_Hummingbird_Admin_Page {
 	 * Display tabs navigation
 	 */
 	public function show_tabs() {
-		$this->view( 'tabs', array( 'tabs' => $this->get_tabs() ) );
+		$this->view( 'tabs', array(
+			'tabs' => $this->get_tabs(),
+		) );
 	}
 
 	/**
@@ -372,8 +374,7 @@ abstract class WP_Hummingbird_Admin_Page {
 
 		if ( is_multisite() && is_network_admin() ) {
 			return network_admin_url( 'admin.php?page=' . $this->slug . '&view=' . $tab );
-		}
-		else {
+		} else {
 			return admin_url( 'admin.php?page=' . $this->slug . '&view=' . $tab );
 		}
 	}
