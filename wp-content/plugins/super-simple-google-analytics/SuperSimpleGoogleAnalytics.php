@@ -3,11 +3,11 @@
 Plugin Name: Super Simple Google Analytics
 Plugin URI: http://shinraholdings.com/plugins/super-simple-google-analytics
 Description: Bare bones option for people looking to simply insert the basic Google Analytics tracking code into the head section of every page without any fuss.
-Version: 1.7.2
+Version: 1.7.3
 Author: bitacre
 Author URI: http://shinraholdings.com
 License: GPLv3
-	Copyright 2016 Shinra Web Holdings (http://shinraholdings.com)
+	Copyright 2018 Shinra Web Holdings (http://shinraholdings.com)
 */
 
 if( !class_exists( 'superSimpleGoogleAnalytics' ) ) : // namespace collision check
@@ -147,8 +147,8 @@ class superSimpleGoogleAnalytics {
 					 <!-- <?php _e( 'UA-numbers (text boxes)', $this->plugin_textdomain ); ?> -->
 					<tr valign="top"><th scope="row"><label for="<?php echo $this->options_name; ?>[account]"><?php _e( 'Google Analytics Numbers', $this->plugin_textdomain ); ?>: </label></th>
 						<td>
-							UA-<input type="text" name="<?php echo $this->options_name; ?>[account]" value="<?php echo $options['account']; ?>" style="width:90px;" maxlength="8" />
-							&ndash;<input type="text" name="<?php echo $this->options_name; ?>[profile]" value="<?php echo $options['profile']; ?>" style="width:30px;" maxlength="3" />
+							UA-<input type="text" name="<?php echo $this->options_name; ?>[account]" value="<?php echo $options['account']; ?>" style="width:90px;" />
+							&ndash;<input type="text" name="<?php echo $this->options_name; ?>[profile]" value="<?php echo $options['profile']; ?>" style="width:30px;" />
 						</td>
 					</tr>
 					

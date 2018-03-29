@@ -1,8 +1,8 @@
 <div class="wphb-block-entry">
 	<div class="wphb-block-entry-image wphb-block-entry-image-bottom">
 		<img class="wphb-image"
-			 src="<?php echo wphb_plugin_url() . 'admin/assets/image/graphic-hb-minify-summary.png'; ?>"
-			 srcset="<?php echo wphb_plugin_url() . 'admin/assets/image/graphic-hb-minify-summary@2x.png'; ?> 2x"
+			 src="<?php echo WPHB_DIR_URL . 'admin/assets/image/graphic-hb-minify-summary.png'; ?>"
+			 srcset="<?php echo WPHB_DIR_URL . 'admin/assets/image/graphic-hb-minify-summary@2x.png'; ?> 2x"
 			 alt="<?php esc_attr_e( 'Hummingbird', 'wphb' ); ?>">
 	</div>
 
@@ -33,7 +33,7 @@
 			</li>
 
 			<?php if ( ! is_multisite() ) : ?>
-				<?php if ( wphb_is_member() ) : ?>
+				<?php if ( WP_Hummingbird_Utils::is_member() ) : ?>
 					<li>
 						<span class="list-label"><?php _e( 'WPMU DEV CDN', 'wphb' ); ?></span>
 						<span class="list-detail">
@@ -50,7 +50,7 @@
 						<span class="list-label"><?php _e( 'WPMU DEV CDN', 'wphb' ); ?></span>
 						<span class="list-detail">
 							<div>
-								<a class="button button-content-cta button-ghost tooltip tooltip-l tooltip-right" tooltip="<?php _e( 'Host your files on WPMU DEV’s blazing fast CDN', 'wphb' ); ?>" href="#wphb-upgrade-membership-modal" id="dash-uptime-update-membership" rel="dialog">
+								<a class="button button-content-cta button-ghost tooltip tooltip-l tooltip-right" tooltip="<?php _e( 'Host your files on WPMU DEV’s blazing fast CDN', 'wphb' ); ?>" href="<?php echo WP_Hummingbird_Utils::get_link( 'plugin', 'hummingbird_assetoptimization_summary_pro_tag' ); ?>" target="_blank">
 									<?php _e( 'Pro Feature', 'wphb' ); ?>
 								</a>
 							</div>

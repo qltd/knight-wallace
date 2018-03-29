@@ -6,7 +6,7 @@
 class WP_Hummingbird_Minification_Errors_Controller {
 
 	/**
-	 * Minification errors list
+	 * Asset Optimization errors list
 	 *
 	 * @var array|bool
 	 */
@@ -30,7 +30,7 @@ class WP_Hummingbird_Minification_Errors_Controller {
 	 * @return array|mixed
 	 */
 	public function get_server_errors() {
-		$errors =  get_transient( 'wphb-minify-server-errors' );
+		$errors = get_transient( 'wphb-minify-server-errors' );
 		if ( ! $errors || ! is_array( $errors ) ) {
 			return array();
 		}
@@ -79,7 +79,10 @@ class WP_Hummingbird_Minification_Errors_Controller {
 	 * @return array|bool False if there are no errors
 	 */
 	private function get_errors() {
-		$default = array( 'scripts' => array(), 'styles' => array() );
+		$default = array(
+			'scripts' => array(),
+			'styles'  => array(),
+		);
 
 		/**
 		 * Filter the minification errors
@@ -99,14 +102,14 @@ class WP_Hummingbird_Minification_Errors_Controller {
 		$error = false;
 		if ( isset( $this->errors[ $type ][ $handle ] ) ) {
 			$defaults = array(
-				'handle' => '',
-				'error' => '',
-				'disable' => array()
+				'handle'  => '',
+				'error'   => '',
+				'disable' => array(),
 			);
 			$error = wp_parse_args( $this->errors[ $type ][ $handle ], $defaults );
 		}
 
-		return apply_filters( "wphb_handle_error_{$handle}_{$type}", $error, $handle, $type );;
+		return apply_filters( "wphb_handle_error_{$handle}_{$type}", $error, $handle, $type );
 	}
 
 	/**
@@ -137,7 +140,6 @@ class WP_Hummingbird_Minification_Errors_Controller {
 			unset( $this->errors[ $type ][ $handle ] );
 		}
 
-
 		update_option( 'wphb-minification-errors', $this->errors );
 	}
 
@@ -149,14 +151,16 @@ class WP_Hummingbird_Minification_Errors_Controller {
 	 * @param string $code Error code
 	 * @param string $message Error message
 	 * @param array $actions List of actions to take (don't minify, don't combine)
-	 * @param array $disable List of switchers to disable in Minification screen (minify, combine)
+	 * @param array $disable List of switchers to disable in Asset Optimization screen (minify, combine)
 	 */
 	public function add_error( $handles, $type, $code, $message, $actions = array(), $disable = array() ) {
 		if ( ! is_array( $handles ) ) {
 			$handles = array( $handles );
 		}
 
-		$options = wphb_get_settings();
+		/* @var WP_Hummingbird_Module_Minify $minify */
+		$minify = WP_Hummingbird_Utils::get_module( 'minify' );
+		$options = $minify->get_options();
 
 		foreach ( $handles as $handle ) {
 			$this->errors[ $type ][ $handle ] = array(
@@ -179,7 +183,7 @@ class WP_Hummingbird_Minification_Errors_Controller {
 			}
 		}
 
-		wphb_update_settings( $options );
+		$minify->update_options( $options );
 		update_option( 'wphb-minification-errors', $this->errors );
 	}
 }

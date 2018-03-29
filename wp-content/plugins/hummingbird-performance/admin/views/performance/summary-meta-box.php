@@ -1,5 +1,5 @@
 <?php if ( $error ) : ?>
-	<div class="wphb-table-wrapper complex add-side-padding">
+	<div class="wphb-table-wrapper add-side-padding">
 		<div class="row">
 			<div class="wphb-notice wphb-notice-error wphb-notice-box">
 				<p><?php echo $error_text; ?></p>
@@ -7,7 +7,7 @@
 					<p><code style="background:white;"><?php echo $error_details; ?></code></p>
 				</div>
 				<a href="<?php echo esc_url( $retry_url ); ?>" class="button button-notice"><?php esc_html_e( 'Try again', 'wphb' ); ?></a>
-				<a target="_blank" href="<?php echo esc_url( wphb_support_link() ); ?>" class="button button-notice"><?php esc_html_e( 'Support', 'wphb' ); ?></a>
+				<a target="_blank" href="<?php echo esc_url( WP_Hummingbird_Utils::get_link( 'support' ) ); ?>" class="button button-notice"><?php esc_html_e( 'Support', 'wphb' ); ?></a>
 			</div>
 		</div>
 	</div>
@@ -40,12 +40,9 @@
 		};
 	</script>
 <?php else : ?>
-
 	<div class="box-content no-vertical-padding no-vertical-margin">
 		<div class="content">
-			<?php
-			if ( $report_dismissed ) :
-			?>
+			<?php if ( $report_dismissed ) : ?>
 				<div class="wphb-notice wphb-notice-grey">
 					<p><?php esc_html_e( 'You have chosen to ignore this performance test. Run a new test to see new recommendations.', 'wphb' ); ?></p>
 					<?php if ( ! $disabled ) : ?>
@@ -54,27 +51,15 @@
 						</div>
 					<?php endif; ?>
 				</div>
-			<?php
-			else :
+			<?php else :
 				echo '<p>' . esc_html_e( 'Here are your latest performance test results. Action as many fixes as possible, however you can always ignore warnings if you are unable to fix them.', 'wphb' ) . '</p>';
-			endif;
-			?>
+			endif; ?>
 		</div>
 	</div>
 
 	<div class="wphb-table-wrapper complex">
 
 		<table class="list-table hover-effect wphb-table performance-report-table">
-
-			<thead>
-				<tr class="wphb-performance-report-item-heading">
-					<th class="wphb-performance-report-heading wphb-performance-report-heading-recommendation"><?php esc_html_e( 'Recommendation', 'wphb' ); ?></th>
-					<th class="wphb-performance-report-heading wphb-performance-report-heading-score"><?php esc_html_e( 'Score /100', 'wphb' ); ?></th>
-					<th class="wphb-performance-report-heading wphb-performance-report-heading-type"><?php esc_html_e( 'Type', 'wphb' ); ?></th>
-					<th class="wphb-performance-report-heading wphb-performance-report-heading-cta"></th>
-				</tr><!-- end wphb-performance-report-item-heading -->
-			</thead>
-
 			<tbody>
 				<?php foreach ( $last_test->rule_result as $rule => $rule_result ) :
 					$class = 'dismissed';
@@ -95,6 +80,11 @@
 								break;
 						}
 					endif;
+					$colspan = '';
+					if ( $is_subsite && 'server' === $rule_result->type ) :
+						$class = 'disabled';
+						$colspan = 'colspan=2';
+					endif;
 					$has_url_blocks = ! empty( $rule_result->urlblocks ) && is_array( $rule_result->urlblocks ) && ! empty( $rule_result->urlblocks[0] ); ?>
 					<tr class="wphb-performance-report-item wphb-table-score-<?php echo esc_attr( $class ); ?>" id="rule-<?php echo esc_attr( $rule ); ?>">
 						<td class="wphb-performance-report-item-recommendation">
@@ -103,40 +93,54 @@
 						<td class="wphb-performance-report-item-score">
 							<div class="wphb-score wphb-score-have-label">
 								<div class="tooltip-box">
-									<?php if ( ! $report_dismissed ) : ?>
-										<div class="wphb-score-result wphb-score-result-grade-<?php echo esc_attr( $rule_result->impact_score_class ); ?> tooltip-s" tooltip="<?php echo esc_attr( $rule_result->impact_score ); ?>/100">
-									<?php else : ?>
-										<div class="wphb-score-result wphb-score-result-grade-dismissed tooltip-s" tooltip="<?php echo esc_attr( $rule_result->impact_score ); ?>/100">
-									<?php endif; ?>
-											<div class="wphb-score-type wphb-score-type-circle">
-												<svg class="wphb-score-graph wphb-score-graph-svg" xmlns="http://www.w3.org/2000/svg" width="30" height="30">
-													<circle class="wphb-score-graph-circle" r="12.5" cx="15" cy="15" fill="transparent" stroke-dasharray="0" stroke-dashoffset="0"></circle>
-													<circle class="wphb-score-graph-circle wphb-score-graph-result" r="12.5" cx="15" cy="15" fill="transparent" stroke-dasharray="80" stroke-dashoffset="0"></circle>
-												</svg>
-											</div><!-- end wphb-score-type -->
-											<div class="wphb-score-result-label"><?php echo esc_html( $rule_result->impact_score ); ?></div>
-										</div><!-- end wphb-score-result -->
+								<?php if ( $report_dismissed ) : ?>
+									<div class="wphb-score-result wphb-score-result-grade-dismissed tooltip-s" tooltip="<?php echo esc_attr( $rule_result->impact_score ); ?>/100">
+								<?php elseif ( 'disabled' === $class ) : ?>
+									<div class="wphb-score-result wphb-score-result-grade-<?php echo esc_attr( $class ); ?> tooltip-s" tooltip="<?php echo esc_attr( $rule_result->impact_score ); ?>/100">
+								<?php else : ?>
+									<div class="wphb-score-result wphb-score-result-grade-<?php echo esc_attr( $rule_result->impact_score_class ); ?> tooltip-s" tooltip="<?php echo esc_attr( $rule_result->impact_score ); ?>/100">
+								<?php endif; ?>
+										<div class="wphb-score-type wphb-score-type-circle">
+											<svg class="wphb-score-graph wphb-score-graph-svg" xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+												<circle class="wphb-score-graph-circle" r="12.5" cx="15" cy="15" fill="transparent" stroke-dasharray="0" stroke-dashoffset="0"></circle>
+												<circle class="wphb-score-graph-circle wphb-score-graph-result" r="12.5" cx="15" cy="15" fill="transparent" stroke-dasharray="80" stroke-dashoffset="0"></circle>
+											</svg>
+										</div><!-- end wphb-score-type -->
+										<div class="wphb-score-result-label"><?php echo esc_html( $rule_result->impact_score ); ?></div>
+									</div><!-- end wphb-score-result -->
 								</div><!-- end tooltip-box -->
 							</div><!-- end wphb-score -->
 						</td><!-- end wphb-performance-report-item-score -->
-						<td class="wphb-performance-report-item-type">
-							<?php echo esc_html( $rule_result->type ); ?>
+						<td class="wphb-performance-report-item-type <?php echo esc_attr( $class ); ?>" <?php echo esc_attr( $colspan ); ?>>
+							<?php
+							if ( 'disabled' === $class ) :
+								$disabled_label = __( 'This improvement is controlled by the network admin for this site.', 'wphb' );
+								if ( is_super_admin() ) :
+									$disabled_label = __( 'This can’t be improved at the subsite level.', 'wphb' );
+								endif;
+								echo esc_html( $disabled_label );
+							else :
+								echo esc_html( $rule_result->type );
+							endif;
+							?>
 						</td><!-- end wphb-performance-report-item-type -->
 
-						<td class="wphb-performance-report-item-cta">
-							<?php if ( ! empty( $rule_result->summary ) || ! empty( $rule_result->tip ) ) : ?>
-								<?php if ( 100 !== $rule_result->impact_score ) : ?>
-									<button class="button button-ghost additional-content-opener"><?php esc_html_e( 'Improve', 'wphb' ); ?></button>
+						<?php if ( 'disabled' !== $class ) : ?>
+							<td class="wphb-performance-report-item-cta">
+								<?php if ( ! empty( $rule_result->summary ) || ! empty( $rule_result->tip ) ) : ?>
+									<?php if ( 100 !== $rule_result->impact_score && ( ! $is_subsite && 'server' !== $rule_result->type ) && ! $report_dismissed ) : ?>
+										<button class="button button-ghost additional-content-opener"><?php esc_html_e( 'Improve', 'wphb' ); ?></button>
+									<?php endif; ?>
+									<span class="additional-content-opener trigger-additional-content"><i class="dev-icon dev-icon-caret_down"></i></span>
 								<?php endif; ?>
-								<span class="additional-content-opener trigger-additional-content"><i class="dev-icon dev-icon-caret_down"></i></span>
-							<?php endif; ?>
-						</td><!-- end wphb-performance-report-item-cta -->
+							</td><!-- end wphb-performance-report-item-cta -->
+						<?php endif; ?>
 
 					</tr><!-- end wphb-performance-report-item -->
 
 					<tr class="wphb-performance-report-item-additional-content wphb-table-additional-<?php echo esc_attr( $class ); ?>">
 						<td colspan="4" class="wphb-performance-report-item-additional-content-inner">
-							<div class="dev-box-performance-report-additional-content">
+							<div class="dev-box-performance-report-additional-content <?php echo $is_subsite ? 'disable-buttons' : ''; ?>">
 								<?php if ( ! empty( $rule_result->summary ) ) : ?>
 									<h4><?php esc_html_e( 'Overview', 'wphb' ); ?></h4>
 									<p><?php echo $rule_result->summary; ?></p>
@@ -175,6 +179,7 @@
 
 		</table><!-- end list-table-performance-report -->
 	</div>
+
 <?php endif; ?>
 
-<?php wphb_dismiss_report_modal(); ?>
+<?php WP_Hummingbird_Utils::get_modal( 'dismiss-report' ); ?>

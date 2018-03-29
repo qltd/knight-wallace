@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class WP_Hummingbird_Module_Minify_Scanner
  *
- * Minification files scan
+ * Asset Optimization files scan
  */
 class WP_Hummingbird_Module_Minify_Scanner {
 
@@ -60,8 +60,8 @@ class WP_Hummingbird_Module_Minify_Scanner {
 		update_option( self::CURRENT_STEP, 0 );
 
 		// Reset notice status
-		update_site_option( self::MINIFICATION_NOTICE, 'yes' );
-		update_site_option( self::HTTP2_NOTICE, 'yes' );
+		update_option( self::MINIFICATION_NOTICE, 'yes' );
+		update_option( self::HTTP2_NOTICE, 'yes' );
 
 		$this->refresh_status();
 	}
@@ -88,6 +88,8 @@ class WP_Hummingbird_Module_Minify_Scanner {
 
 	/**
 	 * Update the current step being scanned
+	 *
+	 * @param $step
 	 */
 	public function update_current_step( $step ) {
 		$step = absint( $step );
@@ -110,8 +112,8 @@ class WP_Hummingbird_Module_Minify_Scanner {
 	 *
 	 * @return int
 	 */
-	public static function get_scan_steps() {
-		return count( self::get_scan_urls() );
+	public function get_scan_steps() {
+		return count( $this->get_scan_urls() );
 	}
 
 	/**
@@ -139,7 +141,7 @@ class WP_Hummingbird_Module_Minify_Scanner {
 	 *
 	 * @return array
 	 */
-	public static function get_scan_urls() {
+	public function get_scan_urls() {
 		// Calculate URLs to Check
 		$args = array(
 			'orderby'        => 'rand',
@@ -163,8 +165,9 @@ class WP_Hummingbird_Module_Minify_Scanner {
 			}
 
 			$post_type_archive_link = get_post_type_archive_link( $post_type );
-			if ( $post_type_archive_link )
+			if ( $post_type_archive_link ) {
 				$urls[] = $post_type_archive_link;
+			}
 		}
 
 		if ( get_option( 'show_on_front' ) && $post = get_post( get_option( 'page_for_posts' ) ) ) {
@@ -191,30 +194,32 @@ class WP_Hummingbird_Module_Minify_Scanner {
 	 *
 	 * @return array
 	 */
-	public static function scan_url( $url ) {
+	public function scan_url( $url ) {
 		$cookies = array();
 		foreach ( $_COOKIE as $name => $value ) {
 			if ( strpos( $name, 'wordpress_' ) > -1 ) {
-				$cookies[] = new WP_Http_Cookie( array( 'name' => $name, 'value' => $value ) );
+				$cookies[] = new WP_Http_Cookie( array(
+					'name'  => $name,
+					'value' => $value,
+				) );
 			}
-
 		}
 
 		$result = array();
 
 		$args = array(
-			'timeout' => 0.01,
-			'cookies' => $cookies,
-			'blocking' => false,
-			'sslverify' => false
+			'timeout'   => 0.01,
+			'cookies'   => $cookies,
+			'blocking'  => false,
+			'sslverify' => false,
 		);
 		$result['cookie'] = wp_remote_get( $url, $args );
 
 		// One call logged out
 		$args = array(
-			'timeout' => 0.01,
-			'blocking' => false,
-			'sslverify' => false
+			'timeout'   => 0.01,
+			'blocking ' => false,
+			'sslverify' => false,
 		);
 
 		$result['no-cookie'] = wp_remote_get( $url, $args );

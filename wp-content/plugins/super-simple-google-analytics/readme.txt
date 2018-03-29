@@ -4,8 +4,8 @@ Contributors: bitacre
 Donate link: http://shinraholdings.com/donate
 Tags: google, analytics, simple, works, tracking, code, head, header, insert, google analytics, javascript, google analytics
 Requires at least: 2.8
-Tested up to: 4.4
-Stable tag: 1.7.2
+Tested up to: 4.9.4
+Stable tag: 1.7.3
 
 Very simple plugin for reliably inserting your Google Analytics tracking code on every page.
 
@@ -36,6 +36,9 @@ Possibly, I'm trying to keep this as simple as possible, but if it's a really us
 3. Source of the tracking code inserted just before &lt;/body&gt;.
 
 == Changelog == 
+= 1.7.3 =
+* Got rid of the maxlength fields for tracking codes with more than 8 digits
+ 
 = 1.7.2 =
 * Purely cosmetic update for WordPress 4.4
 
@@ -93,6 +96,9 @@ Possibly, I'm trying to keep this as simple as possible, but if it's a really us
 * There may still be bugs, but I can't find any. 
 
 == Upgrade Notice ==
+= 1.7.3 =
+Enables tracking codes with more than 8 digits.
+
 = 1.7.2 =
 Purely cosmetic update for WordPress 4.4. Happy New Year.
 

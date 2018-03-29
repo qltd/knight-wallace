@@ -12,6 +12,7 @@
  * @var string $cf_notice                CloudFlare notification.
  * @var bool   $show_cf_notice           Show the notice.
  * @var bool   $cf_server                Are a CloudFlare server.
+ * @var bool   $cf_active                CloudFlare active.
  * @var array  $caching_type_tooltips    Caching types array if browser caching is enabled.
  */
 
@@ -25,19 +26,18 @@
 				<li>- <?php esc_html_e( 'Your server may not have the "expires" module enabled (mod_expires for Apache, ngx_http_headers_module for NGINX)', 'wphb' ); ?></li>
 				<li>- <?php esc_html_e( 'Another plugin may be interfering with the configuration', 'wphb' ); ?></li>
 			</ul>
-			<p>
-				<?php
-				printf(
-					/* translators: %s: Support link */
-					__( 'If re-checking and restarting does not resolve, please check with your host or <a href="%s" target="_blank">open a support ticket with us</a>.', 'wphb' ),
-					esc_url( wphb_support_link() )
-				);
-				?>
-			</p>
+
+			<?php
+			printf(
+				/* translators: %s: Support link */
+				__( 'If re-checking and restarting does not resolve, please check with your host or <a href="%s" target="_blank">open a support ticket with us</a>.', 'wphb' ),
+				esc_url( WP_Hummingbird_Utils::get_link( 'support' ) )
+			);
+			?>
 		</div>
 	<?php endif; ?>
 
-	<p><?php esc_html_e( "Store temporary data on your visitors devices so that they don’t have to download assets twice if they don’t have to. This results in a much faster second time round page load speed.", 'wphb' ); ?></p>
+	<p><?php esc_html_e( 'Store temporary data on your visitors devices so that they don’t have to download assets twice if they don’t have to. This results in a much faster second time round page load speed.', 'wphb' ); ?></p>
 
 	<?php if ( $issues ) : ?>
 		<div class="wphb-notice wphb-notice-warning">
@@ -45,13 +45,13 @@
 				<?php
 				printf(
 					/* translators: %s: Number of issues */
-				__( '%s of your cache types don’t meet the recommended expiry period of 8 days.', 'wphb' ), absint( $issues ) );
+				__( '%s of your cache types don’t meet the recommended expiry period of 8+ days. Configure browser caching <a href="#" id="configure-link">here</a>.', 'wphb' ), absint( $issues ) );
 				?>
 			</p>
 		</div>
 	<?php else : ?>
 		<div class="wphb-notice wphb-notice-success">
-			<p><?php esc_html_e( 'All of your cache types meet the recommended expiry period of 8 days. Great work!', 'wphb' ); ?></p>
+			<p><?php esc_html_e( 'All of your cache types meet the recommended expiry period of 8+ days. Great work!', 'wphb' ); ?></p>
 		</div>
 	<?php endif; ?>
 
@@ -74,7 +74,8 @@
 				__( 'The recommended value for this file type is at least %s. The longer the better!', 'wphb' ),
 				esc_html( $recommended[ $type ]['label'] )
 			);
-			if ( $result ) :
+
+			if ( $result ) {
 				if ( $recommended[ $type ]['value'] <= $results[ $type ] ) {
 					$status = $result;
 					$status_color = 'green';
@@ -84,11 +85,19 @@
 					$status_color = 'yellow';
 					$status_tooltip = __( "Caching is enabled but you aren't using our recommended value", 'wphb' );
 				}
-			else :
-				$status = __( 'Disabled', 'wphb' );
-				$status_color = 'yellow';
+			} else {
+				$status         = __( 'Disabled', 'wphb' );
+				$status_color   = 'yellow';
 				$status_tooltip = __( 'Caching is disabled', 'wphb' );
-			endif;
+			}
+
+			if ( $cf_active ) {
+				$cf_tooltip = $expiry_tooltip;
+				$cf_recommended = $recommended[ $type ]['label'];
+				$cf_status_color = $status_color;
+				$cf_status_tooltip = $status_tooltip;
+				$cf_status = $status;
+			}
 			?>
 			<div class="table-row">
 				<div class="wphb-caching-summary-item-type">
@@ -131,7 +140,26 @@
 					</span>
 				</div>
 			</div>
-		<?php endforeach; ?>
+		<?php endforeach;
+
+		if ( $cf_active ) : ?>
+			<div class="table-row">
+				<div class="wphb-caching-summary-item-type">
+					<span class="wphb-filename-extension wphb-filename-extension-other" tooltip="<?php echo esc_attr( $caching_type_tooltips['cloudflare'] ); ?>">oth</span>
+					<?php esc_html_e( 'Cloudflare', 'wphb' ); ?>
+				</div>
+				<div class="wphb-caching-summary-item-expiry">
+					<span class="wphb-button-label wphb-button-label-light" tooltip="<?php echo esc_attr( $cf_tooltip ); ?>">
+						<?php echo esc_html( $cf_recommended ); ?>
+					</span>
+				</div>
+				<div class="wphb-caching-summary-item-status">
+					<span class="wphb-button-label wphb-button-label-<?php echo esc_attr( $cf_status_color ); ?>" tooltip="<?php echo esc_attr( $cf_status_tooltip ); ?>">
+						<?php echo esc_html( $cf_status ); ?>
+					</span>
+				</div>
+			</div>
+		<?php endif; ?>
 	</div>
 	<?php if ( $show_cf_notice ) { ?>
 		<div class="content cf-dash-notice">

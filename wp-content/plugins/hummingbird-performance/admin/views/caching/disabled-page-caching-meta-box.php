@@ -13,8 +13,8 @@
 	<div class="wphb-block-entry-content wphb-block-content-center">
 
 		<img class="wphb-image wphb-image-center wphb-image-icon-content-top"
-			 src="<?php echo wphb_plugin_url() . 'admin/assets/image/hb-graphic-pagecaching-disabled.png'; ?>"
-			 srcset="<?php echo wphb_plugin_url() . 'admin/assets/image/hb-graphic-pagecaching-disabled@2x.png'; ?> 2x"
+			 src="<?php echo WPHB_DIR_URL . 'admin/assets/image/hb-graphic-pagecaching-disabled.png'; ?>"
+			 srcset="<?php echo WPHB_DIR_URL . 'admin/assets/image/hb-graphic-pagecaching-disabled@2x.png'; ?> 2x"
 			 alt="<?php esc_attr_e( 'Page Caching', 'wphb' ); ?>">
 
 		<div class="content">
@@ -22,7 +22,7 @@
 		</div><!-- end content -->
 
 		<div class="buttons">
-			<a href="<?php echo esc_url( $activate_url ); ?>" class="button button-large" id="activate-page-caching">
+			<a href="<?php echo esc_url( $activate_url ); ?>" class="button" id="activate-page-caching">
 				<?php esc_html_e( 'Activate', 'wphb' ); ?>
 			</a>
 		</div>
