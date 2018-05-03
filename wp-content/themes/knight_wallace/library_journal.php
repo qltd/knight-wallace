@@ -81,7 +81,7 @@ $parent = !empty($parent_id) ? get_post($parent_id[0]) : false;
 <?php else: ?>
     <div class="row">
         <div class="large-12">
-            <h1 class="text-center">Library</h1>
+            <h1 class="entry-title text-center">Library</h1>
         </div>
     </div>
 <?php endif; ?>
