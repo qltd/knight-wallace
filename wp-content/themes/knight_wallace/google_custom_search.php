@@ -33,7 +33,18 @@ $parent = !empty($parent_id) ? get_post($parent_id[0]) : false;
     </div>
     <div class="row">
       <div class="large-12 columns">
-        <?php display_search_box(DISPLAY_RESULTS_IN_UNDER_SEARCH_BOX); ?>
+        <script>
+            (function() {
+              var cx = '003152881214126020598:qfmoie-ggk4';
+              var gcse = document.createElement('script');
+              gcse.type = 'text/javascript';
+              gcse.async = true;
+              gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+              var s = document.getElementsByTagName('script')[0];
+              s.parentNode.insertBefore(gcse, s);
+            })();
+          </script>
+          <gcse:search></gcse:search>
       </div>
     </div>
   </main>

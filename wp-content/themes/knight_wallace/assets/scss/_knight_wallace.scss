@@ -170,18 +170,40 @@ address {
 }
 
 input.gsc-input {
-    height: 50px;
-    font-size: 2rem;
+    height: 50px !important;
+    font-size: 2rem !important;
+    margin: 0 0 5px !important;
 }
 
-input.gsc-search-button {
-    height: 50px;
-    margin-top: -9px;
+.gsib_b {
+    display: none !important;
+}
+
+.gsc-input-box table {
+    margin-bottom: 0 !important;
+}
+
+button.gsc-search-button {
+    height: 63px;
+    margin-top: 10px;
     font-size: 1.8rem;
     font-weight: bold;
     font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
     background: $lblue;
     padding: 0 4rem;
+
+    &:hover {
+        background: $ublue;
+    }
+}
+
+.gsc-search-button-v2 svg {
+    width: 20px;
+    height: 20px;
+}
+
+.gsc-resultsHeader {
+    display: none !important;
 }
 
 .logo {
@@ -989,7 +1011,7 @@ ul.pagination {
     padding-bottom: 4rem;
 
     &.donate {
-      padding-bottom: 0;
+        padding-bottom: 0;
     }
 
     @include responsive("1024px") {
