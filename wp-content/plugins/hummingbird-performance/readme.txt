@@ -1,14 +1,14 @@
 === Hummingbird Page Speed Optimization ===
 Plugin Name: Hummingbird Page Speed Optimization
-Version:
+Version: 1.9.0
 Author: WPMU DEV
 Author URI: http://premium.wpmudev.org/
 Contributors: WPMUDEV
 Tags: Optimization, Caching, Speed, Performance, Faster, PageSpeed, Gzip, Compression, Minify, Minification, Cloudflare, Gravatar, Asset Optimization
 Requires at least: 4.6
-Tested up to: 4.9.4
+Tested up to: 4.9.6
 Requires PHP: 5.2
-Stable tag: 1.8.0.4
+Stable tag: 1.9.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -35,6 +35,9 @@ Hummingbird even has one-click improvements for quickly optimizing performance.
 
 ★★★★★ <br>
 “Hummingbird is so easy to use. I thought it wouldn't change my speed much because I already made improvements. I ran the scan, it gave me recommendations, I pushed a button to apply them and it made my site even faster!” - <a href="https://premium.wpmudev.org/profile/juancamilobuitrago">Camilo</a>
+
+★★★★★ <br>
+“Hummingbird is getting smarter with each update. Today it's become so good that it forced me to remove giant cache and optimization plugins like WP Super Cache and WP Sweep because now Hummingbird includes all those features – but in a more impressive way.” - <a href="https://wordpress.org/support/users/swagatam1975/">swagatam1975</a>
 
 ★★★★★ <br>
 “Hummingbird took me from 32 to 84 on Google page speed plus made my site 50% faster on GTmetrix!” - <a href="https://premium.wpmudev.org/profile/nicolastergiopoulos">Nicolas</a>
@@ -78,6 +81,7 @@ Yes! Of course our cache suite is more than enough but if you already use WP Roc
 Yes! Hummingbird is built to take full advantage of Cloudflare features. Just plug in your API to get started.
 
 = Does Hummingbird work with WooCommerce? =
+
 Yes! Hummingbird works great with ecommerce plugins like WooCommerce and MarketPress. For best results, when configuring full-page cache, follow the WooCommerce recommended cache settings. Hummingbird will exclude the cart, my account and checkout pages to keep content dynamic.
 
 = Somebody help! I turned on Asset Optimization and it broke my site!? =
@@ -105,6 +109,60 @@ Asset Optimization is a great way to speed up your site but moving, combining an
 
 
 == Changelog ==
+
+= 1.9.0 ( 2018-05-29 ) =
+- New: Page caching dynamic page types
+- New: Define the path where to store optimized assets
+- New: Advanced Tools now available on multisite installs
+- Fix: Asset optimization error during minify process
+- Fix: Remove invalid link to configure browser caching in IIS 6
+- Fix: Hide clear cache notice when setting file change detection to auto
+- Fix: Incorrect link on the Gzip compression and Browser caching modules
+- Fix: Performance report colors, icons and buttons
+- Enhance: Asset Optimization UI
+- Enhance: Asset Optimization re-check expiry button functionality
+- Enhance: Asset Optimization handling of root-relative URLs when using CDN
+- Enhance: Asset Optimization fonts moved to Other section in the file list
+- Enhance: Asset Optimization size handling of compressed assets
+- Enhance: Publish changes notice is now less invasive
+- Enhance: Error handling in Cloudflare module
+- Enhance: Optimize performance on Caching modules
+- Enhance: Prefetch DNS values are empty by default, with the ability to auto paste in recommended defaults
+- Enhance: Clear cache notices will not show on subsites in a multisite network
+- Enhance: Hummingbird will no longer store user selected server type and always show detected server
+
+= 1.8.2 ( 2018-04-24 ) =
+- New: System Information module in Advanced Tools
+- Enhance: Improve caching notices
+- Enhance: Remove clear cache notice in Asset Optimizztion when re-checking files
+- Enhance: Asset Optimization performance improvements
+- Enhance: Asset Optimization log option in multisite moved to network settings
+- Fix: Performance test previous score not updated
+- Fix: Links in performance reports in multisite are not always redirecting to correct page
+- Fix: PHP 5.2 compatibility
+- Fix: Various UI fixes and improvements
+- Fix: Browser caching changes not reflected when selecting LiteSpeed server
+- Fix: Asset Optimization incorrect states for some files
+- Fix: CDN option changing state during a new scan
+- Fix: Remove wphb_minify_clear_files cron task when Asset Optimization module is not enabled
+- Fix: Warnings during ignore performance report
+
+= 1.8.1 ( 2018-04-11 ) =
+- New: Option to auto clear cache on plugin/theme update
+- New: Option to hide all notices
+- New: Option to show clear cache button on the admin bar
+- Enhance: Various performance improvements and tweaks
+- Enhance: Removed duplicate queries
+- Enhance: Optimize database writes/reads
+- Enhance: Keep compression settings when switching from advanced to basic view in asset optimization
+- Enhance: Javascript code optimization
+- Enhance: Improve WP_CACHE detection to avoid PHP warnings on some configurations
+- Enhance: Increased expiry time for files in asset optimization module
+- Fix: Remove RSS feeds from page caching
+- Fix: Empty exclusion rules in page cache settings were halting all page caching
+- Fix: Publish changes button not working after bulk updates
+- Fix: Page caching exclusion rules will now only escape the dot in the file extension (if present)
+- Fix: Product page type not showing in page caching settings
 
 = 1.8.0.4 ( 2018-03-14 ) =
 - Fix: API spam issue

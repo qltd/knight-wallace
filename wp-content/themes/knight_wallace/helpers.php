@@ -297,19 +297,20 @@ function sort_winners_by_award_type($winners){
     $res = array();
     if(!empty($winners)){
         foreach($winners as $win){
-            //we can assume there will always be 3 results for the winners
+            //There could be multiple winners for each type
             switch($win['type']){
             case 'Excellence in Local Reporting':
-                $res[0] = $win;
+                $local[] = $win;
                 break;
             case 'Excellence in National Reporting':
-                $res[1] = $win;
+                $national[] = $win;
                 break;
             case 'Excellence in International Reporting':
-                $res[2] = $win;
+                $international[] = $win;
                 break;
             }
         }
+        $res = array_merge($local, $national, $international);
     }
     return $res;
 }

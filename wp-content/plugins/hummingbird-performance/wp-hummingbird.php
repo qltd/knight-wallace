@@ -1,14 +1,14 @@
 <?php
 /**
 Plugin Name: Hummingbird
-Version: 1.8.0.4
+Version: 1.9.0
 Plugin URI:  https://premium.wpmudev.org/project/wp-hummingbird/
 Description: Hummingbird zips through your site finding new ways to make it load faster, from file compression and minification to browser caching – because when it comes to pagespeed, every millisecond counts.
 Author: WPMU DEV
 Author URI: http://premium.wpmudev.org
 Network: true
 Text Domain: wphb
-Domain Path: /languages/
+Domain Path: /languages
 
  */
 
@@ -32,7 +32,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
 if ( ! defined( 'WPHB_VERSION' ) ) {
-	define( 'WPHB_VERSION', '1.8.0.4' );
+	define( 'WPHB_VERSION', '1.9.0' );
 }
 
 if ( ! defined( 'WPHB_DIR_PATH' ) ) {
@@ -111,6 +111,8 @@ if ( ! class_exists( 'WP_Hummingbird' ) ) {
 		public $pro;
 
 		/**
+		 * Core
+		 *
 		 * @var WP_Hummingbird_Core
 		 */
 		public $core;
@@ -159,12 +161,14 @@ if ( ! class_exists( 'WP_Hummingbird' ) ) {
 
 			// Add upgrade schedule.
 			add_action( 'wphb_upgrade_to_pro', array( $this, 'upgrade_to_pro' ) );
-			$running_cron_update = get_site_option( 'wphb_cron_update_running' );
 			// Try to update to pro version is user can do that.
-			if ( self::is_free_installed() && self::can_install_pro() && empty( $running_cron_update ) ) {
-				// Schedule upgrade.
-				wp_schedule_single_event( time(), 'wphb_upgrade_to_pro' );
-				update_site_option( 'wphb_cron_update_running', true );
+			if ( self::is_free_installed() && self::can_install_pro() ) {
+				$running_cron_update = get_site_option( 'wphb_cron_update_running' );
+				if ( empty( $running_cron_update ) ) {
+					// Schedule upgrade.
+					wp_schedule_single_event( time(), 'wphb_upgrade_to_pro' );
+					update_site_option( 'wphb_cron_update_running', true );
+				}
 			}
 
 			add_action( 'init', array( $this, 'maybe_clear_all_cache' ) );
@@ -209,20 +213,25 @@ if ( ! class_exists( 'WP_Hummingbird' ) ) {
 			}
 		}
 
-	public function maybe_clear_all_cache() {
-		if ( isset( $_GET['wphb-clear'] ) && current_user_can( WP_Hummingbird_Utils::get_admin_capability() ) ) {
+		/**
+		 * Clear all cache?
+		 */
+		public function maybe_clear_all_cache() {
+			if ( ! isset( $_GET['wphb-clear'] ) || ! current_user_can( WP_Hummingbird_Utils::get_admin_capability() ) ) {
+				return;
+			}
+
 			self::flush_cache();
 
-			WP_Hummingbird_Settings::update_setting( 'last_score', '', 'performance' );
+			WP_Hummingbird_Settings::update_setting( 'last_score', 0, 'performance' );
 
 			if ( 'all' === $_GET['wphb-clear'] ) {
 				WP_Hummingbird_Settings::reset_to_defaults();
 				delete_option( 'wphb-quick-setup' );
 			}
 
-				wp_safe_redirect( remove_query_arg( 'wphb-clear' ) );
-				exit;
-			}
+			wp_safe_redirect( remove_query_arg( 'wphb-clear' ) );
+			exit;
 		}
 
 		/**
@@ -247,16 +256,16 @@ if ( ! class_exists( 'WP_Hummingbird' ) ) {
 				WP_Hummingbird_Module_Server::unsave_htaccess( 'caching' );
 			}
 
-		/* @var WP_Hummingbird_Module_Cloudflare $cf_module */
-		$cf_module = WP_Hummingbird_Utils::get_module( 'cloudflare' );
-		$cf_module->disconnect();
+			/* @var WP_Hummingbird_Module_Cloudflare $cf_module */
+			$cf_module = WP_Hummingbird_Utils::get_module( 'cloudflare' );
+			$cf_module->disconnect();
+		}
 
-		delete_metadata( 'user', '', 'wphb-server-type', '', true );
-	}
-
-
+		/**
+		 * Load translations
+		 */
 		private function load_textdomain() {
-			load_plugin_textdomain( 'wphb', false, 'wp-hummingbird/languages' );
+			load_plugin_textdomain( 'wphb', false, 'wp-hummingbird/languages/' );
 		}
 
 		/**
@@ -273,11 +282,11 @@ if ( ! class_exists( 'WP_Hummingbird' ) ) {
 			/* @noinspection PhpIncludeInspection */
 			include_once( WPHB_DIR_PATH . 'core/integration.php' );
 
-		// Helpers files.
-		/* @noinspection PhpIncludeInspection */
-		include_once WPHB_DIR_PATH . 'core/class-utils.php';
-		/* @noinspection PhpIncludeInspection */
-		include_once WPHB_DIR_PATH . 'core/class-settings.php';
+			// Helpers files.
+			/* @noinspection PhpIncludeInspection */
+			include_once WPHB_DIR_PATH . 'core/class-utils.php';
+			/* @noinspection PhpIncludeInspection */
+			include_once WPHB_DIR_PATH . 'core/class-settings.php';
 
 			if ( is_admin() ) {
 				// Load only admin files.
@@ -285,19 +294,26 @@ if ( ! class_exists( 'WP_Hummingbird' ) ) {
 				include_once( WPHB_DIR_PATH . 'admin/class-admin.php' );
 			}
 
-			// Dashboard Shared UI Library.
-			/* @noinspection PhpIncludeInspection */
-			require_once( WPHB_DIR_PATH . 'externals/shared-ui/plugin-ui.php' );
 		}
 
+		/**
+		 * Check if free version is installed.
+		 *
+		 * @return bool
+		 */
 		private static function is_free_installed() {
-			if ( defined( 'WPHB_WPORG' ) && WPHB_WPORG && 'wp-hummingbird/wp-hummingbird.php' != plugin_basename( __FILE__ ) ) {
+			if ( defined( 'WPHB_WPORG' ) && WPHB_WPORG && 'wp-hummingbird/wp-hummingbird.php' !== plugin_basename( __FILE__ ) ) {
 				return true;
 			}
 
 			return false;
 		}
 
+		/**
+		 * Check if it's possible to install pro version.
+		 *
+		 * @return bool
+		 */
 		private static function can_install_pro() {
 			// Check that dashboard plugin is installed.
 			if ( ! class_exists( 'WPMUDEV_Dashboard' ) ) {
@@ -322,7 +338,7 @@ if ( ! class_exists( 'WP_Hummingbird' ) ) {
 				return false;
 			}
 
-			$plugin = WPMUDEV_Dashboard::$api->get_project_data( self::$project_id  );
+			$plugin = WPMUDEV_Dashboard::$api->get_project_data( self::$project_id );
 			if ( version_compare( WPHB_VERSION, $plugin['version'], '>' ) ) {
 				return false;
 			}
@@ -336,9 +352,10 @@ if ( ! class_exists( 'WP_Hummingbird' ) ) {
 		 * @since 1.7.0
 		 */
 		public function upgrade_to_pro() {
-			// If pro is already installed - exit.
 			/**
-			 * if ( WPMUDEV_Dashboard::$upgrader->is_project_installed( $project_id ) ) {
+			 * If pro is already installed - exit.
+			 *
+			 * If ( WPMUDEV_Dashboard::$upgrader->is_project_installed( $project_id ) ) {
 			 * //return uninstall_plugin( 'hummingbird-performance/wp-hummingbird.php' );
 			 * }
 			 */
@@ -352,10 +369,10 @@ if ( ! class_exists( 'WP_Hummingbird' ) ) {
 			}
 		}
 	}
-}
+} // End if().
 
 register_activation_hook( 'core/class-installer.php', array( 'WP_Hummingbird_Installer', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'WP_Hummingbird_Installer', 'deactivate' ) );
 
-// Init the plugin and load the plugin instance for the first time
+// Init the plugin and load the plugin instance for the first time.
 add_action( 'plugins_loaded', array( 'WP_Hummingbird', 'get_instance' ) );

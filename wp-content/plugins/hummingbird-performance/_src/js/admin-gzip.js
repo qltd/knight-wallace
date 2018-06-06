@@ -24,14 +24,16 @@ import Clipboard from './utils/clipboard';
                 self.$serverInstructions[$(this).data("server")] = $(this);
             });
             this.showServerInstructions(this.selectedServer);
+            // This is used to trigger the resizing of the tabs.
+            $(window).trigger( 'resize' );
             this.$serverSelector.change(function() {
                 const value = $(this).val();
                 self.hideCurrentInstructions();
                 self.showServerInstructions(value);
                 self.setServer(value);
                 self.selectedServer = value;
-                // Update tab size on select change.
-                self.updateTabSize();
+                // This is used to trigger the resizing of the tabs.
+                $(window).trigger( 'resize' );
             });
             configureLink.on('click', function(e) {
                 e.preventDefault();
@@ -44,15 +46,6 @@ import Clipboard from './utils/clipboard';
             troubleshootingLinkLiteSpeed.on('click', function(e) {
                 e.preventDefault();
                 $('html, body').animate({ scrollTop: $('#troubleshooting-gzip-litespeed').offset().top }, 'slow');
-            });
-            $( '.tab label' ).on( 'click', function() {
-                $( this ).parent().parent().find( '.tab label.active' ).removeClass( 'active' );
-                $( this ).addClass( 'active' );
-            });
-            $( '.switch-manual' ).on( 'click', function() {
-                let lowercaseServername = self.selectedServer.toLowerCase();
-                $( '#wphb-server-instructions-' + lowercaseServername ).find( '.tab label.active' ).first().removeClass( 'active' );
-                $( this ).parents().find( '#' + lowercaseServername + '-config-manual' ).prev().addClass( 'active' );
             });
             return this;
         },
@@ -73,13 +66,6 @@ import Clipboard from './utils/clipboard';
             } else {
                 $("#enable-cache-wrap").hide();
             }
-        },
-        updateTabSize: function() {
-            let jq      = $( '#wphb-server-instructions-' + this.selectedServer.toLowerCase() ).find( '.tabs' ),
-                current = jq.find('.tab > input:checked').parent(),
-                content = current.find('.content');
-
-            jq.height( content.outerHeight() + current.outerHeight() - 6 );
         },
 
         setServer: function( value ) {

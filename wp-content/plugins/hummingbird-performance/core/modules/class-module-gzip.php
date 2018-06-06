@@ -67,6 +67,11 @@ class WP_Hummingbird_Module_GZip extends WP_Hummingbird_Module_Server {
 			$api_results = $api->performance->check_gzip();
 			$api_results = get_object_vars( $api_results );
 			foreach ( $files as $type  => $file ) {
+				// If already true, do not overwrite with check.
+				if ( true === $results[ $type ] ) {
+					continue;
+				}
+
 				$index = strtolower( $type );
 				if ( ! isset( $api_results[ $index ]->response_error )
 					&& ( isset( $api_results[ $index ] ) && true === $api_results[ $index ] )

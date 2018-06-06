@@ -70,12 +70,12 @@ class WP_Hummingbird_Utils {
 	/**
 	 * Try to cast a source URL to a path
 	 *
-	 * @param string $src
+	 * @param string $src  Source.
 	 *
 	 * @return string
 	 */
 	public static function src_to_path( $src ) {
-		$path = ltrim( parse_url( $src, PHP_URL_PATH ), '/' );
+		$path = ltrim( wp_parse_url( $src, PHP_URL_PATH ), '/' );
 		$path = path_join( $_SERVER['DOCUMENT_ROOT'], $path );
 
 		return apply_filters( 'wphb_src_to_path', $path, $src );
@@ -90,27 +90,15 @@ class WP_Hummingbird_Utils {
 		wp_enqueue_script( 'wphb-admin', WPHB_DIR_URL . 'admin/assets/js/admin.min.js', array( 'jquery', 'underscore' ), $ver );
 
 		$i10n = array(
-			'recheckURL' => add_query_arg( array(
-				'view' => 'browser',
-				'run'  => 'true',
-			), self::get_admin_menu_url( 'caching' ) ),
-			'htaccessErrorURL' => add_query_arg( array(
-				'view'           => 'browser',
-				'htaccess-error' => 'true',
-			), self::get_admin_menu_url( 'caching' ) ),
-			'cacheEnabled' => WP_Hummingbird_Module_Server::is_htaccess_written( 'caching' ),
+			'errorCachePurge'        => __( 'There was an error during the cache purge. Check file permissions are 755
+										for /wp-content/wphb-cache or delete directory manually.', 'wphb' ),
+			'successGravatarPurge'   => __( 'Gravatar cache purged.', 'wphb' ),
+			'successPageCachePurge'  => __( 'Page cache purged.', 'wphb' ),
+			'errorRecheckStatus'     => __( 'There was an error re-checking the caching status, please try again later.', 'wphb' ),
+			'successRecheckStatus'   => __( 'Browser caching status updated.', 'wphb' ),
+			'successCloudflarePurge' => __( 'Cloudflare cache successfully purged. Please wait 30 seconds for the purge to complete.', 'wphb' ),
 		);
 		wp_localize_script( 'wphb-admin', 'wphbCachingStrings', $i10n );
-
-		if ( self::can_execute_php() ) {
-			$i10n = array(
-				'checkFilesNonce'       => wp_create_nonce( 'wphb-minification-check-files' ),
-				'chartNonce'            => wp_create_nonce( 'wphb-chart' ),
-				'finishedCheckURLsLink' => self::get_admin_menu_url( 'minification' ),
-				'discardAlert'          => __( 'Are you sure? All your changes will be lost', 'wphb' ),
-			);
-			wp_localize_script( 'wphb-admin', 'wphbMinificationStrings', $i10n );
-		}
 
 		$i10n = array(
 			'finishedTestURLsLink' => self::get_admin_menu_url( 'performance' ),
@@ -144,7 +132,6 @@ class WP_Hummingbird_Utils {
 		);
 		wp_localize_script( 'wphb-admin', 'wphbUptimeStrings', $i10n );
 
-		// @TODO We are moving all strings/settings to a unique object instead of splitting it. Starting with Asset Optimization screen
 		/* @var WP_Hummingbird_Module_Cloudflare $cf */
 		$cf = self::get_module( 'cloudflare' );
 		$i10n = array(
@@ -156,13 +143,18 @@ class WP_Hummingbird_Utils {
 			'nonces' => array(
 				'HBFetchNonce' => wp_create_nonce( 'wphb-fetch' ),
 			),
+			'urls'   => array(
+				'cachingEnabled' => add_query_arg( 'view', 'caching', self::get_admin_menu_url( 'caching' ) ),
+			),
 			'strings' => array(
-				'errorSettingsUpdate' => __( 'Error updating settings', 'wphb' ),
-				'successUpdate'       => __( 'Settings updated', 'wphb' ),
-				'deleteAll'           => __( 'Delete All', 'wphb' ),
-				'db_delete'           => __( 'Are you sure you wish to delete', 'wphb' ),
-				'db_entries'          => __( 'database entries', 'wphb' ),
-				'db_backup'           => __( 'Make sure you have a current backup just in case.', 'wphb' ),
+				'htaccessUpdated'       => __( 'Your .htaccess file has been updated', 'wphb' ),
+				'htaccessUpdatedFailed' => __( 'There was an error updating the .htaccess file', 'wphb' ),
+				'errorSettingsUpdate'   => __( 'Error updating settings', 'wphb' ),
+				'successUpdate'         => __( 'Settings updated', 'wphb' ),
+				'deleteAll'             => __( 'Delete All', 'wphb' ),
+				'db_delete'             => __( 'Are you sure you wish to delete', 'wphb' ),
+				'db_entries'            => __( 'database entries', 'wphb' ),
+				'db_backup'             => __( 'Make sure you have a current backup just in case.', 'wphb' ),
 			),
 		);
 
@@ -170,25 +162,29 @@ class WP_Hummingbird_Utils {
 			/* @var WP_Hummingbird_Module_Minify $minify_module */
 			$minify_module = self::get_module( 'minify' );
 
-			$i10n = array_merge_recursive( $i10n, array(
-				'minification' => array(
-					'is' => array(
-						'scanning' => $minify_module->scanner->is_scanning(),
-						'scanned'  => $minify_module->scanner->is_files_scanned(),
+			$is_scanning = $minify_module->scanner->is_scanning();
+
+			if ( $minify_module->is_on_page() || $is_scanning ) {
+				$i10n = array_merge_recursive( $i10n, array(
+					'minification' => array(
+						'is' => array(
+							'scanning' => $is_scanning,
+							'scanned'  => $minify_module->scanner->is_files_scanned(),
+						),
+						'get' => array(
+							'currentScanStep' => $minify_module->scanner->get_current_scan_step(),
+							'totalSteps'      => $minify_module->scanner->get_scan_steps(),
+							'showCDNModal'    => ! is_multisite(),
+						),
 					),
-					'get' => array(
-						'currentScanStep' => $minify_module->scanner->get_current_scan_step(),
-						'totalSteps'      => $minify_module->scanner->get_scan_steps(),
-						'showCDNModal'    => ! is_multisite(),
+					'strings' => array(
+						'discardAlert' => __( 'Are you sure? All your changes will be lost', 'wphb' ),
 					),
-				),
-				'strings' => array(
-					'discardAlert' => __( 'Are you sure? All your changes will be lost', 'wphb' ),
-				),
-				'links' => array(
-					'minification' => self::get_admin_menu_url( 'minification' ),
-				),
-			) );
+					'links' => array(
+						'minification' => self::get_admin_menu_url( 'minification' ),
+					),
+				));
+			} // End if().
 		}
 
 		wp_localize_script( 'wphb-admin', 'wphb', $i10n );
@@ -262,11 +258,11 @@ class WP_Hummingbird_Utils {
 			return false;
 		}
 
-		if ( ! empty( $current_user->user_firstname ) ) { // First we try to grab user First Name
+		if ( ! empty( $current_user->user_firstname ) ) { // First we try to grab user First Name.
 			return $current_user->user_firstname;
 		}
 
-		// Grab user nicename
+		// Grab user nicename.
 		return $current_user->user_nicename;
 	}
 
@@ -293,7 +289,7 @@ class WP_Hummingbird_Utils {
 	 * @since 1.7.1
 	 */
 	public static function get_http2_status() {
-		if ( isset( $_SERVER['SERVER_PROTOCOL'] ) && 'HTTP/2.0' === $_SERVER['SERVER_PROTOCOL'] ) {
+		if ( isset( $_SERVER['SERVER_PROTOCOL'] ) && 'HTTP/2.0' === $_SERVER['SERVER_PROTOCOL'] ) { // Input var ok.
 			return true;
 		}
 
@@ -305,7 +301,7 @@ class WP_Hummingbird_Utils {
 			CURLOPT_HEADER         => true,
 			CURLOPT_NOBODY         => true,
 			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_HTTP_VERSION   => 3, // cURL will attempt to make an HTTP/2.0 request (can downgrade to HTTP/1.1)
+			CURLOPT_HTTP_VERSION   => 3, // cURL will attempt to make an HTTP/2.0 request (can downgrade to HTTP/1.1).
 		) );
 		$response = curl_exec( $ch );
 
@@ -322,12 +318,12 @@ class WP_Hummingbird_Utils {
 	 * Get gzip or caching status data.
 	 *
 	 * @param string $module  Accepts: 'caching', 'gzip'.
-	 * @param bool   $api
+	 * @param bool   $api     Query API.
 	 *
 	 * @return array|bool
 	 */
 	public static function get_status( $module, $api = false ) {
-		if ( ! in_array( $module, array( 'gzip', 'caching' ) ) ) {
+		if ( ! in_array( $module, array( 'gzip', 'caching' ), true ) ) {
 			return false;
 		}
 
@@ -337,8 +333,10 @@ class WP_Hummingbird_Utils {
 		// Get caching/gzip data from the api.
 		if ( $api ) {
 			$mod->get_analysis_data( true, true );
+			return $mod->status;
 		}
 
+		$mod->get_analysis_data( true );
 		return $mod->status;
 	}
 
@@ -359,7 +357,7 @@ class WP_Hummingbird_Utils {
 	/**
 	 * Get servers dropdown.
 	 *
-	 * @param array $args
+	 * @param array $args        Arguments.
 	 * @param bool  $cloudflare  Add Cloudflare to the server list.
 	 */
 	public static function get_servers_dropdown( $args = array(), $cloudflare = true ) {
@@ -521,7 +519,7 @@ class WP_Hummingbird_Utils {
 	/**
 	 * Convert Cloudflare frequency to normal. Used when updating the custom code in browser caching.
 	 *
-	 * @param  int cloudflare_frequency  Cloudflare frequency to convert.
+	 * @param  int $cloudflare_frequency  Cloudflare frequency to convert.
 	 *
 	 * @return string  Caching frequency.
 	 */
@@ -594,7 +592,7 @@ class WP_Hummingbird_Utils {
 	/**
 	 * Credits to: http://stackoverflow.com/a/11389893/1502521
 	 *
-	 * @param $seconds
+	 * @param int $seconds  Seconds.
 	 *
 	 * @return string
 	 */
@@ -759,11 +757,11 @@ class WP_Hummingbird_Utils {
 				break;
 			case 'smush':
 				if ( self::is_member() ) {
-					// Return the pro plugin URL
+					// Return the pro plugin URL.
 					$url = WPMUDEV_Dashboard::$ui->page_urls->plugins_url;
 					$link = $url . '#pid=912164';
 				} else {
-					// Return the free URL
+					// Return the free URL.
 					$link = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=wp-smushit' ), 'install-plugin_wp-smushit' );
 				}
 				break;
@@ -880,6 +878,8 @@ class WP_Hummingbird_Utils {
 	 ***************************/
 
 	/**
+	 * Get API.
+	 *
 	 * @return WP_Hummingbird_API
 	 */
 	public static function get_api() {
@@ -906,7 +906,7 @@ class WP_Hummingbird_Utils {
 	 *
 	 * @param string $module Module slug.
 	 *
-	 * @return WP_Hummingbird_Module|bool
+	 * @return bool|WP_Hummingbird_Module|WP_Hummingbird_Module_Page_Cache
 	 */
 	public static function get_module( $module ) {
 		$modules = self::get_modules();
@@ -942,7 +942,7 @@ class WP_Hummingbird_Utils {
 			}
 
 			// Fix CloudFlare clear cache appearing on dashboard if it had been previously enabled but then uninstalled and reinstalled HB.
-			// TODO: do we neefd this?
+			// TODO: do we need this?
 			/* @var WP_Hummingbird_Module_Cloudflare $module */
 			if ( 'cloudflare' === $module && isset( $hb_modules[ $module ] ) && ! $hb_modules[ $module ]->is_connected() && ! $hb_modules[ $module ]->is_zone_selected() ) {
 				unset( $modules[ $module ] );
@@ -955,43 +955,58 @@ class WP_Hummingbird_Utils {
 	/**
 	 * Get the number of issues for selected module
 	 *
-	 * @param string $module Module name.
+	 * @since 1.8.1 Added $report parameter.
+	 *
+	 * @param string     $module Module name.
+	 * @param bool|array $report Current report.
 	 *
 	 * @return int
 	 */
-	public static function get_number_of_issues( $module ) {
+	public static function get_number_of_issues( $module, $report = false ) {
 		$issues = 0;
 
 		switch ( $module ) {
 			case 'caching':
-				$caching_status = self::get_status( 'caching' );
+				if ( ! $report ) {
+					$report = self::get_status( 'caching' );
+				}
 
-				$recommended = self::get_recommended_caching_values();
-				if ( ! $caching_status ) {
+				// No report - break.
+				if ( ! $report ) {
 					break;
 				}
 
-				foreach ( $caching_status as $type => $value ) {
+				$recommended = self::get_recommended_caching_values();
+
+				foreach ( $report as $type => $value ) {
 					if ( empty( $value ) || ( $recommended[ $type ]['value'] > $value ) ) {
 						$issues++;
 					}
 				}
 				break;
 			case 'gzip':
-				$gzip_status = self::get_status( 'gzip' );
+				if ( ! $report ) {
+					$report = self::get_status( 'gzip' );
+				}
 
-				if ( ! $gzip_status ) {
+				// No report - break.
+				if ( ! $report ) {
 					break;
 				}
 
-				$issues = count( $gzip_status ) - count( array_filter( $gzip_status ) );
+				$issues = count( $report ) - count( array_filter( $report ) );
 				break;
 			case 'performance':
-				$last_report = WP_Hummingbird_Module_Performance::get_last_report();
-				if ( ! $last_report || is_wp_error( $last_report ) ) {
+				if ( ! $report ) {
+					$report = WP_Hummingbird_Module_Performance::get_last_report();
+				}
+
+				// No report - break.
+				if ( ! $report || is_wp_error( $report ) ) {
 					break;
 				}
-				$last_report = $last_report->data;
+
+				$last_report = $report->data;
 				foreach ( $last_report->rule_result as $recommendation ) {
 					if ( 'a' !== $recommendation->impact_score_class ) {
 						$issues++;
@@ -1008,7 +1023,7 @@ class WP_Hummingbird_Utils {
 	 *
 	 * @since 1.4.5
 	 *
-	 * @param bool $only_minified
+	 * @param bool $only_minified  Only minified files.
 	 *
 	 * @return int
 	 */
