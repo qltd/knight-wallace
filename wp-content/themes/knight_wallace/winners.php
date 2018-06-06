@@ -53,7 +53,9 @@ $sorted_winners_by_award_type = sort_winners_by_award_type($sorted_winners);
 <?php endif; ?>
 <div class="row">
     <div class="large-12 columns">
-        <div class="tagline dynamic-temp"><?php echo !empty($post->post_content) ? $post->post_content : '';?></div>
+        <div class="tagline dynamic-temp">
+          <?php echo !empty($post->post_content) ? apply_filters('the_content', $post->post_content) : ''; ?>
+        </div>
     </div>
 </div>
 <main class="posts winners-list">
