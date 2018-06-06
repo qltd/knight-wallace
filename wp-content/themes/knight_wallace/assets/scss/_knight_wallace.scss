@@ -68,6 +68,10 @@ body {
     font-family: $primary-font;
 }
 
+p {
+    font-size: 1.8rem;
+}
+
 a {
     color: $lblue;
     transition: all 0.5s ease;
@@ -1152,9 +1156,17 @@ ul.pagination {
         color: $ublue;
         line-height: 2.6rem;
 
+        p {
+            font-size: 1.8rem;
+            font-family: $primary-font;
+            color: $ublue;
+            line-height: 2.6rem;
+        }
+
         .button {
-            display: block;
-            max-width: 250px;
+            display: inline-block;
+            margin-right: 5px;
+            max-width: 300px;
             margin-top: 1rem;
             text-align: left;
         }
@@ -1634,6 +1646,12 @@ ul.pagination {
     font-size: 1.5rem;
     margin-bottom: 2rem;
     font-style: normal;
+
+    p {
+        text-align: center;
+        font-size: 1.5rem;
+        font-style: normal;
+    }
 }
 
 /* Search Results */

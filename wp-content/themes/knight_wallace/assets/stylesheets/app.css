@@ -2632,6 +2632,8 @@ html { font-size: 62.5%; }
 
 body { color: #555555; font-family: UniversLTPro-45Light, sans-serif; }
 
+p { font-size: 1.8rem; }
+
 a { color: #0d57aa; -webkit-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease; }
 
 a:hover { color: #00274c; }
@@ -3021,7 +3023,9 @@ ul.pagination li.current a { background: #00274c; }
 
 .la-winner .descrip { font-size: 1.8rem; font-family: UniversLTPro-45Light, sans-serif; color: #00274c; line-height: 2.6rem; }
 
-.la-winner .descrip .button { display: block; max-width: 250px; margin-top: 1rem; text-align: left; }
+.la-winner .descrip p { font-size: 1.8rem; font-family: UniversLTPro-45Light, sans-serif; color: #00274c; line-height: 2.6rem; }
+
+.la-winner .descrip .button { display: inline-block; margin-right: 5px; max-width: 300px; margin-top: 1rem; text-align: left; }
 
 .la-winner .winner-quote, .la-winner .winner-authors { margin-top: 2rem; }
 
@@ -3199,6 +3203,8 @@ ul.pagination li.current a { background: #00274c; }
 .accordion .accordion-navigation .content, .accordion .accordion-navigation.active .content { background: #e5e5e5; font-size: 2rem; color: #555555; line-height: 2.4rem; padding: 1.5rem; }
 
 .tagline.dynamic-temp { text-align: center; font-size: 1.5rem; margin-bottom: 2rem; font-style: normal; }
+
+.tagline.dynamic-temp p { text-align: center; font-size: 1.5rem; font-style: normal; }
 
 /* Search Results */
 .search-result .large-10 { border-bottom: 1px solid #555555; padding-bottom: 3rem; }
