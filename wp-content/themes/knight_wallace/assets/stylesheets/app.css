@@ -3173,13 +3173,23 @@ ul.pagination li.current a { background: #00274c; }
 
 .site-footer .top h6 { font-size: 1.8rem; }
 
+.site-footer .top .inv-recaptcha-holder { float: right; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; margin-right: 13px; -webkit-box-pack: end; -webkit-justify-content: flex-end; -ms-flex-pack: end; justify-content: flex-end; overflow: hidden; width: 70px; height: 60px; -webkit-box-shadow: 0 0 4px #ddd; box-shadow: 0 0 4px #ddd; -webkit-transition: linear 100ms width; -o-transition: linear 100ms width; transition: linear 100ms width; }
+
+.site-footer .top .inv-recaptcha-holder:hover { width: 256px; }
+
+.site-footer .top span.wpcf7-not-valid-tip { position: absolute; bottom: 0; white-space: nowrap; }
+
+.site-footer .top div.wpcf7 .ajax-loader { display: none !important; visibility: hidden !important; }
+
+.site-footer .top div.wpcf7-validation-errors, .site-footer .top div.wpcf7-acceptance-missing { display: none !important; }
+
 .site-footer .top input[type=submit], .site-footer .top button { background: #0d57aa; border: none; color: #FFFFFF; font-size: 1.8rem; font-weight: bold; height: 4.4rem; width: 30%; padding: 0; }
 
 @media (max-width: 900px) { .site-footer .top input[type=submit], .site-footer .top button { font-size: 1.5rem; } }
 
 @media (max-width: 500px) { .site-footer .top input[type=submit], .site-footer .top button { width: 100%; } }
 
-.site-footer .top input[type=text], .site-footer .top input[type=email] { float: left; font-size: 1.8rem; height: 4.4rem; margin-right: 3%; width: 65%; }
+.site-footer .top input[type=text], .site-footer .top input[type=email] { float: left; font-size: 1.8rem; height: 4.4rem; margin-right: 3%; width: 65%; margin-top: 13px; }
 
 @media (max-width: 500px) { .site-footer .top input[type=text], .site-footer .top input[type=email] { width: 100%; } }
 

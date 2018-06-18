@@ -1553,6 +1553,37 @@ ul.pagination {
             font-size: 1.8rem;
         }
 
+        .inv-recaptcha-holder {
+            float: right;
+            display: flex;
+            margin-right: 13px;
+            justify-content: flex-end;
+            overflow: hidden;
+            width: 70px;
+            height: 60px;
+            box-shadow: 0 0 4px #ddd;
+            transition: linear 100ms width;
+
+            &:hover {
+                width: 256px;
+            }
+        }
+
+        span.wpcf7-not-valid-tip {
+            position: absolute;
+            bottom: 0;
+            white-space: nowrap;
+        }
+
+        div.wpcf7 .ajax-loader {
+            display: none !important;
+            visibility: hidden !important;
+        }
+
+        div.wpcf7-validation-errors, div.wpcf7-acceptance-missing {
+            display: none !important;
+        }
+
         input[type=submit], button {
             background: $lblue;
             border: none;
@@ -1579,6 +1610,7 @@ ul.pagination {
             height: 4.4rem;
             margin-right: 3%;
             width: 65%;
+            margin-top: 13px;
 
             @include responsive("500px") {
                 width: 100%;
