@@ -1,0 +1,81 @@
+# Copyright (C) 2018 WPForms Campaign Monitor
+# This file is distributed under the same license as the WPForms Campaign Monitor package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WPForms Campaign Monitor 1.0.4\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpforms-campaign-"
+"monitor\n"
+"POT-Creation-Date: 2018-03-15 15:14:24+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: class-campaign-monitor.php:257
+msgid "Groups do not exist."
+msgstr ""
+
+#. translators: %s - API error message.
+#: class-campaign-monitor.php:308
+msgid "API fields error: %s"
+msgstr ""
+
+#: class-campaign-monitor.php:333
+msgid "Add New Account"
+msgstr ""
+
+#. translators: %s - current provider name.
+#: class-campaign-monitor.php:339 class-campaign-monitor.php:401
+msgid "%s API Key"
+msgstr ""
+
+#. translators: %s - current provider name.
+#: class-campaign-monitor.php:348 class-campaign-monitor.php:410
+msgid "%s Client ID"
+msgstr ""
+
+#. translators: %s - current provider name.
+#: class-campaign-monitor.php:357 class-campaign-monitor.php:419
+msgid "%s Account Nickname"
+msgstr ""
+
+#: class-campaign-monitor.php:362
+msgid "Connect"
+msgstr ""
+
+#: vendor/campaign-monitor.php:39
+msgid "No API key specified."
+msgstr ""
+
+#: vendor/campaign-monitor.php:42
+msgid "No Client ID specified."
+msgstr ""
+
+#: vendor/campaign-monitor.php:81
+msgid "Could not get lists."
+msgstr ""
+
+#: vendor/campaign-monitor.php:119
+msgid "Could not get custom fields."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WPForms Campaign Monitor"
+msgstr ""
+
+#. #-#-#-#-#  wpforms-campaign-monitor.pot (WPForms Campaign Monitor 1.0.4)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  wpforms-campaign-monitor.pot (WPForms Campaign Monitor 1.0.4)  #-#-#-#-#
+#. Author URI of the plugin/theme
+msgid "https://wpforms.com"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Campaign Monitor integration with WPForms."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WPForms"
+msgstr ""

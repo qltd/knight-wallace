@@ -1553,15 +1553,20 @@ ul.pagination {
             font-size: 1.8rem;
         }
 
-        .inv-recaptcha-holder {
-            float: right;
+        .grecaptcha-badge {
+            position: static !important;
+        }
+
+        .wpforms-recaptcha-container {
+            position: absolute;
+            bottom: -75px;
+            right: 43px;
             display: flex;
-            margin-right: 13px;
-            justify-content: flex-end;
+            justify-content: flex-start;
             overflow: hidden;
             width: 70px;
-            height: 60px;
-            box-shadow: 0 0 4px #ddd;
+            height: 70px;
+            margin-bottom: 20px;
             transition: linear 100ms width;
 
             &:hover {
@@ -1569,22 +1574,25 @@ ul.pagination {
             }
         }
 
-        span.wpcf7-not-valid-tip {
+        .wpforms-form {
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        div.wpforms-container-full .wpforms-form .wpforms-field-label, label {
+            display: none;
+        }
+
+        .wpforms-container label.wpforms-error {
             position: absolute;
             bottom: 0;
-            white-space: nowrap;
         }
 
-        div.wpcf7 .ajax-loader {
-            display: none !important;
-            visibility: hidden !important;
+        .wpforms-container .wpforms-submit-container {
+            display: inline;
         }
 
-        div.wpcf7-validation-errors, div.wpcf7-acceptance-missing {
-            display: none !important;
-        }
-
-        input[type=submit], button {
+        input[type=submit], button, div.wpforms-container-full .wpforms-form button[type=submit] {
             background: $lblue;
             border: none;
             color: $white;
@@ -1610,7 +1618,7 @@ ul.pagination {
             height: 4.4rem;
             margin-right: 3%;
             width: 65%;
-            margin-top: 13px;
+            margin-top: 10px;
 
             @include responsive("500px") {
                 width: 100%;

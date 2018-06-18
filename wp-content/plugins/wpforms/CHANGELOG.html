@@ -1,0 +1,1026 @@
+<html>
+      <head>
+        <meta charset="UTF-8">
+        <title>CHANGELOG.md</title>
+      </head>
+      <body>
+        <h1 id="change-log">Change Log</h1>
+<p>All notable changes to this project will be documented in this file, formatted via <a href="http://keepachangelog.com/">this recommendation</a>.</p>
+<h2 id="-1-4-7-2018-06-04">[1.4.7] - 2018-06-04</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>New Providers class and functionality. The Drip addon is the first to leverage the new class and existing provider addons will be updated over time.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>CSV export columns are now filterable (<code>wpforms_export_get_csv_cols</code>).</li>
+<li>Old PHP version (5.2 and 5.3) admin warning adjusted to reflect new August 2018 time line.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Multiple Choice fields showing as Radio fields in the builder preview when first created.</li>
+<li>Duplicating fields in the form builder causing issues with certain field types.</li>
+<li>Entry ID becomes 0 when resending notifications.</li>
+<li>Escaping issue with provider connection names contained an apostrophe.</li>
+<li>Alignment issues with the Addons page display.</li>
+<li>Incorrect text on the Welcome activation page.</li>
+</ul>
+<h2 id="-1-4-6-2018-05-14">[1.4.6] - 2018-05-14</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>GDPR Enhancements plugin setting <a href="https://wpforms.com/how-to-create-gdpr-compliant-forms/">doc</a>.</li>
+<li>GDPR Enhancement: Disable User Cookies plugin setting.</li>
+<li>GDPR Enhancement: Disable User Details (IP and User Agent) plugin setting.</li>
+<li>GDPR Enhancement: Disable Storing User Details form setting.</li>
+<li>GDPR Enhancement: User Agreement form field.</li>
+<li>Page break, section divider, and HTML fields can now be enabled in email notifications with a filter <a href="https://developers.wpforms.com/docs/filter-reference-wpforms_email_display_other_fields">doc</a>.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Hide credit card field unless enabled by a payment addon or with a filter <a href="https://developers.wpforms.com/docs/enable-credit-card-field-without-stripe-addon/">doc</a>.</li>
+<li>PHP warning that alerts users support for PHP 5.4 and below will be dropped this summer.</li>
+<li>Spam logging, to improve performance.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Rating and Likert Scale not included in CSV exports.</li>
+<li>Typo in base form CSS.</li>
+<li>Stripping HTML from the checkbox, mulitple choice, and multiple payment choice labels in the form builder.</li>
+<li>Unreadable errors if 1-click addon install fails.</li>
+<li>Date and Time field time interval labels not translatable.</li>
+<li>Form builder icon visibility when field labels are hidden.</li>
+</ul>
+<h2 id="-1-4-5-3-2018-04-03">[1.4.5.3] - 2018-04-03</h2>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Use minified admin assets when appropriate.</li>
+<li>Show helpful doc link in form embed modal.</li>
+<li>Minor improvements with complex conditional logic rule processing.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Rating and Likert fields missing from CSV exports.</li>
+<li>reCAPTCHA v2 showing in form builder when using Invisible reCAPTCHA.</li>
+<li>Conditional logic rules inception.</li>
+<li>Conditional logic rules with Radio and Checkbox choices not updating until save.</li>
+<li>Remove jQuery shorthand references in <code>admin-utils</code> to prevent conflicts.</li>
+<li>Issue with form return hash not processing correctly in some scenarios.</li>
+</ul>
+<h2 id="-1-4-5-2-2018-03-20">[1.4.5.2] - 2018-03-20</h2>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Checkbox and Multiple choice fields not validating when inside pagebreaks.</li>
+<li>Incorrect documentation link for Input Mask.</li>
+<li>Input Mask value disappearing when form builder is refreshed.</li>
+</ul>
+<h2 id="-1-4-5-1-2018-03-20">[1.4.5.1] - 2018-03-20</h2>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Dynamic choices not displaying correctly for Multiple Choice and Checkbox fields.</li>
+</ul>
+<h2 id="-1-4-5-2018-03-15">[1.4.5] - 2018-03-15</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Image choices feature with Checkbox, Multiple Choice and Multiple Payments fields; Images can now be uploaded and displayed with your choices!</li>
+<li>Custom input masks for Single Line Text fields (Advanced Options).</li>
+<li>No-Conflict Mode for Google reCAPTCHA (Settings &gt; reCAPTCHA). Removes other reCAPTCHA occurrences, to prevent conflicts.</li>
+<li>SSL Connection Test (Tools &gt; System Info). Quicky verify that your web host correct supports SSL connections.</li>
+<li><code>{user_full_name}</code> Smart Tag, displays users first and last name.</li>
+<li>Discalimer / Terms of Service Display formatting option for Checkbox fields (Advanced Options).</li>
+<li>Basic CSS styling for <code>disabled</code> fields.</li>
+<li>Uninstall routine, available from Settings &gt; Misc.</li>
+<li>Form builder performance improvements. Editing a form with hundreds of fields is now 500%+ faster!</li>
+<li>Search field on Addons page to quickly search available Addons.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>New Settings tab: Misc, moved Hide Annoucements option to new tab.</li>
+<li>&quot;Total&quot; entries column only displays if the form has a gateway configured and enabled.</li>
+<li><code>{user_display}</code> Smart Tag diplays user&#39;s display name (in most cases, this is the user&#39;s name).</li>
+<li>All <code>&lt;form&gt;</code> attributes can now be changed via <code>wpforms_frontend_form_atts</code> filter.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Processing and validation of return hashes (primarily used with PayPal Standard addon).</li>
+<li>Smart Tag usage in confirmation messages displayed from return hashes (primarily used with PayPal Standard addon).</li>
+<li>Form builder tab icon alignment conflicts with third party plugin CSS.</li>
+<li>Smart Tag dropdown display issues in the form builder.</li>
+<li>Form builder drag and drop area disappearing if all fields are removed from a form.</li>
+</ul>
+<h2 id="-1-4-4-1-2018-02-13">[1.4.4.1] - 2018-02-13</h2>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Textdomain loading to a later priority.</li>
+<li>Provide entry ID if logging entries to improve performance.</li>
+<li>Allow the <code>WPForms_Builder</code> class to be accessible.</li>
+<li>Move the confirmation message <code>wpautop</code> to an earlier priority to not conflict with content added using filters.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Form builder templates area not aligning correctly in some browsers.</li>
+<li>Payment transaction IDs not displaying on entry details page.</li>
+<li>Incorrect permissions check for annoucements feed.</li>
+</ul>
+<h2 id="-1-4-4-2018-01-30">[1.4.4] - 2018-01-30</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Form entries searching; search by specific field or across all fields, multiple conditionals available (is, is not, contains, does not contain).</li>
+<li>Form entries filtering by date; e.g. show form entries from Dec 1 - Dec 31 2017.</li>
+<li>Rating field.</li>
+<li>Advanced setting for Multiple Choice and Checkbox fields to randomize choices.</li>
+<li>Filter for Date Time date dropdown select inputs, to customize ranges (<code>wpforms_datetime_date_dropdowns</code>).</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Lists (both ordered and unordered) used in the HTML field now have basic styling if using full form theme setting.</li>
+<li>Admin menu icons now uses SVG instead of custom font icon.</li>
+<li>Reviewed all translatable strings, improved escaping and formatting .</li>
+<li>External links have <code>rel=&quot;noopener noreferrer&quot;</code> improve security.</li>
+<li>Permission check centralized into a single function (<code>wpforms_current_user_can()</code>).</li>
+<li>Required label field text centralized into a single function (<code>wpforms_get_required_label()</code>).</li>
+<li>Improved list of Countries.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Conditional logic mismatches due to sanitizing values.</li>
+<li>Typo in German translation.</li>
+<li>Improved i18n for countries.</li>
+<li>Required email provider connection fields not highlighting when left empty.</li>
+<li>Inside form builder, notification name area breaking into multiple lines on smaller screens.</li>
+<li>Total field not updating correctly when multiple forms are on the same page.</li>
+</ul>
+<h2 id="-1-4-3-2017-12-04">[1.4.3] - 2017-12-04</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Form entry field values are now stored (additionally) in a new database, <code>wpforms_entry_fields</code>, to be used with exciting new features in the near future.</li>
+<li>Upgrade routine for the above mentioned new database.</li>
+<li>Early filter for form data before form output, <code>wpforms_frontend_form_data</code>.</li>
+<li>Setting to hide Announcement feed.</li>
+<li>Announcement feed data.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Standardize and tweak modal window button styles.</li>
+<li>Default mail notification settings are now sent &quot;from&quot; the site administrator email; user email is used in Reply-To where applicable (to hopefully improve email deliverability).</li>
+<li>Removed &quot;Hide form name and description&quot; form setting as it was a common source or confusion.</li>
+<li>Provide base styling for <code>hr</code> elements inside HTML fields.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Site cache being flushed when it shouldn&#39;t have been, affecting performance in some scenarios.</li>
+<li>Country, state, months and days not properly exposed to i18n.</li>
+<li>CSV export dates not properly using i18n.</li>
+<li>Incorrect usage of <code>esc_sql</code> with <code>wpdb-&gt;prepare</code>.</li>
+<li>Styling preventing the entries column picker from displaying correctly.</li>
+<li>WPForms custom post types omitting labels.</li>
+<li>Smart Tag value encoding issues with email notifications.</li>
+<li>Infinite recursion issue when using Dynamic Values option.</li>
+<li>PHP notice in form builder.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<h2 id="-1-4-2-2017-10-25">[1.4.2] - 2017-10-25</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Import your old Ninja Forms or Contact Form 7 forms! (WPForms &gt; Tools &gt; Import).</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Date i18n improvements</li>
+<li>Dropdown/Checkbox/Multiple Choice &quot;Show Values&quot; setting has been hidden by default to avoid confusion, can be re-enabled using the <code>wpforms_fields_show_options_setting</code> filter.</li>
+<li>Date Time field inputs break into separate lines on mobile to prevent Date picker from going off screen in some scenarioes.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>reCAPTCHA now showing in the Form Builder preview when enabled.</li>
+<li>Encoded/escaped entities in email notifications.</li>
+<li>German translation issue.</li>
+</ul>
+<h2 id="-1-4-1-2-2017-10-03">[1.4.1.2] - 2017-10-03</h2>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>New CSV separator filter introduced 1.4.1 not correctly running.</li>
+</ul>
+<h2 id="-1-4-1-1-2017-09-29">[1.4.1.1] - 2017-09-29</h2>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Improved the loading order of javascript files for forms builder.</li>
+<li>Update some strings for Russian translation.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Entries export functionality was broken.</li>
+<li>Multipage indicators behavior when several multipage forms present on the same page.</li>
+</ul>
+<h2 id="-1-4-1-2017-09-28">[1.4.1] - 2017-09-28</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Ability to rename Form &gt;Settings&gt;Notifications&gt;Single notification panels.</li>
+<li>Define a minimum PHP version support in plugin readme.txt file.</li>
+<li>Display a friendly link to a full page version, when form is previewed on AMP pages.</li>
+<li>Ability to collapse Form&gt;Settings&gt;Notifications&gt;Single notification panels.</li>
+<li>Russian translation.</li>
+<li>Allow more than 1 default selection for checkboxes fields.</li>
+<li>Announcement feed.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Bump minimum WordPress version to 4.6.</li>
+<li>Improved localization support of the plugin.</li>
+<li>Improved texts in various places.</li>
+<li>Code style improvements throughout the plugin.</li>
+<li>Combine WPFORMS_DEBUG and WPFORMS_DEVELOPMENT into one, use <code>wpforms_debug()</code> to check.</li>
+<li>All HTTP requests now validate target sites SSL certificates with WP bundled certificates (since 3.7).</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Payments and providers classes version visibility.</li>
+<li>Postal field (part of Address field) now supports the {query_var} smart tag.</li>
+<li>Form&#39;s Entries page unread/read and starred/unstarred counters.</li>
+<li>Incomplete selection of Date dropdown fields causes entries to be recorded as &#39;Array&#39;.</li>
+<li>Notification email is empty if submitted form has no user values (displaying user friendly message instead).</li>
+<li>Pressing enter in &quot;Enter a notification name&quot; popup does nothing.</li>
+<li>Removed Screen Options on single entry screen.</li>
+<li>Allow postal code to be hidden/removed, fix Country issues.</li>
+<li>Country names don&#39;t have redundant <code>)</code> or spaces anymore.</li>
+<li>Do not display 2400 option in TimePicker in Date / Time field for 24h format.</li>
+<li>Deprecate a misspelled <code>wpforms_csv_export_seperator</code> filter, introduced a proper name for it.</li>
+<li>Conditional logic comparison issues if rule contained special characters.</li>
+</ul>
+<h2 id="-1-4-0-1-2017-08-24">[1.4.0.1] - 2017-08-24</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Non-dismissible Dashboard page admin only notice about PHP 5.2.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Updated FontAwesome library.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Fatal error with PHP 5.2 due to an anonymous function.</li>
+<li>Required Credit Card fields incorrectly passing JS validation if empty.</li>
+<li>CSV exports missing line breaks.</li>
+<li>Entries dropdown menu being cut off under the WordPress menu.</li>
+</ul>
+<h2 id="-1-4-0-2017-08-21">[1.4.0] - 2017-08-21</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Entries table columns can now be customized; personalize what fields you want to see!</li>
+<li>All entries can be deleted for a form from the Entries page.</li>
+<li>Announcement feed.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Phone number field switched to <code>tel</code> input for improved mobile experience.</li>
+<li>Core form templates are now displayed separate in the form builder from other custom templates.</li>
+<li>Refactored CSV exporting for better support.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Dynamic Choices large items modal render issue.</li>
+<li>Certain characters (such as comma) breaking CSV export format.</li>
+<li>Cursor issues inside the form builder.</li>
+<li>CSS Layout Generator class name typo.</li>
+<li>Dynamic choices with nesting sometimes causing form builder to time out.</li>
+<li>Settings page typos.</li>
+<li>Deleting a form in some cases did not remove entry meta for its entries.</li>
+<li>File Uploads stored in the media library not storing the correct URL when offloaded to other services such as S3.</li>
+<li>Tools page export description text typo.</li>
+<li>Widget state not displayed correctly when adding via Customizer, without forcing user to select a form.</li>
+</ul>
+<h2 id="-1-3-9-2-2017-08-03">[1.3.9.2] - 2017-08-03</h2>
+<h2 id="fixed">Fixed</h2>
+<ul>
+<li>Currency setting for new users saving to an incorrect option key.</li>
+</ul>
+<h2 id="-1-3-9-1-2017-08-02">[1.3.9.1] - 2017-08-02</h2>
+<h2 id="changed">Changed</h2>
+<ul>
+<li>Template Export excludes array items with empty strings.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Admin notices displaying on plugin Welcome/activation screen.</li>
+<li>WPForms admin pages displaying blank due to conflicts with a few other plugins.</li>
+<li>License related notices not removed immediately after key is activated.</li>
+<li>Addons page items not displaying with uniform height.</li>
+<li>Addons page installing returned JS object instead of message.</li>
+</ul>
+<h2 id="-1-3-9-2017-08-01">[1.3.9] - 2017-08-01</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Complete redesign and refactor of admin area.</li>
+<li>New Settings API.</li>
+<li>Entry print preview compact mode.</li>
+<li>Entry print preview view entry notes.</li>
+<li>Dynamic field choices nest hierarchical items.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Moved Import/Export and System Info content to new Tools sub-page.</li>
+<li>Shortcode provided in form builder now includes title/description arguments.</li>
+<li>Don&#39;t show CSS layout selector helper in Pagebreak fields.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Form builder URL redirect issue on the Marketing tab with some configurations.</li>
+<li>Password field item mislabeled.</li>
+<li>PHP notices on Entries page if form contained no fields.</li>
+<li>PHP notices when using HTML field with conditional logic.</li>
+</ul>
+<h2 id="-1-3-8-2017-06-13">[1.3.8] - 2017-06-13</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Conditional logic functionality is now in the core plugin - the Conditional Logic addon can be removed.</li>
+<li>New conditional logic rules: empty and not empty.</li>
+<li>Conditional logic can now be applied to fields that are marked as required.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Available conditional logic rules/functionality with Providers have been updated.</li>
+<li>Updated form builder modals (jquery-confirm.js).</li>
+<li>Many Form Builder performance enhancements.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Allowing Storing entries form setting to be enabled when form is connected to payments.</li>
+<li>Number field validation message not saving.</li>
+<li>Email/Password confirmation setting not displaying correctly with Small field size.</li>
+</ul>
+<h2 id="-1-3-7-3-2017-05-12">[1.3.7.3] - 2017-05-12</h2>
+<h2 id="fixed">Fixed</h2>
+<ul>
+<li>Required setting checkbox getting out of sync when duplicating fields.</li>
+<li>CSS class name typo in the form builder layout selector.</li>
+<li>Excel mangling non-english characters when opening CSV export files.</li>
+<li>Smart Tag <code>field_id</code> stripping line breaks.</li>
+<li>Multiple Items field choices not updating correctly in form builder preview.</li>
+<li>Form JS settings <code>wpforms_settings</code> missing due to some caching plugins.</li>
+<li>Empty classes causing <code>array</code> string to be printed in some use cases.</li>
+</ul>
+<h2 id="changed">Changed</h2>
+<ul>
+<li>Updated credit card, page break, password, and phone fields to improved field class.</li>
+</ul>
+<h2 id="-1-3-7-2-2017-04-26">[1.3.7.2] - 2017-04-26</h2>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>PHP warning when displaying page break indicator at the top of a form.</li>
+<li>Error for some users with PHP 5.4 and below.</li>
+</ul>
+<h2 id="-1-3-7-1-2017-04-26">[1.3.7.1] - 2017-04-26</h2>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Issue sending form notifications using email fields that had confirmation enabled.</li>
+</ul>
+<h2 id="-1-3-7-2017-04-26">[1.3.7] - 2017-04-26</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Google Invisible reCAPTCHA support.</li>
+<li>Custom field validation messages (see WPForms Settings page).</li>
+<li>Bulk add choices for Checkbox, Multiple Choice, and Dropdown fields.</li>
+<li>Filter to allow email notifications to include empty fields, <code>wpforms_email_display_empty_fields</code>.</li>
+<li>Custom form template exporting.</li>
+<li>Field CSS layout selector.</li>
+<li>Total payment fields can now be marked as required, preventing the field from submitting unless it contains a payment.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>HTML fields now allow and run WordPress shortcodes.</li>
+<li>Leverage <code>wp_json_encode</code> instead of native PHP function.</li>
+<li>Various WordPress coding standard improvements (work in progress).</li>
+<li>Refactored form front-end code to allow for more customizations.</li>
+<li>Refactored text, textarea, email, number, name, divider, file upload, hidden, html, payment total, and URL fields to allow for more customizations (more coming next release).</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Welcome page typo.</li>
+<li>Address field options getting off sync inside form builder.</li>
+<li>Bug adding new notifications and element IDs not updating.</li>
+<li>Page indicator (navigation) overflowing in some use cases.</li>
+<li>SmartTag selectors getting off sync inside form builder.</li>
+<li>File upload routine using <code>pathinfo</code> which is not reliable with some locales.</li>
+</ul>
+<h2 id="-1-3-6-2017-03-09">[1.3.6] - 2017-03-09</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Constant Contact integration.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Don&#39;t strip tags from plain text emails.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Address field variable name typo.</li>
+<li>Form builder javascript conflict with Clef plugin.</li>
+<li>Form builder logo URL double slash.</li>
+<li>Form builder embed code field not being selectable.</li>
+</ul>
+<h2 id="-1-3-5-2017-02-22">[1.3.5] - 2017-02-22</h2>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Some browers allowing unexpected characters inside number input fields.</li>
+<li>Error when resending email notifications through Single Entry page.</li>
+<li>Issue with Dropdown field placeholder text.</li>
+<li>Select few plugins loading conflicting scripts in form builder.</li>
+</ul>
+<h2 id="-1-3-4-2017-02-09">[1.3.4] - 2017-02-09</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>reCAPTCHA improvements; reCAPTCHA now required if turned on.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Date/Time Smart Tag not using WordPress time zone settings.</li>
+<li>Name field defaults not processing Smart Tags.</li>
+</ul>
+<h2 id="-1-3-3-2017-02-01">[1.3.3] - 2017-02-01</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Default value support in the email field.</li>
+<li>Related Entries metabox on single entry page.</li>
+<li>Various new hooks and filters for improved extendibility.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Payment status is now displayed in status column, indicated with money icon.</li>
+<li>Multi-page scroll can be customized via JS overrides, <code>wpform_pageScroll</code>.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Possible errors if web host had <code>set_time_limit()</code> disabled.</li>
+<li>File upload failing in edge cases due to library not being loaded.</li>
+<li>PHP 7.1 warning message inside the form builder when using payments.</li>
+</ul>
+<h2 id="-1-3-2-2017-01-17">[1.3.2] - 2017-01-17</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>CSS class support for hidden fields, for easier targeting.</li>
+<li>New form class, <code>.inline-fields</code>, to apply single line form layout.</li>
+<li>Allow date and time pickers properties to be specified on a per form/field basis.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>All Smart Tags now available for Email Subject field in form notifications.</li>
+<li>License checks rely on options, instead of transients, for more reliability.</li>
+<li>Enable date picker on mobile devices.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Email addresses reporting as invalid of the domain contained capitalization.</li>
+<li>Error uploading MP3 files when File upload was using the media library.</li>
+<li>Author related Smart Tags not working in form notification fields.</li>
+<li>Typo on settings page related to Carbon Copy.</li>
+<li>Incorrect messaging/layout on plugins addon page for Basic license users.</li>
+<li>Date Time field date picker causing validation issues for mobile users.</li>
+<li>PHP 7.1 warning messages inside the form builder.</li>
+</ul>
+<h2 id="-1-3-1-2-2016-12-12">[1.3.1.2] - 2016-12-12</h2>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Plugin name to correctly indicate Lite for Lite release.</li>
+</ul>
+<h2 id="-1-3-1-1-2016-12-12">[1.3.1.1] - 2016-12-12</h2>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Error with 1.3.1 Lite release.</li>
+</ul>
+<h2 id="-1-3-1-2016-12-08">[1.3.1] - 2016-12-08</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Dropdown Items payment field.</li>
+<li>Smart Tags for author ID, email, and name.</li>
+<li>Carbon Copy (CC) support for form notifications; enable in WPForms Settings.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Form data and fields publicly accessible in email class.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Field duplication issues</li>
+<li>Total payment field error when only using Multiple Items payment field.</li>
+<li>TinyMCE &quot;Add Form&quot; button not opening modal with dynamic TinyMCE instances.</li>
+<li>Email formatting issues when using plain text formatting.</li>
+<li>Number field validation tripping when number submitted is zero.</li>
+<li>reCAPTCHA validation passing when reCAPTCHA left blank.</li>
+<li>Dropdown field size not reflecting in builder.</li>
+<li>File Upload field offering Size option but not supported (option removed).</li>
+<li>File uploads configured to go to the media library not working.</li>
+<li>Server-side file upload errors not displaying correct due to a type.</li>
+</ul>
+<h2 id="-1-3-0-1-2016-11-10">[1.3.0.1] - 2016-11-10</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Context usage param to <code>wpforms_html_field_value</code> filter.</li>
+<li>New filter, <code>wpforms_plaintext_field_value</code>, for plaintext email values.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Bug with date picker limiting date selection to current year.</li>
+<li>PHP notice when uploading non-media library files.</li>
+<li>Issue with form title/description being toggled with shortcode.</li>
+<li>Secured <code>target=_blank</code> usage.</li>
+</ul>
+<h2 id="-1-3-0-2016-10-24">[1.3.0] - 2016-10-24</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Email field confirmantion.</li>
+<li>Password field confirmation.</li>
+<li>Support for Visual Composer.</li>
+<li>Additional date field type, dropdowns.</li>
+<li>Field class to force elements to full-width on mobile devices, <code>wpforms-mobile-full</code>.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Datepicker library.</li>
+<li>Timepicker library.</li>
+<li>Placeholders are added/updated in real-time for Dropdown fields in the form builder.</li>
+<li>Add empty value to select element placeholders when displaying form for better markup validation.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Multiple instances of reCAPTCHA on a page not correctly loading.</li>
+<li>Field choice defaults not restoring in form builder.</li>
+<li>Field alignment issues in the form builder when dragging field more than once.</li>
+<li>PHP fatal erroring if form notification email address provided is not valid upon sending.</li>
+<li>Date field Datepicker allows empty submit when marked as required.</li>
+<li>Compatibility issuses when network activated on a Multisite install.</li>
+</ul>
+<h2 id="-1-2-9-1-2016-10-07">[1.2.9.1] - 2016-10-07</h2>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Compatibility issue with Stripe addon.</li>
+</ul>
+<h2 id="-1-2-9-2016-10-04">[1.2.9] - 2016-10-04</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Individual fields can be duplicated in the form builder.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>How data is stored for fields using Dynanic Choices.</li>
+<li>File Upload contents can (optionally) be stored in the WordPress media library.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>CSV exports not handling new lines well.</li>
+<li>Global assets setting causing errors in some cases.</li>
+<li>Writing setting (&quot;correct invalidly nested XHTML&quot;) breaking forms containing HTML.</li>
+<li>Forms being displayed/included on the native WordPress Export page.</li>
+<li>Dynamic Choices erroring when used with Post Types.</li>
+<li>Form labels including blank IDs.</li>
+</ul>
+<h2 id="-1-2-8-1-2016-09-19">[1.2.8.1] - 2016-09-19</h2>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Form javascript email validation being too strict (introducted in 1.2.8).</li>
+<li>Provider sub-group IDs not correctly stored with connection information.</li>
+</ul>
+<h2 id="-1-2-8-2016-09-15">[1.2.8] - 2016-09-15</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Dynamic choice feature for Dropdown, Multiple Choice, and Checkbox fields.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Loading order of templates and field classes - moved to <code>init</code>.</li>
+<li>Form javascript email validation requires domain TLD to pass.</li>
+<li>File Upload file size setting now allows non-whole numbers, eg 0.5.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>HTML email notification templates uses site locale text-direction.</li>
+<li>Javascript in the form builder conflicting with certain locales.</li>
+<li>Datepicker overflowing off screen on small devices.</li>
+</ul>
+<h2 id="-1-2-7-2016-08-31">[1.2.7] - 2016-08-31</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Store intial plugin activation date.</li>
+<li>Input mask for US zip code within Address field, supports both 5 and 9 digit formats.</li>
+<li>Duplicate form submit protection.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Entry dates includes GMT offset defined in WordPress settings.</li>
+<li>Entry export now includes both local and GMT dates.</li>
+<li>Improved Address field to allow for new schemes/formats to be create and better customizations.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Provider conditonal logic processing when using checkbox field.</li>
+<li>Strip slashes from entry data before processing.</li>
+<li>Single Item field price not live updating inside form builder.</li>
+</ul>
+<h2 id="-1-2-6-2016-08-24">[1.2.6] - 2016-08-24</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Expanded support for additional currencies.</li>
+<li>Display payment status and total column on entry list screen as allow sorting with these new columns.</li>
+<li>Display payment details on single entry screen.</li>
+<li>Miscellaneous internal improvements.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Added month/year selector to date picker for better accessibility.</li>
+<li>Payment validation methods.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Incorrectly named variables in the front-end javascript preventing features from properly being extendable.</li>
+</ul>
+<h2 id="-1-2-5-2016-08-03">[1.2.5] - 2016-08-03</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Setting for Email template background color.</li>
+<li>Form setting for form wrapper CSS class.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Multiple Payment field stores Choice label text.</li>
+<li>reCAPTCHA tweaks and added filter.</li>
+<li>Improved IP detection.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Mapped select fields in builder triggering JS error.</li>
+</ul>
+<h2 id="-1-2-4-2016-07-07">[1.2.4] - 2016-07-07</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Form import and exporting.</li>
+<li>Additional logging and error reporting.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Footer asset detection priority, for improved capatibility with other services.</li>
+<li>Refactored and refined front-end javascript.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Restored form notification defaults for Blank template.</li>
+<li>Default field validation considered 0 value as empty.</li>
+<li>Rogue PHP notices.</li>
+</ul>
+<h2 id="-1-2-3-2016-06-23">[1.2.3] - 2016-06-23</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Multiple form notifications capability.</li>
+<li>Form notification message setting.</li>
+<li>Form notification conditional logic (via add-on).</li>
+<li>Additional Smart Tags available inside Form Settings panels.</li>
+<li>Process Smart Tags inside form confirmation messages and URLs.</li>
+<li>Hide WPForms Preview page from WordPress dashboard.</li>
+<li>System Details tab to WPForms Settings, to display debug information, etc.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Center align text inside page break navigation buttons.</li>
+<li>Scroll to top most validation error when using form pagination.</li>
+<li>Many form builder javascript improvements.</li>
+<li>Improved internal logging and debugging tools.</li>
+<li>Don&#39;t show Page Break fields in Entry Tables.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Form select inside modal window overflowing when a form exists with a long title.</li>
+<li>Large forms not always saving because of max_input_vars PHP setting.</li>
+<li>Entry Read/Unread count incorrect after AJAX toggle.</li>
+<li>Single Payment field failed validation if configured for user input and amount contained a comma.</li>
+</ul>
+<h2 id="-1-2-2-1-2016-06-13">[1.2.2.1] - 2016-06-13</h2>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Entry ID not always correctly passing to hooks.</li>
+</ul>
+<h2 id="-1-2-2-2016-06-03">[1.2.2] - 2016-06-03</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Page Break navigation buttons now have an alignment setting.</li>
+<li>Page Break previous navigation button is togglable and defaults to off.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Improved styling of Page Break fields in the builder.</li>
+<li>Choice Layouts now use flexbox instead of CSS columns for better rendering.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Class name typo in a CSS column class introduced with 1.2.1.</li>
+<li>PHP notice on Entries page when there are no forms.</li>
+</ul>
+<h2 id="-1-2-1-2016-05-30">[1.2.1] - 2016-05-30</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Drag and drop field buttons - simply drag the desired field to the form!</li>
+<li>Page Break progress indicator themes, with optional page titles.</li>
+<li>Choice Layout option for Checkboxes and Multiple Choice fields (under Advanced Options).</li>
+<li>Full and expanded column class/grid support.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Refactored Page Break field, fully backwards compatible with previous version.</li>
+<li>Page Break navigation buttons with without a label do not display.</li>
+<li>Refactored CSS column classes, previous classes are deprecated.</li>
+<li>Improved field and column gutter consistency.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Form ending with column classes not closing correctly.</li>
+<li>reCAPTCHA button overlaying submit button preventing it from being clicked.</li>
+</ul>
+<h2 id="-1-2-2016-05-19">[1.2] - 2016-05-19</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Column classes for Checkbox and Multiple choice inputs.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Improved file upload text format inside entry tables.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Removed nonce verification.</li>
+<li>Issue with Address fields not processing correctly when using international format.</li>
+</ul>
+<h2 id="-1-1-9-1-2016-05-06">[1.1.9.1] - 2016-05-06</h2>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Payment calculations incorrect with large values.</li>
+</ul>
+<h2 id="-1-1-9-2016-05-06">[1.1.9] - 2016-05-06</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Form preview.</li>
+<li>Other small misc. updates.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>reCAPTCHA settings description to include link to how-to article.</li>
+<li>Some fields did not have the correct (unique) CSS ID, this has been corrected, which means custom styling may need to be adjusted.</li>
+<li>Form notification settings hide if set to Off.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Issue with submit button position when form ends with columns classes.</li>
+<li>PHP warnings inside the form builder.</li>
+</ul>
+<h2 id="-1-1-8-2016-04-29">[1.1.8] - 2016-04-29</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>&quot;WPForm&quot; to new-content admin bar menu item.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Removed &quot;New&quot; field name prefix.</li>
+<li>Moved email related settings into email settings group.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Incorrect i18n strings.</li>
+<li>Load order causing add-on update conflicts.</li>
+</ul>
+<h2 id="-1-1-7-2016-04-26">[1.1.7] - 2016-04-26</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Smart Tag for Dropdown/Multiple choice raw values, allowing for conditional email addres notifications ([link].(<a href="https://wpforms.com/docs/how-to-create-conditional-form-notifications-in-wpforms/">https://wpforms.com/docs/how-to-create-conditional-form-notifications-in-wpforms/</a>)).</li>
+<li>HTML/Code field Conditional Logic support.</li>
+<li>HTML/Code field CSS class support.</li>
+<li>Three column CSS field classes (<a href="https://wpforms.com/docs/how-to-create-multi-column-form-layouts-in-wpforms/">link</a>).</li>
+<li>Support for WordPress Zero Spam plugin (<a href="https://wordpress.org/plugins/zero-spam/">https://wordpress.org/plugins/zero-spam/</a>).</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Checkbox/Multiple Choice fields allow certain HTML to display in choice labels.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Issue when stacking fields with 2 column classes.</li>
+</ul>
+<h2 id="-1-1-6-2016-04-22">[1.1.6] - 2016-04-22</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Entry starring.</li>
+<li>Entry read/unread tracking.</li>
+<li>Entry filtering by stars/read state.</li>
+<li>Entry notes.</li>
+<li>Entry exports (csv) for all entries in a form.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Improved entries table overview page.</li>
+<li>Email Header Image setting description to include recommended sizing.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>reCAPTCHA cutting off with full form theme.</li>
+<li>Debug output from wpforms.js.</li>
+<li>Conflict between confirmation action and filter.</li>
+</ul>
+<h2 id="-1-1-5-2016-04-15">[1.1.5] - 2016-04-15</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Print entry for single entries.</li>
+<li>Export (CSV) for single entries.</li>
+<li>Resend notifications for single entries.</li>
+<li>Store user ID, IP address, and user agent for entries.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Improved single entry page (more improvements soon!).</li>
+<li>HTML Email template footer text appearance.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Form builder textareas not displaying full width.</li>
+<li>HTML emails not displaying correctly in Thunderbird.</li>
+</ul>
+<h2 id="-1-1-4-2016-04-12">[1.1.4] - 2016-04-12</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Form general setting for &quot;Submit Button CSS Class&quot;.</li>
+<li>Duplicate forms from the Forms Overview page (All Forms).</li>
+<li>Suggestion form template.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Improved error logging for providers, now writes to CPT error log.</li>
+<li>Adjusted field display inside the Form Builder to better resemble full theme.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Firefox CSS issue in form base theme.</li>
+<li>Don&#39;t allow inserting shortcode via modal if there are no forms.</li>
+<li>Issue limiting Total field display amount.</li>
+</ul>
+<h2 id="-1-1-3-2016-04-06">[1.1.3] - 2016-04-06</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>New class that handles sending/processing emails.</li>
+<li>Form notification setting for &quot;From Address&quot;, defaults to site administrator&#39;s email address.</li>
+<li>HTML email template for sleek emails (enabled by default, see more below).</li>
+<li>General setting to configure email notification format.</li>
+<li>General setting to optionally configure email notification header image.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Default email notification format is now HTML, can go back to plain text format via option on WPForms &gt; Settings page.</li>
+<li>File Upload field now saves original file name.</li>
+<li>Empty fields are no longer included in email notifications.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Various issues with File Upload field in different configurations.</li>
+<li>Address field saving select values when empty.</li>
+<li>Issue with Checkbox field when empty.</li>
+</ul>
+<h2 id="-1-1-2-2016-04-01">[1.1.2] - 2016-04-01</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Form option to scroll page to form after submit, defaults on for new forms.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Revamped &quot;Full&quot; form theme to be more consistent across different themes, browsers, and devices.</li>
+<li>Full theme and bare theme separated.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>File upload required message when not set to required.</li>
+</ul>
+<h2 id="-1-1-1-2016-03-29">[1.1.1] - 2016-03-29</h2>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Settings page typo</li>
+<li>Providers issue causing AJAX to fail.</li>
+</ul>
+<h2 id="-1-1-2016-03-28">[1.1] - 2016-03-28</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Credit Card payment field.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>CSS updates to improve compatibility.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>PHP notices when saving plugin Settings.</li>
+</ul>
+<h2 id="-1-0-9-2016-03-25">[1.0.9] - 2016-03-25</h2>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Email field defaulting to Required.</li>
+</ul>
+<h2 id="-1-0-8-2016-03-24">[1.0.8] - 2016-03-24</h2>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Name field setting always showing Required.</li>
+<li>Debug function incorrectly requiring WP_DEBUG.</li>
+</ul>
+<h2 id="-1-0-7-2016-03-22">[1.0.7] - 2016-03-22</h2>
+<h2 id="changed">Changed</h2>
+<ul>
+<li>CSS tweaks.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Issue with File Upload field returning incorrect file URL.</li>
+<li>Filter (wpforms_manage_cap) incorrectly named in some instances.</li>
+</ul>
+<h2 id="-1-0-6-2016-03-21">[1.0.6] - 2016-03-21</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Embed button inside the Form Builder.</li>
+<li>Basic two column CSS class support.</li>
+<li>French translation.</li>
+</ul>
+<h2 id="changed">Changed</h2>
+<ul>
+<li>Form names are no longer required, if no form name is provided the template name is used.</li>
+<li>Inputmask script, for better broad device support.</li>
+<li>Field specific assets are now conditionally loaded.</li>
+<li>CSS tweaks for form display.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Issue with Date/Time field.</li>
+<li>Issue Address field preventing Country select from hiding in some configurations.</li>
+<li>Localization string errors.</li>
+</ul>
+<h2 id="-1-0-5-2016-03-18">[1.0.5] - 2016-03-18</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Pagination for Entries table.</li>
+</ul>
+<h2 id="changed">Changed</h2>
+<ul>
+<li>Checkboxes/Dropdown/Multiple Choice fields always show choice label value in e-mail notifications.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>PHP notices inside the Form Builder.</li>
+<li>Typo inside Form Builder tooltip.</li>
+</ul>
+<h2 id="-1-0-4-1-2016-03-17">[1.0.4.1] - 2016-03-17</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Check for TinyMCE in the builder before triggering TinyMCE save.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Sub labels showing when configured to hide.</li>
+<li>Forms pagination number screen setting not saving.</li>
+<li>Email notification setting always displaying &quot;On&quot;.</li>
+</ul>
+<h2 id="-1-0-4-2016-03-16">[1.0.4] - 2016-03-16</h2>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Improved marketing provider conditional logic.</li>
+<li>Addons page [Lite].</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Variable assignment in the builder.</li>
+</ul>
+<h2 id="-1-0-3-2016-03-15">[1.0.3] - 2016-03-15</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Basic TinyMCE editor for form confirmation messages.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Removed form ID from form overview table, ID still visible in shortcode column.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Checkbox/radio form elements alignment.</li>
+<li>Quotation slashes in email notification text.</li>
+<li>SSL verification preventing proper API calls on some servers.</li>
+</ul>
+<h2 id="-1-0-2-2016-03-13">[1.0.2] - 2016-03-13</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Widget to display form.</li>
+<li>Function to display form, <code>wpforms_display( $form_id )</code>.</li>
+</ul>
+<h2 id="changed">Changed</h2>
+<ul>
+<li>Default notification settings for Contact form template.</li>
+<li>Success message styling for full form theme.</li>
+</ul>
+<h2 id="-1-0-1-2016-03-12">[1.0.1] - 2016-03-12</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>&quot;From Name&quot; and &quot;Reply To&quot; Setting&gt;Notification fields.</li>
+<li>Smart Tags feature to all Setting&gt;Notification fields.</li>
+</ul>
+<h2 id="-1-0-0-2016-03-11">[1.0.0] - 2016-03-11</h2>
+<ul>
+<li>Initial release.</li>
+</ul>
+
+      </body>
+    </html>
