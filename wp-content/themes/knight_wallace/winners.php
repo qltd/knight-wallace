@@ -16,6 +16,7 @@ $this_year = !empty($this_page_meta['year']) ? $this_page_meta['year'][0] : null
 $winners = get_posts(array('post_type'=>'person_livingston','posts_per_page'=> -1));
 $sorted_winners = sort_winners($winners, $this_year);
 $sorted_winners_by_award_type = sort_winners_by_award_type($sorted_winners);
+
 ?>
 <section class="breadcrumb">
 <div class="row">
@@ -66,16 +67,17 @@ $sorted_winners_by_award_type = sort_winners_by_award_type($sorted_winners);
     <div class="large-10 large-centered columns">
         <div class="la-winner">
             <div class="type"><?php echo $win['type']; ?></div>
-            <div class="name"><?php $name_line = $win['first_name'].' '.$win['last_name'].', '.$win['age']; ?>
+            <div class="name"><?php $name_line = $win['first_name'].' '.$win['last_name']; ?>
                 <?php if(!empty($win['co-winner_name_line'])): ?>
                     <?php $count_of_cwnl = count($win['co-winner_name_line']); ?>
                     <?php if($count_of_cwnl <= 1): ?>
-                        <?php $name_line .= ' and '.$win['co-winner_name_line'][0]; ?>
+                        <?php $name_line .= ' and '. substr($win['co-winner_name_line'][0], 0, strpos($win['co-winner_name_line'][0], ",")); ?>
                     <?php else: ?>
                         <?php $ccwnl = 0; ?>
                         <?php foreach($win['co-winner_name_line'] as $cwnl): ?>
+                            <?php $cwnl = substr($cwnl, 0, strpos($cwnl, ",")); ?>
                             <?php if($count_of_cwnl - 1 == $ccwnl): ?>
-                                <?php $name_line .= ' and '.$cwnl; ?>
+                                <?php $name_line .= ' and ' . $cwnl; ?>
                             <?php else: ?>
                                 <?php $name_line .= ', '.$cwnl; ?>
                             <?php endif; ?>
