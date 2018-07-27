@@ -1258,3 +1258,9 @@ function enqueueStylesFix() {
 //     return str_replace( '#asyncload', '', $url )."' async='async";
 //     }
 // add_filter( 'clean_url', 'ikreativ_async_scripts', 11, 1 );
+
+
+add_filter( 'wp_mail_from_name', 'custom_wpse_mail_from_name' );
+function custom_wpse_mail_from_name( $original_email_from ) {
+    return 'Wallace House';
+}
