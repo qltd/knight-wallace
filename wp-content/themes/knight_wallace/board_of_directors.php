@@ -19,7 +19,7 @@ $sorted_board_members = sort_board_of_directors($board_members);
 <section class="breadcrumb">
 <div class="row">
     <div class="small-6 columns">
-        <a href="/knight-wallace/" class="library-link">&nbsp;Knight-Wallace Fellowships</a>
+        <a href="/" class="library-link">&nbsp;Wallace House</a>
     </div>
 </div>
 </section>

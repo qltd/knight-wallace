@@ -10,6 +10,9 @@
             <div class="row news snippet-box">
                 <div class="large-12 columns">
                     <div class="news-article">
+                      <?php $image = get_the_post_thumbnail($new->ID); if(!empty($image)): ?>
+                        <?php echo $image; ?>
+                      <?php endif; ?>
                         <div class="text">
                             <h4><a href="<?php echo $new->guid; ?>"><?php echo $new->post_title; ?></a></h4>
                             <div class="date"><?php echo date('F d, Y',strtotime($new->post_date)); ?></div>
