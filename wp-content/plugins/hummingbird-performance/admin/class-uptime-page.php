@@ -29,7 +29,6 @@ class WP_Hummingbird_Uptime_Page extends WP_Hummingbird_Admin_Page {
 			'downtime' => __( 'Downtime', 'wphb' ),
 			'settings' => __( 'Settings', 'wphb' ),
 		);
-
 	}
 
 	/**
@@ -48,7 +47,7 @@ class WP_Hummingbird_Uptime_Page extends WP_Hummingbird_Admin_Page {
 			$is_active = $module->is_active(); ?>
 			<div class="sui-actions-right">
 				<?php if ( WP_Hummingbird_Utils::is_member() && $is_active ) : ?>
-					<label for="wphb-uptime-data-range" class="inline-label header-label hide-to-mobile"><?php esc_html_e( 'Reporting period', 'wphb' ); ?></label>
+					<label for="wphb-uptime-data-range" class="inline-label header-label sui-hidden-xs sui-hidden-sm"><?php esc_html_e( 'Reporting period', 'wphb' ); ?></label>
 					<select name="wphb-uptime-data-range" class="uptime-data-range" id="wphb-uptime-data-range">
 						<?php
 						foreach ( $data_ranges as $range => $label ) :
@@ -103,12 +102,14 @@ class WP_Hummingbird_Uptime_Page extends WP_Hummingbird_Admin_Page {
 		if ( ! WP_Hummingbird_Utils::is_member() ) {
 			$this->add_meta_box(
 				'uptime-no-membership',
-				__( 'Uptime', 'wphb' ),
+				__( 'Upgrade', 'wphb' ),
 				array( $this, 'uptime_membership_metabox' ),
 				null,
 				null,
 				'box-uptime-disabled',
-				null
+				array(
+					'box_content_class' => 'sui-box-body sui-block-content-center',
+				)
 			);
 		} elseif ( $is_active && is_wp_error( $uptime_report ) ) {
 			$this->add_meta_box(
@@ -127,7 +128,10 @@ class WP_Hummingbird_Uptime_Page extends WP_Hummingbird_Admin_Page {
 				array( $this, 'uptime_disabled_metabox' ),
 				null,
 				null,
-				'box-uptime-disabled'
+				'box-uptime-disabled',
+				array(
+					'box_content_class' => 'sui-box-body sui-block-content-center',
+				)
 			);
 		} else {
 			$this->add_meta_box(
@@ -543,6 +547,12 @@ class WP_Hummingbird_Uptime_Page extends WP_Hummingbird_Admin_Page {
 			$end_time = time();
 			$first = true;
 			$event_arr = array_reverse( $stats->events );
+
+			// If no downtime events and uptime has not just been enabled for the first time return Website Available.
+			if ( empty( $stats->events ) && ! empty( $stats->chart_json ) ) {
+				$data[] = array( 'Downtime', 'Up', 'Website Available', date( 'D M d Y H:i:s O', time() - $time_increment ), date( 'D M d Y H:i:s O', time() ) );
+				return wp_json_encode( $data );
+			}
 			foreach ( $event_arr as $event ) {
 				if ( ! empty( $event->down ) && ! empty( $event->up ) ) {
 					if ( ! $first ) {

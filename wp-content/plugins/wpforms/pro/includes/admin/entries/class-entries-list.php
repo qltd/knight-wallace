@@ -400,6 +400,7 @@ class WPForms_Entries_List {
 		if ( ! empty( $term ) ) {
 
 			$args['select']        = 'entry_ids';
+			$args['number']        = -1;
 			$args['form_id']       = (int) $_GET['form_id'];
 			$args['value']         = $term;
 			$args['value_compare'] = $comparison;

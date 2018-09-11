@@ -58,7 +58,18 @@ class WPForms_Entry_Handler extends WPForms_DB {
 	public function get_column_defaults() {
 
 		return array(
-			'date' => date( 'Y-m-d H:i:s' ),
+			'form_id'       => '',
+			'post_id'       => '',
+			'user_id'       => '',
+			'status'        => '',
+			'type'          => '',
+			'fields'        => '',
+			'meta'          => '',
+			'date'          => date( 'Y-m-d H:i:s' ),
+			'date_modified' => date( 'Y-m-d H:i:s' ),
+			'ip_address'    => '',
+			'user_agent'    => '',
+			'user_uuid'     => '',
 		);
 	}
 
@@ -352,8 +363,8 @@ class WPForms_Entry_Handler extends WPForms_DB {
 
 			// @codingStandardsIgnoreStart
 			$results = absint( $wpdb->get_var(
-				"SELECT COUNT({$this->primary_key}) 
-				FROM {$this->table_name} 
+				"SELECT COUNT({$this->primary_key})
+				FROM {$this->table_name}
 				WHERE {$where_sql};"
 			) );
 			// @codingStandardsIgnoreEnd
@@ -362,10 +373,10 @@ class WPForms_Entry_Handler extends WPForms_DB {
 
 			// @codingStandardsIgnoreStart
 			$results = $wpdb->get_results(
-				"SELECT {$select} 
-				FROM {$this->table_name} 
-				WHERE {$where_sql} 
-				ORDER BY {$args['orderby']} {$args['order']} 
+				"SELECT {$select}
+				FROM {$this->table_name}
+				WHERE {$where_sql}
+				ORDER BY {$args['orderby']} {$args['order']}
 				LIMIT {$args['offset']}, {$args['number']};"
 			);
 			// @codingStandardsIgnoreEnd

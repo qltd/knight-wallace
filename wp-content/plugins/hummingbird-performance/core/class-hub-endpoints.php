@@ -16,7 +16,7 @@ class WP_Hummingbird_Hub_Endpoints {
 	 *
 	 * @var array
 	 */
-	private $endpoints = array( 'get', 'performance' );
+	private $endpoints = array( 'get', 'performance', 'enable', 'disable' );
 
 	/**
 	 * Hub Endpoints Initialize
@@ -128,12 +128,12 @@ class WP_Hummingbird_Hub_Endpoints {
 		} elseif ( ! $module->is_active() ) {
 			$result['minify'] = new WP_Error( 'minify-disabled', 'Asset Optimization module not activated' );
 		} else {
-			$original_size_styles  = array_sum( wp_list_pluck( $collection['styles'], 'original_size' ) );
-			$original_size_scripts = array_sum( wp_list_pluck( $collection['scripts'], 'original_size' ) );
+			$original_size_styles  = WP_Hummingbird_Utils::calculate_sum( wp_list_pluck( $collection['styles'], 'original_size' ) );
+			$original_size_scripts = WP_Hummingbird_Utils::calculate_sum( wp_list_pluck( $collection['scripts'], 'original_size' ) );
 			$original_size = $original_size_scripts + $original_size_styles;
 
-			$compressed_size_styles  = array_sum( wp_list_pluck( $collection['styles'], 'compressed_size' ) );
-			$compressed_size_scripts = array_sum( wp_list_pluck( $collection['scripts'], 'compressed_size' ) );
+			$compressed_size_styles  = WP_Hummingbird_Utils::calculate_sum( wp_list_pluck( $collection['styles'], 'compressed_size' ) );
+			$compressed_size_scripts = WP_Hummingbird_Utils::calculate_sum( wp_list_pluck( $collection['scripts'], 'compressed_size' ) );
 			$compressed_size = $compressed_size_scripts + $compressed_size_styles;
 
 			if ( ( $original_size_scripts + $original_size_styles ) <= 0 ) {
@@ -209,6 +209,60 @@ class WP_Hummingbird_Hub_Endpoints {
 	public function action_performance( $params, $action ) {
 		// Refresh report if run from the Hub.
 		WP_Hummingbird_Module_Performance::refresh_report();
+	}
+
+	/**
+	 * Enable modules from the Hub.
+	 *
+	 * @since 1.9.1
+	 * @param array  $params  Parameters.
+	 * @param string $action  Action.
+	 *
+	 * @return void|WP_Error
+	 */
+	public function action_enable( $params, $action ) {
+		$module = WP_Hummingbird_Utils::get_module( $params['module'] );
+
+		if ( ! $module ) {
+			wp_send_json_error( array(
+				'message' => __( 'Hummingbird module doesn\'t exist.', 'wphb' ),
+			));
+		}
+		if ( method_exists( $module, 'enable' ) ) {
+			call_user_func( array( $module, 'enable' ) );
+		} else {
+			wp_send_json_error( array(
+				'message' => __( 'Enabling this module remotely is not possible.', 'wphb' ),
+			));
+		}
+		wp_send_json_success();
+	}
+
+	/**
+	 * Disable modules from the Hub.
+	 *
+	 * @since 1.9.1
+	 * @param array  $params  Parameters.
+	 * @param string $action  Action.
+	 *
+	 * @return void|WP_Error
+	 */
+	public function action_disable( $params, $action ) {
+		$module = WP_Hummingbird_Utils::get_module( $params['module'] );
+
+		if ( ! $module ) {
+			wp_send_json_error( array(
+				'message' => __( 'Hummingbird module doesn\'t exist.', 'wphb' ),
+			));
+		}
+		if ( method_exists( $module, 'disable' ) ) {
+			call_user_func( array( $module, 'disable' ) );
+		} else {
+			wp_send_json_error( array(
+				'message' => __( 'Disabling this module remotely is not possible.', 'wphb' ),
+			));
+		}
+		wp_send_json_success();
 	}
 
 }

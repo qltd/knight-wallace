@@ -53,7 +53,6 @@ class WP_Hummingbird_Sources_Collector {
 			update_option( self::$styles_option, $this->collected['styles'] );
 			update_option( self::$scripts_option, $this->collected['scripts'] );
 		}
-
 	}
 
 	/**
@@ -91,6 +90,25 @@ class WP_Hummingbird_Sources_Collector {
 	public static function clear_collection() {
 		delete_option( self::$styles_option );
 		delete_option( self::$scripts_option );
+	}
+
+	/**
+	 * Get handles from both styles and scripts.
+	 *
+	 * @return array
+	 */
+	public static function get_handles() {
+		$styles  = get_option( self::$styles_option, array() );
+		$scripts = get_option( self::$scripts_option, array() );
+		$handles = array();
+		foreach ( $styles as $style ) {
+			$handles[] = $style['handle'];
+		}
+		foreach ( $scripts as $script ) {
+			$handles[] = $script['handle'];
+		}
+
+		return $handles;
 	}
 
 	/**

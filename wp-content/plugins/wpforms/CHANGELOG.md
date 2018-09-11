@@ -1,6 +1,57 @@
 # Change Log
 All notable changes to this project will be documented in this file, formatted via [this recommendation](http://keepachangelog.com/).
 
+## [1.4.8.1] - 2018-08-21
+### Fixed
+- Certain confirmation settings, before 1.4.8, not displaying correctly in the form builder.
+- Compatiblity issue with MySQL `Strict_Trans_Tables` mode (again).
+
+## [1.4.8] - 2018-08-28
+### Added
+- Gutenberg block.
+- Conditional form confirmations - forms can now have multiple confirmations with conditional logic!
+- WP Mail SMTP detection and hints in the form builder notification settings.
+- Alt and title tags to image choices images on frontend display.
+
+### Changed
+- Improved Website URL field frontend validation - now automatically adds protocol if omitted.
+- i18n improvements.
+
+### Fixed
+- Compatiblity issue with MySQL `Strict_Trans_Tables` mode.
+- Incorrect param used with `shortcode_atts`.
+- NPS and Rating fields not having access to all conditional logic comparisons.
+- Accessing `wpforms_setting` in frontend javascript before checking if it exists.
+- Escaping method in HTML field mangling code on save.
+- PHP error toggling form builder notifications in some use cases.
+- GDPR field Agreement text not updating in real time.
+- Marketing provider connections containing an escaped apostrophe. 
+- Pressing "Enter" in the form builder resulting in unexpected behavior.
+- Incorrect pagination when searching entries.
+- Security enhancements and other misc. bug fixes.
+
+## [1.4.7.2] - 2018-06-21
+### Changed
+- Adding new choice to Multiple Items field now defaults price to $0.
+
+## Fixed
+- Entry ID always displaying 0 when viewing single entry details.
+- Honeypot field using a none unique CSS ID.
+- Form builder Bulk Add display issues in certain use cases.
+- Checkbox field values not saving if Show Values field option is enabled.
+- Date Time field date dropdown placeholder text not accessible.
+
+## [1.4.7.1] - 2018-06-07
+### Added
+- Greater Than and Less Than conditional logic rules.
+- Conditional logic support for Net Promoter Score field (Surveys and Polls addon v1.1.0).
+
+## Changed
+- Updated Russian translation.
+
+## Fixed
+- Various i18n issues.
+
 ## [1.4.7] - 2018-06-04
 ### Added
 - New Providers class and functionality. The Drip addon is the first to leverage the new class and existing provider addons will be updated over time.

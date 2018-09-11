@@ -271,7 +271,7 @@ class WP_Hummingbird_Module_Minify_Group {
 		 * @var string $source_url Source URL
 		 * @var string $type scripts|styles
 		 */
-		if ( ! apply_filters( 'wphb_minify_resource', true, $handle, $this->type, $url ) ) {
+		if ( ! apply_filters( 'wphb_minify_resource', false, $handle, $this->type, $url ) ) {
 			$this->should_do_handle( $handle, 'minify', false );
 		}
 
@@ -426,7 +426,10 @@ class WP_Hummingbird_Module_Minify_Group {
 	 * @return float Original size in Kb
 	 */
 	public function get_handle_original_size( $handle ) {
-		return $this->handle_original_sizes[ $handle ];
+		if ( isset( $this->handle_original_sizes[ $handle ] ) ) {
+			return $this->handle_original_sizes[ $handle ];
+		}
+		return 0;
 	}
 
 	/**
@@ -447,7 +450,10 @@ class WP_Hummingbird_Module_Minify_Group {
 	 * @return float Compressed size in Kb
 	 */
 	public function get_handle_compressed_size( $handle ) {
-		return $this->handle_compressed_sizes[ $handle ];
+		if ( isset( $this->handle_compressed_sizes[ $handle ] ) ) {
+			return $this->handle_compressed_sizes[ $handle ];
+		}
+		return 0;
 	}
 
 	/**
@@ -504,7 +510,7 @@ class WP_Hummingbird_Module_Minify_Group {
 	/**
 	 * Removes handle/s but returns a new instance of
 	 * WP_Hummingbird_Module_Minifynew_Group with the same parameters
-	 * but pnly with the specified handles
+	 * but only with the specified handles
 	 *
 	 * @param array|string $handles  One or more handles to remove from the group.
 	 *
@@ -682,6 +688,24 @@ class WP_Hummingbird_Module_Minify_Group {
 	 * @return string
 	 */
 	public function get_handle_url( $handle ) {
+		// RTL compatibility.
+		if ( 'styles' === $this->type ) {
+			// We don't use global $wp_styles, because it is not there during cron.
+			$wp_styles = wp_styles();
+
+			if ( isset( $wp_styles->text_direction ) && 'rtl' === $wp_styles->text_direction && isset( $this->extra['rtl'] ) && $this->extra['rtl'] ) {
+				if ( is_bool( $this->extra['rtl'] ) || 'replace' === $this->extra['rtl'] ) {
+					$suffix   = isset( $this->extra['suffix'] ) ? $this->extra['suffix'] : '';
+					$file_path = str_replace( "{$suffix}.css", "-rtl{$suffix}.css", $wp_styles->_css_href( $this->handle_urls[ $handle ], $this->handle_versions[ $handle ], "$handle-rtl" ) );
+				} else {
+					$file_path = $this->_css_href( $this->extra['rtl'], $this->handle_versions[ $handle ], "$handle-rtl" );
+				}
+
+				return $file_path;
+			}
+		}
+
+
 		return $this->handle_urls[ $handle ];
 	}
 
@@ -862,6 +886,7 @@ class WP_Hummingbird_Module_Minify_Group {
 		$hash .= $this->type;
 		$hash .= implode( '-', $handles_versions );
 		$this->hash = self::hash( $hash );
+
 		if ( $this->file_id ) {
 			update_post_meta( $this->file_id, '_hash', $this->hash );
 		}
@@ -942,7 +967,7 @@ class WP_Hummingbird_Module_Minify_Group {
 				continue;
 			}
 
-			$minify_module->logger->log( 'localProcessing Group : ' . $this->group_id );
+			$minify_module->log( 'localProcessing Group : ' . $this->group_id );
 
 			// Get the full URL.
 			if ( ! preg_match( '|^(https?:)?//|', $src ) ) {
@@ -970,10 +995,10 @@ class WP_Hummingbird_Module_Minify_Group {
 				) );
 				$content = wp_remote_retrieve_body( $request );
 				if ( is_wp_error( $request ) ) {
-					$minify_module->logger->log( $request->get_error_message() );
+					$minify_module->log( $request->get_error_message() );
 				} elseif ( wp_remote_retrieve_response_code( $request ) !== 200 ) {
-					$minify_module->logger->log( 'Code different from 200. Truncated content:' );
-					$minify_module->logger->log( substr( $content, 0, 1000 ) );
+					$minify_module->log( 'Code different from 200. Truncated content:' );
+					$minify_module->log( substr( $content, 0, 1000 ) );
 				}
 			}
 
@@ -988,7 +1013,7 @@ class WP_Hummingbird_Module_Minify_Group {
 				);
 				continue;
 			} else {
-				$minify_module->logger->log( 'Asset (handle: ' . $handle . ') in group ' . $this->type . ' has been successfully processed.' );
+				$minify_module->log( 'Asset (handle: ' . $handle . ') in group ' . $this->type . ' has been successfully processed.' );
 				//$minification_module->errors_controller->clear_handle_error( $handle, $this->type );
 			}
 
@@ -999,9 +1024,9 @@ class WP_Hummingbird_Module_Minify_Group {
 
 			// Concatenate and minify scripts/styles!
 			if ( 'scripts' === $this->type ) {
-				//$minify_module->logger->log( 'Minify script' );
+				//$minify_module->log( 'Minify script' );
 			} elseif ( 'styles' === $this->type ) {
-				//$minify_module->logger->log( 'Minify style' );
+				//$minify_module->log( 'Minify style' );
 				if ( $is_local ) {
 					//$content = self::replace_relative_urls( dirname( $path ), $content );
 					$content = WP_Hummingbird_CSS_UriRewriter::prepend( $content, trailingslashit( dirname( $src ) ) );
@@ -1022,7 +1047,7 @@ class WP_Hummingbird_Module_Minify_Group {
 			}
 
 			if ( empty( $content ) ) {
-				$minify_module->logger->log( 'Empty content after minification' );
+				$minify_module->log( 'Empty content after minification' );
 
 				// Something happened to compression.
 				$minify_module->errors_controller->add_error(
@@ -1089,12 +1114,40 @@ class WP_Hummingbird_Module_Minify_Group {
 	 * @return bool
 	 */
 	public static function insert_group( $group, $file ) {
-		// Insert the new file in posts table.
+		$post_title   = $group->get_sources_hash() . '-' . $group->type;
+		$post_content = $file['response'];
+
+		/**
+		 * This get_posts is important!
+		 *
+		 * Try to verify if the post with the same title and content already exists, maybe there is no need to create a mew one
+		 * we can just update the old version.
+		 *
+		 * @since 1.9.2  Added as a way to fix the unlimited posts with the same name issue.
+		 */
+		$post_ids = get_posts( array(
+			'name'        => $post_title,
+			'post_type'   => 'wphb_minify_group',
+			'numberposts' => 1,
+			'fields'      => 'ids',
+		) );
+		$post_id = empty( $post_ids ) ? 0 : array_shift( $post_ids );
+
+		/**
+		 * Insert the new file in posts table.
+		 *
+		 * The ID argument acts as an insurance that a post with the same name does not exist already.
+		 * No two posts should have a similar hash, unless it is two exactly same files. In that case we will use
+		 * one post for both.
+		 *
+		 * In any case, if the above get_posts() does not find any posts, an ID = 0 will create a new post.
+		 */
 		$post_id = wp_insert_post( array(
-			'post_title'   => $group->get_sources_hash() . '-' . $group->type,
+			'ID'           => $post_id,
+			'post_title'   => $post_title,
 			'post_status'  => 'publish',
 			'post_type'    => 'wphb_minify_group',
-			'post_content' => $file['response'],
+			'post_content' => $post_content,
 		) );
 
 		if ( $post_id ) {
@@ -1128,7 +1181,20 @@ class WP_Hummingbird_Module_Minify_Group {
 				// Upload contents to filesystem
 				// Any user can upload this as is made during front request.
 				add_filter( 'upload_mimes', array( 'WP_Hummingbird_Module_Minify_Group', '_upload_mimes' ) , 999 );
-				$filename = $group->hash . '.' . ( 'scripts' === $group->type ? 'js' : 'css' );
+
+				$suffix = '';
+				if ( 'styles' === $group->type ) {
+					// We don't use global $wp_styles, because it is not there during cron.
+					$wp_styles = wp_styles();
+
+					if ( isset( $wp_styles->text_direction ) && 'rtl' === $wp_styles->text_direction && isset( $group->extra['rtl'] ) && $group->extra['rtl'] ) {
+						if ( is_bool( $group->extra['rtl'] ) || 'replace' === $group->extra['rtl'] ) {
+							$suffix   = isset( $group->extra['suffix'] ) ? "-rtl{$group->extra['suffix']}" : '-rtl';
+						}
+					}
+				}
+
+				$filename = $group->hash . $suffix . '.' . ( 'scripts' === $group->type ? 'js' : 'css' );
 				do_action( 'wp_hummingbird_before_upload_minify_group', $filename, $file['response'] );
 				$upload = WP_Hummingbird_Filesystem::handle_file_upload( $filename, $file['response'] );
 				do_action( 'wp_hummingbird_after_upload_minify_group', $filename, $file['response'], $upload );
@@ -1141,12 +1207,14 @@ class WP_Hummingbird_Module_Minify_Group {
 					return false;
 				}
 
-				update_post_meta( $group->file_id, '_url', $upload['url'] );
+				$url = empty( $suffix ) ? $upload['url'] : str_replace( $suffix, '', $upload['url'] );
+
+				update_post_meta( $group->file_id, '_url', $url );
 				update_post_meta( $group->file_id, '_path', $upload['file'] );
 			} else {
 				// Just save URL.
 				update_post_meta( $group->file_id, '_url', $file['response'] );
-			}
+			} // End if().
 
 			update_post_meta( $group->file_id, '_expires', $expire_on );
 
@@ -1413,7 +1481,11 @@ class WP_Hummingbird_Module_Minify_Group {
 	public function get_group_src() {
 		if ( ! $this->should_process_group() || 0 === $this->file_id ) {
 			$handles = $this->get_handles();
-			return $this->get_handle_url( $handles[0] );
+			if ( $handles ) {
+				return $this->get_handle_url( $handles[0] );
+			}
+
+			return '';
 		}
 		return get_post_meta( $this->file_id, '_url', true );
 	}
@@ -1811,6 +1883,6 @@ class WP_Hummingbird_Module_Minify_Group {
 
 		// Not local.
 		return false;
-
 	}
+
 }

@@ -7,28 +7,6 @@ import Fetcher from './utils/fetcher';
         modules: [],
         // Common functionality to all screens
         init: function() {
-
-            // Mobile navigation links.
-			let mobileNav = document.querySelector('select.mobile-nav');
-
-			if ( mobileNav ) {
-				mobileNav.onchange = (e) => {
-					const url = e.target.value;
-					if (url.length > 0) {
-						location.href = url;
-					}
-				};
-            }
-
-            /* Above code replaces this with native js
-			$('body').on('change', '.mobile-nav', function () {
-				let url = $(this).val();
-				if (url.length > 0) {
-					location.href = url;
-				}
-			});
-			*/
-
 			// Dismiss notice via an ajax call.
             let notice = document.querySelector('#wphb-dismissable > .sui-notice-dismiss');
 
@@ -39,46 +17,27 @@ import Fetcher from './utils/fetcher';
 				});
             }
 
-			/* Above code replaces this with native js
-			$('#wphb-dismissable').on('click', '.close', function() {
-			    const notice_id = $(this).parent().attr('data-id');
-			    Fetcher.notice.dismiss( notice_id );
-            });
-            */
+			/**
+			 * Clear log button clicked.
+			 *
+			 * @since 1.9.2
+			 */
+			$('.wphb-logging-buttons').on('click', '.wphb-logs-clear', function (e) {
+				e.preventDefault();
 
-            function updatePerformanceGraph($wrap){
-                let $item = $wrap.find('.wphb-score-result-label'),
-                    val = parseInt($item.text(), 10) || 100,
-                    $circle = $wrap.find(".wphb-score-graph-result"),
-                    r, c, pct
-                    ;
-                r = $circle.attr('r');
-                c = Math.PI*(r*2);
+				Fetcher.logger.clear( $(this).attr('data-module') )
+					.then((response) => {
+						if ( 'undefined' === typeof response.success ) {
+							return;
+						}
 
-                if (val < 0) { val = 0;}
-                if (val > 100) { val = 100;}
-
-                pct = ((100-val)/100)*c;
-
-                $circle.css({ strokeDashoffset: pct});
-            }
-
-            function updatePerformanceResultsGraphs(){
-                // Update Overall Score
-                $(".wphb-performance-report-overall-score").each(function(){
-                    updatePerformanceGraph($(this));
-                });
-
-                // Update All Scores
-                $(".wphb-performance-report-item-score").each(function(){
-                    updatePerformanceGraph($(this));
-                });
-            }
-            window.register_events_performance = function(){
-                setTimeout(updatePerformanceResultsGraphs, 500);
-            };
-            $(function(){ setTimeout(updatePerformanceResultsGraphs, 500); });
-
+						if ( response.success ) {
+							WPHB_Admin.notices.show('wphb-ajax-update-notice', true, 'success', response.message );
+						} else {
+							WPHB_Admin.notices.show('wphb-ajax-update-notice', true, 'error', response.message );
+						}
+					});
+			});
         },
         initModule: function( module ) {
             if ( this.hasOwnProperty( module ) ) {
@@ -99,9 +58,7 @@ import Fetcher from './utils/fetcher';
     WPHB_Admin.utils = {
         membershipModal: {
             open: function() {
-                let el = document.getElementById('wphb-upgrade-membership-modal');
-                let dialog = new A11yDialog(el);
-                dialog.show();
+                SUI.dialogs['wphb-upgrade-membership-modal'].show();
             }
         },
 
@@ -130,6 +87,8 @@ import Fetcher from './utils/fetcher';
 		 * @param top      Scroll to top.
 		 * @param type     Error or success.
 		 * @param message  Message to display.
+		 *
+		 * @var {array} wphb
 		 */
         show: function( id, top = false, type = '', message = wphb.strings.successUpdate ) {
 			const notice = $('#' + id);

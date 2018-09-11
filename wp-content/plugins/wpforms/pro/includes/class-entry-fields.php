@@ -32,7 +32,7 @@ class WPForms_Entry_Fields_Handler extends WPForms_DB {
 	public function get_columns() {
 
 		return array(
-			'id'       => '%d',
+			'id'       => '',
 			'entry_id' => '%d',
 			'form_id'  => '%d',
 			'field_id' => '%d',
@@ -49,7 +49,11 @@ class WPForms_Entry_Fields_Handler extends WPForms_DB {
 	public function get_column_defaults() {
 
 		return array(
-			'date' => date( 'Y-m-d H:i:s' ),
+			'entry_id' => '',
+			'form_id'  => '',
+			'field_id' => '',
+			'value'    => '',
+			'date'     => date( 'Y-m-d H:i:s' ),
 		);
 	}
 
@@ -228,8 +232,8 @@ class WPForms_Entry_Fields_Handler extends WPForms_DB {
 
 			// @codingStandardsIgnoreStart
 			$results = absint( $wpdb->get_var(
-				"SELECT COUNT({$this->primary_key})  
-				FROM {$this->table_name} 
+				"SELECT COUNT({$this->primary_key})
+				FROM {$this->table_name}
 				WHERE {$where_sql};"
 			) );
 			// @codingStandardsIgnoreEnd
@@ -238,10 +242,10 @@ class WPForms_Entry_Fields_Handler extends WPForms_DB {
 
 			// @codingStandardsIgnoreStart
 			$results = $wpdb->get_results(
-				"SELECT {$select} 
-				FROM {$this->table_name} 
-				WHERE {$where_sql} 
-				ORDER BY {$args['orderby']} {$args['order']} 
+				"SELECT {$select}
+				FROM {$this->table_name}
+				WHERE {$where_sql}
+				ORDER BY {$args['orderby']} {$args['order']}
 				LIMIT {$args['offset']}, {$args['number']};"
 			);
 			// @codingStandardsIgnoreEnd

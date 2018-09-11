@@ -1,14 +1,14 @@
 === Hummingbird Page Speed Optimization ===
 Plugin Name: Hummingbird Page Speed Optimization
-Version: 1.9.0
+Version:
 Author: WPMU DEV
 Author URI: http://premium.wpmudev.org/
 Contributors: WPMUDEV
 Tags: Optimization, Caching, Speed, Performance, Faster, PageSpeed, Gzip, Compression, Minify, Minification, Cloudflare, Gravatar, Asset Optimization
 Requires at least: 4.6
-Tested up to: 4.9.6
+Tested up to: 4.9.8
 Requires PHP: 5.2
-Stable tag: 1.9.0
+Stable tag: 1.9.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -17,14 +17,14 @@ Make your site load faster with file compression, minification and a complete se
 
 == Description ==
 
-<strong>Hummingbird</strong> zips through your site and finds new ways to boost page speed with fine-tuned controls over <strong>file compression</strong>, <strong>minification</strong> and <strong>full-page, browser and Gravatar caching</strong>. Load your pages quicker and score higher on <a href="https://developers.google.com/speed/pagespeed/insights/">Google PageSpeed Insights</a> with Hummingbird site optimization.
+*Hummingbird* zips through your site and finds new ways to boost page speed with fine-tuned controls over *file compression*, *minification* and *full-page, browser and Gravatar caching*. Load your pages quicker and score higher on [Google PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/) with Hummingbird site optimization.
 
-= Features Available in Hummingbird Include: =
+### Features Available in Hummingbird Include:
 
-* Performance Reports - Pro tips for running your site at super speed
-* Asset Optimization - Position, minify and combine files for top performance
-* Caching Suite - Load pages faster with full-page, Gravatar and browser cache tools
-* GZIP Compression - Blazing fast HTML, JavaScript, and stylesheet transfer
+- Performance Reports - Pro tips for running your site at super speed
+- Asset Optimization - Position, minify and combine files for top performance
+- Caching Suite - Load pages faster with full-page, Gravatar and browser cache tools
+- GZIP Compression - Blazing fast HTML, JavaScript, and stylesheet transfer
 
 
 = Scans and Recommendations =
@@ -33,42 +33,49 @@ Hummingbird will scan your site, find files that are slowing it down and provide
 
 Hummingbird even has one-click improvements for quickly optimizing performance.
 
-★★★★★ <br>
-“Hummingbird is so easy to use. I thought it wouldn't change my speed much because I already made improvements. I ran the scan, it gave me recommendations, I pushed a button to apply them and it made my site even faster!” - <a href="https://premium.wpmudev.org/profile/juancamilobuitrago">Camilo</a>
+★★★★★
+> “Hummingbird is so easy to use. I thought it wouldn't change my speed much because I already made improvements. I ran the scan, it gave me recommendations, I pushed a button to apply them and it made my site even faster!” - [Camilo](https://premium.wpmudev.org/profile/juancamilobuitrago)
 
-★★★★★ <br>
-“Hummingbird is getting smarter with each update. Today it's become so good that it forced me to remove giant cache and optimization plugins like WP Super Cache and WP Sweep because now Hummingbird includes all those features – but in a more impressive way.” - <a href="https://wordpress.org/support/users/swagatam1975/">swagatam1975</a>
+★★★★★
+> “Hummingbird is getting smarter with each update. Today it's become so good that it forced me to remove giant cache and optimization plugins like WP Super Cache and WP Sweep because now Hummingbird includes all those features – but in a more impressive way.” - [swagatam1975](https://wordpress.org/support/users/swagatam1975/)
 
-★★★★★ <br>
-“Hummingbird took me from 32 to 84 on Google page speed plus made my site 50% faster on GTmetrix!” - <a href="https://premium.wpmudev.org/profile/nicolastergiopoulos">Nicolas</a>
+★★★★★
+> “Hummingbird took me from 32 to 84 on Google page speed plus made my site 50% faster on GTmetrix!” - [Nicolas](https://premium.wpmudev.org/profile/nicolastergiopoulos)
 
-★★★★★ <br>
-“I just built a real bloated sack of crap of a WP site, and after configuring Hummingbird and letting it do its thing, the site is actually *fast* — much faster than it has any right to be...I’m impressed.” - <a href="https://wordpress.org/support/topic/better-than-i-deserve-2/">Cacarr</a>
+★★★★★
+> “I just built a real bloated sack of crap of a WP site, and after configuring Hummingbird and letting it do its thing, the site is actually *fast* — much faster than it has any right to be...I’m impressed.” - [Cacarr](https://wordpress.org/support/topic/better-than-i-deserve-2/)
 
-= Asset Optimization =
+### Asset Optimization
 
 Did you know that the more files you add to your site’s the header, the slower it will load? With Hummingbird, you can easily customize the load position of your files to increase your page speed.
 
 Quickly reorder, compress and reposition files with Hummingbird’s minification feature. But play carefully – minification is a powerful tool (though if you need it, you can reset any changes you make in one click).
 
-= Transfer Data at Top Speed with GZIP =
+### Transfer Data at Top Speed with GZIP
 
 Hummingbird has GZIP powers to make sharing your site more efficient.
 Sending zipped files is faster and can save you money on hosting. And don’t worry about setup, send Hummingbird instructions with the click of a button and she’ll handle the rest.
 
-= Full-Page, Browser and Gravatar Cache =
+### Full-Page, Browser and Gravatar Cache
 
 Make your site load even faster for with Hummingbirds complete set of cache tools that give your visitor’s a fastor browsing experience. Including full-page, broswer and Gravatar caching.
 
-= Built-in Cloudflare Integration =
+### Built-in Cloudflare Integration
 
-Hummingbird can be used to control your <a href="https://www.cloudflare.com/">Cloudflare</a> browser cache settings as well! Simply add your Cloudflare API details and configure away.
+Hummingbird can be used to control your [Cloudflare](https://www.cloudflare.com/) browser cache settings as well! Simply add your Cloudflare API details and configure away.
 
 Hummingbird is a one of a kind WordPress performance optimization plugin that can make your site run at superspeed, for free!
 
-However, if you'd like automated scanning, uptime monitoring, enhanced minify compression with up to 2x the regular optimization, CDN hosted minification and Smush Pro image optimization you can always take the next step with a <a href="https://premium.wpmudev.org/">WPMU DEV Membership.</a>
+However, if you'd like automated scanning, uptime monitoring, enhanced minify compression with up to 2x the regular optimization, CDN hosted minification and Smush Pro image optimization you can always take the next step with a [WPMU DEV Membership](https://premium.wpmudev.org/).
 
+### Shameless Plug(ins)
+Love Hummingbird! WPMU DEV has some other awesome free plugins you should checkout.
 
+- [Smush](https://wordpress.org/plugins/wp-smushit/) - Image Compression and Optimization
+- [Forminator](https://wordpress.org/plugins/forminator/) - Form, Quiz, Poll and Survey Builder
+- [Hustle](https://wordpress.org/plugins/wordpress-popup/) - Pop-ups, Slide-ins and Email Opt-ins
+- [SmartCrawl](https://wordpress.org/plugins/smartcrawl-seo/) - SEO Optimizer
+- [Defender](https://wordpress.org/plugins/defender-security/) - Security, Monitoring, and Hack Protection
 
 == Frequently Asked Questions ==
 
@@ -88,8 +95,6 @@ Yes! Hummingbird works great with ecommerce plugins like WooCommerce and MarketP
 
 Asset Optimization is a great way to speed up your site but moving, combining and rearranging files can also mess with styling and break functionality. We recommend making incremental changes and testing your site as you go so you can undo the changes if something breaks. And remember, don’t panic. If something goes wrong you can start over with the click of a button :)
 
-
-
 == Screenshots ==
 
 1. Scan your site for optimization tips and tricks.
@@ -97,18 +102,45 @@ Asset Optimization is a great way to speed up your site but moving, combining an
 3. Asset Optimization lets you combine and reposition files.
 4. Use suggestions to make improvments and speed up your site.
 
-
-
-== Installation ==
-
-1. Upload the `wp-hummingbird` plugin to your `/wp-content/plugins/` directory.
-1. Activate the plugin through the 'Plugins' menu in WordPress.
-1. Configure and manage using the `hummingbird` menu item in the WordPress dashboard.
-1. Done!
-
-
-
 == Changelog ==
+
+= 1.9.2 ( 2018-08-15 ) =
+- New: Asset Optimization ability to regenerate single files
+- New: Auto clear out logs that are older than 30 days
+- New: Action hooks: wphb_get_performance_report, wphb_clear_page_cache and wphb_delete_db_data
+- New: REST API endpoints for gzip compression, browser caching and clearing caches
+- New: GDPR policy text
+- Enhance: Improve support for Bedrock installations
+- Enhance: Improve tooltips on Asset Optimization page
+- Enhance: Improve UI in Asset Optimization module
+- Enhance: Log file control for Asset Optimization and Page Caching modules
+- Fix: Errors in Asset Optimization module on WordPress versions 4.6 and lower
+- Fix: Messages in Asset Optimization dashboard module in network admin
+- Fix: PHP warnings after ignoring performance reports
+- Fix: Incorrect stats calculations in Asset Optimization module, when there are assets bigger than 1 Mb in size
+- Fix: Asset optimization scans getting stuck on some installs
+- Fix: Compatibility with WordPress 4.6
+
+= 1.9.1 ( 2018-06-19 ) =
+- New: Icons for modules on Dashboard page
+- New: Summary module meta box on caching pages
+- New: Retain Asset Optimization settings on recheck of files
+- Enhance: Optimize stylesheets and javascript code
+- Enhance: Replace plugin menu icon font with inline SVG
+- Enhance: Various UI/UX improvements
+- Enhance: Compression savings calculations
+- Enhance: Database cleanup module to use builtin WordPress functions to clean expired transients
+- Enhance: Cloudflare meta box behavior
+- Enhance: Handling of individual expiry settings in Browser Caching module
+- Enhance: Better sync with the Hub
+- Fix: Gzip compression not properly detected on some sites
+- Fix: PHP warning during cron performance report
+- Fix: PHP warning after clicking on configure link on the Dashboard Advanced Tools meta box
+- Fix: RTL styles in CDN will now be processed correctly
+- Fix: Asset Optimization module incorrectly showing 0% savings
+- Fix: Asset Optimization module include/exclude toggle not enabling Publish Changes button
+- Fix: Translation strings
+- Fix: Clear cache button on admin tab not working properly on some installs
 
 = 1.9.0 ( 2018-05-29 ) =
 - New: Page caching dynamic page types
@@ -246,7 +278,7 @@ Asset Optimization is a great way to speed up your site but moving, combining an
 - Enhance: Improve page caching descriptions
 
 = 1.7.0.1 ( 2017-11-02 ) =
--Fix: White screen when trying to clear cache after plugin/theme update on multisite install
+- Fix: White screen when trying to clear cache after plugin/theme update on multisite install
 
 = 1.7.0 ( 2017-11-02 ) =
 - New: Page caching
@@ -438,7 +470,7 @@ Asset Optimization is a great way to speed up your site but moving, combining an
 - Enhance: Updated WPMU DEV styles library
 
 = 1.2.2 ( 2016-06-16 ) =
-- Fixed: Hummingbird Exception throwing fatal error in old versions of PHP (<5.3)
+- Fixed: Hummingbird Exception throwing fatal error in old versions of PHP (5.3)
 - Fixed: Notice in minification screen when a plugin was deleted manually
 - Fixed: replaced buttons by inputs as sometimes settings cannot be submitted in minification screen
 - Fixed: Some minified URLs where prepended 'http' even if they had already http prepended
@@ -501,10 +533,10 @@ Enhance: Search by extension in minification page
 - First release
 
 == About Us ==
-WPMU DEV is a premium supplier of quality WordPress plugins and themes. For premium support with any WordPress related issues you can join us here:
-<a href="https://premium.wpmudev.org/?utm_source=wordpress.org&utm_medium=readme">https://premium.wpmudev.org/</a>
+WPMU DEV is a premium supplier of quality WordPress plugins, services and support. Join us here:
+[https://premium.wpmudev.org/](https://premium.wpmudev.org/?utm_source=wordpress.org&utm_medium=readme)
 
 Don't forget to stay up to date on everything WordPress from the Internet's number one resource:
-<a href="https://premium.wpmudev.org/blog/?utm_source=wordpress.org&utm_medium=readme">WPMU DEV Blog</a>
+[WPMU DEV Blog](https://premium.wpmudev.org/blog/?utm_source=wordpress.org&utm_medium=readme)
 
-Hey, one more thing... we hope you <a href="http://profiles.wordpress.org/WPMUDEV/">enjoy our free offerings</a> as much as we've loved making them for you!
+Hey, one more thing... we hope you enjoy our [free offerings](http://profiles.wordpress.org/WPMUDEV/) as much as we've loved making them for you!

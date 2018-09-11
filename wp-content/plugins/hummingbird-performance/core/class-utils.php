@@ -30,6 +30,8 @@ class WP_Hummingbird_Utils {
 	 * can_execute_php()
 	 * get_http2_status()
 	 * get_status()
+	 * calculate_sum()
+	 * sanitize_bool()
 	 *
 	 ***************************/
 
@@ -75,8 +77,23 @@ class WP_Hummingbird_Utils {
 	 * @return string
 	 */
 	public static function src_to_path( $src ) {
-		$path = ltrim( wp_parse_url( $src, PHP_URL_PATH ), '/' );
-		$path = path_join( $_SERVER['DOCUMENT_ROOT'], $path );
+		$path = wp_parse_url( $src );
+
+		// Scheme will not be set on a URL.
+		$url = isset( $path['scheme'] );
+
+		$path = ltrim( $path['path'], '/' );
+
+		/**
+		 * DOCUMENT_ROOT does not always store the correct path. For example, Bedrock appends /wp/ to the default dir.
+		 * So if the source is a URL, we can safely use DOCUMENT_ROOT, else see if ABSPATH is defined.
+		 */
+		if ( $url ) {
+			$path = path_join( $_SERVER['DOCUMENT_ROOT'], $path );
+		} else {
+			$root = defined( 'ABSPATH' ) ? ABSPATH : $_SERVER['DOCUMENT_ROOT'];
+			$path = path_join( $root, $path );
+		}
 
 		return apply_filters( 'wphb_src_to_path', $path, $src );
 	}
@@ -87,10 +104,10 @@ class WP_Hummingbird_Utils {
 	 * @param int $ver Current version number of scripts.
 	 */
 	public static function enqueue_admin_scripts( $ver ) {
-		wp_enqueue_script( 'wphb-admin', WPHB_DIR_URL . 'admin/assets/js/admin.min.js', array( 'jquery', 'underscore' ), $ver );
+		wp_enqueue_script( 'wphb-admin', WPHB_DIR_URL . 'admin/assets/js/app.min.js', array( 'jquery', 'underscore' ), $ver );
 
 		$i10n = array(
-			'errorCachePurge'        => __( 'There was an error during the cache purge. Check file permissions are 755
+			'errorCachePurge'        => __( 'There was an error during the cache purge. Check folder permissions are 755
 										for /wp-content/wphb-cache or delete directory manually.', 'wphb' ),
 			'successGravatarPurge'   => __( 'Gravatar cache purged.', 'wphb' ),
 			'successPageCachePurge'  => __( 'Page cache purged.', 'wphb' ),
@@ -178,7 +195,10 @@ class WP_Hummingbird_Utils {
 						),
 					),
 					'strings' => array(
-						'discardAlert' => __( 'Are you sure? All your changes will be lost', 'wphb' ),
+						'discardAlert'  => __( 'Are you sure? All your changes will be lost', 'wphb' ),
+						'queuedTooltip' => __( 'This file is queued for compression. It will get optimized when someone visits a page that requires it.', 'wphb' ),
+						'excludeFile'   => __( "Don't load file", 'wphb' ),
+						'includeFile'   => __( 'Re-include', 'wphb' ),
 					),
 					'links' => array(
 						'minification' => self::get_admin_menu_url( 'minification' ),
@@ -318,7 +338,7 @@ class WP_Hummingbird_Utils {
 	 * Get gzip or caching status data.
 	 *
 	 * @param string $module  Accepts: 'caching', 'gzip'.
-	 * @param bool   $api     Query API.
+	 * @param bool   $api     Query API (if needed).
 	 *
 	 * @return array|bool
 	 */
@@ -336,8 +356,56 @@ class WP_Hummingbird_Utils {
 			return $mod->status;
 		}
 
-		$mod->get_analysis_data( true );
+		$mod->get_analysis_data();
 		return $mod->status;
+	}
+
+	/**
+	 * This function will calculate the sum of file sizes in an array.
+	 *
+	 * We need this, because Asset Optimization module will store 'original_size' and 'compressed_size' values as
+	 * strings, and such strings will contain &nbsp; instead of spaces, thus making it impossible to sum all the
+	 * values with array_sum().
+	 *
+	 * @since 1.9.2
+	 *
+	 * @param array $arr  Array of items with sizes as strings.
+	 *
+	 * @return int|mixed
+	 */
+	public static function calculate_sum( $arr ) {
+		$sum = 0;
+
+		foreach ( $arr as $item => $value ) {
+			if ( is_null( $value ) ) {
+				continue;
+			}
+
+			// Remove spaces.
+			$sum += (float) str_replace( '&nbsp;', '', $value );
+		}
+
+		return $sum;
+	}
+
+	/**
+	 * WP function. Available in WP since 4.7.
+	 *
+	 * @param string|bool $value  Value to sanitize.
+	 *
+	 * @return bool
+	 */
+	public static function sanitize_bool( $value ) {
+		// String values are translated to `true`; make sure 'false' is false.
+		if ( is_string( $value ) ) {
+			$value = strtolower( $value );
+			if ( in_array( $value, array( 'false', '0' ), true ) ) {
+				$value = false;
+			}
+		}
+
+		// Everything else will map nicely to boolean.
+		return (boolean) $value;
 	}
 
 	/***************************
@@ -906,7 +974,7 @@ class WP_Hummingbird_Utils {
 	 *
 	 * @param string $module Module slug.
 	 *
-	 * @return bool|WP_Hummingbird_Module|WP_Hummingbird_Module_Page_Cache
+	 * @return bool|WP_Hummingbird_Module|WP_Hummingbird_Module_Page_Cache|WP_Hummingbird_Module_GZip|WP_Hummingbird_Module_Minify
 	 */
 	public static function get_module( $module ) {
 		$modules = self::get_modules();
@@ -1067,6 +1135,9 @@ class WP_Hummingbird_Utils {
 		$quick_setup = get_option( 'wphb-quick-setup' );
 		$quick_setup['finished'] = true;
 		update_option( 'wphb-quick-setup', $quick_setup );
+		wp_send_json_success( array(
+			'finished' => false,
+		));
 	}
 
 }

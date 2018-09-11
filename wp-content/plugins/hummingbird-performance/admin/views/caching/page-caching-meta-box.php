@@ -9,6 +9,7 @@
  * @var string        $deactivate_url      Deactivate URL.
  * @var string        $download_url        Download logs URL.
  * @var bool|WP_Error $error               Error if present.
+ * @var bool|string   $logs_link           Link to the log file.
  * @var array         $pages               A list of page types.
  * @var array         $settings            Settings array.
  */
@@ -18,11 +19,11 @@
 	<p><?php esc_html_e( 'Hummingbird stores static HTML copies of your pages and posts to decrease page load time.', 'wphb' ); ?></p>
 
 	<?php if ( is_wp_error( $error ) ) : ?>
-		<div class="wphb-caching-error wphb-notice wphb-notice-error">
+		<div class="wphb-caching-error sui-notice sui-notice-error">
 			<p><?php echo $error->get_error_message(); ?></p>
 		</div>
 	<?php else : ?>
-		<div class="wphb-caching-success wphb-notice wphb-notice-success">
+		<div class="wphb-caching-success sui-notice sui-notice-success">
 			<p><?php esc_html_e( 'Page caching is currently active.', 'wphb' ); ?></p>
 		</div>
 	<?php endif; ?>
@@ -46,7 +47,7 @@
 	</div>
 	<div class="sui-box-settings-col-2">
 
-		<div class="wphb-dash-table three-columns sui-margin-bottom">
+		<div class="wphb-dash-table three-columns">
 			<?php foreach ( $pages as $page_type => $page_name ) : ?>
 				<div class="wphb-dash-table-row">
 					<div><?php echo esc_html( $page_name ); ?></div>
@@ -147,26 +148,27 @@
 		</label>
 		<label for="debug-log"><?php esc_html_e( 'Enable debug log', 'wphb' ); ?></label>
 		<span class="sui-description sui-toggle-description">
-			<?php
-			esc_html_e( 'If you’re having issues with page caching, turn on the debug log to get insight into what’s going on.', 'wphb' );
-			if ( $settings['settings']['debug_log'] ) {
-				if ( file_exists( WP_CONTENT_DIR . '/wphb-logs/page-caching-log.php' ) ) {
-					?>
-					<div class="clear"></div>
-					<a href="<?php echo esc_url( $download_url ); ?>" class="sui-button sui-button-ghost" id="wphb-pc-log-button"><?php esc_html_e( 'Download Logs', 'wphb' ); ?></a>
-					<div class="clear"></div>
+			<?php esc_html_e( 'If you’re having issues with page caching, turn on the debug log to get insight into what’s going on.', 'wphb' ); ?>
+		</span>
+		<div class="sui-description sui-toggle-description sui-border-frame with-padding wphb-logging-box <?php echo $settings['settings']['debug_log'] ? '' : 'sui-hidden'; ?>">
+			<?php esc_html_e( 'Debug logging is active. Logs are stored for 30 days, you can download the
+				log file below.', 'wphb' ); ?>
 
-					<?php
-					printf(
-						/* translators: %s: File location */
-						esc_html__( 'Location: %s', 'wphb' ),
-						esc_url( get_home_url() . '/wp-content/wphb-logs/page-caching-log.php' )
-					);
-				}
-			}
-			?>
-	</span>
+			<div class="wphb-logging-buttons">
+				<a href="<?php echo esc_url( $download_url ); ?>" class="sui-button sui-button-ghost" <?php disabled( ! $logs_link, true ); ?>>
+					<i class="sui-icon-download" aria-hidden="true"></i>
+					<?php esc_html_e( 'Download Logs', 'wphb' ); ?>
+				</a>
+				<a href="#" class="sui-button sui-button-ghost sui-button-red wphb-logs-clear" data-module="page_cache" <?php disabled( ! $logs_link, true ); ?>>
+					<i class="sui-icon-trash" aria-hidden="true"></i>
+					<?php esc_html_e( 'Clear', 'wphb' ); ?>
+				</a>
+			</div>
 
+			<?php if ( $logs_link ) : ?>
+				<a href="<?php echo esc_url( $logs_link ) ?>" target="_blank"><?php echo esc_url( $logs_link ) ?></a>
+			<?php endif; ?>
+		</div>
 	</div><!-- end sui-box-settings-col-2 -->
 </div><!-- end row -->
 
@@ -230,7 +232,7 @@
 		</span>
 	</div>
 	<div class="sui-box-settings-col-2 wphb-deactivate-pc">
-		<a href="<?php echo esc_url( $deactivate_url ); ?>" class="sui-button sui-button-ghost button-large">
+		<a href="<?php echo esc_url( $deactivate_url ); ?>" class="sui-button sui-button-ghost">
 			<?php esc_html_e( 'Deactivate', 'wphb' ); ?>
 		</a>
 		<span class="sui-description">

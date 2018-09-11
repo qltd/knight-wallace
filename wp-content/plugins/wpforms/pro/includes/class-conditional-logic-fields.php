@@ -67,6 +67,7 @@ class WPForms_Conditional_Logic_Fields {
 		add_filter( 'wpforms_process_initial_errors',               array( $this, 'process_initial_errors'            ), 10, 2 );
 		add_action( 'wpforms_process_format_after',                 array( $this, 'process_field_visibility'          ),  5, 1 );
 		add_filter( 'wpforms_entry_email_process',                  array( $this, 'process_notification_conditionals' ), 10, 4 );
+		add_filter( 'wpforms_entry_confirmation_process',           array( $this, 'process_confirmation_conditionals' ), 10, 4 );
 	}
 
 	/****************************************************************
@@ -378,6 +379,58 @@ class WPForms_Conditional_Logic_Fields {
 
 		return $process;
 	}
+
+	/**
+	 * Process conditional logic for form entry confirmations.
+	 *
+	 * This method will be moved to a different class in the future since it's
+	 * not directly related to conditional logic fields.
+	 *
+	 * @since 1.4.8
+	 *
+	 * @param boolean $process
+	 * @param array $fields
+	 * @param array $form_data
+	 * @param int $id
+	 *
+	 * @return boolean
+	 */
+	public function process_confirmation_conditionals( $process, $fields, $form_data, $id ) {
+
+		$settings = $form_data['settings'];
+
+		// Confirm conditional logic is enabled.
+		if (
+			empty( $settings['confirmations'][ $id ]['conditional_logic'] ) ||
+			empty( $settings['confirmations'][ $id ]['conditional_type'] ) ||
+			empty( $settings['confirmations'][ $id ]['conditionals'] )
+		) {
+			return $process;
+		}
+
+		$type    = $settings['confirmations'][ $id ]['conditional_type'];
+		$process = wpforms_conditional_logic()->process( $fields, $form_data, $settings['confirmations'][ $id ]['conditionals'] );
+
+		if ( 'stop' === $type ) {
+			$process = ! $process;
+		}
+
+		// If preventing the confirmation, log it.
+		if ( ! $process ) {
+			wpforms_log(
+				esc_html__( 'Entry Confirmation stopped by conditional logic.', 'wpforms' ),
+				$settings['confirmations'][ $id ],
+				array(
+					'type'    => array( 'entry', 'conditional_logic' ),
+					'parent'  => wpforms()->process->entry_id,
+					'form_id' => $form_data['id'],
+				)
+			);
+		}
+
+		return $process;
+	}
+
 
 	/**************************
 	 * Helper methods.        *

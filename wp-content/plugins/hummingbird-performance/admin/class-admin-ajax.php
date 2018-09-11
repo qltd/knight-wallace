@@ -67,6 +67,8 @@ class WP_Hummingbird_Admin_AJAX {
 		add_action( 'wp_ajax_wphb_cloudflare_set_expiry', array( $this, 'cloudflare_set_expiry' ) );
 		// Cloudflare purge cache.
 		add_action( 'wp_ajax_wphb_cloudflare_purge_cache', array( $this, 'cloudflare_purge_cache' ) );
+		// Cloudflare recheck zones.
+		add_action( 'wp_ajax_wphb_cloudflare_recheck_zones', array( $this, 'cloudflare_recheck_zones' ) );
 
 		/* GRAVATAR CACHING */
 
@@ -104,6 +106,8 @@ class WP_Hummingbird_Admin_AJAX {
 		add_action( 'wp_ajax_wphb_minification_save_critical_css', array( $this, 'minification_save_critical_css' ) );
 		// Update custom asset path.
 		add_action( 'wp_ajax_wphb_minification_update_asset_path', array( $this, 'minification_update_asset_path' ) );
+		// Reset individual file.
+		add_action( 'wp_ajax_wphb_minification_reset_asset', array( $this, 'minification_reset_asset' ) );
 
 		/**
 		 * ADVANCED TOOLS AJAX ACTIONS
@@ -113,6 +117,11 @@ class WP_Hummingbird_Admin_AJAX {
 		add_action( 'wp_ajax_wphb_advanced_db_delete_data', array( $this, 'advanced_db_delete_data' ) );
 		// Save settings in advanced tools module.
 		add_action( 'wp_ajax_wphb_advanced_save_settings', array( $this, 'advanced_save_settings' ) );
+
+		/**
+		 * LOGGER MODULE AJAX ACTIONS
+		 */
+		add_action( 'wp_ajax_wphb_logger_clear', array( $this, 'logger_clear' ) );
 	}
 
 	/**
@@ -223,7 +232,10 @@ class WP_Hummingbird_Admin_AJAX {
 		}
 
 		// Remove quick setup.
-		WP_Hummingbird_Utils::remove_quick_setup();
+		$quick_setup = get_option( 'wphb-quick-setup' );
+		if ( ! isset( $quick_setup['finished'] ) ) {
+			WP_Hummingbird_Utils::remove_quick_setup();
+		}
 
 		if ( WP_Hummingbird_Module_Performance::stopped_report() ) {
 			wp_send_json_success( array(
@@ -425,7 +437,11 @@ class WP_Hummingbird_Admin_AJAX {
 			die();
 		}
 
-		$post_value = rest_sanitize_boolean( wp_unslash( $_POST['value'] ) ); // Input var okay.
+		if ( function_exists( 'rest_sanitize_boolean' ) ) {
+			$post_value = rest_sanitize_boolean( wp_unslash( $_POST['value'] ) ); // Input var okay.
+		} else {
+			$post_value = WP_Hummingbird_Utils::sanitize_bool( wp_unslash( $_POST['value'] ) ); // Input var okay.
+		}
 
 		$value = true;
 		if ( $post_value ) {
@@ -476,10 +492,13 @@ class WP_Hummingbird_Admin_AJAX {
 			die();
 		}
 
-		WP_Hummingbird_Utils::get_status( 'caching', true );
+		$status = WP_Hummingbird_Utils::get_status( 'caching', true );
+
+		$expiry_values = array_map( array( 'WP_Hummingbird_Utils', 'human_read_time_diff' ), $status );
 
 		wp_send_json_success( array(
-			'success' => true,
+			'success'       => true,
+			'expiry_values' => $expiry_values,
 		));
 	}
 
@@ -535,7 +554,6 @@ class WP_Hummingbird_Admin_AJAX {
 		 * }
 		 */
 		do_action( 'wphb_caching_set_expiration', array(
-			'type'         => $type,
 			'expiry_times' => $sanitized_expiry_times,
 		));
 
@@ -788,6 +806,31 @@ class WP_Hummingbird_Admin_AJAX {
 	}
 
 	/**
+	 * Recheck Cloudflare zones.
+	 */
+	public function cloudflare_recheck_zones() {
+		check_ajax_referer( 'wphb-fetch', 'nonce' );
+
+		if ( ! current_user_can( WP_Hummingbird_Utils::get_admin_capability() ) ) {
+			die();
+		}
+
+		/* @var WP_Hummingbird_Module_Cloudflare $cf */
+		$cf = WP_Hummingbird_Utils::get_module( 'cloudflare' );
+		$zones = $cf->get_zones_list();
+		foreach ( $zones as $zone ) {
+			if ( strpos( get_site_url(), $zone['label'] ) ) {
+				wp_send_json_success( array(
+					'zones' => $zones,
+				));
+			}
+		}
+		wp_send_json_error( array(
+			'message' => __( 'Zone not found matching this domain. Please check your CloudFlare account.', 'wphb' ),
+		));
+	}
+
+	/**
 	 * Save rss settings.
 	 *
 	 * @since 1.8
@@ -997,7 +1040,13 @@ class WP_Hummingbird_Admin_AJAX {
 	public function minification_finish_scan() {
 		delete_transient( 'wphb-minification-files-scanning' );
 		update_option( 'wphb-minification-files-scanned', true );
-		wp_send_json_success();
+		wp_send_json_success( array(
+			'assets_msg' => sprintf(
+				/* translators: %s - number of assets */
+				esc_html__( '%s assets found!', 'wphb' ),
+				WP_Hummingbird_Utils::minified_files_count()
+			),
+		) );
 	}
 
 	/**
@@ -1053,6 +1102,47 @@ class WP_Hummingbird_Admin_AJAX {
 		) );
 	}
 
+	/**
+	 * Reset individual file.
+	 *
+	 * @since 1.9.2
+	 */
+	public function minification_reset_asset() {
+		check_ajax_referer( 'wphb-fetch', 'nonce' );
+
+		if ( ! current_user_can( WP_Hummingbird_Utils::get_admin_capability() ) || ! isset( $_POST['value'] ) ) { // Input var ok.
+			die();
+		}
+
+		$files = explode( ' ', sanitize_text_field( wp_unslash( $_POST['value'] ) ) ); // Input var ok.
+
+		$type = $handle = '';
+		foreach ( $files as $item ) {
+			if ( 'css' === strtolower( $item ) ) {
+				$type = 'styles';
+				continue;
+			}
+
+			if ( 'js' === strtolower( $item ) ) {
+				$type = 'scripts';
+				continue;
+			}
+
+			$handle = $item;
+		}
+
+		if ( ! $handle || ! $type ) {
+			wp_send_json_error( array(
+				'message' => __( 'Error removing asset file.', 'wphb' ),
+			));
+		}
+
+		WP_Hummingbird_Utils::get_module( 'minify' )->clear_file( $handle, $type );
+
+		wp_send_json_success( array(
+			'success' => true,
+		) );
+	}
 
 	/**
 	 * *************************
@@ -1152,6 +1242,49 @@ class WP_Hummingbird_Admin_AJAX {
 		wp_send_json_success( array(
 			'success' => true,
 		));
+	}
+
+	/**
+	 * *************************
+	 * LOGGER MODULE AJAX ACTIONS
+	 ***************************/
+
+	/**
+	 * Clear logs.
+	 *
+	 * @since 1.9.2
+	 */
+	public function logger_clear() {
+		check_ajax_referer( 'wphb-fetch', 'nonce' );
+
+		if ( ! current_user_can( WP_Hummingbird_Utils::get_admin_capability() ) || ! isset( $_POST['module'] ) ) { // Input var okay.
+			die();
+		}
+
+		$slug = sanitize_text_field( wp_unslash( $_POST['module'] ) ); // Input var ok.
+
+		$module = WP_Hummingbird_Utils::get_module( $slug );
+
+		if ( ! $module ) {
+			wp_send_json_success( array(
+				'success' => false,
+				'message' => __( 'Module not found', 'wphb' ),
+			) );
+		}
+
+		$status = WP_Hummingbird::get_instance()->core->logger->clear( $slug );
+
+		if ( ! $status ) {
+			wp_send_json_success( array(
+				'success' => false,
+				'message' => __( 'Log file not found or empty', 'wphb' ),
+			) );
+		}
+
+		wp_send_json_success( array(
+			'success' => true,
+			'message' => __( 'Log file purged', 'wphb' ),
+		) );
 	}
 
 }

@@ -730,8 +730,14 @@ class WPForms_Entries_Single {
 
 					<p class="wpforms-entry-id">
 						<span class="dashicons dashicons-admin-network"></span>
-						<?php esc_html_e( 'Entry ID:', 'wpforms' ); ?>
-						<strong><?php echo absint( $entry->entry_id ); ?></strong>
+						<?php
+						printf(
+							/* translators: %s - entry ID. */
+							esc_html__( 'Entry ID: %s', 'wpforms' ),
+							'<strong>' . absint( $entry->entry_id ) . '</strong>'
+						);
+						?>
+
 					</p>
 
 					<p class="wpforms-entry-date">
@@ -836,20 +842,31 @@ class WPForms_Entries_Single {
 			return;
 		}
 
-		$entry_meta  = json_decode( $entry->meta, true );
-		$status      = ! empty( $entry->status ) ? ucwords( sanitize_text_field( $entry->status ) ) : esc_html__( 'Unknown', 'wpforms' );
-		$currency    = ! empty( $entry_meta['payment_currency'] ) ? $entry_meta['payment_currency'] : wpforms_setting( 'currency', 'USD' );
-		$total       = isset( $entry_meta['payment_total'] ) ? wpforms_format_amount( wpforms_sanitize_amount( $entry_meta['payment_total'], $currency ), true, $currency ) : '-';
-		$note        = ! empty( $entry_meta['payment_note'] ) ? esc_html( $entry_meta['payment_note'] ) : '';
-		$gateway     = esc_html( apply_filters( 'wpforms_entry_details_payment_gateway', '-', $entry_meta, $entry, $form_data ) );
-		$transaction = esc_html( apply_filters( 'wpforms_entry_details_payment_transaction', '-', $entry_meta, $entry, $form_data ) );
-		$mode        = ! empty( $entry_meta['payment_mode'] ) && 'test' === $entry_meta['payment_mode'] ? 'test' : 'production';
+		$entry_meta   = json_decode( $entry->meta, true );
+		$status       = ! empty( $entry->status ) ? ucwords( sanitize_text_field( $entry->status ) ) : esc_html__( 'Unknown', 'wpforms' );
+		$currency     = ! empty( $entry_meta['payment_currency'] ) ? $entry_meta['payment_currency'] : wpforms_setting( 'currency', 'USD' );
+		$total        = isset( $entry_meta['payment_total'] ) ? wpforms_format_amount( wpforms_sanitize_amount( $entry_meta['payment_total'], $currency ), true, $currency ) : '-';
+		$note         = ! empty( $entry_meta['payment_note'] ) ? esc_html( $entry_meta['payment_note'] ) : '';
+		$gateway      = esc_html( apply_filters( 'wpforms_entry_details_payment_gateway', '-', $entry_meta, $entry, $form_data ) );
+		$transaction  = esc_html( apply_filters( 'wpforms_entry_details_payment_transaction', '-', $entry_meta, $entry, $form_data ) );
+		$subscription = '';
+		$customer     = '';
+		$mode         = ! empty( $entry_meta['payment_mode'] ) && 'test' === $entry_meta['payment_mode'] ? 'test' : 'production';
 
 		switch ( $entry_meta['payment_type'] ) {
 			case 'stripe':
 				$gateway = esc_html__( 'Stripe', 'wpforms' );
 				if ( ! empty( $entry_meta['payment_transaction'] ) ) {
 					$transaction = sprintf( '<a href="https://dashboard.stripe.com/payments/%s" target="_blank" rel="noopener noreferrer">%s</a>', $entry_meta['payment_transaction'], $entry_meta['payment_transaction'] );
+				}
+				if ( ! empty( $entry_meta['payment_subscription'] ) ) {
+					$subscription = sprintf( '<a href="https://dashboard.stripe.com/subscriptions/%s" target="_blank" rel="noopener noreferrer">%s</a>', $entry_meta['payment_subscription'], $entry_meta['payment_subscription'] );
+				}
+				if ( ! empty( $entry_meta['payment_customer'] ) ) {
+					$customer = sprintf( '<a href="https://dashboard.stripe.com/customers/%s" target="_blank" rel="noopener noreferrer">%s</a>', $entry_meta['payment_customer'], $entry_meta['payment_customer'] );
+				}
+				if ( ! empty( $entry_meta['payment_period'] ) ) {
+					$total .= ' <span style="font-weight:400; color:#999; display:inline-block;margin-left:4px;"><i class="fa fa-refresh" aria-hidden="true"></i> ' . $entry_meta['payment_period'] . '</span>';
 				}
 				break;
 			case 'paypal_standard':
@@ -915,6 +932,30 @@ class WPForms_Entries_Single {
 						);
 						?>
 					</p>
+
+					<?php if ( ! empty( $subscription ) ) : ?>
+					<p class="wpforms-entry-payment-subscription">
+						<?php
+						printf(
+							/* translators: %s - entry payment subscription. */
+							esc_html__( 'Subscription ID: %s', 'wpforms' ),
+							'<strong>' . $subscription . '</strong>'
+						);
+						?>
+					</p>
+					<?php endif; ?>
+
+					<?php if ( ! empty( $customer ) ) : ?>
+					<p class="wpforms-entry-payment-customer">
+						<?php
+						printf(
+							/* translators: %s - entry payment customer. */
+							esc_html__( 'Customer ID: %s', 'wpforms' ),
+							'<strong>' . $customer . '</strong>'
+						);
+						?>
+					</p>
+					<?php endif; ?>
 
 					<?php if ( ! empty( $note ) ) : ?>
 						<p class="wpforms-entry-payment-note">

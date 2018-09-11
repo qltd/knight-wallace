@@ -72,7 +72,7 @@ class WP_Hummingbird_Settings {
 					'scripts' => array(),
 					'styles'  => array(),
 				),
-				'dont_minify' => array(
+				'minify' => array(
 					'scripts' => array(),
 					'styles'  => array(),
 				),
@@ -103,10 +103,11 @@ class WP_Hummingbird_Settings {
 				'enabled'    => false,
 				// Only for multisites. Toggles page caching in a subsite
 				// By default is true as if 'page_cache'-'enabled' is set to false, this option has no meaning.
-				'cache_blog' => true,
-				'control'    => false,
+				'cache_blog'   => true,
+				'control'      => false,
 				// Accepts: 'manual', 'auto' and 'none'.
-				'detection'  => 'manual',
+				'detection'    => 'manual',
+				'pages_cached' => 0,
 			),
 			'caching' => array(
 				// Always enabled, so no 'enabled' option.
@@ -166,7 +167,7 @@ class WP_Hummingbird_Settings {
 		}
 
 		$options = array(
-			'minify'      => array( 'minify_blog', 'view', 'block', 'dont_minify', 'combine', 'position', 'defer', 'inline' ),
+			'minify'      => array( 'minify_blog', 'view', 'block', 'minify', 'combine', 'position', 'defer', 'inline' ),
 			'page_cache'  => array( 'cache_blog' ),
 			'performance' => array( 'dismissed', 'last_score' ),
 			'advanced'    => array( 'query_string', 'emoji', 'prefetch' ),

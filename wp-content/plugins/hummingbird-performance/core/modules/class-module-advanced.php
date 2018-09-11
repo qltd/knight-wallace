@@ -285,6 +285,17 @@ class WP_Hummingbird_Module_Advanced extends WP_Hummingbird_Module {
 			$items = $this->delete( $sql[ $type ], $type );
 		}
 
+		/**
+		 * Fires after the database cleanup task.
+		 *
+		 * @since 1.9.2
+		 *
+		 * @param string $type   Data type that was cleared from the database. Can return following values: all,
+		 *                       revisions, drafts, trash, spam, trash_comment, expired_transients, transients.
+		 * @param int    $items  Number of items that was cleared from the database for the selected data type.
+		 */
+		do_action( 'wphb_delete_db_data', $type, $items );
+
 		return array(
 			'items' => $items,
 			'left'  => self::get_db_count( 'all' ), // Check for any non-deleted items.
@@ -305,17 +316,20 @@ class WP_Hummingbird_Module_Advanced extends WP_Hummingbird_Module {
 	private function delete( $sql, $type ) {
 		global $wpdb;
 
+		$entries = $wpdb->get_col( $sql ); // Db call ok; no-cache ok.
+
 		if ( 'revisions' === $type || 'drafts' === $type || 'trash' === $type ) {
 			$func = 'wp_delete_post';
 		} elseif ( 'spam' === $type || 'trash_comment' === $type ) {
 			$func = 'wp_delete_comment';
+		} elseif ( 'expired_transients' === $type && function_exists( 'delete_expired_transients' ) ) {
+			delete_expired_transients();
+			return count( $entries );
 		} else {
 			$func = 'delete_option';
 		}
 
 		$items = 0;
-
-		$entries = $wpdb->get_col( $sql ); // Db call ok; no-cache ok.
 		foreach ( $entries as $entry ) {
 			if ( 'delete_option' === $func ) {
 				// No option to force delete in delete_option function.
