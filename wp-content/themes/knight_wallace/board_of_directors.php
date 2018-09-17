@@ -28,6 +28,9 @@ $sorted_board_members = sort_board_of_directors($board_members);
     <div class="row">
         <div class="large-12 columns">
         <h1 class="entry-title"><?php echo $post->post_title; ?></h1>
+         <?php while ( have_posts() ) : the_post(); ?>
+          <?php get_template_part( 'template-parts/content', 'page' ); ?>
+        <?php endwhile; // End of the loop. ?>
         </div>
     </div>
     <div class="row board-of-directors">
