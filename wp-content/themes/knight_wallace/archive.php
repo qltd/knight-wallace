@@ -8,6 +8,7 @@
 
 get_header(); ?>
 
+
 <?php include_once "helpers.php"; ?>
 <div class="row">
     <div class="large-12 columns">

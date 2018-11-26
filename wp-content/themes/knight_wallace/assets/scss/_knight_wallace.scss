@@ -921,6 +921,10 @@ ul.pagination {
   margin: 5rem auto 0 auto;
   max-width: 126.5rem;
 
+  .page-template-fellows_page & {
+    margin-bottom: 5rem;
+  }
+
   .row {
     background: #e5e5e5;
     display: flex;

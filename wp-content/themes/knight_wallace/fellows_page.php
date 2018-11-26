@@ -53,6 +53,119 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
 </section>
 <?php endif; //end if get_post_thumbnail ?>
 
+
+<?php if(!empty($sorted_slides['Knight-Wallace Fellowships'])): ?>
+<section id="slideshow">
+    <div class="row">
+        <div class="large-10 columns large-centered">
+            <ul class="bxslider">
+                <?php foreach($sorted_slides['Knight-Wallace Fellowships'] as $slide):?>
+                <li>
+                    <div class="row slide">
+
+                        <div class="medium-4 columns text-right"><?php if(!empty($slide['image'])):?><?php echo $slide['image']; ?><?php endif; ?></div>
+
+                        <div class="medium-8 columns">
+                            <div class="win-meta">
+                                <div class="name"><?php echo $slide['name']; ?></div>
+                                <div class="details">
+                                    <?php echo $slide['details']; ?>
+                                </div>
+                            </div>
+                            <div class="testimonial"><?php echo $slide['testimonial']; ?></div>
+                        </div>
+                    </div>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
+
+<main id="main" class="posts landing-page-content-blocks">
+<div class="row">
+    <div class="medium-6 columns">
+        <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][0])): ?>
+        <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][0]['image'])): ?>
+        <a href="<?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][0]['link']; ?>">
+            <?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][0]['image']; ?>
+        </a>
+        <?php else: ?>
+        <img src="https://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
+        <?php endif; ?>
+        <div class="text">
+            <a href="<?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][0]['link']; ?>">
+                <h3><?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][0]['title']; ?></h3>
+                <p>
+                    <?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][0]['content']; ?>
+                </p>
+            </a>
+        </div>
+        <?php endif; ?>
+    </div>
+    <div class="medium-6 columns">
+        <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][1])): ?>
+        <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][1]['image'])): ?>
+        <a href="<?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][1]['link']; ?>">
+            <?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][1]['image']; ?>
+        </a>
+        <?php else: ?>
+        <img src="https://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
+        <?php endif; ?>
+        <div class="text">
+            <a href="<?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][1]['link']; ?>">
+                <h3><?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][1]['title']; ?></h3>
+                <p>
+                    <?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][1]['content']; ?>
+                </p>
+            </a>
+        </div>
+        <?php endif; ?>
+    </div>
+</div>
+<div class="row">
+    <div class="medium-6 columns">
+        <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][2])): ?>
+        <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][2]['image'])): ?>
+        <a href="<?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][2]['link']; ?>">
+            <?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][2]['image']; ?>
+        </a>
+        <?php else: ?>
+        <img src="https://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
+        <?php endif; ?>
+        <div class="text">
+            <a href="<?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][2]['link']; ?>">
+                <h3><?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][2]['title']; ?></h3>
+                <p>
+                    <?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][2]['content']; ?>
+                </p>
+            </a>
+        </div>
+        <?php endif; ?>
+    </div>
+    <div class="medium-6 columns">
+        <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][3])): ?>
+        <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][3]['image'])): ?>
+        <a href="<?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][3]['link']; ?>">
+            <?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][3]['image']; ?>
+        </a>
+        <?php else: ?>
+        <img src="https://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
+        <?php endif; ?>
+        <div class="text">
+            <a href="<?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][3]['link']; ?>">
+                <h3><?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][3]['title']; ?></h3>
+                <p>
+                    <?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][3]['content']; ?>
+                </p>
+            </a>
+        </div>
+        <?php endif; ?>
+    </div>
+</div>
+</main>
+
 <section class="story-list news">
     <div class="row">
         <!--display first news item-->
@@ -220,117 +333,7 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
 </section>
 <?php endif; ?>
 
-<?php if(!empty($sorted_slides['Knight-Wallace Fellowships'])): ?>
-<section id="slideshow">
-    <div class="row">
-        <div class="large-10 columns large-centered">
-            <ul class="bxslider">
-                <?php foreach($sorted_slides['Knight-Wallace Fellowships'] as $slide):?>
-                <li>
-                    <div class="row slide">
 
-                        <div class="medium-4 columns text-right"><?php if(!empty($slide['image'])):?><?php echo $slide['image']; ?><?php endif; ?></div>
-
-                        <div class="medium-8 columns">
-                            <div class="win-meta">
-                                <div class="name"><?php echo $slide['name']; ?></div>
-                                <div class="details">
-                                    <?php echo $slide['details']; ?>
-                                </div>
-                            </div>
-                            <div class="testimonial"><?php echo $slide['testimonial']; ?></div>
-                        </div>
-                    </div>
-                </li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-    </div>
-</section>
-<?php endif; ?>
-
-<main id="main" class="posts landing-page-content-blocks">
-<div class="row">
-    <div class="medium-6 columns">
-        <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][0])): ?>
-        <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][0]['image'])): ?>
-        <a href="<?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][0]['link']; ?>">
-            <?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][0]['image']; ?>
-        </a>
-        <?php else: ?>
-        <img src="https://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
-        <?php endif; ?>
-        <div class="text">
-            <a href="<?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][0]['link']; ?>">
-                <h3><?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][0]['title']; ?></h3>
-                <p>
-                    <?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][0]['content']; ?>
-                </p>
-            </a>
-        </div>
-        <?php endif; ?>
-    </div>
-    <div class="medium-6 columns">
-        <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][1])): ?>
-        <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][1]['image'])): ?>
-        <a href="<?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][1]['link']; ?>">
-            <?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][1]['image']; ?>
-        </a>
-        <?php else: ?>
-        <img src="https://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
-        <?php endif; ?>
-        <div class="text">
-            <a href="<?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][1]['link']; ?>">
-                <h3><?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][1]['title']; ?></h3>
-                <p>
-                    <?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][1]['content']; ?>
-                </p>
-            </a>
-        </div>
-        <?php endif; ?>
-    </div>
-</div>
-<div class="row">
-    <div class="medium-6 columns">
-        <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][2])): ?>
-        <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][2]['image'])): ?>
-        <a href="<?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][2]['link']; ?>">
-            <?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][2]['image']; ?>
-        </a>
-        <?php else: ?>
-        <img src="https://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
-        <?php endif; ?>
-        <div class="text">
-            <a href="<?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][2]['link']; ?>">
-                <h3><?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][2]['title']; ?></h3>
-                <p>
-                    <?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][2]['content']; ?>
-                </p>
-            </a>
-        </div>
-        <?php endif; ?>
-    </div>
-    <div class="medium-6 columns">
-        <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][3])): ?>
-        <?php if(!empty($sorted_content_blocks['Knight-Wallace Fellowships'][3]['image'])): ?>
-        <a href="<?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][3]['link']; ?>">
-            <?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][3]['image']; ?>
-        </a>
-        <?php else: ?>
-        <img src="https://dummyimage.com/620x256/aeaeae/555.jpg" alt="" />
-        <?php endif; ?>
-        <div class="text">
-            <a href="<?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][3]['link']; ?>">
-                <h3><?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][3]['title']; ?></h3>
-                <p>
-                    <?php echo $sorted_content_blocks['Knight-Wallace Fellowships'][3]['content']; ?>
-                </p>
-            </a>
-        </div>
-        <?php endif; ?>
-    </div>
-</div>
-</main>
 
 <?php
 //display alerts

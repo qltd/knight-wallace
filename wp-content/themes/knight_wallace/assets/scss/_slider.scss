@@ -5,138 +5,137 @@
  * */
 
 #slideshow {
-    padding-top: 5rem;
+  padding-top: 5rem;
+  font-size: 2rem;
+
+  @include responsive("640px") {
+    padding-top: 0;
+  }
+
+  .medium-4 {
+    min-width: 200px;
+  }
+
+  div {
     font-size: 2rem;
 
-    @include responsive("640px") {
-        padding-top: 0;
+    &.testimonial {
+      max-width: 90%;
+      font-size: 2rem;
+      line-height: 2.6rem;
+      font-family: $primary-font;
+      margin-bottom: 1rem;
+      font-weight: normal;
+
+      @include responsive("750px") {
+        font-size: 1.4rem;
+        line-height: 1.8rem;
+      }
     }
 
+    &.name {
+      font-family: $primary-font-bold;
+      font-weight: normal;
+      font-size: 2.6rem;
+      line-height: 2.6rem;
 
-    .medium-4 {
-        min-width: 200px;
-    }
-
-    div {
+      @include responsive("640px") {
         font-size: 2rem;
-
-        &.testimonial {
-            max-width: 90%;
-            font-size: 2rem;
-            line-height: 2.6rem;
-            font-family: $primary-font;
-            margin-bottom: 1rem;
-            font-weight: normal;
-
-            @include responsive("750px") {
-                font-size: 1.4rem;
-                line-height: 1.8rem;
-            }
-        }
-
-        &.name {
-            font-family: $primary-font-bold;
-            font-weight: normal;
-            font-size: 2.6rem;
-            line-height: 2.6rem;
-
-            @include responsive("640px") {
-                font-size: 2rem;
-            }
-        }
-
-        &.details {
-            font-size: 1.8rem;
-            line-height: 2.6rem;
-            font-family: $primary-font;
-
-            @include responsive("750px") {
-                font-size: 1.4rem;
-                line-height: 1.8rem;
-            }
-        }
-
-        &.win-meta {
-            border-top: 0.1rem solid $charcoal;
-            border-bottom: 0.1rem solid $charcoal;
-            max-width: 90%;
-            padding: 1.5rem 0 0.5rem;
-            margin-bottom: 1.5rem;
-
-            @include responsive("640px") {
-                border-top: none;
-                max-width: none;
-            }
-        }
-
-        img {
-            float: right;
-            max-width: 100%;
-
-            @include responsive("640px") {
-                max-width: none;
-                width: 100%;
-                float: none;
-            }
-        }
+      }
     }
 
-    .bx-wrapper .bx-viewport {
-        box-shadow: none;
+    &.details {
+      font-size: 1.8rem;
+      line-height: 2.6rem;
+      font-family: $primary-font;
 
-        @include responsive("640px") {
-            li {
-                margin-right: 16px;
-            }
-        }
+      @include responsive("750px") {
+        font-size: 1.4rem;
+        line-height: 1.8rem;
+      }
     }
 
-    .bx-wrapper .bx-prev {
-        left: -10px;
+    &.win-meta {
+      border-top: 0.1rem solid $charcoal;
+      border-bottom: 0.1rem solid $charcoal;
+      max-width: 90%;
+      padding: 1.5rem 0 0.5rem;
+      margin-bottom: 1.5rem;
 
-        @include responsive("640px") {
-            left: 5px;
-        }
+      @include responsive("640px") {
+        border-top: none;
+        max-width: none;
+      }
     }
 
-    .bx-wrapper .bx-next {
-        right: -10px;
+    img {
+      float: right;
+      max-width: 100%;
 
-        @include responsive("640px") {
-            right: 5px;
-        }
+      @include responsive("640px") {
+        max-width: none;
+        width: 100%;
+        float: none;
+      }
     }
+  }
 
-    .bx-wrapper .bx-prev:after {
-        font-family: FontAwesome;
-        content: "\f053";
-        padding-right: 4px;
+  .bx-wrapper .bx-viewport {
+    box-shadow: none;
+
+    @include responsive("640px") {
+      li {
+        margin-right: 16px;
+      }
     }
+  }
 
-    .bx-wrapper .bx-next:after {
-        font-family: FontAwesome;
-        content: "\f054";
-        padding-left: 4px;
+  .bx-wrapper .bx-prev {
+    left: -10px;
+
+    @include responsive("640px") {
+      left: 5px;
     }
+  }
 
-    .bx-wrapper .bx-controls-direction a {
-        text-indent: 0px;
-        width: 42px;
-        height: 42px;
-        background: #f5c300;
-        color: #fff;
-        border-radius: 30px;
-        text-align: center;
-        font-size: 3rem;
+  .bx-wrapper .bx-next {
+    right: -10px;
 
-        @include responsive("640px") {
-            top: 250px;
-            width: 30px;
-            height: 30px;
-            font-size: 1.6rem;
-            padding-top: 2px;
-        }
+    @include responsive("640px") {
+      right: 5px;
     }
+  }
+
+  .bx-wrapper .bx-prev:after {
+    font-family: FontAwesome;
+    content: "\f053";
+    padding-right: 4px;
+  }
+
+  .bx-wrapper .bx-next:after {
+    font-family: FontAwesome;
+    content: "\f054";
+    padding-left: 4px;
+  }
+
+  .bx-wrapper .bx-controls-direction a {
+    text-indent: 0px;
+    width: 42px;
+    height: 42px;
+    background: #f5c300;
+    color: #fff;
+    border-radius: 30px;
+    text-align: center;
+    font-size: 3rem;
+
+    @include responsive("640px") {
+      top: 250px;
+      width: 30px;
+      height: 30px;
+      font-size: 1.6rem;
+      padding-top: 2px;
+    }
+  }
 }
 
 .slideshow-donate {
