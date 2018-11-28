@@ -385,6 +385,7 @@ function add_hero_content(){
 //Slider Content
 function add_slider_content(){
     add_meta_box('slider_content_name_line', 'Name Line', 'slider_content_name_line', 'slider_content', 'normal', 'default');
+    add_meta_box('slider_content_heading', 'Heading', 'slider_content_heading', 'slider_content', 'normal', 'default');
     add_meta_box('slider_content_details', 'Details', 'slider_content_details', 'slider_content', 'normal', 'default');
     add_meta_box('slider_content_test', 'Testimonial', 'slider_content_test', 'slider_content', 'normal', 'default');
     add_meta_box('slider_content_page', 'Choose Page', 'slider_content_page', 'slider_content', 'normal', 'default');
@@ -693,6 +694,10 @@ function slider_content_name_line(){
     generate_html_for_custom_field("slider_content_name_line",true);
 }
 
+function slider_content_heading(){
+    generate_html_for_custom_field("slider_content_heading",true);
+}
+
 function slider_content_details(){
     generate_textarea_for_custom_field("slider_content_details");
 }
@@ -864,7 +869,8 @@ function kw_save_events_meta($post_id, $post) {
     $events_meta['_person_board_member_bio'] = !empty($_POST['_person_board_member_bio']) ? $_POST['_person_board_member_bio'] : null;
 
     //Slider Content
-    $events_meta['_slider_content_name_line'] = !empty($_POST['_slider_content_name_line']) ? $_POST['_slider_content_name_line'] : null;
+    $events_meta['_slider_content_name_linNamee'] = !empty($_POST['_slider_content_name_line']) ? $_POST['_slider_content_name_line'] : null;
+    $events_meta['_slider_content_heading'] = !empty($_POST['_slider_content_heading']) ? $_POST['_slider_content_heading'] : null;
     $events_meta['_slider_content_details'] = !empty($_POST['_slider_content_details']) ? $_POST['_slider_content_details'] : null;
     $events_meta['_slider_content_test'] = !empty($_POST['_slider_content_test']) ? $_POST['_slider_content_test'] : null;
     $events_meta['_slider_content_page'] = !empty($_POST['_slider_content_page']) ? $_POST['_slider_content_page'] : null;
