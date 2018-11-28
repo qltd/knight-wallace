@@ -3285,6 +3285,8 @@ ul.pagination li.current a { background: #00274c; }
 
 @media (max-width: 750px) { #slideshow div.testimonial { font-size: 1.4rem; line-height: 1.8rem; } }
 
+#slideshow div.heading { font-family: UniversLTPro-65Bold, sans-serif; font-size: 2.4rem; line-height: 1; margin-bottom: 2rem; color: #407cc9; }
+
 #slideshow div.name { font-family: UniversLTPro-65Bold, sans-serif; font-weight: normal; font-size: 2.6rem; line-height: 2.6rem; }
 
 @media (max-width: 640px) { #slideshow div.name { font-size: 2rem; } }

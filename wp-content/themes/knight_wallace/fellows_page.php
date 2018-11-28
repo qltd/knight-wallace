@@ -66,6 +66,7 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
                         <div class="medium-4 columns text-right"><?php if(!empty($slide['image'])):?><?php echo $slide['image']; ?><?php endif; ?></div>
 
                         <div class="medium-8 columns">
+                            <div class="heading"><?php echo $slide['heading']; ?></div>
                             <div class="win-meta">
                                 <div class="name"><?php echo $slide['name']; ?></div>
                                 <div class="details">
