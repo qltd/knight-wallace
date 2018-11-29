@@ -401,6 +401,7 @@ function fcb_which_page(){
         'Wallace House',
         'Knight-Wallace Fellowships',
         'Livingston Awards',
+        'About'
     );
     generate_select_box_for_custom_field("fcb_which_page",$options);
 }
