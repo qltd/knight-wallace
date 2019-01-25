@@ -1741,18 +1741,18 @@ ul.pagination {
   }
 }
 
+main .wpforms-container input.wpforms-field-medium,
+main .wpforms-container select.wpforms-field-medium,
+main .wpforms-container .wpforms-field-row.wpforms-field-medium {
+  max-width: 100% !important;
+}
+
 // Alumni Form
 .wpcf7-form,
 main .wpforms-form,
 #alumni_login_form {
   max-width: 640px;
   margin: 2rem auto;
-
-  .wpforms-container input.wpforms-field-medium,
-  .wpforms-container select.wpforms-field-medium,
-  .wpforms-container .wpforms-field-row.wpforms-field-medium {
-    max-width: 100%;
-  }
 
   input[type='text'],
   input[type='email'],
