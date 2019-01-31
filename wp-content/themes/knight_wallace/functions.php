@@ -775,6 +775,7 @@ function generate_textarea_for_custom_field($name){
 function kw_save_events_meta($post_id, $post) {
     // verify this came from the our screen and with proper authorization,
     // because save_post can be triggered at other times
+
     if ( !wp_verify_nonce( $_POST['kwmeta_noncename'], plugin_basename(__FILE__) )) {
         return $post->ID;
     }
@@ -870,7 +871,7 @@ function kw_save_events_meta($post_id, $post) {
     $events_meta['_person_board_member_bio'] = !empty($_POST['_person_board_member_bio']) ? $_POST['_person_board_member_bio'] : null;
 
     //Slider Content
-    $events_meta['_slider_content_name_linNamee'] = !empty($_POST['_slider_content_name_line']) ? $_POST['_slider_content_name_line'] : null;
+    $events_meta['_slider_content_name_line'] = !empty($_POST['_slider_content_name_line']) ? $_POST['_slider_content_name_line'] : null;
     $events_meta['_slider_content_heading'] = !empty($_POST['_slider_content_heading']) ? $_POST['_slider_content_heading'] : null;
     $events_meta['_slider_content_details'] = !empty($_POST['_slider_content_details']) ? $_POST['_slider_content_details'] : null;
     $events_meta['_slider_content_test'] = !empty($_POST['_slider_content_test']) ? $_POST['_slider_content_test'] : null;
@@ -878,19 +879,22 @@ function kw_save_events_meta($post_id, $post) {
 
     // Add values of $events_meta as custom fields
     foreach ($events_meta as $key => $value) { // Cycle through the $events_meta array!
+        echo $key;
         if( $post->post_type == 'revision' ) return; // Don't store custom data twice
         $value = implode(',', (array)$value); // If $value is an array, make it a CSV (unlikely)
         if(get_post_meta($post->ID, $key, FALSE)) { // If the custom field already has a value
+            echo ' updating meta ' . $key . '<br /><br />';
             update_post_meta($post->ID, $key, $value);
         } else { // If the custom field doesn't have a value
+            echo ' add meta ' . $key . '<br /><br/>';
             add_post_meta($post->ID, $key, $value);
         }
         if(!$value) delete_post_meta($post->ID, $key); // Delete if blank
     }
-
+exit;
 }
 
-add_action('save_post', 'kw_save_events_meta', 1, 2); // save the custom fields
+add_action('save_post', 'kw_save_events_meta', 10, 2); // save the custom fields
 
 
 /**
