@@ -883,15 +883,13 @@ function kw_save_events_meta($post_id, $post) {
         if( $post->post_type == 'revision' ) return; // Don't store custom data twice
         $value = implode(',', (array)$value); // If $value is an array, make it a CSV (unlikely)
         if(get_post_meta($post->ID, $key, FALSE)) { // If the custom field already has a value
-            echo ' updating meta ' . $key . '<br /><br />';
             update_post_meta($post->ID, $key, $value);
         } else { // If the custom field doesn't have a value
-            echo ' add meta ' . $key . '<br /><br/>';
             add_post_meta($post->ID, $key, $value);
         }
         if(!$value) delete_post_meta($post->ID, $key); // Delete if blank
     }
-exit;
+
 }
 
 add_action('save_post', 'kw_save_events_meta', 10, 2); // save the custom fields
