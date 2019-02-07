@@ -1798,3 +1798,8 @@ main .wpforms-form,
   padding-left: 3rem;
   margin-bottom: 3rem;
 }
+
+.wpforms-container textarea,
+.wpforms-container textarea.wpforms-field-medium {
+  font-size: 1.4rem !important;
+}
