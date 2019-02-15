@@ -575,7 +575,8 @@ function sort_slider_content($content){
     $res = array(
         'Knight-Wallace Fellowships' => array(),
         'Livingston Awards' => array(),
-        'Donate' => array()
+        'Donate' => array(),
+        'None' => array()
     );
     if(!empty($content)){
         foreach($content as $c){

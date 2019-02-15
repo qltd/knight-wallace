@@ -38,6 +38,11 @@ function knight_wallace_setup() {
      */
     add_theme_support( 'title-tag' );
 
+    /**
+     * Full width SUpport
+     */
+    add_theme_support( 'align-wide' );
+
     /*
      * Enable support for Post Thumbnails on posts and pages.
      *
@@ -1273,3 +1278,32 @@ add_filter( 'wp_mail_from_name', 'custom_wpse_mail_from_name' );
 function custom_wpse_mail_from_name( $original_email_from ) {
     return 'Wallace House';
 }
+
+
+/**
+ * Disable Gutenberg everywhere
+ */
+// WP < 5.0 beta
+add_filter('gutenberg_can_edit_post', '__return_false', 5);
+
+// WP >= 5.0
+add_filter('use_block_editor_for_post', '__return_false', 5);
+
+/**
+ * Enable Gutenberg on Specific Posts
+ */
+// function wallace_enable_gutenberg_post_ids($can_edit, $post) {
+	
+// 	if (empty($post->ID)) return $can_edit;
+    
+//     // donate page
+// 	if (2705 === $post->ID) return true;
+	
+// 	return $can_edit;
+	
+// }
+// // Enable Gutenberg for WP < 5.0 beta
+// add_filter('gutenberg_can_edit_post', 'wallace_enable_gutenberg_post_ids', 10, 2);
+
+// // Enable Gutenberg for WordPress >= 5.0
+// add_filter('use_block_editor_for_post', 'wallace_enable_gutenberg_post_ids', 10, 2);
