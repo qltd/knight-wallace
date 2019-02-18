@@ -74,7 +74,7 @@ $sorted_slides = sort_slider_content($slides);
             </div>
             <div class="large-5 columns">
               <?php $annualFundImage = get_field('livingston_awards_image'); ?>
-              <img src="<?php echo $annualFundImage['url']; ?>" style="padding-right: 40px;" />
+              <img src="<?php echo $annualFundImage['url']; ?>" style="padding-left: 40px;" />
             </div>
           </div>
         </div>
@@ -89,7 +89,7 @@ $sorted_slides = sort_slider_content($slides);
           <div class="row">
             <div class="large-5 columns">
               <?php $annualFundImage = get_field('knight_wallace_fellowships_image'); ?>
-              <img src="<?php echo $annualFundImage['url']; ?>" style="padding-left: 40px;" />
+              <img src="<?php echo $annualFundImage['url']; ?>" style="padding-right: 40px;" />
             </div>
             <div class="large-7 columns">
               <h2 class="lblue">Support the Knight-Wallace Fellowships</h2>
