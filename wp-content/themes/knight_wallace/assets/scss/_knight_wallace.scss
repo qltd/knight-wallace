@@ -1919,7 +1919,7 @@ main .wpforms-form,
       margin-right: 0;
     }
 
-    @include responsive('600px') {
+    @include responsive('640px') {
       flex: 1 0 100%;
       max-width: 100%;
     }
