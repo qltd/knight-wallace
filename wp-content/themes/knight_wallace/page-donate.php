@@ -16,11 +16,13 @@ $sorted_slides = sort_slider_content($slides);
 ?>
 
 <section class="fullwidth-content">
-  <div class="row">
-    <div class="large-10 large-centered columns">
-      <header class="entry-header">
-        <h1 class="entry-title">Donate</h1>
-      </header><!-- .entry-header -->
+  <div class="bg-maize">
+    <div class="row">
+      <div class="large-10 large-centered columns">
+        <header class="entry-header">
+          <h1 class="entry-title">Donate</h1>
+        </header><!-- .entry-header -->
+      </div>
     </div>
   </div>
 
