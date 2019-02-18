@@ -16,15 +16,6 @@ $sorted_slides = sort_slider_content($slides);
 ?>
 
 <section class="fullwidth-content">
-  <div class="bg-maize">
-    <div class="row">
-      <div class="large-10 large-centered columns">
-        <header class="entry-header">
-          <h1 class="entry-title">Donate</h1>
-        </header><!-- .entry-header -->
-      </div>
-    </div>
-  </div>
 
   <div class="banner--yellow">
     <div class="row">
@@ -61,9 +52,9 @@ $sorted_slides = sort_slider_content($slides);
               <img src="<?php echo $annualFundImage['url']; ?>" style="padding-right: 40px;" />
             </div>
             <div class="large-7 columns">
-              <h2 class="lblue">Support the Livingston Awards for Young Journalists</h2>
+              <h2 class="lblue">Support the Wallace House Annual Fund</h2>
               <p><?php the_field('annual_fund_text'); ?></p>
-              <a href="<?php the_field('annual_fund_donation_url'); ?>" class="button">Donate &raquo;</a>
+              <a href="<?php the_field('annual_fund_donation_url'); ?>" target="_blank" rel="noopener noreferrer" class="button">Donate &raquo;</a>
             </div>
           </div>
         </div>
@@ -77,13 +68,13 @@ $sorted_slides = sort_slider_content($slides);
         <div class="content donate">
           <div class="row">
             <div class="large-7 columns">
-              <h2 class="lblue">Support the Knight-Wallace Fellowships</h2>
-              <p><?php the_field('knight_wallace_fellowships_text'); ?></p>
-              <a href="<?php the_field('knight_wallace_fellowships_donation_url'); ?>" class="button">Donate &raquo;</a>
+              <h2 class="lblue">Support the Livingston Awards for Young Journalists</h2>
+              <p><?php the_field('livingston_awards_text'); ?></p>
+              <a href="<?php the_field('livingston_awards_donation_url'); ?>" target="_blank" rel="noopener noreferrer" class="button">Donate &raquo;</a>
             </div>
             <div class="large-5 columns">
-              <?php $annualFundImage = get_field('knight_wallace_fellowships_image'); ?>
-              <img src="<?php echo $annualFundImage['url']; ?>" style="padding-left: 40px;" />
+              <?php $annualFundImage = get_field('livingston_awards_image'); ?>
+              <img src="<?php echo $annualFundImage['url']; ?>" style="padding-right: 40px;" />
             </div>
           </div>
         </div>
@@ -97,13 +88,13 @@ $sorted_slides = sort_slider_content($slides);
         <div class="content donate">
           <div class="row">
             <div class="large-5 columns">
-              <?php $annualFundImage = get_field('livinston_awards_image'); ?>
-              <img src="<?php echo $annualFundImage['url']; ?>" style="padding-right: 40px;" />
+              <?php $annualFundImage = get_field('knight_wallace_fellowships_image'); ?>
+              <img src="<?php echo $annualFundImage['url']; ?>" style="padding-left: 40px;" />
             </div>
             <div class="large-7 columns">
-              <h2 class="lblue">Support the Wallace House Annual Fund</h2>
-              <p><?php the_field('livinston_awards_text'); ?></p>
-              <a href="<?php the_field('livinston_awards_donation_url'); ?>" class="button">Donate &raquo;</a>
+              <h2 class="lblue">Support the Knight-Wallace Fellowships</h2>
+              <p><?php the_field('knight_wallace_fellowships_text'); ?></p>
+              <a href="<?php the_field('knight_wallace_fellowships_donation_url'); ?>" target="_blank" rel="noopener noreferrer" class="button">Donate &raquo;</a>  
             </div>
           </div>
         </div>
@@ -134,8 +125,18 @@ $sorted_slides = sort_slider_content($slides);
         </div>
     </div>
 </section>
+<?php endif; ?>
 
-
+<?php if (get_field('additional_content')): ?>
+<section class="fullwidth-content additional-content">
+  <div class="row">
+    <div class="large-10 large-centered columns">
+      <div class="content donate">
+        <?php the_field('additional_content'); ?>
+      </div>
+    </div>
+  </div> 
+</section>
 <?php endif; ?>
 
 <?php get_footer(); ?>
