@@ -1042,10 +1042,6 @@ ul.pagination {
 .content {
   padding-bottom: 4rem;
 
-  &.donate {
-    padding-bottom: 0;
-  }
-
   @include responsive('1024px') {
     padding: 1rem 0rem 4rem;
   }
@@ -1084,6 +1080,14 @@ ul.pagination {
       line-height: 1.2;
       text-transform: uppercase;
       color: $white;
+
+      @include responsive('1024px') {
+        font-size: 6rem;
+      }
+
+      @include responsive('500px') {
+        font-size: 4rem;
+      }
     }
   }
 
@@ -1154,7 +1158,9 @@ ul.pagination {
 }
 
 .additional-content {
-  padding: 4rem 0;
+  @include responsive('1024px') {
+    padding: 0rem 2rem;
+  }
 }
 
 .la-winner {
@@ -1850,6 +1856,10 @@ main .wpforms-form,
   &--yellow {
     background: $myellow;
     padding: 7rem 0;
+
+    @include responsive('1024px') {
+      padding: 4rem 2rem;
+    }
   }
 
   &--dark-blue {
@@ -1859,21 +1869,36 @@ main .wpforms-form,
     .content > * {
       color: $white;
     }
+
+    @include responsive('1024px') {
+      padding: 4rem 2rem;
+    }
   }
 
   &--gray {
     background: #ededed;
     padding: 4rem 0;
+
+    @include responsive('1024px') {
+      padding: 4rem 2rem;
+    }
   }
 
   &--white {
     background: white;
     padding: 4rem 0;
+
+    @include responsive('1024px') {
+      padding: 4rem 2rem;
+    }
   }
 }
 
 .testimonials {
   padding: 4rem 0;
+  @include responsive('1024px') {
+    padding: 4rem 2rem;
+  }
 }
 
 .testimonials__list {
@@ -1882,13 +1907,22 @@ main .wpforms-form,
   margin: 0;
   display: flex;
   flex-wrap: wrap;
-  flex-basis: 30%;
 
   li {
-    max-width: 305px;
+    flex: 1 0 30%;
+    max-width: 336px;
     margin-bottom: 2rem;
     margin-right: 2rem;
     background: $myellow;
+
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+
+    @include responsive('600px') {
+      flex: 1 0 100%;
+      max-width: 100%;
+    }
   }
 
   .testimonial {
@@ -1921,5 +1955,18 @@ main .wpforms-form,
     .name {
       text-transform: uppercase;
     }
+  }
+}
+
+.donate-image {
+  @include responsive('1024px') {
+    margin-bottom: 4rem;
+  }
+}
+
+.flex-row {
+  @include responsive('640px') {
+    display: flex;
+    flex-direction: column-reverse;
   }
 }
