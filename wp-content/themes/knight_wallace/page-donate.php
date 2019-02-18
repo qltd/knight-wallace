@@ -61,7 +61,7 @@ $sorted_slides = sort_slider_content($slides);
             <div class="large-7 columns">
               <h2 class="lblue">Support the Livingston Awards for Young Journalists</h2>
               <p><?php the_field('annual_fund_text'); ?></p>
-              <a href="<?php the_field('annual_fund_url'); ?>" class="button">Donate &raquo;</a>
+              <a href="<?php the_field('annual_fund_donation_url'); ?>" class="button">Donate &raquo;</a>
             </div>
           </div>
         </div>
@@ -77,7 +77,7 @@ $sorted_slides = sort_slider_content($slides);
             <div class="large-7 columns">
               <h2 class="lblue">Support the Knight-Wallace Fellowships</h2>
               <p><?php the_field('knight_wallace_fellowships_text'); ?></p>
-              <a href="<?php the_field('knight_wallace_fellowships_url'); ?>" class="button">Donate &raquo;</a>
+              <a href="<?php the_field('knight_wallace_fellowships_donation_url'); ?>" class="button">Donate &raquo;</a>
             </div>
             <div class="large-5 columns">
               <?php $annualFundImage = get_field('knight_wallace_fellowships_image'); ?>
@@ -95,13 +95,13 @@ $sorted_slides = sort_slider_content($slides);
         <div class="content donate">
           <div class="row">
             <div class="large-5 columns">
-              <?php $annualFundImage = get_field('annual_fund_image'); ?>
+              <?php $annualFundImage = get_field('livinston_awards_image'); ?>
               <img src="<?php echo $annualFundImage['url']; ?>" style="padding-right: 40px;" />
             </div>
             <div class="large-7 columns">
               <h2 class="lblue">Support the Wallace House Annual Fund</h2>
-              <p><?php the_field('annual_fund_text'); ?></p>
-              <a href="<?php the_field('annual_fund_url'); ?>" class="button">Donate &raquo;</a>
+              <p><?php the_field('livinston_awards_text'); ?></p>
+              <a href="<?php the_field('livinston_awards_donation_url'); ?>" class="button">Donate &raquo;</a>
             </div>
           </div>
         </div>
