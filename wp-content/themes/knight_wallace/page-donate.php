@@ -11,7 +11,8 @@ get_header(); ?>
 <?php
 include_once('helpers.php');
 //grab our junk
-$slides = get_posts(array('post_type'=>'slider_content','posts_per_page'=> -1));
+$slides = get_posts(array('post_type'=>'slider_content','posts_per_page'=> -1, 'order_by'=>'menu_order', 'order'=>'ASC'));
+echo '<pre>'; print_r($slides); echo '</pre>';
 $sorted_slides = sort_slider_content($slides);
 ?>
 
