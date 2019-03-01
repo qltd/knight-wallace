@@ -47,11 +47,11 @@
     <div class="row">
       <div class="large-5 columns">
         <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" class="logo">
-            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/livingston-awards-logo.svg" alt="Knight-Wallace" />
+            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/wallace-house-logo.svg" alt="Knight-Wallace" />
         </a>
       </div>
       <div class="large-7 columns">
-        <h1 class="section-title">For Young Journalists</h1>
+        <h1 class="section-title">Knight-Wallace Fellowships for Journalists<br />and the Livingston Awards</h1>
       </div>
     </div>
   </header>
