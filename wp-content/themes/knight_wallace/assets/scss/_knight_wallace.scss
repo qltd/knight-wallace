@@ -243,17 +243,21 @@ button.gsc-search-button {
 .section-title {
   font-size: 1.6rem;
   line-height: 1.8rem;
-  margin-left: -3rem;
   margin-top: -0.3rem;
   font-family: $primary-font-condensed;
 
-  @include responsive('1024px') {
-    margin-left: 100px;
-    font-size: 1.4rem;
+  #header &.yellow {
+    text-transform: uppercase;
+    color: $myellow;
+    font-weight: bold;
+
+    @include responsive('1024px') {
+      margin-top: 2rem;
+    }
   }
 
-  @include responsive('420px') {
-    margin-left: 0px;
+  @include responsive('1024px') {
+    font-size: 1.4rem;
   }
 }
 
