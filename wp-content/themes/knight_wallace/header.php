@@ -51,8 +51,11 @@
             <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/wallace-house-logo.svg" alt="Knight-Wallace" />
         </a>
       </div>
-      <div class="large-7 columns">
+      <div class="large-4 columns">
         <h1 class="section-title">Knight-Wallace Fellowships for Journalists<br />and the Livingston Awards</h1>
+      </div>
+      <div class="large-2 medium-5 columns left">
+        <h1 class="section-title yellow">UPHOLD DEMOCRACY. SUPPORT JOURNALISTS.</h1>
       </div>
     </div>
   </header>
