@@ -54,7 +54,7 @@
       <div class="large-4 columns">
         <h1 class="section-title">Knight-Wallace Fellowships for Journalists<br />and the Livingston Awards</h1>
       </div>
-      <div class="large-2 medium-5 columns left">
+      <div class="large-2 columns left">
         <h1 class="section-title yellow">UPHOLD DEMOCRACY. SUPPORT JOURNALISTS.</h1>
       </div>
     </div>
