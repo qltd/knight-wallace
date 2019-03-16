@@ -1307,3 +1307,7 @@ add_filter('use_block_editor_for_post', '__return_false', 5);
 
 // // Enable Gutenberg for WordPress >= 5.0
 // add_filter('use_block_editor_for_post', 'wallace_enable_gutenberg_post_ids', 10, 2);
+
+
+
+add_filter('acf/settings/remove_wp_meta_box', '__return_false');

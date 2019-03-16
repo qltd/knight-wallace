@@ -1,6 +1,21 @@
 # Change Log
 All notable changes to this project will be documented in this file, formatted via [this recommendation](http://keepachangelog.com/).
 
+## [1.5.1.2] - 2019-02-28
+### Fixed
+- Conditonal logic issue with Checkbox/Multiple choice fields when default values are set.
+
+## [1.5.1.1] - 2019-02-26
+### Fixed
+- Conflict with WordPress 5.1 if form contained target="_blank".
+- Long field labels cut off when viewed in Entry Print page compact view.
+- PHP notices on Entry Print page.
+- PHP notices on Entries page.
+- Unable to uncheck default Multiple Choice value in form builder after being set initially.
+- PHP error when entries are exported after a field has been deleted.
+- Form builder Email notification conditional logic settings display issue after new notification is added.
+- Conflict with some themes preventing Multiple Choice fields from being selectable.
+
 ## [1.5.1] - 2019-02-06
 ### Added
 - Checkbox Items field (payment checkboxes).
@@ -11,11 +26,14 @@ All notable changes to this project will be documented in this file, formatted v
 ### Changed
 - Removed limit on Entry Columns when customizing.
 - Improved support with LocoTranslate plugin.
+- Refactored Form Preview functionality, no longer requiring hidden private page to be created.
+- Always load full WPForms styling inside Gutenberg so forms render correctly.
 
 ### Fixed
 - Entry counts getting off sync with entry heartbeat detection.
 - Typos, grammar, and other i18n related issues.
 - Created alias class for `WPForms` to prevent issue with namespacing introduced in 1.5.0.
+- Dynamic population issue when using Image Choices field.
 
 ## [1.5.0.4] - 2018-12-20
 ### Changed

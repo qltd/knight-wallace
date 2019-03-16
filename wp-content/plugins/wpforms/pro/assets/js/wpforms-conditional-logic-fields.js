@@ -74,6 +74,7 @@
 						break;
 					case 'checkbox':
 					case 'radio':
+						$( this ).closest( 'ul' ).find( 'li' ).removeClass( 'wpforms-selected' );
 						if ( $( this ).is( ':checked' ) ){
 							$( this ).prop( 'checked', false ).trigger( 'change' );
 						}

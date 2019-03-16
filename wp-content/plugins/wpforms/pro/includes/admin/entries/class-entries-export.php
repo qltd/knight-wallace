@@ -268,7 +268,7 @@ class WPForms_Entries_Export {
 				$fields = wpforms_decode( $entry->fields );
 
 				foreach ( $form_fields as $form_field ) {
-					if ( in_array( $form_field['type'], $allowed, true ) ) {
+					if ( in_array( $form_field['type'], $allowed, true ) && array_key_exists( $form_field['id'], $fields ) ) {
 						$data[ $entry->entry_id ][ $form_field['id'] ] = wpforms_decode_string( $fields[ $form_field['id'] ]['value'] );
 					}
 				}

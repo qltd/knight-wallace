@@ -22,7 +22,7 @@ class WPForms_Field_Date_Time extends WPForms_Field {
 		$this->name  = esc_html__( 'Date / Time', 'wpforms' );
 		$this->type  = 'date-time';
 		$this->icon  = 'fa-calendar-o';
-		$this->order = 110;
+		$this->order = 80;
 		$this->group = 'fancy';
 
 		// Set custom option wrapper classes.

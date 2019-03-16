@@ -22,7 +22,7 @@ class WPForms_Field_URL extends WPForms_Field {
 		$this->name  = esc_html__( 'Website / URL', 'wpforms' );
 		$this->type  = 'url';
 		$this->icon  = 'fa-link';
-		$this->order = 50;
+		$this->order = 90;
 		$this->group = 'fancy';
 	}
 
