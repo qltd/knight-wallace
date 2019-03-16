@@ -22,7 +22,7 @@ class WPForms_Field_Phone extends WPForms_Field {
 		$this->name  = esc_html__( 'Phone', 'wpforms' );
 		$this->type  = 'phone';
 		$this->icon  = 'fa-phone';
-		$this->order = 90;
+		$this->order = 50;
 		$this->group = 'fancy';
 
 		// Define additional field properties.

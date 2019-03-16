@@ -278,6 +278,12 @@ class Education {
 
 		$addons = array(
 			array(
+				'name'        => 'Conversational Forms',
+				'slug'        => 'conversational-forms',
+				'plugin'      => 'wpforms-conversational-forms/wpforms-conversational-forms.php',
+				'plugin_slug' => 'wpforms-conversational-forms',
+			),
+			array(
 				'name'        => 'Surveys and Polls',
 				'slug'        => 'surveys-polls',
 				'plugin'      => 'wpforms-surveys-polls/wpforms-surveys-polls.php',
@@ -295,7 +301,6 @@ class Education {
 				'plugin'      => 'wpforms-form-locker/wpforms-form-locker.php',
 				'plugin_slug' => 'wpforms-form-locker',
 			),
-
 			array(
 				'name'        => 'Form Abandonment',
 				'slug'        => 'form-abandonment',
@@ -312,6 +317,7 @@ class Education {
 
 		$settings = $this->get_addons_available( $addons );
 
+
 		if ( empty( $settings ) ) {
 			return;
 		}
@@ -327,7 +333,7 @@ class Education {
 				\esc_attr( $setting['action'] ),
 				\esc_attr( $setting['plugin'] ),
 				isset( $setting['url'] ) ? \esc_attr( $setting['url'] ) : '',
-				\wp_create_nonce( 'wpforms-admin' )
+				\wp_create_nonce( 'wpforms-admin' ) //phpcs:ignore
 			);
 				echo \esc_html( $setting['name'] );
 				echo '<i class="fa fa-angle-right wpforms-toggle-arrow"></i>';
@@ -404,7 +410,7 @@ class Education {
 				\esc_attr( $provider['action'] ),
 				\esc_attr( $provider['plugin'] ),
 				isset( $provider['url'] ) ? \esc_attr( $provider['url'] ) : '',
-				\wp_create_nonce( 'wpforms-admin' )
+				\wp_create_nonce( 'wpforms-admin' ) //phpcs:ignore
 			);
 				echo '<img src="' . \esc_attr( WPFORMS_PLUGIN_URL ) . 'assets/images/' . \esc_attr( $provider['img'] ) . '">';
 				echo \esc_html( $provider['name'] );
@@ -454,7 +460,7 @@ class Education {
 				\esc_attr( $payment['action'] ),
 				\esc_attr( $payment['plugin'] ),
 				isset( $payment['url'] ) ? \esc_attr( $payment['url'] ) : '',
-				\wp_create_nonce( 'wpforms-admin' )
+				\wp_create_nonce( 'wpforms-admin' ) //phpcs:ignore
 			);
 				echo '<img src="' . \esc_attr( WPFORMS_PLUGIN_URL ) . 'assets/images/' . \esc_attr( $payment['img'] ) . '">';
 				echo \esc_html( $payment['name'] );

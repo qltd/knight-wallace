@@ -22,7 +22,7 @@ class WPForms_Field_Password extends WPForms_Field {
 		$this->name  = esc_html__( 'Password', 'wpforms' );
 		$this->type  = 'password';
 		$this->icon  = 'fa-lock';
-		$this->order = 80;
+		$this->order = 130;
 		$this->group = 'fancy';
 
 		// Define additional field properties.

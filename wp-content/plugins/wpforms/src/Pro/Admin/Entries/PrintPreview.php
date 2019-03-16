@@ -99,7 +99,7 @@ class PrintPreview {
 		// Everything passed, fetch entry notes.
 		$this->entry->entry_notes = \wpforms()->entry_meta->get_meta(
 			array(
-				'entry_id' => $entry->entry_id,
+				'entry_id' => $this->entry->entry_id,
 				'type'     => 'note',
 			)
 		);
@@ -212,7 +212,7 @@ class PrintPreview {
 					// Display the fields and their values.
 					foreach ( $fields as $key => $field ) {
 
-						$field_value  = \apply_filters( 'wpforms_html_field_value', \wp_strip_all_tags( $field['value'] ), $field, $form_data, 'entry-single' );
+						$field_value  = \apply_filters( 'wpforms_html_field_value', \wp_strip_all_tags( $field['value'] ), $field, $this->form_data, 'entry-single' );
 						$field_class  = \sanitize_html_class( 'wpforms-field-' . $field['type'] );
 						$field_class .= empty( $field_value ) ? ' empty' : '';
 						echo '<div class="field ' . $field_class . '">';

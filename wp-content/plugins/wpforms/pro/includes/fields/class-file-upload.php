@@ -30,7 +30,7 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 		$this->name  = esc_html__( 'File Upload', 'wpforms' );
 		$this->type  = 'file-upload';
 		$this->icon  = 'fa-upload';
-		$this->order = 150;
+		$this->order = 90;
 		$this->group = 'fancy';
 
 		// Define additional field properties.
@@ -546,7 +546,6 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 			// Create the attachment for the file.
 			$attachment_args = array(
 				'post_type'      => 'attachment',
-				'post_type'      => '',
 				'post_content'   => '',
 				'post_status'    => 'publish',
 				'post_mime_type' => $file['type'],

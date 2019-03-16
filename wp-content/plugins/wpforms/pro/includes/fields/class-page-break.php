@@ -25,7 +25,7 @@ class WPForms_Field_Page_Break extends WPForms_Field {
 		$this->name  = esc_html__( 'Page Break', 'wpforms' );
 		$this->type  = 'pagebreak';
 		$this->icon  = 'fa-files-o';
-		$this->order = 170;
+		$this->order = 140;
 		$this->group = 'fancy';
 
 		add_filter( 'wpforms_field_preview_class', array( $this, 'preview_field_class' ), 10, 2 );
