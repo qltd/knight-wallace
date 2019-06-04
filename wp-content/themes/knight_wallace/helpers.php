@@ -258,7 +258,7 @@ function sort_winners($winners, $year='2015'){
                     if($add_winner){
                     //we want to include this winner in the final array
                     $lib_item = get_custom_post_by_title($dig,$lib_item_name);//get the full library object
-                    $lib_image = get_the_post_thumbnail(!empty($lib_item) ? $lib_item->ID : '');
+                    $lib_image = get_the_post_thumbnail($lib_item->ID, 'winners-thumb');
                     $res[] = array(
                         'type' => !empty($pmeta['_kw_person_liv_type']) ? $pmeta['_kw_person_liv_type'][0] : '',
                         'first_name' => !empty($pmeta['_kw_person_liv_first_name']) ? $pmeta['_kw_person_liv_first_name'][0] : '',
