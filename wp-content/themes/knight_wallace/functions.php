@@ -19,6 +19,9 @@ if ( ! function_exists( 'knight_wallace_setup' ) ) :
  * as indicating support for post thumbnails.
  */
 function knight_wallace_setup() {
+
+    add_image_size('winners-thumb', 1000, 400, true);
+
     /*
      * Make theme available for translation.
      * Translations can be filed in the /languages/ directory.
@@ -1309,5 +1312,7 @@ add_filter('use_block_editor_for_post', '__return_false', 5);
 // add_filter('use_block_editor_for_post', 'wallace_enable_gutenberg_post_ids', 10, 2);
 
 
-
+/**
+ * Fixes WP Custom Fields not displaying with ACF active
+ */
 add_filter('acf/settings/remove_wp_meta_box', '__return_false');
