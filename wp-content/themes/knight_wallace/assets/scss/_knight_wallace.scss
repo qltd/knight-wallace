@@ -739,6 +739,11 @@ figure {
     margin-top: 2rem;
     margin-bottom: 3rem;
     max-width: 80%;
+    display: none;
+
+    .page-template-events & {
+      display: block;
+    }
   }
 
   .featured {
