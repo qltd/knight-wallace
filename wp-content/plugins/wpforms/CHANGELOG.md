@@ -1,9 +1,92 @@
 # Change Log
-All notable changes to this project will be documented in this file, formatted via [this recommendation](http://keepachangelog.com/).
+All notable changes to this project will be documented in this file, formatted via [this recommendation](https://keepachangelog.com/).
+
+## [1.5.3.1] - 2019-06-18
+### Fixed
+- Checkbox field validation issue when field is not required.
+
+## [1.5.3] - 2019-06-17
+### Added
+- AJAX form submissions.
+- Google reCAPTCHA v3.
+
+### Changed
+- WPForms uninstall script for better cleanup process.
+- Email field mailcheck feature to offer additional controls. New filters: `wpforms_mailcheck_enabled`, `wpforms_mailcheck_domains`, and `wpforms_mailcheck_toplevel_domains`.
+
+### Fixed
+- File Upload fields issue in Microsoft Edge.
+- Special characters aren't encoded when Smart Tags are processed in query string.
+- Fields with Image choices are not working with some Android and older desktop browsers.
+- Payment Total field value includes conditionally hidden Single item fields.
+- Frontend and notification emails incorrect payment amount for some currencies if the value is greater than 1000.
+- Conditional Logic: Payment Checkbox Items multiple selection issue.
+- Form Builder: Several alert modals are displayed in batch if multiple providers have configuration issues.
+- WP_Post object is returned from `wpforms()->form->get()` if form data is requested with a non-WPForms post ID.
+- Inconsistent Enter key behaviour in multi-page forms.
+- Unable to get a specific entry with `wpforms()->entry->get_entries()` without giving the form id.
+
+## [1.5.2.3] - 2019-04-23
+### Fixed
+- PHP error if checkbox field is empty when form is submitted.
+- Validate all :input fields (not only required) when navigating multi-page forms.
+- Conditional logic conflicts using checkboxes/dropdowns with options "false" or "0".
+- Use of JavaScript Array Prototype Constructor breaks conditional logic.
+
+## [1.5.2.2] - 2019-04-15
+### Fixed
+- PHP notice/warnings from undefined constant (typo).
+- Addons screen not populating for all license levels.
+
+## [1.5.2.1] - 2019-04-11
+### Fixed
+- Entry print preview page not supporting non-UTF8 charsets.
+- Entry print preview page not displaying entry notes.
+- Required Checkbox fields asking for all inputs to be checked to pass validation.
+
+## [1.5.2] - 2019-04-10
+### Added
+- Smart format for Phone fields.
+- Choice Limit advanced option for Checkbox fields.
+- Smart domain name typo detection for Email fields.
+- New Gutenberg block keywords to help with discovery.
+- Link to "How to Properly Test Your WordPress Forms Before Launching" doc inside Gutenberg block.
+- Filter `wpforms_upload_root` to change uploads location.
+
+### Changed
+- Form builder field delete icon, now a trash can.
+- Removed legacy check for conditional logic.
+- Improved Entries list table on small devices.
+- User IP detection method, now filterable.
+- Updated flatpickr JS library to v4.5.5.
+- Updated jQuery inputmask library to v4.0.6.
+- Updated jQuery validation plugin to v1.19.0.
+- Clear Dashboard widget cache when form is created/deleted/updated.
+
+### Fixed
+- Blank form if using form template containing `target="_blank"`.
+- Honeypot field not using unique IDs.
+- Duplicating forms creating another duplicate if afterwards the table was sorted.
+- Minor issues with Gutenberg editor.
+- Browser autocomplete conflict with US address zipcode input mask.
+- Form Builder embed modal showing Classic Editor instructions for Gutenberg users.
+- No detection or errors if combined multiple file uploads size is greater than `post_max_size`.
+- Number field allowing non-numerical characters on iOS devices.
+- Incorrect data in CSV entry exports if fields have been deleted.
+- Field Dynamic Choices not showing in form preview when using "Post Type".
+
+## [1.5.1.3] - 2019-03-14
+### Fixed
+- Styling issue with single entry previous/next buttons.
+- Importing forms that containing `target="_blank"`.
+- Issues with duplicating Form Notifications and conditional logic rules inside Form Notifications.
+- Quote support/display inside query param Smart Tags.
+- Addon cache not clearing when license key is switched or deactivated.
+- Other minor fixes.
 
 ## [1.5.1.2] - 2019-02-28
 ### Fixed
-- Conditonal logic issue with Checkbox/Multiple choice fields when default values are set.
+- Conditional logic issue with Checkbox/Multiple choice fields when default values are set.
 
 ## [1.5.1.1] - 2019-02-26
 ### Fixed
@@ -132,7 +215,7 @@ All notable changes to this project will be documented in this file, formatted v
 ### Changed
 - Adding new choice to Multiple Items field now defaults price to $0.
 
-## Fixed
+### Fixed
 - Entry ID always displaying 0 when viewing single entry details.
 - Honeypot field using a none unique CSS ID.
 - Form builder Bulk Add display issues in certain use cases.
@@ -144,10 +227,10 @@ All notable changes to this project will be documented in this file, formatted v
 - Greater Than and Less Than conditional logic rules.
 - Conditional logic support for Net Promoter Score field (Surveys and Polls addon v1.1.0).
 
-## Changed
+### Changed
 - Updated Russian translation.
 
-## Fixed
+### Fixed
 - Various i18n issues.
 
 ## [1.4.7] - 2018-06-04
@@ -398,11 +481,11 @@ All notable changes to this project will be documented in this file, formatted v
 - Widget state not displayed correctly when adding via Customizer, without forcing user to select a form.
 
 ## [1.3.9.2] - 2017-08-03
-## Fixed
+### Fixed
 - Currency setting for new users saving to an incorrect option key.
 
 ## [1.3.9.1] - 2017-08-02
-## Changed
+### Changed
 - Template Export excludes array items with empty strings.
 
 ### Fixed
@@ -448,7 +531,7 @@ All notable changes to this project will be documented in this file, formatted v
 - Email/Password confirmation setting not displaying correctly with Small field size.
 
 ## [1.3.7.3] - 2017-05-12
-## Fixed
+### Fixed
 - Required setting checkbox getting out of sync when duplicating fields.
 - CSS class name typo in the form builder layout selector.
 - Excel mangling non-english characters when opening CSV export files.
@@ -457,7 +540,7 @@ All notable changes to this project will be documented in this file, formatted v
 - Form JS settings `wpforms_settings` missing due to some caching plugins.
 - Empty classes causing `array` string to be printed in some use cases.
 
-## Changed
+### Changed
 - Updated credit card, page break, password, and phone fields to improved field class.
 
 ## [1.3.7.2] - 2017-04-26
@@ -928,7 +1011,7 @@ All notable changes to this project will be documented in this file, formatted v
 - Debug function incorrectly requiring WP_DEBUG.
 
 ## [1.0.7] - 2016-03-22
-## Changed
+### Changed
 - CSS tweaks.
 
 ### Fixed
@@ -941,7 +1024,7 @@ All notable changes to this project will be documented in this file, formatted v
 - Basic two column CSS class support.
 - French translation.
 
-## Changed
+### Changed
 - Form names are no longer required, if no form name is provided the template name is used.
 - Inputmask script, for better broad device support.
 - Field specific assets are now conditionally loaded.
@@ -956,7 +1039,7 @@ All notable changes to this project will be documented in this file, formatted v
 ### Added
 - Pagination for Entries table.
 
-## Changed
+### Changed
 - Checkboxes/Dropdown/Multiple Choice fields always show choice label value in e-mail notifications.
 
 ### Fixed
@@ -997,7 +1080,7 @@ All notable changes to this project will be documented in this file, formatted v
 - Widget to display form.
 - Function to display form, `wpforms_display( $form_id )`.
 
-## Changed
+### Changed
 - Default notification settings for Contact form template.
 - Success message styling for full form theme.
 
