@@ -15,7 +15,7 @@
               </div>
               <div class="large-6 column" data-equalizer-watch>
                 <div class="featured-text">
-                  <img src="<?php echo get_bloginfo('template_directory') . '/assets/images/WH-presents-logo-1.svg'; ?>" />
+                  <img src="<?php echo get_bloginfo('template_directory') . '/assets/images/WH-presents-logo-1.svg'; ?>" class="wh-presents-logo" />
                   <h4>Featured</h4>
                   <h3>
                       <a href="<?php echo $featured[0]->guid; ?>">
