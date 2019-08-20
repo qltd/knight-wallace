@@ -32,7 +32,11 @@ $is_alumi_user = is_alumni_user();
 <div class="row">
     <div class="large-10 large-centered columns">
         <header class="entry-header">
-            <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+            <h1 class="entry-title">
+              <?php if($is_user_logged_in && $is_alumi_user): ?>
+                Alumni Profile
+              <?php endif; ?>
+            </h1>
         </header><!-- .entry-header -->
     </div>
 </div>
@@ -44,7 +48,8 @@ if($is_user_logged_in && $is_alumi_user): // only show local nav for alumni user
             <div class="large-12 columns">
                 <ul class="inline">
                     <li><a href="<?php echo get_permalink(7503); ?>">Alumni Locator</a> &nbsp;|&nbsp; </li>
-                    <li><a href="<?php echo get_permalink(7182); ?>">Past Fellows By Class Year</a></li>
+                    <li><a href="<?php echo get_permalink(7182); ?>">Past Fellows By Class Year &nbsp;|&nbsp; </a></li>
+                    <li><a href="<?php echo wp_logout_url(); ?>">Logout</a></li>
                 </ul>
             </div>
         </div>

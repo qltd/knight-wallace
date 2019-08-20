@@ -12,6 +12,7 @@
 <?php
 $image = get_the_post_thumbnail();
 $pmeta = get_post_meta($post->ID);
+$get_page_template_slug = get_page_template_slug();
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -47,6 +48,9 @@ $pmeta = get_post_meta($post->ID);
                 </li>
             <?php $c += 1; ?>
             <?php endforeach; ?>
+              <?php if($get_page_template_slug == 'alum_locate.php' && is_user_logged_in()): ?>
+                <li> &nbsp;|&nbsp; <a href="<?php echo wp_logout_url(); ?>">Logout</a></li>
+              <?php endif; ?>
             </ul>
         </div>
     </div>
@@ -56,7 +60,7 @@ $pmeta = get_post_meta($post->ID);
 
 <?php
 // custom local navigation for the Alumni Locator page
-if(get_page_template_slug() == 'alum_locate.php'):
+if($get_page_template_slug == 'alum_locate.php'):
 $sort_by = htmlspecialchars($_GET['alumni-sort-by']); // determine the current 'search by' term
 ?>
 <div class="in-this-section-nav">
