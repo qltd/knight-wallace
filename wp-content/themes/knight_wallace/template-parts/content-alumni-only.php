@@ -35,6 +35,8 @@ $is_alumi_user = is_alumni_user();
             <h1 class="entry-title">
               <?php if($is_user_logged_in && $is_alumi_user): ?>
                 Alumni Profile
+              <?php else: ?>
+                <?php the_title(); ?>
               <?php endif; ?>
             </h1>
         </header><!-- .entry-header -->
