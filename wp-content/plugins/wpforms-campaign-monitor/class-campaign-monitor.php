@@ -83,7 +83,7 @@ class WPForms_Campaign_Monitor extends WPForms_Provider {
 			foreach ( $connection['fields'] as $name => $custom_field ) {
 
 				// Skip fullname and email fields, as these aren't custom fields.
-				if ( $name === 'fullname' || $name === 'email' ) {
+				if ( 'fullname' === $name || 'email' === $name ) {
 					continue;
 				}
 

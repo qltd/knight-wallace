@@ -622,16 +622,18 @@ class WPForms_Entries_List {
 							}
 						}
 					}
-					foreach ( $form_data['fields'] as $id => $field ) {
-						if (
-							! empty( $form_data['meta']['entry_columns'] ) &&
-							in_array( $id, $form_data['meta']['entry_columns'], true )
-						) {
-							continue;
-						}
-						if ( ! in_array( $field['type'], WPForms_Entries_Table::get_columns_form_disallowed_fields(), true ) ) {
-							$name = ! empty( $field['label'] ) ? wp_strip_all_tags( $field['label'] ) : esc_html__( 'Field', 'wpforms' );
-							printf( '<option value="%d">%s</option>', $id, $name );
+					if ( ! empty( $form_data['fields'] ) && is_array( $form_data['fields'] ) ) {
+						foreach ( $form_data['fields'] as $id => $field ) {
+							if (
+								! empty( $form_data['meta']['entry_columns'] ) &&
+								in_array( $id, $form_data['meta']['entry_columns'], true )
+							) {
+								continue;
+							}
+							if ( ! in_array( $field['type'], WPForms_Entries_Table::get_columns_form_disallowed_fields(), true ) ) {
+								$name = ! empty( $field['label'] ) ? wp_strip_all_tags( $field['label'] ) : esc_html__( 'Field', 'wpforms' );
+								printf( '<option value="%d">%s</option>', $id, $name );
+							}
 						}
 					}
 					?>
