@@ -352,7 +352,15 @@ class DashboardWidget {
 
 		?>
 		<table id="wpforms-dash-widget-forms-list-table" cellspacing="0">
-			<?php foreach ( \array_values( $forms ) as $key => $form ) : ?>
+			<?php
+			foreach ( \array_values( $forms ) as $key => $form ) :
+				if ( ! \is_array( $form ) ) {
+					continue;
+				}
+				if ( ! isset( $form['form_id'], $form['title'], $form['count'], $form['edit_url'] ) ) {
+					continue;
+				}
+				?>
 				<tr <?php echo $key >= $show_forms ? 'class="wpforms-dash-widget-forms-list-hidden-el"' : ''; ?> data-form-id="<?php echo \absint( $form['form_id'] ); ?>">
 					<td><span class="wpforms-dash-widget-form-title"><?php echo \esc_html( $form['title'] ); ?></span></td>
 					<td><a href="<?php echo \esc_url( $form['edit_url'] ); ?>"><?php echo \absint( $form['count'] ); ?></a></td>
@@ -806,28 +814,24 @@ class DashboardWidget {
 			return array();
 		}
 
+		$processed = array();
+
 		foreach ( $results as $form_id => $result ) {
+
 			$form = \wpforms()->form->get( $form_id );
+
 			if ( empty( $form ) ) {
 				continue;
 			}
-			if ( ! isset( $results[ $form_id ] ) ) {
-				continue;
-			}
-			$results[ $form_id ]          = (array) $results[ $form_id ];
-			$results[ $form_id ]['title'] = $form->post_title;
 
-			$results[ $form_id ]['edit_url'] = \add_query_arg(
-				array(
-					'page'    => 'wpforms-entries',
-					'view'    => 'list',
-					'form_id' => \absint( $form_id ),
-				),
-				\admin_url( 'admin.php' )
-			);
+			$data = $this->get_formatted_forms_list_form_data( $form, $results );
+
+			if ( $data ) {
+				$processed[ $form->ID ] = $data;
+			}
 		}
 
-		return $results;
+		return $processed;
 	}
 
 	/**
@@ -852,26 +856,51 @@ class DashboardWidget {
 			return array();
 		}
 
+		$processed = array();
+
 		foreach ( $forms as $form ) {
-			$default_result       = array(
-				'form_id' => $form->ID,
-				'count'   => 0,
-			);
-			$results[ $form->ID ] = isset( $results[ $form->ID ] ) ? (array) $results[ $form->ID ] : $default_result;
 
-			$results[ $form->ID ]['title'] = $form->post_title;
+			$data = $this->get_formatted_forms_list_form_data( $form, $results );
 
-			$results[ $form->ID ]['edit_url'] = \add_query_arg(
-				array(
-					'page'    => 'wpforms-entries',
-					'view'    => 'list',
-					'form_id' => \absint( $form->ID ),
-				),
-				\admin_url( 'admin.php' )
-			);
+			if ( $data ) {
+				$processed[ $form->ID ] = $data;
+			}
 		}
 
-		return \wp_list_sort( $results, 'count', 'DESC' );
+		return \wp_list_sort( $processed, 'count', 'DESC' );
+	}
+
+	/**
+	 * Get formatted form data for a forms list frontend display.
+	 *
+	 * @since 1.5.4
+	 *
+	 * @param \WP_Post $form    Form object.
+	 * @param array    $results DB results from `$wpdb->prepare()`.
+	 *
+	 * @return array
+	 */
+	public function get_formatted_forms_list_form_data( $form, $results ) {
+
+		if ( ! ( $form instanceof \WP_Post ) ) {
+			return array();
+		}
+
+		$edit_url = \add_query_arg(
+			array(
+				'page'    => 'wpforms-entries',
+				'view'    => 'list',
+				'form_id' => \absint( $form->ID ),
+			),
+			\admin_url( 'admin.php' )
+		);
+
+		return array(
+			'form_id'  => $form->ID,
+			'count'    => isset( $results[ $form->ID ]->count ) ? \absint( $results[ $form->ID ]->count ) : 0,
+			'title'    => $form->post_title,
+			'edit_url' => $edit_url,
+		);
 	}
 
 

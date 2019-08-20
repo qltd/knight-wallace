@@ -98,31 +98,6 @@ function wpforms_entry_list_read() {
 add_action( 'wp_ajax_wpforms_entry_list_read', 'wpforms_entry_list_read' );
 
 /**
- * Verify license.
- *
- * @since 1.3.9
- */
-function wpforms_verify_license() {
-
-	// Run a security check.
-	check_ajax_referer( 'wpforms-admin', 'nonce' );
-
-	// Check for permissions.
-	if ( ! wpforms_current_user_can() ) {
-		wp_send_json_error();
-	}
-
-	// Check for license key.
-	if ( empty( $_POST['license'] ) ) {
-		wp_send_json_error( esc_html__( 'Please enter a license key.', 'wpforms' ) );
-	}
-
-	wpforms()->license->verify_key( $_POST['license'], true );
-}
-
-add_action( 'wp_ajax_wpforms_verify_license', 'wpforms_verify_license' );
-
-/**
  * Deactivate license.
  *
  * @since 1.3.9

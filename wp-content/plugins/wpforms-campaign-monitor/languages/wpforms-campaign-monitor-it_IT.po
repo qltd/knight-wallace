@@ -1,12 +1,12 @@
 # Copyright (C) 2019 WPForms Campaign Monitor
 # This file is distributed under the same license as the WPForms Campaign Monitor package.
 # Translators:
-# raffaella isidori <r.isidori@thesign.it>, 2019
+# raffaella isidori <words@raffaellaisidori.com>, 2019
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: WPForms Campaign Monitor\n"
-"Last-Translator: raffaella isidori <r.isidori@thesign.it>, 2019\n"
+"Last-Translator: raffaella isidori <words@raffaellaisidori.com>, 2019\n"
 "Language-Team: Italian (Italy) (https://www.transifex.com/wp-translations/teams/64435/it_IT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"

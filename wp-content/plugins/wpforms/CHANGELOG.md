@@ -1,6 +1,39 @@
 # Change Log
 All notable changes to this project will be documented in this file, formatted via [this recommendation](https://keepachangelog.com/).
 
+## [1.5.4.2] - 2019-08-06
+### Changed
+- Renamed certain actions with typos in their names, backwards-compatible. Added a deprecation text using `do_action_deprecated()`.
+- Geolocation API endpoint (used for "smart" phone field).
+
+### Fixed
+- About Us page behaviour when WP Mail SMTP Pro is installed.
+- Elite licenses could not install addons from inside the form builder.
+- Rating field icon color not changing on frontend with some themes.
+- reCAPTCHA settings could be saved without providing reCAPTCHA type.
+- Entry database tables not created for some users upgrading from WPForms Lite.
+
+## [1.5.4.1] - 2019-07-31
+### Fixed
+- Plugin Settings > Misc > 'View Email Summary Example' link errors.
+
+## [1.5.4] - 2019-07-30
+### Added
+- Email Summaries.
+- Form builder hotkey to save changes, CTRL + S.
+
+### Changed
+- Team photo under WPForms > About Us. :)
+
+### Fixed
+- Dynamic field population populates checkbox and radio fields values but not adding 'wpforms-selected' class to its containers.
+- Dropdown and Dropdown Items field attributes are now accessible with `wpforms_field_properties` filter.
+- Form builder field buttons overflowing when translated.
+- Dashboard widget PHP error.
+- Form can be submitted multiple times if "Submit button processing text" form setting empty.
+- "Error loading block" in Gutenberg if Additional CSS form settings are provided.
+- Incorrect payment amount displayed in some cases.
+
 ## [1.5.3.1] - 2019-06-18
 ### Fixed
 - Checkbox field validation issue when field is not required.
