@@ -1,6 +1,26 @@
 # Change Log
 All notable changes to this project will be documented in this file, formatted via [this recommendation](https://keepachangelog.com/).
 
+## [1.5.5] - 2019-08-28
+### Added
+- New default screen for the Entries list page (WPForms > Entries).
+- New flexible Entry Exporting (WPForms > Tools > Export).
+- WPForms details inside Site Health Info reports (Tools > Site Health > Info).
+- Filter `wpforms_emails_summaries_is_disabled` to easily disable Email Summaries functionality.
+- New smart tag: `{field_html_id="42"}` - that will postprocess field value and display its HTML representation.
+
+### Changed
+- Improve `wpforms_get_ip()` IP detection and related `{user_ip}` smart-tag value.
+
+### Fixed
+- Giving access to WPForms for Editors (and other roles) should give access to dashboard widget as well.
+- Dashboard Widget displays entries chart and count for the last 8 days, not 7.
+- Add 'attr' property to 'input_container' for radio/checkbox-based fields.
+- Various typos.
+- WP Mail SMTP plugin description on About us page.
+- Set HKD currency symbol ($) position to the left.
+- Аvoid horizontal scroll on mobile devices when using File Upload field.
+
 ## [1.5.4.2] - 2019-08-06
 ### Changed
 - Renamed certain actions with typos in their names, backwards-compatible. Added a deprecation text using `do_action_deprecated()`.

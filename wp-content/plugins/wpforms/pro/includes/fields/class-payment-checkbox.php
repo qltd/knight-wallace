@@ -124,6 +124,7 @@ class WPForms_Field_Payment_Checkbox extends WPForms_Field {
 		$properties['input_container'] = array(
 			'class' => array(),
 			'data'  => array(),
+			'attr'  => array(),
 			'id'    => "wpforms-{$form_id}-field_{$field_id}",
 		);
 
@@ -362,7 +363,7 @@ class WPForms_Field_Payment_Checkbox extends WPForms_Field {
 
 		printf(
 			'<ul %s>',
-			wpforms_html_attributes( $container['id'], $container['class'], $container['data'] )
+			wpforms_html_attributes( $container['id'], $container['class'], $container['data'], $container['attr'] )
 		);
 
 			foreach ( $choices as $key => $choice ) {
