@@ -213,24 +213,28 @@ class WPForms_Entries_Table extends WP_List_Table {
 	 */
 	public function get_columns_form_fields( $columns = array(), $display = 3 ) {
 
+		if ( empty( $this->form_data['fields'] ) ) {
+			return array();
+		}
+
 		$entry_columns = wpforms()->form->get_meta( $this->form_id, 'entry_columns' );
 
-		if ( ! $entry_columns && ! empty( $this->form_data['fields'] ) ) {
+		if ( $entry_columns ) {
+			foreach ( $entry_columns as $id ) {
+				// Check to make sure the field has not been removed.
+				if ( empty( $this->form_data['fields'][ $id ] ) ) {
+					continue;
+				}
+
+				$columns[ 'wpforms_field_' . $id ] = ! empty( $this->form_data['fields'][ $id ]['label'] ) ? wp_strip_all_tags( $this->form_data['fields'][ $id ]['label'] ) : esc_html__( 'Field', 'wpforms' );
+			}
+		} else {
 			$x = 0;
 			foreach ( $this->form_data['fields'] as $id => $field ) {
 				if ( ! in_array( $field['type'], self::get_columns_form_disallowed_fields(), true ) && $x < $display ) {
 					$columns[ 'wpforms_field_' . $id ] = ! empty( $field['label'] ) ? wp_strip_all_tags( $field['label'] ) : esc_html__( 'Field', 'wpforms' );
 					$x ++;
 				}
-			}
-		} else if ( ! empty( $entry_columns ) ) {
-			foreach ( $entry_columns as $id ) {
-				// Check to make sure the field as not been removed.
-				if ( empty( $this->form_data['fields'][ $id ] ) ) {
-					continue;
-				}
-
-				$columns[ 'wpforms_field_' . $id ] = ! empty( $this->form_data['fields'][ $id ]['label'] ) ? wp_strip_all_tags( $this->form_data['fields'][ $id ]['label'] ) : esc_html__( 'Field', 'wpforms' );
 			}
 		}
 
@@ -465,9 +469,10 @@ class WPForms_Entries_Table extends WP_List_Table {
 		if ( ! empty( $_GET['date'] ) ) {
 			$dates = explode( ' - ', $_GET['date'] );
 
-			if ( is_array( $dates ) && count( $dates ) === 2 ) {
-				$default_date = 'defaultDate: [ "' . sanitize_text_field( $dates[0] ) . '", "' . sanitize_text_field( $dates[1] ) . '" ],';
+			if ( count( $dates ) === 1 ) {
+				$dates[1] = $dates[0];
 			}
+			$default_date = 'defaultDate: [ "' . sanitize_text_field( $dates[0] ) . '", "' . sanitize_text_field( $dates[1] ) . '" ],';
 		}
 		?>
 

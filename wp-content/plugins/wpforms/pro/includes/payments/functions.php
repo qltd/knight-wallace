@@ -86,7 +86,7 @@ function wpforms_get_currencies() {
 		'HKD' => array(
 			'name'                => esc_html__( 'Hong Kong Dollar', 'wpforms' ),
 			'symbol'              => '&#36;',
-			'symbol_pos'          => 'right',
+			'symbol_pos'          => 'left',
 			'thousands_separator' => ',',
 			'decimal_separator'   => '.',
 			'decimals'            => 2,

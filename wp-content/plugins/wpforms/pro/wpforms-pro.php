@@ -17,9 +17,9 @@ class WPForms_Pro {
 		$this->constants();
 		$this->includes();
 
-		add_action( 'wpforms_updater', array( $this, 'updater' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ), 10 );
 		add_action( 'wpforms_loaded', array( $this, 'objects' ), 1 );
+		add_action( 'wpforms_loaded', array( $this, 'updater' ), 30 );
 		add_action( 'wpforms_install', array( $this, 'install' ), 10 );
 		add_filter( 'wpforms_settings_tabs', array( $this, 'register_settings_tabs' ), 5, 1 );
 		add_filter( 'wpforms_settings_defaults', array( $this, 'register_settings_fields' ), 5, 1 );
@@ -34,29 +34,6 @@ class WPForms_Pro {
 		add_action( 'admin_notices', array( $this, 'conditional_logic_addon_notice' ) );
 		add_action( 'wpforms_builder_print_footer_scripts', array( $this, 'builder_templates' ) );
 		add_filter( 'wpforms_email_footer_text', array( $this, 'form_notification_footer' ) );
-	}
-
-	/**
-	 * Load Pro plugin updater.
-	 *
-	 * @since 1.5.4
-	 *
-	 * @param string $key License key.
-	 */
-	public function updater( $key ) {
-
-		// Go ahead and initialize the updater.
-		new \WPForms_Updater(
-			array(
-				'plugin_name' => 'WPForms',
-				'plugin_slug' => 'wpforms',
-				'plugin_path' => plugin_basename( WPFORMS_PLUGIN_FILE ),
-				'plugin_url'  => trailingslashit( WPFORMS_PLUGIN_URL ),
-				'remote_url'  => WPFORMS_UPDATER_API,
-				'version'     => WPFORMS_VERSION,
-				'key'         => $key,
-			)
-		);
 	}
 
 	/**
@@ -89,6 +66,8 @@ class WPForms_Pro {
 			require_once WPFORMS_PLUGIN_DIR . 'pro/includes/admin/entries/class-entries-single.php';
 			require_once WPFORMS_PLUGIN_DIR . 'pro/includes/admin/entries/class-entries-list.php';
 			require_once WPFORMS_PLUGIN_DIR . 'pro/includes/admin/class-addons.php';
+			require_once WPFORMS_PLUGIN_DIR . 'pro/includes/admin/class-updater.php';
+			require_once WPFORMS_PLUGIN_DIR . 'pro/includes/admin/class-license.php';
 		}
 	}
 
@@ -103,6 +82,10 @@ class WPForms_Pro {
 		wpforms()->entry        = new WPForms_Entry_Handler();
 		wpforms()->entry_fields = new WPForms_Entry_Fields_Handler();
 		wpforms()->entry_meta   = new WPForms_Entry_Meta_Handler();
+
+		if ( is_admin() ) {
+			wpforms()->license = new WPForms_License();
+		}
 	}
 
 	/**
@@ -112,6 +95,46 @@ class WPForms_Pro {
 	 */
 	public function constants() {
 
+		// Plugin Updater API.
+		if ( ! defined( 'WPFORMS_UPDATER_API' ) ) {
+			define( 'WPFORMS_UPDATER_API', 'https://wpforms.com/' );
+		}
+	}
+
+	/**
+	 * Load plugin updater.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $key License key.
+	 */
+	public function updater( $key ) {
+
+		if ( ! is_admin() ) {
+			return;
+		}
+
+		$key = wpforms()->license->get();
+
+		if ( ! $key ) {
+			return;
+		}
+
+		// Go ahead and initialize the updater.
+		new \WPForms_Updater(
+			array(
+				'plugin_name' => 'WPForms',
+				'plugin_slug' => 'wpforms',
+				'plugin_path' => plugin_basename( WPFORMS_PLUGIN_FILE ),
+				'plugin_url'  => trailingslashit( WPFORMS_PLUGIN_URL ),
+				'remote_url'  => WPFORMS_UPDATER_API,
+				'version'     => WPFORMS_VERSION,
+				'key'         => $key,
+			)
+		);
+
+		// Fire a hook for Addons to register their updater since we know the key is present.
+		do_action( 'wpforms_updater', $key );
 	}
 
 	/**
@@ -130,6 +153,20 @@ class WPForms_Pro {
 		$wpforms_install->entry->create_table();
 		$wpforms_install->entry_fields->create_table();
 		$wpforms_install->entry_meta->create_table();
+
+		$license = get_option( 'wpforms_connect', false );
+
+		if ( $license ) {
+			update_option(
+				'wpforms_license',
+				array(
+					'key' => $license,
+				)
+			);
+			$wpforms_install->license = new WPForms_License();
+			$wpforms_install->license->validate_key( $license );
+			delete_option( 'wpforms_connect' );
+		}
 	}
 
 	/**

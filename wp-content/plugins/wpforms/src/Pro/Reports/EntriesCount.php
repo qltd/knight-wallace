@@ -56,8 +56,9 @@ class EntriesCount {
 
 		$date_end = $date_end->setTime( 23, 59, 59 );
 
-		$date_start = $date_start->modify( '-' . \absint( $days ) . 'days' );
-		$date_start = $date_start->setTime( 0, 0, 0 );
+		$date_start = $date_start
+			->modify( '-' . ( \absint( $days ) - 1 ) . 'days' )
+			->setTime( 0, 0 );
 
 		switch ( $param ) {
 			case 'date':
