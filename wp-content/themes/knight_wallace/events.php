@@ -27,7 +27,7 @@ $parent = !empty($parent_id) ? get_post($parent_id[0]) : false;
 <?php
 //grab our junk
 include_once 'helpers.php';
-$news = get_posts(array('category_name'=>'events','post_status'=>'any','posts_per_page'=> -1 ));
+$news = get_posts(array('category_name'=>'events','post_status'=>'any','posts_per_page'=> -1, 'orderby' => 'date', 'order'=> 'ASC' ));
 $featured = find_featured_news_article($news);
 $sorted_events = sort_events($news);
 ?>
@@ -61,7 +61,7 @@ $sorted_events = sort_events($news);
                 </div>
             </div>
         </div>
-<?php $news = $sorted_events['past_events']; ?>
+<?php $news = array_reverse($sorted_events['past_events']); ?>
 <?php include(locate_template('template-parts/news.php')); ?>
    </div>
 <?php endif; ?>
