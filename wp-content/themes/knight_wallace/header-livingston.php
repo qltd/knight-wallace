@@ -18,7 +18,7 @@
 <?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?> id="livingstion_page">
+<body <?php body_class(); ?> id="livingston_page">
   <header id="header">
     <div class="row" id="eyebrow">
       <div class="large-12 columns">
