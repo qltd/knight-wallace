@@ -54,6 +54,36 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
 </section>
 <?php endif; //end if get_post_thumbnail ?>
 
+<?php if(!empty($sorted_slides['Livingston Awards'])): ?>
+<section id="slideshow">
+    <div class="row">
+        <div class="large-10 columns large-centered">
+            <ul class="bxslider">
+                <?php foreach($sorted_slides['Livingston Awards'] as $slide):?>
+                <li>
+                    <div class="row slide">
+
+                        <div class="medium-4 columns text-right"><?php if(!empty($slide['image'])):?><?php echo $slide['image']; ?><?php endif; ?></div>
+
+                        <div class="medium-8 columns">
+                            <div class="heading"><?php echo $slide['heading']; ?></div>
+                            <div class="win-meta">
+                                <div class="name"><?php echo $slide['name']; ?></div>
+                                <div class="details">
+                                    <?php echo $slide['details']; ?>
+                                </div>
+                            </div>
+                            <div class="testimonial"><?php echo $slide['testimonial']; ?></div>
+                        </div>
+                    </div>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
+
 <section class="story-list news">
     <div class="row">
         <!--display first news item-->
@@ -216,33 +246,6 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
         </div>
     </div>
     <?php endforeach; ?>
-</section>
-<?php endif; ?>
-
-<?php if(!empty($sorted_slides['Livingston Awards'])): ?>
-<section id="slideshow">
-    <div class="row">
-        <div class="large-10 columns large-centered">
-            <ul class="bxslider">
-                <?php foreach($sorted_slides['Livingston Awards'] as $slide):?>
-                <li>
-                    <div class="row">
-                        <div class="medium-4 columns"><?php if(!empty($slide['image'])):?><?php echo $slide['image']; ?><?php endif; ?></div>
-                        <div class="medium-8 columns">
-                            <div class="win-meta">
-                                <div class="name"><?php echo $slide['name']; ?></div>
-                                <div class="details">
-                                    <?php echo $slide['details']; ?>
-                                </div>
-                            </div>
-                            <div class="testimonial"><?php echo $slide['testimonial']; ?></div>
-                        </div>
-                    </div>
-                </li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-    </div>
 </section>
 <?php endif; ?>
 
