@@ -89,6 +89,22 @@ body {
   font-family: $primary-font;
 }
 
+.flexbox {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  > * {
+    max-width: 200px;
+    width: 100%;
+
+    @include responsive("500px") {
+      max-width: 100%;
+    }
+  }
+}
+
 p {
   font-size: 1.8rem;
 }
@@ -213,7 +229,7 @@ button.gsc-search-button {
   margin-top: 10px;
   font-size: 1.8rem;
   font-weight: bold;
-  font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
   background: $lblue;
   padding: 0 4rem;
 
@@ -251,12 +267,12 @@ button.gsc-search-button {
     color: $myellow;
     font-weight: bold;
 
-    @include responsive('1024px') {
+    @include responsive("1024px") {
       margin-top: 2rem;
     }
   }
 
-  @include responsive('1024px') {
+  @include responsive("1024px") {
     font-size: 1.4rem;
   }
 }
@@ -376,7 +392,7 @@ button.gsc-search-button {
   height: 750px;
   justify-content: center;
 
-  @include responsive('640px') {
+  @include responsive("640px") {
     height: 350px;
     position: relative;
     margin-bottom: 250px;
@@ -389,7 +405,7 @@ button.gsc-search-button {
     padding: 1rem;
     text-align: center;
 
-    @include responsive('640px') {
+    @include responsive("640px") {
       position: absolute;
       bottom: -190px;
       background: $charcoal;
@@ -410,7 +426,7 @@ button.gsc-search-button {
       }
     }
 
-    @include responsive('340px') {
+    @include responsive("340px") {
       bottom: -215px;
       height: 215px;
     }
@@ -458,7 +474,7 @@ button.gsc-search-button {
       height: 126px;
       max-width: 620px;
 
-      @include responsive('420px') {
+      @include responsive("420px") {
         height: 145px;
       }
 
@@ -481,7 +497,7 @@ button.gsc-search-button {
       font-family: $primary-font-bold;
       font-weight: normal;
 
-      @include responsive('1024px') {
+      @include responsive("1024px") {
         line-height: 2.2rem;
       }
     }
@@ -489,7 +505,7 @@ button.gsc-search-button {
     p {
       font-size: 1.6rem;
 
-      @include responsive('1024px') {
+      @include responsive("1024px") {
         line-height: 2.2rem;
       }
     }
@@ -574,7 +590,7 @@ blockquote {
     justify-content: center;
     min-height: 10rem;
 
-    @include responsive('1024px') {
+    @include responsive("1024px") {
       min-height: 5rem;
     }
 
@@ -597,7 +613,7 @@ blockquote {
 
     @include link_style($red, lighten($red, 10%));
 
-    @include responsive('680px') {
+    @include responsive("680px") {
       padding: 2rem;
     }
 
@@ -651,7 +667,7 @@ figure {
 
 /* Breadcrumbs */
 .small-6 {
-  @include responsive('640px') {
+  @include responsive("640px") {
     //        width: 100% !important;
   }
 }
@@ -666,7 +682,7 @@ figure {
 .breadcrumb p {
   text-transform: uppercase;
 
-  @include responsive('640px') {
+  @include responsive("640px") {
     &.share-wrap {
       //            display: none;
 
@@ -681,7 +697,7 @@ figure {
   margin-top: 3rem;
   margin-left: 1rem;
 
-  @include responsive('1024px') {
+  @include responsive("1024px") {
     margin-top: 2rem;
     margin-bottom: 2rem;
   }
@@ -695,7 +711,7 @@ figure {
   margin-left: 0;
 
   &:before {
-    content: '\00ab';
+    content: "\00ab";
   }
 }
 
@@ -707,20 +723,20 @@ figure {
     visibility: hidden;
   }
 
-  input[type='text'],
-  input[type='email'],
-  input[type='password'] {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
     font-size: 1.8rem;
     height: 4.4rem;
     margin-right: 3%;
     width: 100%;
 
-    @include responsive('500px') {
+    @include responsive("500px") {
       width: 100%;
     }
   }
 
-  input[type='submit'] {
+  input[type="submit"] {
     margin-top: 1rem;
     padding: 1rem 2rem;
     float: right;
@@ -728,7 +744,7 @@ figure {
 }
 
 .no-breadcrumb {
-  @include responsive('640px') {
+  @include responsive("640px") {
     margin-top: 3rem !important;
   }
 }
@@ -765,7 +781,7 @@ figure {
       padding: 1rem 1.5rem 2rem 0;
       position: relative;
 
-      @include responsive('1024px') {
+      @include responsive("1024px") {
         padding: 1rem 2rem 4rem;
       }
 
@@ -897,7 +913,7 @@ ul.pagination {
     position: relative;
     display: flex;
 
-    @include responsive('640px') {
+    @include responsive("640px") {
       height: auto;
       display: block;
       padding: 1rem 2rem;
@@ -940,7 +956,7 @@ ul.pagination {
     max-width: 246px;
     margin-right: 2rem;
 
-    @include responsive('640px') {
+    @include responsive("640px") {
       width: 100%;
       max-width: 1000px;
       max-height: none;
@@ -969,7 +985,7 @@ ul.pagination {
     font-size: 1.6rem;
     color: $charcoal;
 
-    @include responsive('640px') {
+    @include responsive("640px") {
       padding: 1rem 0;
     }
   }
@@ -982,7 +998,7 @@ ul.pagination {
     margin: 2rem 0;
     text-align: center;
 
-    @include responsive('640px') {
+    @include responsive("640px") {
       border: none;
       font-size: 4rem;
     }
@@ -1004,7 +1020,7 @@ ul.pagination {
   font-weight: normal;
   margin: 4rem 0;
 
-  @include responsive('1024px') {
+  @include responsive("1024px") {
     margin: 1rem 0;
   }
 }
@@ -1044,7 +1060,7 @@ ul.pagination {
   margin-top: 5rem !important;
   margin-bottom: 15rem !important;
 
-  @include responsive('1024px') {
+  @include responsive("1024px") {
     margin-top: 3rem !important;
     margin-bottom: 3rem !important;
 
@@ -1057,7 +1073,7 @@ ul.pagination {
 .content {
   padding-bottom: 4rem;
 
-  @include responsive('1024px') {
+  @include responsive("1024px") {
     padding: 1rem 0rem 4rem;
   }
 
@@ -1090,17 +1106,17 @@ ul.pagination {
 
     &.jumbo {
       font-size: 8.5rem;
-      font-family: 'UniversLTPro-Condensed';
+      font-family: "UniversLTPro-Condensed";
       font-weight: bold;
       line-height: 1.2;
       text-transform: uppercase;
       color: $white;
 
-      @include responsive('1024px') {
+      @include responsive("1024px") {
         font-size: 6rem;
       }
 
-      @include responsive('500px') {
+      @include responsive("500px") {
         font-size: 4rem;
       }
     }
@@ -1173,7 +1189,7 @@ ul.pagination {
 }
 
 .additional-content {
-  @include responsive('1024px') {
+  @include responsive("1024px") {
     padding: 0rem 2rem;
   }
 }
@@ -1255,7 +1271,7 @@ ul.pagination {
       float: left;
       margin-right: 7px;
 
-      @include responsive('630px') {
+      @include responsive("630px") {
         float: none;
       }
     }
@@ -1484,7 +1500,7 @@ ul.pagination {
 .judges {
   margin-top: 4rem;
 
-  @include responsive('640px') {
+  @include responsive("640px") {
     margin-top: 0;
   }
 
@@ -1506,7 +1522,7 @@ ul.pagination {
     .featured-image-wrap {
       margin-top: 1rem;
 
-      @include responsive('640px') {
+      @include responsive("640px") {
         text-align: left;
       }
     }
@@ -1515,7 +1531,7 @@ ul.pagination {
   .director {
     margin-bottom: 5rem;
 
-    @include responsive('640px') {
+    @include responsive("640px") {
       margin-top: 3rem;
     }
   }
@@ -1531,7 +1547,7 @@ ul.pagination {
   .medium-10 {
     padding-left: 3.5rem;
 
-    @include responsive('640px') {
+    @include responsive("640px") {
       padding-left: 0.9375rem;
       margin-top: 1rem;
     }
@@ -1593,11 +1609,11 @@ ul.pagination {
     margin-bottom: 30px;
     padding: 35px 0;
 
-    @include responsive('1280px') {
+    @include responsive("1280px") {
       padding: 35px 20px;
     }
 
-    @include responsive('640px') {
+    @include responsive("640px") {
       padding: 35px 20px 0;
 
       .columns {
@@ -1677,9 +1693,9 @@ ul.pagination {
       display: inline;
     }
 
-    input[type='submit'],
+    input[type="submit"],
     button,
-    div.wpforms-container-full .wpforms-form button[type='submit'] {
+    div.wpforms-container-full .wpforms-form button[type="submit"] {
       background: $lblue;
       border: none;
       color: $white;
@@ -1689,17 +1705,17 @@ ul.pagination {
       width: 30%;
       padding: 0;
 
-      @include responsive('900px') {
+      @include responsive("900px") {
         font-size: 1.5rem;
       }
 
-      @include responsive('500px') {
+      @include responsive("500px") {
         width: 100%;
       }
     }
 
-    input[type='text'],
-    input[type='email'] {
+    input[type="text"],
+    input[type="email"] {
       float: left;
       font-size: 1.8rem;
       height: 4.4rem;
@@ -1707,7 +1723,7 @@ ul.pagination {
       width: 65%;
       margin-top: 10px;
 
-      @include responsive('500px') {
+      @include responsive("500px") {
         width: 100%;
       }
     }
@@ -1749,14 +1765,14 @@ ul.pagination {
 
       &:after {
         font-family: FontAwesome;
-        content: '\f055';
+        content: "\f055";
         float: right;
       }
     }
 
     &.active {
       > a:after {
-        content: '\f056';
+        content: "\f056";
       }
     }
 
@@ -1817,10 +1833,10 @@ main .wpforms-form,
   max-width: 640px;
   margin: 2rem auto;
 
-  input[type='text'],
-  input[type='email'],
-  input[type='password'],
-  input[type='tel'],
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
   select {
     height: 4rem;
     font-size: 2rem;
@@ -1834,14 +1850,14 @@ main .wpforms-form,
     width: 100%;
   }
 
-  input[type='checkbox'] {
+  input[type="checkbox"] {
     margin-left: -20px;
     float: left;
     margin-top: 8px;
   }
 
-  input[type='submit'],
-  button[type='submit'] {
+  input[type="submit"],
+  button[type="submit"] {
     background: $lblue;
     border: none;
     color: $white;
@@ -1872,7 +1888,7 @@ main .wpforms-form,
     background: $myellow;
     padding: 7rem 0;
 
-    @include responsive('1024px') {
+    @include responsive("1024px") {
       padding: 4rem 2rem;
     }
   }
@@ -1885,7 +1901,7 @@ main .wpforms-form,
       color: $white;
     }
 
-    @include responsive('1024px') {
+    @include responsive("1024px") {
       padding: 4rem 2rem;
     }
   }
@@ -1894,7 +1910,7 @@ main .wpforms-form,
     background: #ededed;
     padding: 4rem 0;
 
-    @include responsive('1024px') {
+    @include responsive("1024px") {
       padding: 4rem 2rem;
     }
   }
@@ -1903,7 +1919,7 @@ main .wpforms-form,
     background: white;
     padding: 4rem 0;
 
-    @include responsive('1024px') {
+    @include responsive("1024px") {
       padding: 4rem 2rem;
     }
   }
@@ -1911,7 +1927,7 @@ main .wpforms-form,
 
 .testimonials {
   padding: 4rem 0;
-  @include responsive('1024px') {
+  @include responsive("1024px") {
     padding: 4rem 2rem;
   }
 }
@@ -1934,7 +1950,7 @@ main .wpforms-form,
       margin-right: 0;
     }
 
-    @include responsive('640px') {
+    @include responsive("640px") {
       flex: 1 0 100%;
       max-width: 100%;
     }
@@ -1944,8 +1960,8 @@ main .wpforms-form,
     padding: 2rem;
 
     &:before {
-      content: '\201C';
-      font-family: 'UniversLTPro-65Bold';
+      content: "\201C";
+      font-family: "UniversLTPro-65Bold";
       color: $white;
       font-size: 7rem;
       display: block;
@@ -1956,7 +1972,7 @@ main .wpforms-form,
 
     p {
       color: $ublue;
-      font-family: 'UniversLTPro-65Bold';
+      font-family: "UniversLTPro-65Bold";
       font-weight: bold;
       font-size: 1.6rem;
     }
@@ -1974,13 +1990,13 @@ main .wpforms-form,
 }
 
 .donate-image {
-  @include responsive('1024px') {
+  @include responsive("1024px") {
     margin-bottom: 4rem;
   }
 }
 
 .flex-row {
-  @include responsive('640px') {
+  @include responsive("640px") {
     display: flex;
     flex-direction: column-reverse;
   }
