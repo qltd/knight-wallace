@@ -98,12 +98,26 @@ body {
   width: 100%;
 
   @include responsive("768px") {
-      flex-wrap:wrap;
-      justify-content: center;
+    flex-wrap: wrap;
+    justify-content: center;
 
     figure {
-        height: 100%;
-        width: 50%;
+      height: 100%;
+      width: 100%;
+      max-width: 30%;
+
+      strong {
+        display: inline-block;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  @include responsive("450px") {
+    figure {
+      strong {
+        width: 50px;
+      }
     }
   }
 }
