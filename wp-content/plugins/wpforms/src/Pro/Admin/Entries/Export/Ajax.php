@@ -5,11 +5,7 @@ namespace WPForms\Pro\Admin\Entries\Export;
 /**
  * Ajax endpoints and data processing.
  *
- * @since      1.5.5
- * @author     WPForms
- * @package    WPForms\Pro\Admin\Entries\Export
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2019, WPForms LLC
+ * @since 1.5.5
  */
 class Ajax {
 
@@ -130,7 +126,7 @@ class Ajax {
 				! check_ajax_referer( 'wpforms-tools-entries-export-nonce', 'nonce', false ) ||
 				empty( $args['nonce'] ) ||
 				empty( $args['action'] ) ||
-				! wpforms_current_user_can()
+				! wpforms_current_user_can( 'view_entries' )
 			) {
 				throw new \Exception( $this->export->errors['security'] );
 			}
@@ -141,7 +137,9 @@ class Ajax {
 			}
 
 			// Unlimited execution time.
-			set_time_limit( 0 );
+			if ( ! in_array( 'set_time_limit', explode( ',', ini_get( 'disable_functions' ) ), true ) ) {
+				set_time_limit( 0 );
+			}
 
 			// Getting request data.
 			if ( empty( $args['request_id'] ) ) {
@@ -415,7 +413,7 @@ class Ajax {
 				$val = $entry[ $col_id ];
 		}
 
-		return $val;
+		return apply_filters( 'wpforms_pro_admin_entries_export_ajax_get_additional_info_value', $val, $col_id, $entry );
 	}
 
 	/**
@@ -441,11 +439,9 @@ class Ajax {
 			return $val;
 		}
 
-		$ths = $this;
-
 		$val = array_reduce(
 			$entry_notes,
-			function ( $carry, $item ) use ( $ths ) {
+			function ( $carry, $item ) {
 
 				$item = (array) $item;
 
@@ -453,7 +449,7 @@ class Ajax {
 				$author_name  = ! empty( $author->first_name ) ? $author->first_name : $author->user_login;
 				$author_name .= ! empty( $author->last_name ) ? ' ' . $author->last_name : '';
 
-				$carry .= date_i18n( $ths->date_format(), strtotime( $item['date'] ) + $ths->gmt_offset_sec() ) . ', ';
+				$carry .= date_i18n( $this->date_format(), strtotime( $item['date'] ) + $this->gmt_offset_sec() ) . ', ';
 				$carry .= $author_name . ': ';
 				$carry .= wp_strip_all_tags( $item['data'] ) . "\n";
 

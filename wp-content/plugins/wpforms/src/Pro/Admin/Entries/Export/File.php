@@ -8,11 +8,7 @@ use \Goodby\CSV\Export\Standard\ExporterConfig;
 /**
  * File-related routines.
  *
- * @since      1.5.5
- * @author     WPForms
- * @package    WPForms\Pro\Admin\Entries\Export
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2019, WPForms LLC
+ * @since 1.5.5
  */
 class File {
 
@@ -121,6 +117,24 @@ class File {
 	}
 
 	/**
+	 * Send HTTP headers for .csv file download.
+	 *
+	 * @since 1.5.5.1
+	 *
+	 * @param string $file_name File name.
+	 */
+	public function http_headers( $file_name ) {
+
+		$file_name = empty( $file_name ) ? 'wpforms-entries.csv' : $file_name;
+
+		nocache_headers();
+		header( 'Content-Description: File Transfer' );
+		header( 'Content-Type: text/csv' );
+		header( 'Content-Disposition: attachment; filename=' . $file_name );
+		header( 'Content-Transfer-Encoding: binary' );
+	}
+
+	/**
 	 * Entries export file download.
 	 *
 	 * @since 1.5.5
@@ -140,7 +154,7 @@ class File {
 			// Security check.
 			if (
 				! wp_verify_nonce( $args['nonce'], 'wpforms-tools-entries-export-nonce' ) ||
-				! wpforms_current_user_can()
+				! wpforms_current_user_can( 'view_entries' )
 			) {
 				throw new \Exception( $this->export->errors['security'] );
 			}
@@ -166,9 +180,7 @@ class File {
 			}
 
 			$file_name = 'wpforms-' . $request_data['db_args']['form_id'] . '-' . sanitize_file_name( get_the_title( $request_data['db_args']['form_id'] ) ) . '-' . date( 'Y-m-d-H-i-s' ) . '.csv';
-			nocache_headers();
-			header( 'Content-Disposition: attachment; filename=' . $file_name );
-			header( 'Content-Transfer-Encoding: binary' );
+			$this->http_headers( $file_name );
 
 			readfile( $export_file ); // phpcs:ignore
 			exit;
@@ -230,7 +242,7 @@ class File {
 			// Security check.
 			if (
 				! wp_verify_nonce( $args['nonce'], 'wpforms-tools-single-entry-export-nonce' ) ||
-				! wpforms_current_user_can()
+				! wpforms_current_user_can( 'view_entries' )
 			) {
 				throw new \Exception( $this->export->errors['security'] );
 			}
@@ -259,9 +271,7 @@ class File {
 			}
 
 			$file_name = 'wpforms-' . $request_data['db_args']['form_id'] . '-' . sanitize_file_name( get_the_title( $request_data['db_args']['form_id'] ) ) . '-entry-' . $request_data['db_args']['entry_id'] . '-' . date( 'Y-m-d-H-i-s' ) . '.csv';
-			nocache_headers();
-			header( 'Content-Disposition: attachment; filename=' . $file_name );
-			header( 'Content-Transfer-Encoding: binary' );
+			$this->http_headers( $file_name );
 
 			readfile( $export_file ); // phpcs:ignore
 			exit;
