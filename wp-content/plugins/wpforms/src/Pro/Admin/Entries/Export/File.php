@@ -8,11 +8,7 @@ use \Goodby\CSV\Export\Standard\ExporterConfig;
 /**
  * File-related routines.
  *
- * @since      1.5.5
- * @author     WPForms
- * @package    WPForms\Pro\Admin\Entries\Export
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2019, WPForms LLC
+ * @since 1.5.5
  */
 class File {
 
@@ -63,6 +59,10 @@ class File {
 
 		$export_file = $this->get_tmpfname( $request_data );
 
+		if ( empty( $export_file ) ) {
+			return;
+		}
+
 		// Include Exporter.
 		require_once WPFORMS_PLUGIN_DIR . 'vendor/autoload.php';
 
@@ -83,10 +83,10 @@ class File {
 	public function get_tmpdir() {
 
 		$uploads              = wp_upload_dir();
-		$wpforms_uploads_root = trailingslashit( $uploads['basedir'] ) . 'wpforms';
+		$wpforms_uploads_root = trailingslashit( realpath( $uploads['basedir'] ) ) . 'wpforms';
 
 		// Apply filter to allow redefine tmp directory.
-		$custom_uploads_root = apply_filters( 'wpforms_upload_root', $wpforms_uploads_root );
+		$custom_uploads_root = realpath( (string) apply_filters( 'wpforms_upload_root', $wpforms_uploads_root ) );
 		if ( wp_is_writable( $custom_uploads_root ) ) {
 			$wpforms_uploads_root = $custom_uploads_root;
 		}
@@ -113,11 +113,70 @@ class File {
 	 */
 	public function get_tmpfname( $request_data ) {
 
+		if ( empty( $request_data ) ) {
+			return '';
+		}
+
 		$export_dir  = $this->get_tmpdir();
 		$export_file = $export_dir . '/' . sanitize_key( $request_data['request_id'] );
 		touch( $export_file );
 
 		return $export_file;
+	}
+
+	/**
+	 * Send HTTP headers for .csv file download.
+	 *
+	 * @since 1.5.5.1
+	 *
+	 * @param string $file_name File name.
+	 */
+	public function http_headers( $file_name ) {
+
+		$file_name = empty( $file_name ) ? 'wpforms-entries.csv' : $file_name;
+
+		nocache_headers();
+		header( 'Content-Description: File Transfer' );
+		header( 'Content-Type: text/csv' );
+		header( 'Content-Disposition: attachment; filename=' . $file_name );
+		header( 'Content-Transfer-Encoding: binary' );
+	}
+
+	/**
+	 * Output the file.
+	 *
+	 * @since 1.6.0.2
+	 *
+	 * @param array $request_data Request data.
+	 *
+	 * @throws \Exception In case of file error.
+	 */
+	public function output_file( $request_data ) {
+
+		$export_file = $this->get_tmpfname( $request_data );
+
+		if ( empty( $export_file ) ) {
+			throw new \Exception( $this->export->errors['unknown_request'] );
+		}
+
+		clearstatcache( true, $export_file );
+
+		if ( ! is_readable( $export_file ) || is_dir( $export_file ) ) {
+			throw new \Exception( $this->export->errors['file_not_readable'] );
+		}
+
+		if ( @filesize( $export_file ) === 0 ) { //phpcs:ignore
+			throw new \Exception( $this->export->errors['file_empty'] );
+		}
+
+		$entry_suffix = ! empty( $request_data['db_args']['entry_id'] ) ? '-entry-' . $request_data['db_args']['entry_id'] : '';
+
+		$file_name = 'wpforms-' . $request_data['db_args']['form_id'] . '-' . sanitize_file_name( get_the_title( $request_data['db_args']['form_id'] ) ) . $entry_suffix . '-' . current_time( 'Y-m-d-H-i-s' ) . '.csv';
+		$this->http_headers( $file_name );
+
+		readfile( $export_file ); // phpcs:ignore
+
+		exit;
 	}
 
 	/**
@@ -140,7 +199,7 @@ class File {
 			// Security check.
 			if (
 				! wp_verify_nonce( $args['nonce'], 'wpforms-tools-entries-export-nonce' ) ||
-				! wpforms_current_user_can()
+				! wpforms_current_user_can( 'view_entries' )
 			) {
 				throw new \Exception( $this->export->errors['security'] );
 			}
@@ -153,25 +212,7 @@ class File {
 			// Get stored request data.
 			$request_data = get_transient( 'wpforms-tools-entries-export-request-' . $args['request_id'] );
 
-			$export_file = $this->get_tmpfname( $request_data );
-
-			clearstatcache( true, $export_file );
-
-			if ( ! is_readable( $export_file ) ) {
-				throw new \Exception( $this->export->errors['file_not_readable'] );
-			}
-
-			if ( @filesize( $export_file ) === 0 ) { //phpcs:ignore
-				throw new \Exception( $this->export->errors['file_empty'] );
-			}
-
-			$file_name = 'wpforms-' . $request_data['db_args']['form_id'] . '-' . sanitize_file_name( get_the_title( $request_data['db_args']['form_id'] ) ) . '-' . date( 'Y-m-d-H-i-s' ) . '.csv';
-			nocache_headers();
-			header( 'Content-Disposition: attachment; filename=' . $file_name );
-			header( 'Content-Transfer-Encoding: binary' );
-
-			readfile( $export_file ); // phpcs:ignore
-			exit;
+			$this->output_file( $request_data );
 
 		} catch ( \Exception $e ) {
 			// phpcs:disable
@@ -230,7 +271,7 @@ class File {
 			// Security check.
 			if (
 				! wp_verify_nonce( $args['nonce'], 'wpforms-tools-single-entry-export-nonce' ) ||
-				! wpforms_current_user_can()
+				! wpforms_current_user_can( 'view_entries' )
 			) {
 				throw new \Exception( $this->export->errors['security'] );
 			}
@@ -246,25 +287,7 @@ class File {
 			// Writing to csv file.
 			$this->write_csv( $export_data, $request_data );
 
-			$export_file = $this->get_tmpfname( $request_data );
-
-			clearstatcache( true, $export_file );
-
-			if ( ! is_readable( $export_file ) ) {
-				throw new \Exception( $this->export->errors['file_not_readable'] );
-			}
-
-			if ( @filesize( $export_file ) === 0 ) { //phpcs:ignore
-				throw new \Exception( $this->export->errors['file_empty'] );
-			}
-
-			$file_name = 'wpforms-' . $request_data['db_args']['form_id'] . '-' . sanitize_file_name( get_the_title( $request_data['db_args']['form_id'] ) ) . '-entry-' . $request_data['db_args']['entry_id'] . '-' . date( 'Y-m-d-H-i-s' ) . '.csv';
-			nocache_headers();
-			header( 'Content-Disposition: attachment; filename=' . $file_name );
-			header( 'Content-Transfer-Encoding: binary' );
-
-			readfile( $export_file ); // phpcs:ignore
-			exit;
+			$this->output_file( $request_data );
 
 		} catch ( \Exception $e ) {
 

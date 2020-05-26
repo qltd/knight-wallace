@@ -3,11 +3,7 @@
 /**
  * Payment Radio Field.
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.0.0
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2016, WPForms LLC
+ * @since 1.0.0
  */
 class WPForms_Field_Payment_Multiple extends WPForms_Field {
 
@@ -71,6 +67,7 @@ class WPForms_Field_Payment_Multiple extends WPForms_Field {
 		// provides a filter to disable fancy display.
 		if (
 			'entry-table' !== $context &&
+			! empty( $field['type'] ) &&
 			'payment-multiple' === $field['type'] &&
 			! empty( $field['value'] ) &&
 			! empty( $field['image'] ) &&
@@ -404,7 +401,7 @@ class WPForms_Field_Payment_Multiple extends WPForms_Field {
 	}
 
 	/**
-	 * Validates field on form submit.
+	 * Validate field on form submit.
 	 *
 	 * @since 1.0.0
 	 *
@@ -427,7 +424,7 @@ class WPForms_Field_Payment_Multiple extends WPForms_Field {
 	}
 
 	/**
-	 * Formats and sanitizes field.
+	 * Format and sanitize field.
 	 *
 	 * @since 1.0.0
 	 *

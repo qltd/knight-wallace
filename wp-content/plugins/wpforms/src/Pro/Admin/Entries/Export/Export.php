@@ -5,11 +5,7 @@ namespace WPForms\Pro\Admin\Entries\Export;
 /**
  * Entries Export.
  *
- * @since      1.5.5
- * @author     WPForms
- * @package    WPForms\Pro\Admin\Entries
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2019, WPForms LLC
+ * @since 1.5.5
  */
 class Export {
 
@@ -102,6 +98,10 @@ class Export {
 	 */
 	public function __construct() {
 
+		if ( ! wpforms_current_user_can( 'view_entries' ) ) {
+			return;
+		}
+
 		$this->init_args();
 		$this->init_settings();
 		$this->init_form_data();
@@ -119,18 +119,22 @@ class Export {
 	protected function init_settings() {
 
 		// Additional information fields.
-		$this->additional_info_fields = array(
-			'entry_id'   => esc_html__( 'Entry ID', 'wpforms' ),
-			'date'       => esc_html__( 'Entry Date', 'wpforms' ),
-			'notes'      => esc_html__( 'Entry Notes', 'wpforms' ),
-			'viewed'     => esc_html__( 'Viewed', 'wpforms' ),
-			'starred'    => esc_html__( 'Starred', 'wpforms' ),
-			'user_agent' => esc_html__( 'User Agent', 'wpforms' ),
-			'ip_address' => esc_html__( 'User IP', 'wpforms' ),
-			'user_uuid'  => esc_html__( 'Unique Generated User ID', 'wpforms' ),
-			'geodata'    => esc_html__( 'Geolocation Details', 'wpforms' ),
-			'pginfo'     => esc_html__( 'Payment Gateway Information', 'wpforms' ),
-			'del_fields' => esc_html__( 'Include data of previously deleted fields', 'wpforms' ),
+		$this->additional_info_fields = apply_filters(
+			'wpforms_pro_admin_entries_export_additional_info_fields',
+			array(
+				'entry_id'   => esc_html__( 'Entry ID', 'wpforms' ),
+				'date'       => esc_html__( 'Entry Date', 'wpforms' ),
+				'notes'      => esc_html__( 'Entry Notes', 'wpforms' ),
+				'viewed'     => esc_html__( 'Viewed', 'wpforms' ),
+				'starred'    => esc_html__( 'Starred', 'wpforms' ),
+				'user_agent' => esc_html__( 'User Agent', 'wpforms' ),
+				'ip_address' => esc_html__( 'User IP', 'wpforms' ),
+				'user_uuid'  => esc_html__( 'Unique Generated User ID', 'wpforms' ),
+				'geodata'    => esc_html__( 'Geolocation Details', 'wpforms' ),
+				'pstatus'    => esc_html__( 'Payment Status', 'wpforms' ),
+				'pginfo'     => esc_html__( 'Payment Gateway Information', 'wpforms' ),
+				'del_fields' => esc_html__( 'Include data of previously deleted fields', 'wpforms' ),
+			)
 		);
 
 		// Error strings.
@@ -331,6 +335,7 @@ class Export {
 			$this->data['get_args']['form_id'],
 			array(
 				'content_only' => true,
+				'cap'          => 'view_entries_form_single',
 			)
 		);
 	}
@@ -350,7 +355,7 @@ class Export {
 		}
 
 		// Check for user with correct capabilities.
-		if ( ! wpforms_current_user_can() ) {
+		if ( ! wpforms_current_user_can( 'view_entries' ) ) {
 			return false;
 		}
 

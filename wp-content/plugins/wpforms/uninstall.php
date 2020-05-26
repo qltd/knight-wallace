@@ -1,8 +1,8 @@
 <?php
 /**
- * Uninstalls WPForms.
+ * Uninstall WPForms.
  *
- * Removes:
+ * Remove:
  * - Entries table
  * - Entry Meta table
  * - Entry fields table
@@ -14,11 +14,7 @@
  * - WPForms term meta
  * - WPForms Uploads
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.4.5
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2018, WPForms LLC
+ * @since 1.4.5
  *
  * @var WP_Filesystem_Base $wp_filesystem
  */
@@ -29,6 +25,9 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+
+// Load plugin file.
+require_once 'wpforms.php';
 
 // Confirm user has decided to remove all data, otherwise stop.
 $settings = get_option( 'wpforms_settings', array() );
@@ -47,6 +46,10 @@ $wpdb->query( 'DROP TABLE IF EXISTS ' . $wpdb->prefix . 'wpforms_entry_meta' );
 // Delete entry fields table.
 $wpdb->query( 'DROP TABLE IF EXISTS ' . $wpdb->prefix . 'wpforms_entry_fields' );
 
+// Delete tasks meta table.
+// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+$wpdb->query( 'DROP TABLE IF EXISTS ' . \WPForms\Tasks\Meta::get_table_name() );
+
 // Delete Preview page.
 $preview_page = get_option( 'wpforms_preview_page', false );
 if ( ! empty( $preview_page ) ) {
@@ -58,7 +61,7 @@ $wpforms_posts = get_posts(
 	array(
 		'post_type'   => array( 'wpforms_log', 'wpforms' ),
 		'post_status' => 'any',
-		'numberposts' => -1,
+		'numberposts' => - 1,
 		'fields'      => 'ids',
 	)
 );
@@ -83,13 +86,25 @@ $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '\_site\_tran
 $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '\_transient\_timeout\_wpforms\_%'" );
 $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '\_site\_transient\_timeout\_wpforms\_%'" );
 
-// Remove plugin cron jobs.
-wp_clear_scheduled_hook( 'wpforms_email_summaries_cron' );
+global $wp_filesystem;
 
 // Remove uploaded files.
 $uploads_directory = wp_upload_dir();
-if ( ! empty( $uploads_directory['error'] ) ) {
-	return;
+if ( empty( $uploads_directory['error'] ) ) {
+	$wp_filesystem->rmdir( $uploads_directory['basedir'] . '/wpforms/', true );
 }
-global $wp_filesystem;
-$wp_filesystem->rmdir( $uploads_directory['basedir'] . '/wpforms/', true );
+
+// Remove translation files.
+$languages_directory = defined( 'WP_LANG_DIR' ) ? trailingslashit( WP_LANG_DIR ) : trailingslashit( WP_CONTENT_DIR ) . 'languages/';
+$translations        = glob( wp_normalize_path( $languages_directory . 'plugins/wpforms-*' ) );
+if ( ! empty( $translations ) ) {
+	foreach ( $translations as $file ) {
+		$wp_filesystem->delete( $file );
+	}
+}
+
+// Remove plugin cron jobs.
+wp_clear_scheduled_hook( 'wpforms_email_summaries_cron' );
+
+// Unschedule all ActionScheduler actions by group.
+wpforms()->get( 'tasks' )->cancel_all();

@@ -2,11 +2,7 @@
 /**
  * Payment related functions.
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.0.0
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2016, WPForms LLC
+ * @since 1.0.0
  */
 
 /**
@@ -219,7 +215,7 @@ function wpforms_get_currencies() {
 /**
  * Sanitize Amount.
  *
- * Returns a sanitized amount by stripping out thousands separators.
+ * Return a sanitized amount by stripping out thousands separators.
  *
  * @since 1.2.6
  * @link https://github.com/easydigitaldownloads/easy-digital-downloads/blob/master/includes/formatting.php#L24
@@ -268,14 +264,13 @@ function wpforms_sanitize_amount( $amount, $currency = '' ) {
 }
 
 /**
- * Returns a nicely formatted amount.
+ * Return a nicely formatted amount.
  *
  * @since 1.2.6
- * @link https://github.com/easydigitaldownloads/easy-digital-downloads/blob/master/includes/formatting.php#L83
  *
- * @param string  $amount
- * @param boolean $symbol
- * @param string  $currency
+ * @param string $amount
+ * @param bool   $symbol
+ * @param string $currency
  *
  * @return string $amount Newly formatted amount or Price Not Available
  */
@@ -379,7 +374,7 @@ function wpforms_has_payment( $type = 'entry', $data = array() ) {
 }
 
 /**
- * Checks to see if a form has an active payment gateway configured.
+ * Check to see if a form has an active payment gateway configured.
  *
  * @since 1.4.5
  *
@@ -449,6 +444,7 @@ function wpforms_get_payment_items( $fields = array() ) {
 
 	foreach ( $fields as $id => $field ) {
 		if (
+			empty( $field['type'] ) ||
 			! in_array( $field['type'], $payment_fields, true ) ||
 			empty( $field['amount'] ) ||
 			$field['amount'] == wpforms_sanitize_amount( '0' )

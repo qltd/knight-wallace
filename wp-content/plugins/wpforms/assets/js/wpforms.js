@@ -203,9 +203,28 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 				// Validate Smart Phone Field.
 				if ( typeof $.fn.intlTelInput !== 'undefined' ) {
 					$.validator.addMethod( 'smart-phone-field', function( value, element ) {
+						if ( value.match( /[^\d()\-+\s]/ ) ) {
+							return false;
+						}
 						return this.optional( element ) || $( element ).intlTelInput( 'isValidNumber' );
-					}, wpforms_settings.val_smart_phone );
+					}, wpforms_settings.val_phone );
 				}
+
+				// Validate US Phone Field.
+				$.validator.addMethod( 'us-phone-field', function( value, element ) {
+					if ( value.match( /[^\d()\-+\s]/ ) ) {
+						return false;
+					}
+					return this.optional( element ) || value.replace( /[^\d]/g, '' ).length === 10;
+				}, wpforms_settings.val_phone );
+
+				// Validate International Phone Field.
+				$.validator.addMethod( 'int-phone-field', function( value, element ) {
+					if ( value.match( /[^\d()\-+\s]/ ) ) {
+						return false;
+					}
+					return this.optional( element ) || value.replace( /[^\d]/g, '' ).length > 0;
+				}, wpforms_settings.val_phone );
 
 				// Finally load jQuery Validation library for our forms.
 				$( '.wpforms-validate' ).each( function() {
@@ -242,6 +261,8 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 									}
 								} else if ( element.hasClass( 'wpforms-smart-phone-field' ) ) {
 									element.parent().after( error );
+								} else if ( element.hasClass( 'wpforms-validation-group-member' ) ) {
+									element.closest( '.wpforms-field' ).append( error );
 								} else {
 									error.insertAfter( element );
 								}
@@ -251,7 +272,7 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 									$field    = $element.closest( '.wpforms-field' ),
 									inputName = $element.attr( 'name' );
 								if ( 'radio' === $element.attr( 'type' ) || 'checkbox' === $element.attr( 'type' ) ) {
-									$field.find( 'input[name=\'' + inputName + '\']' ).addClass( errorClass ).removeClass( validClass );
+									$field.find( 'input[name="' + inputName + '"]' ).addClass( errorClass ).removeClass( validClass );
 								} else {
 									$element.addClass( errorClass ).removeClass( validClass );
 								}
@@ -262,7 +283,7 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 									$field    = $element.closest( '.wpforms-field' ),
 									inputName = $element.attr( 'name' );
 								if ( 'radio' === $element.attr( 'type' ) || 'checkbox' === $element.attr( 'type' ) ) {
-									$field.find( 'input[name=\'' + inputName + '\']' ).addClass( validClass ).removeClass( errorClass );
+									$field.find( 'input[name="' + inputName + '"]' ).addClass( validClass ).removeClass( errorClass );
 								} else {
 									$element.addClass( validClass ).removeClass( errorClass );
 								}
@@ -275,10 +296,18 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 									altText     = $submit.data( 'alt-text' ),
 									recaptchaID = $submit.get( 0 ).recaptchaID;
 
+								$submit.prop( 'disabled', true );
+								$form.find( '#wpforms-field_recaptcha-error' ).remove();
+
 								if ( ! app.empty( recaptchaID ) || recaptchaID === 0 ) {
 
 									// Form contains invisible reCAPTCHA.
-									grecaptcha.execute( recaptchaID );
+									grecaptcha.execute( recaptchaID ).then( null, function( reason ) {
+
+										reason = ( null === reason ) ? '' : '<br>' + reason;
+										$form.find( '.wpforms-recaptcha-container' ).append( '<label id="wpforms-field_recaptcha-error" class="wpforms-error"> ' + wpforms_settings.val_recaptcha_fail_msg + reason + '</label>' );
+										$submit.prop( 'disabled', false );
+									} );
 									return false;
 								}
 
@@ -287,12 +316,16 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 									$submit.text( altText );
 								}
 
-								$submit.prop( 'disabled', true );
-
 								// Remove name attributes if needed.
 								$( '.wpforms-input-temp-name' ).removeAttr( 'name' );
 
 								app.formSubmit( $form );
+							},
+							invalidHandler: function( event, validator ) {
+
+								if ( typeof validator.errorList[0] !== 'undefined' ) {
+									app.scrollToError( $( validator.errorList[0].element ) );
+								}
 							},
 							onkeyup: function( element, event ) {
 
@@ -327,10 +360,17 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 								}
 							},
 							onclick: function( element ) {
-								var validate = false;
+								var validate = false,
+									type = ( element || {} ).type,
+									$el = $( element );
 
-								if ( 'checkbox' === ( element || {} ).type ) {
-									$( element ).closest( '.wpforms-field-checkbox' ).find( 'label.wpforms-error' ).remove();
+								if ( [ 'checkbox', 'radio' ].indexOf( type ) > -1 ) {
+									if ( $el.hasClass( 'wpforms-likert-scale-option' ) ) {
+										$el = $el.closest( 'tr' );
+									} else {
+										$el = $el.closest( '.wpforms-field' );
+									}
+									$el.find( 'label.wpforms-error' ).remove();
 									validate = true;
 								}
 
@@ -354,7 +394,7 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 
 			// Only load if jQuery datepicker library exists.
 			if ( typeof $.fn.flatpickr !== 'undefined' ) {
-				$( '.wpforms-datepicker' ).each( function() {
+				$( '.wpforms-datepicker-wrap' ).each( function() {
 					var element = $( this ),
 						form    = element.closest( '.wpforms-form' ),
 						formID  = form.data( 'formid' ),
@@ -381,6 +421,16 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 					) {
 						properties.locale = wpforms_settings.locale;
 					}
+
+					properties.wrap = true;
+					properties.dateFormat = element.find( 'input' ).data( 'date-format' );
+
+					// Toggle clear date icon.
+					properties.onChange = function( selectedDates, dateStr, instance ) {
+
+						var display = dateStr === '' ? 'none' : 'block';
+						element.find( '.wpforms-datepicker-clear' ).css( 'display', display );
+					};
 
 					element.flatpickr( properties );
 				} );
@@ -435,9 +485,11 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 		loadInputMask: function() {
 
 			// Only load if jQuery input mask library exists.
-			if ( typeof $.fn.inputmask !== 'undefined' ) {
-				$( '.wpforms-masked-input' ).inputmask();
+			if ( typeof $.fn.inputmask === 'undefined' ) {
+				return;
 			}
+
+			$( '.wpforms-masked-input' ).inputmask();
 		},
 
 		/**
@@ -491,8 +543,10 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 				// Remove original input name not to interfere with a hidden input.
 				$el.removeAttr( 'name' );
 
-				$el.blur( function() {
-					if ( $el.intlTelInput( 'isValidNumber' ) ) {
+				// Instantly update a hidden form input with a correct data.
+				// Previously "blur" only was used, which is broken in case Enter was used to submit the form.
+				$el.on( 'blur input', function() {
+					if ( $el.intlTelInput( 'isValidNumber' ) || ! app.empty( window.WPFormsEditEntry ) ) {
 						$el.siblings( 'input[type="hidden"]' ).val( $el.intlTelInput( 'getNumber' ) );
 					}
 				} );
@@ -585,7 +639,7 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 			// Pagebreak navigation.
 			$( document ).on( 'click', '.wpforms-page-button', function( event ) {
 				event.preventDefault();
-				app.pagebreakNav( $( this ) );
+				app.pagebreakNav( this );
 			} );
 
 			// Payments: Update Total field(s) when latest calculation.
@@ -630,11 +684,11 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 			$( '.wpforms-field-rating-item' ).hover(
 				function() {
 					$( this ).parent().find( '.wpforms-field-rating-item' ).removeClass( 'selected hover' );
-					$( this ).prevAll().andSelf().addClass( 'hover' );
+					$( this ).prevAll().addBack().addClass( 'hover' );
 				},
 				function() {
 					$( this ).parent().find( '.wpforms-field-rating-item' ).removeClass( 'selected hover' );
-					$( this ).parent().find( 'input:checked' ).parent().prevAll().andSelf().addClass( 'selected' );
+					$( this ).parent().find( 'input:checked' ).parent().prevAll().addBack().addClass( 'selected' );
 				}
 			);
 
@@ -646,7 +700,7 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 					$items = $wrap.find( '.wpforms-field-rating-item' );
 
 				$items.removeClass( 'hover selected' );
-				$this.parent().prevAll().andSelf().addClass( 'selected' );
+				$this.parent().prevAll().addBack().addClass( 'selected' );
 			} );
 
 			// Rating field: preselect the selected rating (from dynamic/fallback population).
@@ -669,6 +723,14 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 					$( '#' + $this.attr( 'for' ) ).click();
 				}
 			} );
+
+			// IE: Click on the `image choice` image should trigger the click event on the input (checkbox or radio) field.
+			if ( window.document.documentMode ) {
+				$( document ).on( 'click', '.wpforms-image-choices-item img', function() {
+
+					$( this ).closest( 'label' ).find( 'input' ).click();
+				} );
+			}
 
 			$( document ).on( 'change', '.wpforms-field-checkbox input, .wpforms-field-radio input, .wpforms-field-payment-multiple input, .wpforms-field-payment-checkbox input, .wpforms-field-gdpr-checkbox input', function( event ) {
 
@@ -701,9 +763,9 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 			} );
 
 			// Upload fields: Check combined file size.
-			$( document ).on( 'change', '.wpforms-field-file-upload input', function() {
+			$( document ).on( 'change', '.wpforms-field-file-upload input[type=file]:not(".dropzone-input")', function() {
 				var $this       = $( this ),
-					$uploads    = $this.closest( 'form.wpforms-form' ).find( '.wpforms-field-file-upload input' ),
+					$uploads    = $this.closest( 'form.wpforms-form' ).find( '.wpforms-field-file-upload input:not(".dropzone-input")' ),
 					totalSize   = 0,
 					postMaxSize = Number( wpforms_settings.post_max_size ),
 					errorMsg    = '<div class="wpforms-error-container-post_max_size">' + wpforms_settings.val_post_max_size + '</div>',
@@ -751,6 +813,13 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 
 			} );
 
+			// Number Slider field: update hints.
+			$( document ).on( 'change input', '.wpforms-field-number-slider input[type=range]', function( event ) {
+				var hintEl = $( event.target ).siblings( '.wpforms-field-number-slider-hint' );
+
+				hintEl.html( hintEl.data( 'hint' ).replace( '{value}', '<b>' + event.target.value + '</b>' ) );
+			} );
+
 			// Enter key event.
 			$( document ).on( 'keydown', '.wpforms-form input', function( e ) {
 
@@ -773,15 +842,59 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 					$t.flatpickr( 'close' );
 				}
 
+				e.preventDefault();
+
 				if ( $page.hasClass( 'last' ) ) {
 					$page.closest( '.wpforms-form' ).find( '.wpforms-submit' ).click();
 					return;
 				}
 
-				e.preventDefault();
 				$page.find( '.wpforms-page-next' ).click();
 			} );
 
+			// Allow only numbers, minus and decimal point to be entered into the Numbers field.
+			$( document ).on( 'input', '.wpforms-field-number input', function( e ) {
+				this.value = this.value.replace( /[^-0-9.]/g, '' );
+			} );
+		},
+
+		/**
+		 * Scroll to and focus on the field with error.
+		 *
+		 * @since 1.5.8
+		 *
+		 * @param {jQuery} $el Form, container or input element jQuery object.
+		 */
+		scrollToError: function( $el ) {
+
+			if ( $el.length === 0 ) {
+				return;
+			}
+
+			// Look for a field with an error inside an $el.
+			var $field = $el.find( '.wpforms-field.wpforms-has-error' );
+
+			// Look outside in not found inside.
+			if ( $field.length === 0 ) {
+				$field = $el.closest( '.wpforms-field' );
+			}
+
+			if ( $field.length === 0 ) {
+				return;
+			}
+
+			var offset = $field.offset();
+
+			if ( typeof offset === 'undefined' ) {
+				return;
+			}
+
+			app.animateScrollTop( offset.top - 75, 750 ).done( function() {
+				var $error = $field.find( '.wpforms-error' ).first();
+				if ( app.isFunction( $error.focus ) ) {
+					$error.focus();
+				}
+			} );
 		},
 
 		/**
@@ -815,10 +928,10 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 			} else if ( ! app.empty( window.wpform_pageScroll ) ) {
 				pageScroll = window.wpform_pageScroll;
 			} else {
-				pageScroll = 75;
+				pageScroll = $indicator.data( 'scroll' ) !== 0 ? 75 : false;
 			}
 
-			// Toggling between pages.
+			// Toggling between the pages.
 			if ( 'next' === action ) {
 
 				// Validate.
@@ -830,13 +943,10 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 					} );
 
 					// Scroll to first/top error on page.
-					var $topError = $page.find( '.wpforms-error' ).first();
-					if ( $topError.length ) {
-						app.animateScrollTop( $topError.offset().top - 75, 750, $topError.focus );
-					}
+					app.scrollToError( $page );
 				}
 
-				// Move to next page.
+				// Move to the next page.
 				if ( valid ) {
 					page2 = next;
 					$page.hide();
@@ -849,13 +959,13 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 					if ( pageScroll ) {
 
 						// Scroll to top of the form.
-						app.animateScrollTop( $form.offset().top - pageScroll );
+						app.animateScrollTop( $form.offset().top - pageScroll, 750 );
 					}
 					$this.trigger( 'wpformsPageChange', [ page2, $form ] );
 				}
 			} else if ( 'prev' === action ) {
 
-				// Move to prev page.
+				// Move to the prev page.
 				page2 = prev;
 				$page.hide();
 				$form.find( '.wpforms-page-' + prev ).show();
@@ -863,7 +973,7 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 				$submit.hide();
 				if ( pageScroll ) {
 
-					// Scroll to top of the form.
+					// Scroll to the top of the form.
 					app.animateScrollTop( $form.offset().top - pageScroll );
 				}
 				$this.trigger( 'wpformsPageChange', [ page2, $form ] );
@@ -1200,6 +1310,10 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 		 * Create cookie.
 		 *
 		 * @since 1.3.3
+		 *
+		 * @param {string} name  Cookie name.
+		 * @param {string} value Cookie value.
+		 * @param {string} days  Whether it should expire and when.
 		 */
 		createCookie: function( name, value, days ) {
 
@@ -1221,13 +1335,17 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 			}
 
 			// Write the cookie.
-			document.cookie = name + '=' + value + expires + '; path=/';
+			document.cookie = name + '=' + value + expires + '; path=/; samesite=strict';
 		},
 
 		/**
 		 * Retrieve cookie.
 		 *
 		 * @since 1.3.3
+		 *
+		 * @param {string} name Cookie name.
+		 *
+		 * @returns {string|null} Cookie value or null when it doesn't exist.
 		 */
 		getCookie: function( name ) {
 
@@ -1239,7 +1357,7 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 				while ( ' ' === c.charAt( 0 ) ) {
 					c = c.substring( 1, c.length );
 				}
-				if ( 0 == c.indexOf( nameEQ ) ) {
+				if ( 0 === c.indexOf( nameEQ ) ) {
 					return c.substring( nameEQ.length, c.length );
 				}
 			}
@@ -1249,6 +1367,10 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 
 		/**
 		 * Delete cookie.
+		 *
+		 * @since 1.3.3
+		 *
+		 * @param {string} name Cookie name.
 		 */
 		removeCookie: function( name ) {
 
@@ -1299,10 +1421,23 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 		 */
 		currentIpToCountry: function( callback ) {
 
-			$.get( 'https://geo.wpforms.com/v2/geolocate/json/' )
+			var fallback = function() {
+
+				$.get( 'https://ipapi.co/jsonp', function() {}, 'jsonp' )
+					.always( function( resp ) {
+						var countryCode = ( resp && resp.country ) ? resp.country : '';
+						if ( ! countryCode ) {
+							var lang = app.getFirstBrowserLanguage();
+							countryCode = lang.indexOf( '-' ) > -1 ? lang.split( '-' ).pop() : '';
+						}
+						callback( countryCode );
+					} );
+			};
+
+			$.get( 'https://geo.wpforms.com/v3/geolocate/json' )
 				.done( function( resp ) {
-					if ( resp && resp.country_code ) {
-						callback( resp.country_code );
+					if ( resp && resp.country_iso ) {
+						callback( resp.country_iso );
 					} else {
 						fallback();
 					}
@@ -1310,19 +1445,6 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 				.fail( function( resp ) {
 					fallback();
 				} );
-
-			var fallback = function() {
-
-				$.get( 'https://ipapi.co/jsonp', function() {}, 'jsonp' )
-					 .always( function( resp ) {
-						 var countryCode = ( resp && resp.country ) ? resp.country : '';
-						 if ( ! countryCode ) {
-							 var lang = app.getFirstBrowserLanguage();
-							 countryCode = lang.indexOf( '-' ) > -1 ? lang.split( '-' ).pop() : '';
-						 }
-						 callback( countryCode );
-					 } );
-			};
 		},
 
 		/**
@@ -1423,6 +1545,13 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 		 */
 		displayFormAjaxErrors: function( $form, errors ) {
 
+			if ( 'string' === typeof errors ) {
+				app.displayFormAjaxGeneralErrors( $form, errors );
+				return;
+			}
+
+			errors = errors && ( 'errors' in errors ) ? errors.errors : null;
+
 			if ( app.empty( errors ) || ( app.empty( errors.general ) && app.empty( errors.field ) ) ) {
 				app.consoleLogAjaxError();
 				return;
@@ -1452,6 +1581,12 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 			}
 
 			if ( app.empty( errors ) ) {
+				return;
+			}
+
+			// Safety net for random errors thrown by a third-party code. Should never be used intentionally.
+			if ( 'string' === typeof errors ) {
+				$form.find( '.wpforms-submit-container' ).before( '<div class="wpforms-error-container">' + errors + '</div>' );
 				return;
 			}
 
@@ -1539,6 +1674,7 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 
 			formData = new FormData( $form.get( 0 ) );
 			formData.append( 'action', 'wpforms_submit' );
+			formData.append( 'page_url', window.location.href );
 
 			args = {
 				type       : 'post',
@@ -1557,10 +1693,14 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 					return;
 				}
 
+				if ( json.data && json.data.action_required ) {
+					$form.trigger( 'wpformsAjaxSubmitActionRequired', json );
+					return;
+				}
+
 				if ( ! json.success ) {
 					app.resetFormRecaptcha( $form );
-					var errors = json.data && 'errors' in json.data ? json.data.errors : null;
-					app.displayFormAjaxErrors( $form, errors );
+					app.displayFormAjaxErrors( $form, json.data );
 					$form.trigger( 'wpformsAjaxSubmitFailed', json );
 					return;
 				}
@@ -1595,12 +1735,18 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 
 			args.complete = function( jqHXR, textStatus ) {
 
+				// Do not make form active if the action is required.
+				if ( jqHXR.responseJSON && jqHXR.responseJSON.data && jqHXR.responseJSON.data.action_required ) {
+					return;
+				}
+
 				var $submit     = $form.find( '.wpforms-submit' ),
 					submitText  = $submit.data( 'submit-text' );
 
 				if ( submitText ) {
-					$submit.text( submitText ).prop( 'disabled', false );
+					$submit.text( submitText );
 				}
+				$submit.prop( 'disabled', false );
 
 				$container.css( 'opacity', '' );
 				$spinner.hide();
@@ -1627,7 +1773,22 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 		animateScrollTop: function( position, duration, complete ) {
 
 			duration = duration || 1000;
-			return $( 'html, body' ).animate( { scrollTop: position }, duration, complete ).promise();
+			complete = app.isFunction( complete ) ? complete : function() {};
+			return $( 'html, body' ).animate( { scrollTop: parseInt( position, 10 ) }, { duration: duration, complete: complete } ).promise();
+		},
+
+		/**
+		 * Check if object is a function.
+		 *
+		 * @since 1.5.8
+		 *
+		 * @param {mixed} object Object to check if it is function.
+		 *
+		 * @returns {boolean} True if object is a function.
+		 */
+		isFunction: function( object ) {
+
+			return !! ( object && object.constructor && object.call && object.apply );
 		},
 	};
 
