@@ -1317,3 +1317,17 @@ function custom_wpse_mail_from_name( $original_email_from ) {
  * Fixes WP Custom Fields not displaying with ACF active
  */
 add_filter('acf/settings/remove_wp_meta_box', '__return_false');
+
+
+
+add_action( 'wp_head', function(){
+    echo '
+        <script type="text/javascript">
+            window.umcookieconsent = {
+                content: {
+                    href: "https://wallacehouse.umich.edu/privacy-policy"
+                }
+            };
+        </script>
+    ';
+});
