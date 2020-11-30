@@ -636,12 +636,14 @@ class WPForms_Conditional_Logic_Fields {
 								} else {
 
 									// For rules referring to fields with choices
-									// we need to replace the choice key with the
-									// choice value.
+									// we need to replace the choice key with the choice value.
 									if ( ! empty( $form['fields'][ $rule_field ]['choices'][ $rule_value ]['value'] ) ) {
 										$val = esc_attr( $form['fields'][ $rule_field ]['choices'][ $rule_value ]['value'] );
-									} else {
+									} elseif ( isset( $form['fields'][ $rule_field ]['choices'][ $rule_value ]['label'] ) && '' !== trim( $form['fields'][ $rule_field ]['choices'][ $rule_value ]['label'] ) ) {
 										$val = esc_attr( $form['fields'][ $rule_field ]['choices'][ $rule_value ]['label'] );
+									} else {
+										/* translators: %d - choice number. */
+										$val = sprintf( esc_html__( 'Choice %d', 'wpforms' ), (int) $rule_field );
 									}
 								}
 
@@ -687,9 +689,11 @@ class WPForms_Conditional_Logic_Fields {
 
 			foreach ( $group as $rule_id => $rule ) {
 				// "field" is the only required key we need to have to be able to process the rule.
+				// "field" not selected equal ''.
+				// "field" may be '0' for first field in form.
 				// "operator" is preselected so it's always there.
 				// "value" may be empty.
-				if ( empty( $rule['field'] ) ) {
+				if ( ! isset( $rule['field'] ) || '' === $rule['field'] ) {
 					unset( $conditionals[ $group_id ][ $rule_id ] );
 				}
 			}

@@ -29,9 +29,9 @@ class EntriesEdit extends \WPForms\Pro\Forms\Fields\Base\EntriesEdit {
 		// Load jQuery input mask library - https://github.com/RobinHerbots/jquery.inputmask.
 		wp_enqueue_script(
 			'wpforms-maskedinput',
-			WPFORMS_PLUGIN_URL . 'assets/js/jquery.inputmask.bundle.min.js',
+			WPFORMS_PLUGIN_URL . 'assets/js/jquery.inputmask.min.js',
 			[ 'jquery' ],
-			'4.0.6',
+			'5.0.5',
 			true
 		);
 	}
@@ -49,7 +49,7 @@ class EntriesEdit extends \WPForms\Pro\Forms\Fields\Base\EntriesEdit {
 
 		$inputs = [ 'address1', 'address2', 'city', 'state', 'postal', 'country' ];
 		foreach ( $inputs as $input ) {
-			if ( ! empty( $entry_field[ $input ] ) ) {
+			if ( isset( $entry_field[ $input ] ) ) {
 				$field['properties'] = $this->field_object->get_field_populated_single_property_value_public( $entry_field[ $input ], $input, $field['properties'], $field );
 			}
 		}
