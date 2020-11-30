@@ -251,9 +251,9 @@ class Edit {
 			// Load jQuery input mask library - https://github.com/RobinHerbots/jquery.inputmask.
 			wp_enqueue_script(
 				'wpforms-maskedinput',
-				WPFORMS_PLUGIN_URL . 'assets/js/jquery.inputmask.bundle.min.js',
+				WPFORMS_PLUGIN_URL . 'assets/js/jquery.inputmask.min.js',
 				[ 'jquery' ],
-				'4.0.6',
+				'5.0.5',
 				true
 			);
 		}
@@ -537,13 +537,15 @@ class Edit {
 		<!-- Edit Entry Form metabox -->
 		<div id="wpforms-entry-fields" class="postbox">
 
-			<h2 class="hndle">
-				<?php echo '1' === (string) $entry->starred ? '<span class="dashicons dashicons-star-filled"></span>' : ''; ?>
-				<span><?php echo esc_html( $form_data['settings']['form_title'] ); ?></span>
-				<a href="#" class="wpforms-empty-field-toggle">
-					<?php echo $hide_empty ? esc_html__( 'Show Empty Fields', 'wpforms' ) : esc_html__( 'Hide Empty Fields', 'wpforms' ); ?>
-				</a>
-			</h2>
+			<div class="postbox-header">
+				<h2 class="hndle">
+					<?php echo '1' === (string) $entry->starred ? '<span class="dashicons dashicons-star-filled"></span>' : ''; ?>
+					<span><?php echo esc_html( $form_data['settings']['form_title'] ); ?></span>
+					<a href="#" class="wpforms-empty-field-toggle">
+						<?php echo $hide_empty ? esc_html__( 'Show Empty Fields', 'wpforms' ) : esc_html__( 'Hide Empty Fields', 'wpforms' ); ?>
+					</a>
+				</h2>
+			</div>
 
 			<div class="inside">
 
@@ -865,9 +867,11 @@ class Edit {
 			return;
 		}
 
+		$form_data = $this->form_data;
+
 		$action = empty( $action ) ? 'validate' : $action;
 
-		foreach ( (array) $this->form_data['fields']  as $field_properties ) {
+		foreach ( (array) $form_data['fields']  as $field_properties ) {
 
 			if ( ! $this->is_field_entries_editable( $field_properties['type'] ) ) {
 				continue;
@@ -878,8 +882,23 @@ class Edit {
 			$field_submit = isset( $entry['fields'][ $field_id ] ) ? $entry['fields'][ $field_id ] : '';
 			$field_data   = ! empty( $this->entry_fields[ $field_id ] ) ? $this->entry_fields[ $field_id ] : $this->get_empty_entry_field_data( $field_properties );
 
+			if ( $action === 'validate' ) {
+
+				// Some fields can be `required` but have an empty value because the field is hidden by CL on the frontend.
+				// For cases like this we should allow empty value even for the `required` fields.
+				if (
+					! empty( $form_data['fields'][ $field_id ]['required'] ) &&
+					(
+						! isset( $field_data['value'] ) ||
+						(string) $field_data['value'] === ''
+					)
+				) {
+					unset( $form_data['fields'][ $field_id ]['required'] );
+				}
+			}
+
 			if ( $action === 'validate' || $action === 'format' ) {
-				$this->get_entries_edit_field_object( $field_type )->$action( $field_id, $field_submit, $field_data, $this->form_data );
+				$this->get_entries_edit_field_object( $field_type )->$action( $field_id, $field_submit, $field_data, $form_data );
 			}
 		}
 	}
@@ -1166,7 +1185,7 @@ class Edit {
 			return false;
 		}
 
-		$ref = wp_get_referer();
+		$ref = wp_get_raw_referer();
 
 		if ( ! $ref ) {
 			return false;

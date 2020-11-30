@@ -1011,10 +1011,6 @@ function knight_wallace_scripts() {
   wp_enqueue_style('fancybox-css', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css');
   wp_enqueue_script('fancybox-js', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', array('jquery'), false, true);
    
-
-
-
-
     wp_enqueue_script( 'knight_wallace-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
 
     wp_enqueue_script( 'knight_wallace-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
@@ -1321,3 +1317,17 @@ function custom_wpse_mail_from_name( $original_email_from ) {
  * Fixes WP Custom Fields not displaying with ACF active
  */
 add_filter('acf/settings/remove_wp_meta_box', '__return_false');
+
+
+
+add_action( 'wp_head', function(){
+    echo '
+        <script type="text/javascript">
+            window.umcookieconsent = {
+                content: {
+                    href: "https://wallacehouse.umich.edu/privacy-policy"
+                }
+            };
+        </script>
+    ';
+});

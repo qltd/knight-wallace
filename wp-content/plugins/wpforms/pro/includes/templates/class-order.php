@@ -66,15 +66,15 @@ class WPForms_Template_Order extends WPForms_Template {
 					'choices'  => array(
 						'1' => array(
 							'label' => esc_html__( 'First Item', 'wpforms' ),
-							'value' => '$10.00',
+							'value' => '10.00',
 						),
 						'2' => array(
 							'label' => esc_html__( 'Second Item', 'wpforms' ),
-							'value' => '$20.00',
+							'value' => '20.00',
 						),
 						'3' => array(
 							'label' => esc_html__( 'Third Item', 'wpforms' ),
-							'value' => '$30.00',
+							'value' => '30.00',
 						),
 					),
 				),
@@ -92,7 +92,7 @@ class WPForms_Template_Order extends WPForms_Template {
 				),
 			),
 			'settings' => array(
-				'honeypot'                    => '1',
+				'antispam'                    => '1',
 				'confirmation_message_scroll' => '1',
 				'submit_text_processing'      => esc_html__( 'Sending...', 'wpforms' ),
 			),
