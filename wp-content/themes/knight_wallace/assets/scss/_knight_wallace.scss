@@ -646,7 +646,8 @@ blockquote {
   }
 }
 
-.button {
+.button,
+.wp-block-button__link {
   display: inline-block;
   padding: 1rem;
   background: $lblue;
