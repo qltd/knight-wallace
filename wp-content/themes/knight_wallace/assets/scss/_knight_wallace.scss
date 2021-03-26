@@ -648,10 +648,10 @@ blockquote {
 
 .wp-block-button__link {
   font-size: 1.8rem;
+  padding: 1rem 2rem;
 }
 
-.button,
-.wp-block-button__link {
+.button {
   display: inline-block;
   padding: 1rem;
   background: $lblue;
