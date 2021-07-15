@@ -29,6 +29,12 @@ $sorted_judges = sort_judges($judges);
     </div>
 </div>
 <main id="main" class="site-main post-main" role="main">
+    <div class="row content">
+    <?php while ( have_posts() ) : the_post(); ?>
+        <?php get_template_part( 'template-parts/content', 'page' ); ?>
+    <?php endwhile; // End of the loop. ?>
+    </div>
+
      <div class="row judges">
         <div class="large-10 large-centered columns">
             <?php if(!empty($sorted_judges['National'])): ?>
