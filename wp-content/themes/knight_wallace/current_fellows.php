@@ -13,6 +13,7 @@ include_once('helpers.php');
 //grab our junk
 $this_page_meta = get_post_meta($post->ID);
 $this_year = !empty($this_page_meta['year']) ? $this_page_meta['year'][0] : null;
+$this_year = get_field('fellows_current_year') ?: $this_year; // use the ACF field if it's available otherwise fallback to the old meta box
 $alerts = get_posts(array('category_name'=>'alert'));
 $fellows = get_posts(array('post_type'=>'person_kw_fellow','posts_per_page'=> -1));
 $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
