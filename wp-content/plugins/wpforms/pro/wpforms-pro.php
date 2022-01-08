@@ -29,7 +29,7 @@ class WPForms_Pro {
 
 		// Plugin Updater API.
 		if ( ! defined( 'WPFORMS_UPDATER_API' ) ) {
-			define( 'WPFORMS_UPDATER_API', 'https://wpforms.com/' );
+			define( 'WPFORMS_UPDATER_API', 'https://wpforms.com/license-api' );
 		}
 	}
 
@@ -366,6 +366,15 @@ class WPForms_Pro {
 			'type'    => 'text',
 			'default' => esc_html__( 'File exceeds max size allowed. File was not uploaded.', 'wpforms' ),
 		];
+		$settings['validation']['validation-maxfilenumber']    = [
+			'id'      => 'validation-maxfilenumber',
+			'name'    => esc_html__( 'File Uploads', 'wpforms' ),
+			'type'    => 'text',
+			'default' => sprintf( /* translators: %s - max number of files allowed. */
+				esc_html__( 'File uploads exceed the maximum number allowed (%s).', 'wpforms' ),
+				'{fileLimit}'
+			),
+		];
 		$settings['validation']['validation-time12h']          = [
 			'id'      => 'validation-time12h',
 			'name'    => esc_html__( 'Time (12 hour)', 'wpforms' ),
@@ -377,6 +386,12 @@ class WPForms_Pro {
 			'name'    => esc_html__( 'Time (24 hour)', 'wpforms' ),
 			'type'    => 'text',
 			'default' => esc_html__( 'Please enter time in 24-hour format (eg 22:45).', 'wpforms' ),
+		];
+		$settings['validation']['validation-time-limit']       = [
+			'id'      => 'validation-time-limit',
+			'name'    => esc_html__( 'Limit Hours', 'wpforms' ),
+			'type'    => 'text',
+			'default' => esc_html__( 'Please enter time between {minTime} and {maxTime}.', 'wpforms' ),
 		];
 		$settings['validation']['validation-requiredpayment']  = [
 			'id'      => 'validation-requiredpayment',
@@ -394,7 +409,11 @@ class WPForms_Pro {
 			'id'      => 'validation-post_max_size',
 			'name'    => esc_html__( 'File Upload Total Size', 'wpforms' ),
 			'type'    => 'text',
-			'default' => esc_html__( 'The total size of the selected files {totalSize} Mb exceeds the allowed limit {maxSize} Mb.', 'wpforms' ),
+			'default' => sprintf( /* translators: %1$s - total size of the selected files in megabytes, %2$s - allowed file upload limit in megabytes.*/
+				esc_html__( 'The total size of the selected files %1$s Mb exceeds the allowed limit %2$s Mb.', 'wpforms' ),
+				'{totalSize}',
+				'{maxSize}'
+			),
 		];
 		$settings['validation']['validation-passwordstrength'] = [
 			'id'      => 'validation-passwordstrength',
@@ -471,8 +490,8 @@ class WPForms_Pro {
 		$fields     = apply_filters( 'wpforms_entry_save_data', $fields, $entry, $form_data );
 		$user_id    = is_user_logged_in() ? get_current_user_id() : 0;
 		$user_ip    = wpforms_get_ip();
-		$user_agent = ! empty( $_SERVER['HTTP_USER_AGENT'] ) ? substr( $_SERVER['HTTP_USER_AGENT'], 0, 256 ) : '';
-		$user_uuid  = ! empty( $_COOKIE['_wpfuuid'] ) ? $_COOKIE['_wpfuuid'] : '';
+		$user_agent = ! empty( $_SERVER['HTTP_USER_AGENT'] ) ? substr( sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ), 0, 256 ) : '';
+		$user_uuid  = ! empty( $_COOKIE['_wpfuuid'] ) ? sanitize_key( $_COOKIE['_wpfuuid'] ) : '';
 		$date       = date( 'Y-m-d H:i:s' );
 
 		// If GDPR enhancements are enabled and user details are disabled
@@ -1076,14 +1095,6 @@ class WPForms_Pro {
 						]
 					);
 
-					$p     = [];
-					$pages = get_pages();
-
-					foreach ( $pages as $page ) {
-						$depth          = count( $page->ancestors );
-						$p[ $page->ID ] = str_repeat( '-', $depth ) . ' ' . $page->post_title;
-					}
-
 					wpforms_panel_field(
 						'select',
 						'confirmations',
@@ -1091,7 +1102,7 @@ class WPForms_Pro {
 						$settings->form_data,
 						esc_html__( 'Confirmation Page', 'wpforms' ),
 						[
-							'options'     => $p,
+							'options'     => wpforms_get_pages_list(),
 							'input_id'    => 'wpforms-panel-field-confirmations-page-' . $field_id,
 							'input_class' => 'wpforms-panel-field-confirmations-page',
 							'parent'      => 'settings',
@@ -1227,11 +1238,19 @@ class WPForms_Pro {
 
 		$strings['val_requiredpayment'] = wpforms_setting( 'validation-requiredpayment', esc_html__( 'Payment is required.', 'wpforms' ) );
 		$strings['val_creditcard']      = wpforms_setting( 'validation-creditcard', esc_html__( 'Please enter a valid credit card number.', 'wpforms' ) );
-		$strings['val_post_max_size']   = wpforms_setting( 'validation-post_max_size', esc_html__( 'The total size of the selected files {totalSize} Mb exceeds the allowed limit {maxSize} Mb.', 'wpforms' ) );
+		$strings['val_post_max_size']   = wpforms_setting(
+			'validation-post_max_size',
+			sprintf( /* translators: %1$s - total size of the selected files in megabytes, %2$s - allowed file upload limit in megabytes.*/
+				esc_html__( 'The total size of the selected files %1$s Mb exceeds the allowed limit %2$s Mb.', 'wpforms' ),
+				'{totalSize}',
+				'{maxSize}'
+			)
+		);
 
 		// Date/time.
-		$strings['val_time12h'] = wpforms_setting( 'validation-time12h', esc_html__( 'Please enter time in 12-hour AM/PM format (eg 8:45 AM).', 'wpforms' ) );
-		$strings['val_time24h'] = wpforms_setting( 'validation-time24h', esc_html__( 'Please enter time in 24-hour format (eg 22:45).', 'wpforms' ) );
+		$strings['val_time12h']    = wpforms_setting( 'validation-time12h', esc_html__( 'Please enter time in 12-hour AM/PM format (eg 8:45 AM).', 'wpforms' ) );
+		$strings['val_time24h']    = wpforms_setting( 'validation-time24h', esc_html__( 'Please enter time in 24-hour format (eg 22:45).', 'wpforms' ) );
+		$strings['val_time_limit'] = wpforms_setting( 'validation-time-limit', esc_html__( 'Please enter time between {minTime} and {maxTime}.', 'wpforms' ) );
 
 		// URL.
 		$strings['val_url'] = wpforms_setting( 'validation-url', esc_html__( 'Please enter a valid URL.', 'wpforms' ) );
@@ -1357,7 +1376,7 @@ class WPForms_Pro {
 	 * @return array List of table names.
 	 */
 	public function get_existing_custom_tables() {
-		_deprecated_function( __CLASS__ . '::' . __METHOD__, '1.6.3', 'wpforms()->get_existing_custom_tables()' );
+		_deprecated_function( __METHOD__, '1.6.3', 'wpforms()->get_existing_custom_tables()' );
 
 		return wpforms()->get_existing_custom_tables();
 	}

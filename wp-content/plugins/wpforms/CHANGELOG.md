@@ -1,6 +1,80 @@
 # Changelog
 All notable changes to this project will be documented in this file and formatted via [this recommendation](https://keepachangelog.com/en/1.0.0/).
 
+## [1.7.2] - 2022-01-04
+### Added
+- Search by form name and description is available on the Forms Overview page.
+- New "Author" column in the Forms Overview table to display a name of a person who created the form.
+- Display log records on the single Entry page when an entry note has been added or deleted.
+
+### Changed
+- Adjusted an error message for the Locked Field modal when attempting to delete required form fields.
+- Hide image choice style options if image choices are not enabled.
+- Improved sanitization for Page and Form IDs in Form embed wizard popup.
+- Adjusted Weekly Summary email text for Lite users.
+- Updated the WPForms > About Us page.
+- Updated jQuery inputmask lib to 5.0.7-beta29.
+- Updated DOMPurify lib to 2.3.4.
+
+### Fixed
+- Missing search docs in the Form Builder Help.
+- Display empty table instead of empty state screen for Unread (0), Starred (0), Abandoned (0), etc., views.
+- Input mask prevents fields with conditional logic from being displayed on paste.
+- Classic file uploader: error message about the maximum allowed number of files wasn't displayed in a correct field.
+- Media modal 'Actions' menu was missing when using the Divi Builder.
+- PHP notice was generated on a form preview if a page template is changed.
+- Correctly handle the legacy widget options (show/hide form title and description) on the front-end.
+- Do not generate PHP notices in debug mode when Address field inputs were removed using filters.
+- If a form with configured Google reCAPTCHA v3 is submitted after 2 minutes, there was an error "Google reCAPTCHA verification failed, please try again later."
+- Better compatibility for From Name and From Email fields in the Form Builder > Notifications screen when the WP Mail SMTP plugin forces those values.
+- `{field_id="#"}` smart tag stripped out HTML encoding in the URL that is saved in the URL field.
+- PHP warning occurred when the `%` symbol is used inside some Form Builder settings.
+- Form Preview didn't work properly on the upcoming Twenty Twenty-Two theme.
+- PHP timeout occurred in the Form Builder when large multi-level term taxonomies were used as dynamic choices for Checkboxes/Multiple Choices/Dropdown fields.
+- PHP notice generated on the Entry Print Preview page if a form was changed.
+- PHP fatal error generated in some cases when Site Health information was displayed.
+- WP.com VIP clients used to have caching issues with external data.
+- WooCommerce product import (CSV) to update existing products wasn't updating product images while WPForms was active.
+- Form couldn't be submitted on the Lite version of the plugin when it contained the Page Break field from the paid version.
+
+## [1.7.1.2] - 2021-11-18
+### Fixed
+- Uploads via Modern File Upload field fail if `ext-fileinfo` PHP extension is disabled.
+- File Upload field not storing the upload with Conditional Logic configured in certain ways.
+- Edge case when form tokens (anti-spam protection) failed verification at certain time of a new day.
+
+## [1.7.1.1] - 2021-11-11
+### Fixed
+- Email address validation against allowlist or denylist always fails.
+- Country flag from Phone field position on top of Dropdown field choices on Edit Entry page.
+- Legacy Stripe field not showing years in credit card expiration subfield.
+
+## [1.7.1] - 2021-11-09
+### Added
+- Time values are now validated against Limit Hours settings of the Date / Time field.
+
+### Changed
+- Updated bundled Dropzone.js library to 5.9.3.
+- Improved translations by removing confusion if non-translatable placeholders are used.
+- Improved support for WordPress Core UI colors and admin themes in admin bar menu.
+- Improved format and limits validation of modern File Upload field.
+- Improved display of empty and hidden field labels in Form Builder preview. 
+- Field helper notification in the Form Builder now can be dismissed.
+- Improved and standardized look of classic and modern Dropdown field across Form Builder, admin area and frontend.
+- Display "Save and Resume" link in Page Break field preview in Form Builder if Save and Resume is turned on. 
+
+### Fixed
+- Empty fields are displayed on Entry details after editing an Entry with Page Break or Entry Preview fields.
+- Strip slashes from Paragraph Text field when the value is dynamically populated.
+- SMTP settings page linked to Setup Wizard even when SMTP settings are already configured.
+- Occasional fatal error when moving Page Break field while another field is being added on slow Internet connections.
+- Entry Print Preview displays empty admin page if Entry ID is not valid.
+- File upload error when custom validation of any other field fails.
+- Notifications count in the admin bar is misaligned.
+- Field helper notification in the Form Builder overlaps and blocks Duplicate and Delete actions when hovered.
+- Inconsistent new lines in different field types in Entry Preview.
+- Non-latin (Punycode) email addresses are not converted for display in email suggestion hints.
+
 ## [1.7.0] - 2021-10-05
 ### Added
 - New field - Rich Text.

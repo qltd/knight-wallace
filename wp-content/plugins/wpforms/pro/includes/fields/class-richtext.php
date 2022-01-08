@@ -135,8 +135,6 @@ class WPForms_Field_Richtext extends WPForms_Field {
 
 		add_action( 'wpforms_frontend_strings', [ $this, 'add_frontend_strings' ] );
 
-		remove_filter( "wpforms_pro_fields_entry_preview_get_field_value_{$this->type}_field_after", 'nl2br', 100 );
-
 		add_filter( "wpforms_pro_fields_entry_preview_get_field_value_{$this->type}_field_after", [ $this, 'entry_preview' ], 10, 3 );
 
 		add_filter( 'quicktags_settings', [ $this, 'modify_quicktags' ], 10, 2 );
@@ -930,6 +928,8 @@ class WPForms_Field_Richtext extends WPForms_Field {
 	 */
 	public function format( $field_id, $field_submit, $form_data ) {
 
+		remove_filter( "wpforms_pro_fields_entry_preview_get_field_value_{$this->type}_field_after", 'nl2br', 100 );
+
 		if ( is_array( $field_submit ) ) {
 			$field_submit = implode( "\r\n", array_filter( $field_submit ) );
 		}
@@ -1550,13 +1550,22 @@ class WPForms_Field_Richtext extends WPForms_Field {
 			return;
 		}
 
-		$meta_query   = ! empty( $wp_query->query_vars['meta_query'] ) ? $wp_query->query_vars['meta_query'] : [];
-		$meta_query[] = [
-			[
-				'key'     => 'wpforms_richtext_attachment_temporary',
-				'compare' => 'NOT EXISTS',
-			],
+		$rich_text_meta = [
+			'key'     => 'wpforms_richtext_attachment_temporary',
+			'compare' => 'NOT EXISTS',
 		];
+
+		if ( empty( $wp_query->query_vars['meta_query'] ) ) {
+			$meta_query = [
+				$rich_text_meta,
+			];
+		} else {
+			$meta_query = [
+				'relation' => 'AND',
+				$wp_query->query_vars['meta_query'],
+				$rich_text_meta,
+			];
+		}
 
 		$wp_query->set( 'meta_query', $meta_query );
 	}
