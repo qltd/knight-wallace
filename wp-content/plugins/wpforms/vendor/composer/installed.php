@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '6f9d328eaa6868b73abc1c10f6a495c9f2f7b4d9',
+    'reference' => '41605f9be7500a5deac47f9cd2548e0a5c1522f6',
     'name' => 'awesomemotive/wpforms',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '6f9d328eaa6868b73abc1c10f6a495c9f2f7b4d9',
+      'reference' => '41605f9be7500a5deac47f9cd2548e0a5c1522f6',
     ),
     'goodby/csv' => 
     array (

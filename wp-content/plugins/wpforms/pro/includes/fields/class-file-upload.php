@@ -18,7 +18,7 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 	 *
 	 * @var string
 	 */
-	const DROPZONE_VERSION = '5.7.2';
+	const DROPZONE_VERSION = '5.9.3';
 
 	/**
 	 * Classic (old) style of file uploader field.
@@ -83,55 +83,56 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 		$this->upload = new Upload();
 
 		// Form frontend javascript.
-		add_action( 'wpforms_frontend_js', array( $this, 'frontend_js' ) );
+		add_action( 'wpforms_frontend_js', [ $this, 'frontend_js' ] );
 
 		// Form frontend CSS.
-		add_action( 'wpforms_frontend_css', array( $this, 'frontend_css' ) );
+		add_action( 'wpforms_frontend_css', [ $this, 'frontend_css' ] );
 
 		// Field styles for Gutenberg.
-		add_action( 'enqueue_block_editor_assets', array( $this, 'gutenberg_enqueues' ) );
+		add_action( 'enqueue_block_editor_assets', [ $this, 'gutenberg_enqueues' ] );
 
 		// Define additional field properties.
-		add_filter( 'wpforms_field_properties_file-upload', array( $this, 'field_properties' ), 5, 3 );
+		add_filter( 'wpforms_field_properties_file-upload', [ $this, 'field_properties' ], 5, 3 );
 
 		// Customize value format for HTML emails.
-		add_filter( 'wpforms_html_field_value', array( $this, 'html_email_value' ), 10, 4 );
+		add_filter( 'wpforms_html_field_value', [ $this, 'html_email_value' ], 10, 4 );
 
 		// Add builder strings.
-		add_filter( 'wpforms_builder_strings', array( $this, 'add_builder_strings' ), 10, 2 );
-
-		// Maybe format/upload file depending on the conditional visibility state.
-		add_action( 'wpforms_process_format_after', array( $this, 'format_conditional' ), 6, 1 );
+		add_filter( 'wpforms_builder_strings', [ $this, 'add_builder_strings' ], 10, 2 );
 
 		// Upload file ajax route.
 		add_action( 'wp_ajax_wpforms_file_upload_speed_test', 'wp_send_json_success' );
 		add_action( 'wp_ajax_nopriv_wpforms_file_upload_speed_test', 'wp_send_json_success' );
 
 		// TODO: perhaps remove, chunks uploading replaces this.
-		add_action( 'wp_ajax_wpforms_upload_file', array( $this, 'ajax_modern_upload' ) );
-		add_action( 'wp_ajax_nopriv_wpforms_upload_file', array( $this, 'ajax_modern_upload' ) );
+		add_action( 'wp_ajax_wpforms_upload_file', [ $this, 'ajax_modern_upload' ] );
+		add_action( 'wp_ajax_nopriv_wpforms_upload_file', [ $this, 'ajax_modern_upload' ] );
 
 		// Ajax handlers for newest uploads (With chunks and parallel support).
-		add_action( 'wp_ajax_wpforms_upload_chunk_init', array( $this, 'ajax_chunk_upload_init' ) );
-		add_action( 'wp_ajax_nopriv_wpforms_upload_chunk_init', array( $this, 'ajax_chunk_upload_init' ) );
+		add_action( 'wp_ajax_wpforms_upload_chunk_init', [ $this, 'ajax_chunk_upload_init' ] );
+		add_action( 'wp_ajax_nopriv_wpforms_upload_chunk_init', [ $this, 'ajax_chunk_upload_init' ] );
 
-		add_action( 'wp_ajax_wpforms_upload_chunk', array( $this, 'ajax_chunk_upload' ) );
-		add_action( 'wp_ajax_nopriv_wpforms_upload_chunk', array( $this, 'ajax_chunk_upload' ) );
+		add_action( 'wp_ajax_wpforms_upload_chunk', [ $this, 'ajax_chunk_upload' ] );
+		add_action( 'wp_ajax_nopriv_wpforms_upload_chunk', [ $this, 'ajax_chunk_upload' ] );
 
-		add_action( 'wp_ajax_wpforms_file_chunks_uploaded', array( $this, 'ajax_chunk_upload_finalize' ) );
-		add_action( 'wp_ajax_nopriv_wpforms_file_chunks_uploaded', array( $this, 'ajax_chunk_upload_finalize' ) );
+		add_action( 'wp_ajax_wpforms_file_chunks_uploaded', [ $this, 'ajax_chunk_upload_finalize' ] );
+		add_action( 'wp_ajax_nopriv_wpforms_file_chunks_uploaded', [ $this, 'ajax_chunk_upload_finalize' ] );
 
 		// Remove file ajax route.
-		add_action( 'wp_ajax_wpforms_remove_file', array( $this, 'ajax_modern_remove' ) );
-		add_action( 'wp_ajax_nopriv_wpforms_remove_file', array( $this, 'ajax_modern_remove' ) );
+		add_action( 'wp_ajax_wpforms_remove_file', [ $this, 'ajax_modern_remove' ] );
+		add_action( 'wp_ajax_nopriv_wpforms_remove_file', [ $this, 'ajax_modern_remove' ] );
 
 		// phpcs:ignore WordPress.Security.NonceVerification
-		if ( ! empty( $_POST['slow'] ) && 'true' === $_POST['slow'] && ! empty( $this->ajax_validate_form_field_modern() ) ) {
+		if ( ! empty( $_POST['slow'] ) && $_POST['slow'] === 'true' && ! empty( $this->ajax_validate_form_field_modern() ) ) {
 			add_action( 'wpforms_file_upload_chunk_parallel', '__return_false' );
 			add_action( 'wpforms_file_upload_chunk_size', [ $this, 'get_slow_connection_chunk_size' ] );
 		}
 
 		add_filter( 'wpforms_pro_admin_entries_edit_field_output_editable', [ $this, 'is_editable' ], 10, 4 );
+
+		add_filter( 'wpforms_process_after_filter', [ $this, 'upload_complete' ], 10, 3 );
+
+		add_filter( 'wpforms_pro_fields_entry_preview_is_field_support_preview_file-upload_field', '__return_false' );
 	}
 
 	/**
@@ -184,7 +185,13 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 					'errors'          => [
 						'default_error'     => esc_html__( 'Something went wrong, please try again.', 'wpforms' ),
 						'file_not_uploaded' => esc_html__( 'This file was not uploaded.', 'wpforms' ),
-						'file_limit'        => esc_html__( 'File limit has been reached ({fileLimit}).', 'wpforms' ),
+						'file_limit'        => wpforms_setting(
+							'validation-maxfilenumber',
+							sprintf( /* translators: %s - max number of files allowed. */
+								esc_html__( 'File uploads exceed the maximum number allowed (%s).', 'wpforms' ),
+								'{fileLimit}'
+							)
+						),
 						'file_extension'    => wpforms_setting( 'validation-fileextension', esc_html__( 'File type is not allowed.', 'wpforms' ) ),
 						'file_size'         => wpforms_setting( 'validation-filesize', esc_html__( 'File exceeds the max size allowed.', 'wpforms' ) ),
 						'post_max_size'     => sprintf( /* translators: %s - max allowed file size by a server. */
@@ -549,8 +556,8 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 			$field,
 			array(
 				'slug'    => 'max_file_number',
-				'value'   => esc_html__( 'Max File Number', 'wpforms' ),
-				'tooltip' => esc_html__( 'Enter the max file number, to allow. If left blank, the value defaults to 1.', 'wpforms' ),
+				'value'   => esc_html__( 'Max File Uploads', 'wpforms' ),
+				'tooltip' => esc_html__( 'Enter the max number of files to allow. If left blank, the value defaults to 1.', 'wpforms' ),
 			),
 			false
 		);
@@ -691,7 +698,7 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 		$strings         = $this->get_strings();
 		$max_file_number = ! empty( $field['max_file_number'] ) ? max( 1, absint( $field['max_file_number'] ) ) : 1;
 
-		// Primary input.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo wpforms_render(
 			'fields/file-upload-backend',
 			array(
@@ -744,19 +751,23 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 		$primary = $field['properties']['inputs']['primary'];
 
 		// Modern style.
-		if ( ! empty( $field['style'] ) && self::STYLE_MODERN === $field['style'] ) {
+		if ( self::is_modern_upload( $field ) ) {
 
 			$strings         = $this->get_strings();
 			$max_file_number = ! empty( $field['max_file_number'] ) ? max( 1, absint( $field['max_file_number'] ) ) : 1;
+			$input_name      = $this->get_input_name();
+			$files           = $this->sanitize_modern_files_input();
+			$value           = ! empty( $files ) ? wp_json_encode( $files ) : '';
+			$count           = count( $files );
 
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo wpforms_render(
 				'fields/file-upload-frontend',
-				array(
-					'field_id'        => (int) $field['id'],
-					'form_id'         => (int) $form_data['id'],
-					'url'             => admin_url( 'admin-ajax.php' ),
-					'input_name'      => $this->get_input_name(),
+				[
+					'field_id'        => $field['id'],
+					'form_id'         => $form_data['id'],
+					'value'           => $value,
+					'input_name'      => $input_name,
 					'required'        => $primary['required'],
 					'extensions'      => $primary['data']['rule-extension'],
 					'max_size'        => abs( $primary['data']['rule-maxsize'] ),
@@ -764,17 +775,20 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 					'max_file_number' => $max_file_number,
 					'preview_hint'    => str_replace( self::TEMPLATE_MAXFILENUM, $max_file_number, $strings['preview_hint'] ),
 					'post_max_size'   => wp_max_upload_size(),
-				),
+					'is_full'         => ! empty( $value ) && $count >= $max_file_number,
+				],
 				true
 			);
-		} else {
-			// Classic style.
-			printf(
-				'<input type="file" %s %s>',
-				wpforms_html_attributes( $primary['id'], $primary['class'], $primary['data'], $primary['attr'] ),
-				$primary['required'] // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			);
+
+			return;
 		}
+
+		// Classic style.
+		printf(
+			'<input type="file" %s %s>',
+			wpforms_html_attributes( $primary['id'], $primary['class'], $primary['data'], $primary['attr'] ),
+			! empty( $primary['required'] ) ? 'required' : ''
+		);
 	}
 
 	/**
@@ -839,12 +853,11 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 		$this->form_id    = absint( $this->form_data['id'] );
 		$this->field_id   = absint( $field_id );
 		$this->field_data = $this->form_data['fields'][ $this->field_id ];
-
-		$input_name = $this->get_input_name();
-		$style      = ! empty( $this->field_data['style'] ) ? $this->field_data['style'] : self::STYLE_CLASSIC;
+		$input_name       = $this->get_input_name();
+		$style            = ! empty( $this->field_data['style'] ) ? $this->field_data['style'] : self::STYLE_CLASSIC;
 
 		// Add modern validate.
-		if ( self::STYLE_CLASSIC === $style ) {
+		if ( $style === self::STYLE_CLASSIC ) {
 			$this->validate_classic( $input_name );
 		} else {
 			$this->validate_modern( $input_name );
@@ -855,10 +868,17 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 	 * Validate classic file uploader field data.
 	 *
 	 * @since 1.5.6
+	 * @since 1.7.2 The `$input_name` argument was deprecated.
 	 *
-	 * @param string $input_name Input name inside the form on front-end.
+	 * @param string $deprecated_input_name Input name inside the form on front-end.
 	 */
-	protected function validate_classic( $input_name ) {
+	protected function validate_classic( $deprecated_input_name ) {
+
+		if ( ! isset( get_defined_vars()['deprecated_input_name'] ) ) {
+			_deprecated_argument( __METHOD__, '1.7.2 of the WPForms plugin', 'The `$input_name` argument was deprecated.' );
+		}
+
+		$input_name = $this->get_input_name();
 
 		if ( empty( $_FILES[ $input_name ] ) ) {
 			return;
@@ -896,7 +916,8 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 		/*
 		 * Validate file size.
 		 */
-		$validated_size = $this->validate_size();
+		$file_size      = ! empty( $_FILES[ $input_name ]['size'] ) ? (int) $_FILES[ $input_name ]['size'] : 0;
+		$validated_size = $this->validate_size( [ $file_size ] );
 
 		if ( ! empty( $validated_size ) ) {
 			wpforms()->process->errors[ $this->form_id ][ $this->field_id ] = $validated_size;
@@ -936,25 +957,132 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 	 * Validate modern file uploader field data.
 	 *
 	 * @since 1.5.6
+	 * @since 1.7.2 The `$input_name` argument was deprecated.
 	 *
-	 * @param string $input_name Input name inside the form on front-end.
+	 * @param string $deprecated_input_name Input name inside the form on front-end.
 	 */
-	protected function validate_modern( $input_name ) {
+	protected function validate_modern( $deprecated_input_name ) {
 
-		$value = '';
-
-		if ( ! empty( $_POST[ $input_name ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
-			$value = json_decode( wp_unslash( $_POST[ $input_name ] ), true ); // phpcs:ignore WordPress.Security
+		if ( ! isset( get_defined_vars()['deprecated_input_name'] ) ) {
+			_deprecated_argument( __METHOD__, '1.7.2 of the WPForms plugin', 'The `$input_name` argument was deprecated.' );
 		}
 
-		if ( ! empty( $value ) && ! $this->has_missing_tmp_file( $value ) ) {
-			wpforms()->process->errors[ $this->form_id ][ $this->field_id ] = $this->validate_basic( 7 );
+		$value = $this->sanitize_modern_files_input();
+
+		if ( empty( $value ) && $this->is_required() ) {
+			wpforms()->get( 'process' )->errors[ $this->form_id ][ $this->field_id ] = wpforms_get_required_label();
 
 			return;
 		}
 
-		if ( $this->is_required() && empty( $value ) ) {
-			wpforms()->process->errors[ $this->form_id ][ $this->field_id ] = wpforms_get_required_label();
+		if ( ! empty( $value ) ) {
+			$this->validate_modern_files( $value );
+		}
+	}
+
+	/**
+	 * Sanitize modern files input.
+	 *
+	 * @since 1.7.2
+	 *
+	 * @return array
+	 */
+	private function sanitize_modern_files_input() {
+
+		$input_name = $this->get_input_name();
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$json_value = isset( $_POST[ $input_name ] ) ? sanitize_text_field( wp_unslash( $_POST[ $input_name ] ) ) : '';
+		$files      = json_decode( $json_value, true );
+
+		if ( empty( $files ) || ! is_array( $files ) ) {
+			return [];
+		}
+
+		return array_filter( array_map( [ $this, 'sanitize_modern_file' ], $files ) );
+	}
+
+	/**
+	 * Sanitize modern file.
+	 *
+	 * @since 1.7.2
+	 *
+	 * @param array $file File information.
+	 *
+	 * @return array
+	 */
+	private function sanitize_modern_file( $file ) {
+
+		if ( empty( $file['file'] ) || empty( $file['name'] ) ) {
+			return [];
+		}
+
+		$sanitized_file = [];
+		$rules          = [
+			'name'           => 'sanitize_file_name',
+			'file'           => 'sanitize_file_name',
+			'url'            => 'esc_url_raw',
+			'size'           => 'absint',
+			'type'           => 'sanitize_text_field',
+			'file_user_name' => 'sanitize_text_field',
+		];
+
+		foreach ( $rules as $rule => $callback ) {
+			$file_attribute          = isset( $file[ $rule ] ) ? $file[ $rule ] : '';
+			$sanitized_file[ $rule ] = $callback( $file_attribute );
+		}
+
+		return $sanitized_file;
+	}
+
+	/**
+	 * Validate files for a modern file upload field.
+	 *
+	 * @since 1.7.1
+	 *
+	 * @param array $files List of uploaded files.
+	 */
+	private function validate_modern_files( $files ) {
+
+		if ( ! $this->has_missing_tmp_file( $files ) ) {
+			wpforms()->get( 'process' )->errors[ $this->form_id ][ $this->field_id ] = $this->validate_basic( 7 );
+
+			return;
+		}
+
+		$max_file_number = ! empty( $this->field_data['max_file_number'] ) ? absint( $this->field_data['max_file_number'] ) : 0;
+
+		if ( count( $files ) > $max_file_number ) {
+			wpforms()->get( 'process' )->errors[ $this->form_id ][ $this->field_id ] = str_replace(
+				'{fileLimit}',
+				$max_file_number,
+				wpforms_setting(
+					'validation-maxfilenumber',
+					sprintf( /* translators: %s - max number of files allowed. */
+						esc_html__( 'File uploads exceed the maximum number allowed (%s).', 'wpforms' ),
+						'{fileLimit}'
+					)
+				)
+			);
+
+			return;
+		}
+
+		foreach ( $files as $file ) {
+			$path      = trailingslashit( $this->get_tmp_dir() ) . $file['file'];
+			$file_size = filesize( $path );
+			$extension = strtolower( pathinfo( $file['name'], PATHINFO_EXTENSION ) );
+			$errors    = wpforms_chain( [] )
+				->array_merge( (array) $this->validate_size( [ $file_size ] ) )
+				->array_merge( (array) $this->validate_extension( $extension ) )
+				->array_merge( (array) $this->validate_wp_filetype_and_ext( $path, $file['name'] ) )
+				->array_filter()
+				->value();
+
+			if ( ! empty( $errors ) ) {
+				wpforms()->get( 'process' )->errors[ $this->form_id ][ $this->field_id ] = implode( ' ', $errors );
+
+				return;
+			}
 		}
 	}
 
@@ -989,65 +1117,98 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 	 */
 	public function format( $field_id, $field_submit, $form_data ) {
 
-		// Setup class properties to reuse everywhere.
-		$this->form_data  = (array) $form_data;
-		$this->form_id    = absint( $this->form_data['id'] );
-		$this->field_id   = absint( $field_id );
-		$this->field_data = $this->form_data['fields'][ $this->field_id ];
+		$field_id    = absint( $field_id );
+		$field_label = ! empty( $form_data['fields'][ $field_id ]['label'] ) ? sanitize_text_field( $form_data['fields'][ $field_id ]['label'] ) : '';
+		$style       = ! empty( $form_data['fields'][ $field_id ]['style'] ) && $form_data['fields'][ $field_id ]['style'] === self::STYLE_MODERN
+			? self::STYLE_MODERN
+			: self::STYLE_CLASSIC;
 
-		$field_label = ! empty( $this->form_data['fields'][ $this->field_id ]['label'] ) ? $this->form_data['fields'][ $this->field_id ]['label'] : '';
-		$input_name  = sprintf( 'wpforms_%d_%d', $this->form_id, $this->field_id );
-		$style       = ! empty( $this->field_data['style'] ) ? $this->field_data['style'] : self::STYLE_CLASSIC;
+		if ( $style === self::STYLE_CLASSIC ) {
+			wpforms()->get( 'process' )->fields[ $field_id ] = [
+				'name'          => $field_label,
+				'value'         => '',
+				'file'          => '',
+				'file_original' => '',
+				'ext'           => '',
+				'id'            => $field_id,
+				'type'          => $this->type,
+			];
 
-		if ( self::STYLE_CLASSIC === $style ) {
-			$this->format_classic( $field_label, $input_name );
-		} else {
-			$this->format_modern( $field_label, $input_name );
+			return;
 		}
+
+		wpforms()->get( 'process' )->fields[ $field_id ] = [
+			'name'      => $field_label,
+			'value'     => '',
+			'value_raw' => '',
+			'id'        => $field_id,
+			'type'      => $this->type,
+			'style'     => self::STYLE_MODERN,
+		];
 	}
 
 	/**
-	 * Format and sanitize classic style of file upload field.
+	 * Complete the upload process for all upload fields.
 	 *
-	 * @since 1.5.6
+	 * @since 1.7.1
 	 *
-	 * @param string $field_label Field label.
-	 * @param string $input_name  Input name inside the form on front-end.
+	 * @param array $fields    Fields data.
+	 * @param array $entry     Submitted form entry.
+	 * @param array $form_data Form data and settings.
+	 *
+	 * @return array
 	 */
-	protected function format_classic( $field_label, $input_name ) {
+	public function upload_complete( $fields, $entry, $form_data ) {
 
-		$file = ! empty( $_FILES[ $input_name ] ) ? $_FILES[ $input_name ] : false; // phpcs:ignore
-
-		// Preserve field CL visibility state before processing the field.
-		$visible = isset( wpforms()->get( 'process' )->fields[ $this->field_id ]['visible'] ) ? wpforms()->get( 'process' )->fields[ $this->field_id ]['visible'] : false;
-		$default = [
-			'name'          => sanitize_text_field( $field_label ),
-			'value'         => '',
-			'file'          => '',
-			'file_original' => '',
-			'ext'           => '',
-			'id'            => absint( $this->field_id ),
-			'type'          => $this->type,
-		];
-
-		if ( $visible ) {
-			$default['visible'] = $visible;
+		if ( ! empty( wpforms()->get( 'process' )->errors[ $form_data['id'] ] ) ) {
+			return $fields;
 		}
 
-		// If there was no file uploaded or if this field has conditional logic
-		// rules active, stop here before we continue with the
-		// upload process.
-		if (
-			! $file ||
-			$file['error'] !== 0 ||
-			(
-				! empty( $this->form_data['conditional_fields'] ) && in_array( $this->field_id, $this->form_data['conditional_fields'], true )
-			)
-		) {
+		$this->form_data = $form_data;
 
-			wpforms()->get( 'process' )->fields[ $this->field_id ] = $default;
+		foreach ( $fields as $field_id => $field ) {
+			if ( empty( $field['type'] ) || $field['type'] !== $this->type ) {
+				continue;
+			}
 
-			return;
+			$this->form_id    = absint( $form_data['id'] );
+			$this->field_id   = $field_id;
+			$this->field_data = ! empty( $this->form_data['fields'][ $field_id ] )
+				? $this->form_data['fields'][ $field_id ]
+				: [];
+			$is_visible       = ! isset( wpforms()->get( 'process' )->fields[ $field_id ]['visible'] ) || ! empty( wpforms()->get( 'process' )->fields[ $field_id ]['visible'] );
+
+			$fields[ $field_id ]['visible'] = $is_visible;
+
+			if ( ! $is_visible ) {
+				continue;
+			}
+
+			$fields[ $field_id ] = self::is_modern_upload( $field )
+				? $this->complete_upload_modern( $field )
+				: $this->complete_upload_classic( $field );
+		}
+
+		return $fields;
+	}
+
+	/**
+	 * Complete upload process for the classic upload field.
+	 *
+	 * @since 1.7.1
+	 *
+	 * @param array $processed_field Processed field data.
+	 *
+	 * @return array
+	 */
+	private function complete_upload_classic( $processed_field ) {
+
+		$input_name = $this->get_input_name();
+		$file       = ! empty( $_FILES[ $input_name ] ) ? $_FILES[ $input_name ] : false; // phpcs:ignore
+
+		// If there was no file uploaded stop here before we continue with the upload process.
+		if ( ! $file || $file['error'] !== 0 ) {
+			return $processed_field;
 		}
 
 		$processed_file = $this->upload->process_file(
@@ -1057,131 +1218,63 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 			$this->is_media_integrated()
 		);
 
-		if ( empty( $processed_file ) ) {
-			wpforms()->get( 'process' )->fields[ $this->field_id ] = $default;
-
-			return;
-		}
-
-		// Set final field details.
-		wpforms()->get( 'process' )->fields[ $this->field_id ] = [
-			'name'           => sanitize_text_field( $field_label ),
-			'value'          => esc_url_raw( $processed_file['file_url'] ),
-			'file'           => $processed_file['file_name_new'],
-			'file_original'  => $processed_file['file_name'],
-			'file_user_name' => sanitize_text_field( $file['name'] ),
-			'ext'            => $processed_file['file_ext'],
-			'attachment_id'  => absint( $processed_file['attachment_id'] ),
-			'id'             => absint( $this->field_id ),
-			'type'           => $this->type,
-		];
-
-		// Save field CL visibility state after field processing.
-		if ( $visible ) {
-			wpforms()->get( 'process' )->fields[ $this->field_id ]['visible'] = $visible;
-		}
+		return array_merge(
+			$processed_field,
+			[
+				'value'          => esc_url_raw( $processed_file['file_url'] ),
+				'file'           => $processed_file['file_name_new'],
+				'file_original'  => $processed_file['file_name'],
+				'file_user_name' => sanitize_text_field( $file['name'] ),
+				'ext'            => $processed_file['file_ext'],
+				'attachment_id'  => absint( $processed_file['attachment_id'] ),
+			]
+		);
 	}
 
 	/**
-	 * Format and sanitize modern style of file upload field.
+	 * Complete upload process for the modern upload field.
 	 *
-	 * @since 1.5.6
+	 * @since 1.7.1
 	 *
-	 * @param string $field_label Field label.
-	 * @param string $input_name  Input name inside the form on front-end.
+	 * @param array $processed_field Processed field data.
+	 *
+	 * @return array
 	 */
-	protected function format_modern( $field_label, $input_name ) {
+	private function complete_upload_modern( $processed_field ) {
 
-		$processed = array(
-			'name'      => sanitize_text_field( $field_label ),
-			'value'     => '',
-			'value_raw' => '',
-			'id'        => $this->field_id,
-			'type'      => $this->type,
-			'style'     => self::STYLE_MODERN,
-		);
-
-		// Preserve field CL visibility state before processing the field.
-		if ( isset( wpforms()->process->fields[ $this->field_id ]['visible'] ) ) {
-			$processed['visible'] = wpforms()->process->fields[ $this->field_id ]['visible'];
-		}
-
-		// We should actually receive some files info.
-		if ( empty( $_POST[ $input_name ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
-			wpforms()->process->fields[ $this->field_id ] = $processed;
-
-			return;
-		}
-
-		if ( ! empty( wpforms()->process->fields[ $this->field_id ] ) ) {
-			return;
-		}
-
-		// Make sure json_decode() doesn't fail on newer PHP.
-		try {
-			$raw_files = json_decode( wp_unslash( $_POST[ $input_name ] ), true ); // phpcs:ignore WordPress.Security
-		} catch ( Exception $e ) {
-			wpforms()->process->fields[ $this->field_id ] = $processed;
-
-			return;
-		}
-
-		// Make sure we actually have some files.
-		if ( empty( $raw_files ) || ! is_array( $raw_files ) ) {
-			wpforms()->process->fields[ $this->field_id ] = $processed;
-
-			return;
-		}
-
-		// Make sure we process only submitted files with the expected structure and keys.
-		$files = array_filter(
-			$raw_files,
-			static function ( $file ) {
-
-				return is_array( $file ) && count( $file ) === 3 && ! empty( $file['file'] ) && ! empty( $file['name'] );
-			}
-		);
+		$files = $this->sanitize_modern_files_input();
 
 		if ( empty( $files ) ) {
-			wpforms()->process->fields[ $this->field_id ] = $processed;
-
-			return;
+			return $processed_field;
 		}
 
 		wpforms_create_upload_dir_htaccess_file();
 
 		$upload_dir = wpforms_upload_dir();
+
 		if ( empty( $upload_dir['error'] ) ) {
 			wpforms_create_index_html_file( $upload_dir['path'] );
 		}
 
-		$data = array();
+		$data = [];
 
 		foreach ( $files as $file ) {
 			$data[] = $this->process_file( $file );
 		}
 
-		$data = array_filter( $data );
+		$data                         = array_filter( $data );
+		$processed_field['value_raw'] = $data;
+		$processed_field['value']     = wpforms_chain( $data )
+			->map(
+				static function ( $file ) {
 
-		if ( ! empty( $data ) ) {
-			$processed = wp_parse_args(
-				array(
-					'value_raw' => $data,
-					'value'     => wpforms_chain( $data )
-						->map(
-							static function ( $file ) {
+					return $file['value'];
+				}
+			)
+			->implode( "\n" )
+			->value();
 
-								return $file['value'];
-							}
-						)
-						->implode( "\n" )
-						->value(),
-				),
-				$processed
-			);
-		}
-
-		wpforms()->process->fields[ $this->field_id ] = $processed;
+		return $processed_field;
 	}
 
 	/**
@@ -1211,11 +1304,14 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 	/**
 	 * Format, sanitize, and upload files for fields that have conditional logic rules applied.
 	 *
-	 * @since 1.3.8
+	 * @since      1.3.8
+	 * @deprecated 1.7.1.2
 	 *
 	 * @param array $form_data Form data and settings.
 	 */
 	public function format_conditional( $form_data ) {
+
+		_deprecated_function( __METHOD__, '1.7.1.2 of the WPForms plugin' );
 
 		// If the form contains no fields with conditional logic no need to
 		// continue processing.
@@ -1263,7 +1359,7 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 			unset( $form_data['conditional_fields'][ $key ] );
 
 			// Upload the file and celebrate.
-			$this->format( $field_id, array(), $form_data );
+			$this->format( $field_id, [], $form_data );
 		}
 	}
 
@@ -1499,9 +1595,10 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 	 * @since 1.6.2
 	 */
 	public function ajax_chunk_upload_finalize() {
-		$default_error = esc_html__( 'Something went wrong, please try again.', 'wpforms' );
 
-	 	$handler = Chunk::from_current_request( $this );
+		$default_error = esc_html__( 'Something went wrong, please try again.', 'wpforms' );
+		$handler       = Chunk::from_current_request( $this );
+
 		if ( ! $handler || ! $handler->load_metadata() ) {
 			wp_send_json_error( $default_error, 403 );
 		}
@@ -1512,6 +1609,7 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 		$tmp_dir        = $this->get_tmp_dir();
 		$tmp_name       = $this->get_tmp_file_name( $extension );
 		$tmp_path       = wp_normalize_path( $tmp_dir . '/' . $tmp_name );
+		$file_new       = pathinfo( $tmp_path, PATHINFO_FILENAME ) . '.' . pathinfo( $tmp_path, PATHINFO_EXTENSION );
 
 		if ( ! $handler->finalize( $tmp_path ) ) {
 			wp_send_json_error( $default_error, 403 );
@@ -1519,18 +1617,21 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 
 		$is_valid_type = $this->validate_wp_filetype_and_ext( $tmp_path, $file_name );
 
-		if ( false !== $is_valid_type ) {
+		if ( $is_valid_type !== false ) {
 			wp_send_json_error( $is_valid_type, 403 );
 		}
 
 		$this->clean_tmp_files();
 
 		wp_send_json_success(
-			array(
+			[
 				'name'           => $file_name,
-				'file'           => pathinfo( $tmp_path, PATHINFO_FILENAME ) . '.' . pathinfo( $tmp_path, PATHINFO_EXTENSION ),
+				'file'           => $file_new,
+				'url'            => $this->get_tmp_url() . '/' . $file_new,
+				'size'           => filesize( $tmp_path ),
+				'type'           => wp_check_filetype( $tmp_path )['type'],
 				'file_user_name' => $file_user_name,
-			)
+			]
 		);
 	}
 
@@ -1789,6 +1890,20 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 	}
 
 	/**
+	 * Get tmp url for files.
+	 *
+	 * @since 1.7.1
+	 *
+	 * @return string
+	 */
+	private function get_tmp_url() {
+
+		$upload_dir = wpforms_upload_dir();
+
+		return $upload_dir['url'] . '/tmp';
+	}
+
+	/**
 	 * Create both the directory and index.html file in it if any of them doesn't exist.
 	 *
 	 * @since 1.5.6
@@ -1940,7 +2055,7 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 	 */
 	public function disallow_upload_dir_indexing( $output ) {
 
-		_deprecated_function( __CLASS__ . '::' . __METHOD__, '1.7.0 of the WPForms plugin' );
+		_deprecated_function( __METHOD__, '1.7.0 of the WPForms plugin' );
 
 		return ( new Robots() )->disallow_upload_dir_indexing( $output );
 	}
