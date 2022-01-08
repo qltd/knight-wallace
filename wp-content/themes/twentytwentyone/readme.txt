@@ -1,9 +1,15 @@
 === Twenty Twenty-One ===
 Contributors: wordpressdotorg
 Requires at least: 5.3
+<<<<<<< HEAD
 Tested up to: 5.8
 Requires PHP: 5.6
 Stable tag: 1.4
+=======
+Tested up to: 5.6
+Requires PHP: 5.6
+Stable tag: 1.2
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,6 +36,7 @@ No data is saved in the database or transferred.
 
 == Changelog ==
 
+<<<<<<< HEAD
 = 1.4 =
 * Released: July 20, 2021
 
@@ -40,6 +47,8 @@ https://wordpress.org/support/article/twenty-twenty-one-changelog#Version_1.4
 
 https://wordpress.org/support/article/twenty-twenty-one-changelog#Version_1.3
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 = 1.2 =
 * Released: March 9, 2021
 

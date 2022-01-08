@@ -138,13 +138,22 @@ class WPSEO_Replace_Vars {
 	 *
 	 * @return string
 	 */
+<<<<<<< HEAD
 	public function replace( $text, $args, $omit = [] ) {
+=======
+	public function replace( $string, $args, $omit = [] ) {
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 		$text = wp_strip_all_tags( $text );
 
 		// Let's see if we can bail super early.
+<<<<<<< HEAD
 		if ( strpos( $text, '%%' ) === false ) {
 			return YoastSEO()->helpers->string->standardize_whitespace( $text );
+=======
+		if ( strpos( $string, '%%' ) === false ) {
+			return YoastSEO()->helpers->string->standardize_whitespace( $string );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		}
 
 		$args = (array) $args;
@@ -162,7 +171,11 @@ class WPSEO_Replace_Vars {
 		}
 
 		$replacements = [];
+<<<<<<< HEAD
 		if ( preg_match_all( '`%%([^%]+(%%single)?)%%?`iu', $text, $matches ) ) {
+=======
+		if ( preg_match_all( '`%%([^%]+(%%single)?)%%?`iu', $string, $matches ) ) {
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			$replacements = $this->set_up_replacements( $matches, $omit );
 		}
 
@@ -178,11 +191,19 @@ class WPSEO_Replace_Vars {
 
 		// Do the actual replacements.
 		if ( is_array( $replacements ) && $replacements !== [] ) {
+<<<<<<< HEAD
 			$text = str_replace(
 				array_keys( $replacements ),
 				// Make sure to exclude replacement values that are arrays e.g. coming from a custom field serialized value.
 				array_filter( array_values( $replacements ), 'is_scalar' ),
 				$text
+=======
+			$string = str_replace(
+				array_keys( $replacements ),
+				// Make sure to exclude replacement values that are arrays e.g. coming from a custom field serialized value.
+				array_filter( array_values( $replacements ), 'is_scalar' ),
+				$string
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			);
 		}
 
@@ -198,7 +219,11 @@ class WPSEO_Replace_Vars {
 			// Remove non-replaced variables.
 			$remove = array_diff( $matches[1], $omit ); // Make sure the $omit variables do not get removed.
 			$remove = array_map( [ __CLASS__, 'add_var_delimiter' ], $remove );
+<<<<<<< HEAD
 			$text   = str_replace( $remove, '', $text );
+=======
+			$string = str_replace( $remove, '', $string );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		}
 
 		// Undouble separators which have nothing between them, i.e. where a non-replaced variable was removed.
@@ -208,7 +233,11 @@ class WPSEO_Replace_Vars {
 		}
 
 		// Remove superfluous whitespace.
+<<<<<<< HEAD
 		$text = YoastSEO()->helpers->string->standardize_whitespace( $text );
+=======
+		$string = YoastSEO()->helpers->string->standardize_whitespace( $string );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 		return $text;
 	}
@@ -229,6 +258,63 @@ class WPSEO_Replace_Vars {
 	public function safe_register_replacement( $var_to_replace, $replace_function, $type = 'advanced', $help_text = '' ) {
 		if ( ! $this->has_been_registered( $var_to_replace ) ) {
 			return self::register_replacement( $var_to_replace, $replace_function, $type, $help_text );
+		}
+		return false;
+	}
+
+	/**
+	 * Checks whether the given replacement variable has already been registered or not.
+	 *
+	 * @param string $replacement_variable The replacement variable to check, including the variable delimiter (e.g. `%%var%%`).
+	 *
+	 * @return bool `true` if the replacement variable has already been registered.
+	 */
+	public function has_been_registered( $replacement_variable ) {
+		$replacement_variable = self::remove_var_delimiter( $replacement_variable );
+
+		return isset( self::$external_replacements[ $replacement_variable ] );
+	}
+
+	/**
+	 * Returns the list of hidden replace vars.
+	 *
+	 * E.g. the replace vars that should work, but are not advertised.
+	 *
+	 * @return string[] The list of hidden replace vars.
+	 */
+	public function get_hidden_replace_vars() {
+		return [
+			'currentdate',
+			'currentyear',
+			'currentmonth',
+			'currentday',
+			'post_year',
+			'post_month',
+			'post_day',
+			'author_first_name',
+			'author_last_name',
+			'permalink',
+			'post_content',
+			'category_title',
+		];
+	}
+
+	/**
+	 * Register a new replacement variable if it has not been registered already.
+	 *
+	 * @param string $var              The name of the variable to replace, i.e. '%%var%%'.
+	 *                                 Note: the surrounding %% are optional.
+	 * @param mixed  $replace_function Function or method to call to retrieve the replacement value for the variable.
+	 *                                 Uses the same format as add_filter/add_action function parameter and
+	 *                                 should *return* the replacement value. DON'T echo it.
+	 * @param string $type             Type of variable: 'basic' or 'advanced', defaults to 'advanced'.
+	 * @param string $help_text        Help text to be added to the help tab for this variable.
+	 *
+	 * @return bool `true` if the replace var has been registered, `false` if not.
+	 */
+	public function safe_register_replacement( $var, $replace_function, $type = 'advanced', $help_text = '' ) {
+		if ( ! $this->has_been_registered( $var ) ) {
+			return self::register_replacement( $var, $replace_function, $type, $help_text );
 		}
 		return false;
 	}
@@ -765,11 +851,19 @@ class WPSEO_Replace_Vars {
 	 *
 	 * @return string|null
 	 */
+<<<<<<< HEAD
 	private function retrieve_cf_custom_field_name( $var_to_replace ) {
 		$replacement = null;
 
 		if ( is_string( $var_to_replace ) && $var_to_replace !== '' ) {
 			$field = substr( $var_to_replace, 3 );
+=======
+	private function retrieve_cf_custom_field_name( $var ) {
+		$replacement = null;
+
+		if ( is_string( $var ) && $var !== '' ) {
+			$field = substr( $var, 3 );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			if ( ! empty( $this->args->ID ) ) {
 				// Post meta can be arrays and in this case we need to exclude them.
 				$name = get_post_meta( $this->args->ID, $field, true );
@@ -819,11 +913,19 @@ class WPSEO_Replace_Vars {
 	 *
 	 * @return string|null
 	 */
+<<<<<<< HEAD
 	private function retrieve_ct_desc_custom_tax_name( $var_to_replace ) {
 		$replacement = null;
 
 		if ( is_string( $var_to_replace ) && $var_to_replace !== '' ) {
 			$tax = substr( $var_to_replace, 8 );
+=======
+	private function retrieve_ct_desc_custom_tax_name( $var ) {
+		$replacement = null;
+
+		if ( is_string( $var ) && $var !== '' ) {
+			$tax = substr( $var, 8 );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			if ( ! empty( $this->args->ID ) ) {
 				$terms = get_the_terms( $this->args->ID, $tax );
 				if ( is_array( $terms ) && $terms !== [] ) {
@@ -1190,6 +1292,11 @@ class WPSEO_Replace_Vars {
 	 */
 	private function retrieve_author_first_name() {
 		$replacement = null;
+<<<<<<< HEAD
+
+		$user_id = (int) $this->retrieve_userid();
+		$name    = get_the_author_meta( 'first_name', $user_id );
+=======
 
 		$user_id = (int) $this->retrieve_userid();
 		$name    = get_the_author_meta( 'first_name', $user_id );
@@ -1199,6 +1306,25 @@ class WPSEO_Replace_Vars {
 
 		return $replacement;
 	}
+
+	/**
+	 * Retrieve the post/page/cpt author's last name for use as replacement string.
+	 *
+	 * @return string|null
+	 */
+	private function retrieve_author_last_name() {
+		$replacement = null;
+
+		$user_id = (int) $this->retrieve_userid();
+		$name    = get_the_author_meta( 'last_name', $user_id );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
+		if ( $name !== '' ) {
+			$replacement = $name;
+		}
+
+		return $replacement;
+	}
+<<<<<<< HEAD
 
 	/**
 	 * Retrieve the post/page/cpt author's last name for use as replacement string.
@@ -1245,7 +1371,72 @@ class WPSEO_Replace_Vars {
 		}
 
 		return $replacement;
+=======
+
+	/**
+	 * Retrieve the post/page/cpt permalink for use as replacement string.
+	 *
+	 * @return string|null
+	 */
+	private function retrieve_permalink() {
+		if ( empty( $this->args->ID ) ) {
+			return null;
+		}
+
+		return \get_permalink( $this->args->ID );
 	}
+
+	/**
+	 * Retrieve the post/page/cpt content for use as replacement string.
+	 *
+	 * @return string|null
+	 */
+	private function retrieve_post_content() {
+		$replacement = null;
+
+		// The check `post_password_required` is because content must be hidden for a post with a password.
+		if ( ! empty( $this->args->ID ) && $this->args->post_content !== '' && ! post_password_required( $this->args->ID ) ) {
+			$content     = strip_shortcodes( $this->args->post_content );
+			$replacement = wp_strip_all_tags( $content );
+		}
+
+		return $replacement;
+	}
+
+	/**
+	 * Retrieve the current or first category title. To be used for import data from AIOSEO.
+	 * The code derives from AIOSEO's way of dealing with that var, so we can ensure 100% seamless transition.
+	 *
+	 * @return string|null
+	 */
+	private function retrieve_category_title() {
+		if ( empty( $this->args ) || empty( $this->args->ID ) ) {
+			return null;
+		}
+		$post_id = $this->args->ID;
+
+		$post       = get_post( $post_id );
+		$taxonomies = get_object_taxonomies( $post, 'objects' );
+
+		foreach ( $taxonomies as $taxonomy_slug => $taxonomy ) {
+			if ( ! $taxonomy->hierarchical ) {
+				continue;
+			}
+			$post_terms = get_the_terms( $post_id, $taxonomy_slug );
+			if ( is_array( $post_terms ) && count( $post_terms ) > 0 ) {
+				// AiOSEO takes the name of whatever the first hierarchical taxonomy is.
+				$term = $post_terms[0];
+				if ( $term ) {
+					return $term->name;
+				}
+			}
+		}
+
+		return null;
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
+	}
+
+	/* *********************** HELP TEXT RELATED ************************** */
 
 	/**
 	 * Retrieve the current or first category title. To be used for import data from AIOSEO.
@@ -1574,6 +1765,7 @@ class WPSEO_Replace_Vars {
 		if ( ! is_taxonomy_hierarchical( $this->args->taxonomy ) ) {
 			return '';
 		}
+<<<<<<< HEAD
 
 		$separator = ' ' . $this->retrieve_sep() . ' ';
 
@@ -1598,6 +1790,32 @@ class WPSEO_Replace_Vars {
 	private function retrieve_term_hierarchy() {
 		$replacement = null;
 
+=======
+
+		$separator = ' ' . $this->retrieve_sep() . ' ';
+
+		$args = [
+			'format'    => 'name',
+			'separator' => $separator,
+			'link'      => false,
+			'inclusive' => true,
+		];
+
+		return rtrim(
+			get_term_parents_list( $this->args->term_id, $this->args->taxonomy, $args ),
+			$separator
+		);
+	}
+
+	/**
+	 * Retrieves the term ancestors hierarchy.
+	 *
+	 * @return string|null The term ancestors hierarchy.
+	 */
+	private function retrieve_term_hierarchy() {
+		$replacement = null;
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		if ( ! empty( $this->args->term_id ) && ! empty( $this->args->taxonomy ) ) {
 			$hierarchy = $this->get_term_hierarchy();
 

@@ -70,12 +70,20 @@ if ( ! Element.prototype.matches ) {
 }
 
 // Add a class to the body for when touch is enabled for browsers that don't support media queries
+<<<<<<< HEAD
 // for interaction media features. Adapted from <https://codepen.io/Ferie/pen/vQOMmO>.
+=======
+// for interaction media features. Adapted from <https://codepen.io/Ferie/pen/vQOMmO>
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 twentytwenty.touchEnabled = {
 
 	init: function() {
 		var matchMedia = function() {
+<<<<<<< HEAD
 			// Include the 'heartz' as a way to have a non-matching MQ to help terminate the join. See <https://git.io/vznFH>.
+=======
+			// Include the 'heartz' as a way to have a non matching MQ to help terminate the join. See <https://git.io/vznFH>.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			var prefixes = [ '-webkit-', '-moz-', '-o-', '-ms-' ];
 			var query = [ '(', prefixes.join( 'touch-enabled),(' ), 'heartz', ')' ].join( '' );
 			return window.matchMedia && window.matchMedia( query ).matches;
@@ -95,6 +103,7 @@ twentytwenty.coverModals = {
 
 	init: function() {
 		if ( document.querySelector( '.cover-modal' ) ) {
+<<<<<<< HEAD
 			// Handle cover modals when they're toggled.
 			this.onToggle();
 
@@ -105,11 +114,27 @@ twentytwenty.coverModals = {
 			this.closeOnEscape();
 
 			// Hide and show modals before and after their animations have played out.
+=======
+			// Handle cover modals when they're toggled
+			this.onToggle();
+
+			// When toggled, untoggle if visitor clicks on the wrapping element of the modal
+			this.outsideUntoggle();
+
+			// Close on escape key press
+			this.closeOnEscape();
+
+			// Hide and show modals before and after their animations have played out
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			this.hideAndShowModals();
 		}
 	},
 
+<<<<<<< HEAD
 	// Handle cover modals when they're toggled.
+=======
+	// Handle cover modals when they're toggled
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	onToggle: function() {
 		document.querySelectorAll( '.cover-modal' ).forEach( function( element ) {
 			element.addEventListener( 'toggled', function( event ) {
@@ -122,7 +147,11 @@ twentytwenty.coverModals = {
 					body.classList.remove( 'showing-modal' );
 					body.classList.add( 'hiding-modal' );
 
+<<<<<<< HEAD
 					// Remove the hiding class after a delay, when animations have been run.
+=======
+					// Remove the hiding class after a delay, when animations have been run
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 					setTimeout( function() {
 						body.classList.remove( 'hiding-modal' );
 					}, 500 );
@@ -131,12 +160,17 @@ twentytwenty.coverModals = {
 		} );
 	},
 
+<<<<<<< HEAD
 	// Close modal on outside click.
+=======
+	// Close modal on outside click
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	outsideUntoggle: function() {
 		document.addEventListener( 'click', function( event ) {
 			var target = event.target;
 			var modal = document.querySelector( '.cover-modal.active' );
 
+<<<<<<< HEAD
 			// if target onclick is <a> with # within the href attribute
 			if ( event.target.tagName.toLowerCase() === 'a' && event.target.hash.includes( '#' ) && modal !== null ) {
 				// untoggle the modal
@@ -148,13 +182,19 @@ twentytwenty.coverModals = {
 				}, 550 );
 			}
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			if ( target === modal ) {
 				this.untoggleModal( target );
 			}
 		}.bind( this ) );
 	},
 
+<<<<<<< HEAD
 	// Close modal on escape key press.
+=======
+	// Close modal on escape key press
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	closeOnEscape: function() {
 		document.addEventListener( 'keydown', function( event ) {
 			if ( event.keyCode === 27 ) {
@@ -166,7 +206,11 @@ twentytwenty.coverModals = {
 		}.bind( this ) );
 	},
 
+<<<<<<< HEAD
 	// Hide and show modals before and after their animations have played out.
+=======
+	// Hide and show modals before and after their animations have played out
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	hideAndShowModals: function() {
 		var _doc = document,
 			_win = window,
@@ -199,7 +243,11 @@ twentytwenty.coverModals = {
 			};
 		}
 
+<<<<<<< HEAD
 		// Show the modal.
+=======
+		// Show the modal
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		modals.forEach( function( modal ) {
 			modal.addEventListener( 'toggle-target-before-inactive', function( event ) {
 				var styles = htmlStyles(),
@@ -232,7 +280,11 @@ twentytwenty.coverModals = {
 				modal.classList.add( 'show-modal' );
 			} );
 
+<<<<<<< HEAD
 			// Hide the modal after a delay, so animations have time to play out.
+=======
+			// Hide the modal after a delay, so animations have time to play out
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			modal.addEventListener( 'toggle-target-after-inactive', function( event ) {
 				if ( event.target !== modal ) {
 					return;
@@ -265,24 +317,41 @@ twentytwenty.coverModals = {
 		} );
 	},
 
+<<<<<<< HEAD
 	// Untoggle a modal.
+=======
+	// Untoggle a modal
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	untoggleModal: function( modal ) {
 		var modalTargetClass,
 			modalToggle = false;
 
+<<<<<<< HEAD
 		// If the modal has specified the string (ID or class) used by toggles to target it, untoggle the toggles with that target string.
 		// The modal-target-string must match the string toggles use to target the modal.
+=======
+		// If the modal has specified the string (ID or class) used by toggles to target it, untoggle the toggles with that target string
+		// The modal-target-string must match the string toggles use to target the modal
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		if ( modal.dataset.modalTargetString ) {
 			modalTargetClass = modal.dataset.modalTargetString;
 
 			modalToggle = document.querySelector( '*[data-toggle-target="' + modalTargetClass + '"]' );
 		}
 
+<<<<<<< HEAD
 		// If a modal toggle exists, trigger it so all of the toggle options are included.
 		if ( modalToggle ) {
 			modalToggle.click();
 
 			// If one doesn't exist, just hide the modal.
+=======
+		// If a modal toggle exists, trigger it so all of the toggle options are included
+		if ( modalToggle ) {
+			modalToggle.click();
+
+			// If one doesn't exist, just hide the modal
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		} else {
 			modal.classList.remove( 'active' );
 		}
@@ -309,23 +378,38 @@ twentytwenty.intrinsicRatioVideos = {
 			var ratio, iTargetWidth,
 				container = video.parentNode;
 
+<<<<<<< HEAD
 			// Skip videos we want to ignore.
+=======
+			// Skip videos we want to ignore
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			if ( video.classList.contains( 'intrinsic-ignore' ) || video.parentNode.classList.contains( 'intrinsic-ignore' ) ) {
 				return true;
 			}
 
 			if ( ! video.dataset.origwidth ) {
+<<<<<<< HEAD
 				// Get the video element proportions.
+=======
+				// Get the video element proportions
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				video.setAttribute( 'data-origwidth', video.width );
 				video.setAttribute( 'data-origheight', video.height );
 			}
 
 			iTargetWidth = container.offsetWidth;
 
+<<<<<<< HEAD
 			// Get ratio from proportions.
 			ratio = iTargetWidth / video.dataset.origwidth;
 
 			// Scale based on ratio, thus retaining proportions.
+=======
+			// Get ratio from proportions
+			ratio = iTargetWidth / video.dataset.origwidth;
+
+			// Scale based on ratio, thus retaining proportions
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			video.style.width = iTargetWidth + 'px';
 			video.style.height = ( video.dataset.origheight * ratio ) + 'px';
 		} );
@@ -339,7 +423,11 @@ twentytwenty.intrinsicRatioVideos = {
 twentytwenty.modalMenu = {
 
 	init: function() {
+<<<<<<< HEAD
 		// If the current menu item is in a sub level, expand all the levels higher up on load.
+=======
+		// If the current menu item is in a sub level, expand all the levels higher up on load
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		this.expandLevel();
 		this.keepFocusInModal();
 	},
@@ -473,6 +561,7 @@ twentytwenty.toggles = {
 	clickedEl: false,
 
 	init: function() {
+<<<<<<< HEAD
 		// Do the toggle.
 		this.toggle();
 
@@ -480,6 +569,15 @@ twentytwenty.toggles = {
 		this.resizeCheck();
 
 		// Check for untoggle on escape key press.
+=======
+		// Do the toggle
+		this.toggle();
+
+		// Check for toggle/untoggle on resize
+		this.resizeCheck();
+
+		// Check for untoggle on escape key press
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		this.untoggleOnEscapeKeyPress();
 	},
 
@@ -487,12 +585,20 @@ twentytwenty.toggles = {
 		var target, timeOutTime, classToToggle,
 			self = this,
 			_doc = document,
+<<<<<<< HEAD
 			// Get our targets.
+=======
+			// Get our targets
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			toggle = element,
 			targetString = toggle.dataset.toggleTarget,
 			activeClass = 'active';
 
+<<<<<<< HEAD
 		// Elements to focus after modals are closed.
+=======
+		// Elements to focus after modals are closed
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		if ( ! _doc.querySelectorAll( '.show-modal' ).length ) {
 			self.clickedEl = _doc.activeElement;
 		}
@@ -503,17 +609,28 @@ twentytwenty.toggles = {
 			target = _doc.querySelector( targetString );
 		}
 
+<<<<<<< HEAD
 		// Trigger events on the toggle targets before they are toggled.
+=======
+		// Trigger events on the toggle targets before they are toggled
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		if ( target.classList.contains( activeClass ) ) {
 			target.dispatchEvent( twentytwenty.createEvent( 'toggle-target-before-active' ) );
 		} else {
 			target.dispatchEvent( twentytwenty.createEvent( 'toggle-target-before-inactive' ) );
 		}
 
+<<<<<<< HEAD
 		// Get the class to toggle, if specified.
 		classToToggle = toggle.dataset.classToToggle ? toggle.dataset.classToToggle : activeClass;
 
 		// For cover modals, set a short timeout duration so the class animations have time to play out.
+=======
+		// Get the class to toggle, if specified
+		classToToggle = toggle.dataset.classToToggle ? toggle.dataset.classToToggle : activeClass;
+
+		// For cover modals, set a short timeout duration so the class animations have time to play out
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		timeOutTime = 0;
 
 		if ( target.classList.contains( 'cover-modal' ) ) {
@@ -526,36 +643,60 @@ twentytwenty.toggles = {
 				newTarget = subMenued ? toggle.closest( '.menu-item' ).querySelector( '.sub-menu' ) : target,
 				duration = toggle.dataset.toggleDuration;
 
+<<<<<<< HEAD
 			// Toggle the target of the clicked toggle.
+=======
+			// Toggle the target of the clicked toggle
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			if ( toggle.dataset.toggleType === 'slidetoggle' && ! instantly && duration !== '0' ) {
 				twentytwentyMenuToggle( newTarget, duration );
 			} else {
 				newTarget.classList.toggle( classToToggle );
 			}
 
+<<<<<<< HEAD
 			// If the toggle target is 'next', only give the clicked toggle the active class.
+=======
+			// If the toggle target is 'next', only give the clicked toggle the active class
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			if ( targetString === 'next' ) {
 				toggle.classList.toggle( activeClass );
 			} else if ( target.classList.contains( 'sub-menu' ) ) {
 				toggle.classList.toggle( activeClass );
 			} else {
+<<<<<<< HEAD
 				// If not, toggle all toggles with this toggle target.
 				_doc.querySelector( '*[data-toggle-target="' + targetString + '"]' ).classList.toggle( activeClass );
 			}
 
 			// Toggle aria-expanded on the toggle.
+=======
+				// If not, toggle all toggles with this toggle target
+				_doc.querySelector( '*[data-toggle-target="' + targetString + '"]' ).classList.toggle( activeClass );
+			}
+
+			// Toggle aria-expanded on the toggle
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			twentytwentyToggleAttribute( toggle, 'aria-expanded', 'true', 'false' );
 
 			if ( self.clickedEl && -1 !== toggle.getAttribute( 'class' ).indexOf( 'close-' ) ) {
 				twentytwentyToggleAttribute( self.clickedEl, 'aria-expanded', 'true', 'false' );
 			}
 
+<<<<<<< HEAD
 			// Toggle body class.
+=======
+			// Toggle body class
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			if ( toggle.dataset.toggleBodyClass ) {
 				_doc.body.classList.toggle( toggle.dataset.toggleBodyClass );
 			}
 
+<<<<<<< HEAD
 			// Check whether to set focus.
+=======
+			// Check whether to set focus
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			if ( toggle.dataset.setFocus ) {
 				focusElement = _doc.querySelector( toggle.dataset.setFocus );
 
@@ -568,10 +709,17 @@ twentytwenty.toggles = {
 				}
 			}
 
+<<<<<<< HEAD
 			// Trigger the toggled event on the toggle target.
 			target.dispatchEvent( twentytwenty.createEvent( 'toggled' ) );
 
 			// Trigger events on the toggle targets after they are toggled.
+=======
+			// Trigger the toggled event on the toggle target
+			target.dispatchEvent( twentytwenty.createEvent( 'toggled' ) );
+
+			// Trigger events on the toggle targets after they are toggled
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			if ( target.classList.contains( activeClass ) ) {
 				target.dispatchEvent( twentytwenty.createEvent( 'toggle-target-after-active' ) );
 			} else {
@@ -580,7 +728,11 @@ twentytwenty.toggles = {
 		}, timeOutTime );
 	},
 
+<<<<<<< HEAD
 	// Do the toggle.
+=======
+	// Do the toggle
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	toggle: function() {
 		var self = this;
 
@@ -592,7 +744,11 @@ twentytwenty.toggles = {
 		} );
 	},
 
+<<<<<<< HEAD
 	// Check for toggle/untoggle on screen resize.
+=======
+	// Check for toggle/untoggle on screen resize
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	resizeCheck: function() {
 		if ( document.querySelectorAll( '*[data-untoggle-above], *[data-untoggle-below], *[data-toggle-above], *[data-toggle-below]' ).length ) {
 			window.addEventListener( 'resize', function() {
@@ -605,12 +761,20 @@ twentytwenty.toggles = {
 						toggleAbove = toggle.dataset.toggleAbove,
 						toggleBelow = toggle.dataset.toggleBelow;
 
+<<<<<<< HEAD
 					// If no width comparison is set, continue.
+=======
+					// If no width comparison is set, continue
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 					if ( ! unToggleAbove && ! unToggleBelow && ! toggleAbove && ! toggleBelow ) {
 						return;
 					}
 
+<<<<<<< HEAD
 					// If the toggle width comparison is true, toggle the toggle.
+=======
+					// If the toggle width comparison is true, toggle the toggle
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 					if (
 						( ( ( unToggleAbove && winWidth > unToggleAbove ) ||
 							( unToggleBelow && winWidth < unToggleBelow ) ) &&
@@ -626,7 +790,11 @@ twentytwenty.toggles = {
 		}
 	},
 
+<<<<<<< HEAD
 	// Close toggle on escape key press.
+=======
+	// Close toggle on escape key press
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	untoggleOnEscapeKeyPress: function() {
 		document.addEventListener( 'keyup', function( event ) {
 			if ( event.key === 'Escape' ) {
@@ -642,11 +810,17 @@ twentytwenty.toggles = {
 }; // twentytwenty.toggles
 
 /**
+<<<<<<< HEAD
  * Is the DOM ready?
  *
  * This implementation is coming from https://gomakethings.com/a-native-javascript-equivalent-of-jquerys-ready-method/
  *
  * @since Twenty Twenty 1.0
+=======
+ * Is the DOM ready
+ *
+ * this implementation is coming from https://gomakethings.com/a-native-javascript-equivalent-of-jquerys-ready-method/
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  *
  * @param {Function} fn Callback function to run.
  */
@@ -663,12 +837,21 @@ function twentytwentyDomReady( fn ) {
 }
 
 twentytwentyDomReady( function() {
+<<<<<<< HEAD
 	twentytwenty.toggles.init();              // Handle toggles.
 	twentytwenty.coverModals.init();          // Handle cover modals.
 	twentytwenty.intrinsicRatioVideos.init(); // Retain aspect ratio of videos on window resize.
 	twentytwenty.modalMenu.init();            // Modal Menu.
 	twentytwenty.primaryMenu.init();          // Primary Menu.
 	twentytwenty.touchEnabled.init();         // Add class to body if device is touch-enabled.
+=======
+	twentytwenty.toggles.init();	// Handle toggles
+	twentytwenty.coverModals.init();	// Handle cover modals
+	twentytwenty.intrinsicRatioVideos.init();	// Retain aspect ratio of videos on window resize
+	twentytwenty.modalMenu.init();	// Modal Menu
+	twentytwenty.primaryMenu.init();	// Primary Menu
+	twentytwenty.touchEnabled.init();	// Add class to body if device is touch-enabled
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 } );
 
 /*	-----------------------------------------------------------------------------------------------
@@ -678,9 +861,12 @@ twentytwentyDomReady( function() {
 /* Toggle an attribute ----------------------- */
 
 function twentytwentyToggleAttribute( element, attribute, trueVal, falseVal ) {
+<<<<<<< HEAD
 	if ( element.classList.contains( 'close-search-toggle' ) ) {
 		return;
 	}
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	if ( trueVal === undefined ) {
 		trueVal = true;
 	}
@@ -697,8 +883,11 @@ function twentytwentyToggleAttribute( element, attribute, trueVal, falseVal ) {
 /**
  * Toggle a menu item on or off.
  *
+<<<<<<< HEAD
  * @since Twenty Twenty 1.0
  *
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  * @param {HTMLElement} target
  * @param {number} duration
  */
@@ -735,11 +924,17 @@ function twentytwentyMenuToggle( target, duration ) {
 	// The whole process happens without giving the browser a chance to render, so it's invisible.
 	target.classList.toggle( 'active' );
 
+<<<<<<< HEAD
 	/*
 	 * Step 4: prepare animation.
 	 * Position all the items with absolute offsets, at the same starting position.
 	 * Shouldn't result in any visual changes if done right.
 	 */
+=======
+	// Step 4: prepare animation.
+	// Position all the items with absolute offsets, at the same starting position.
+	// Shouldn't result in any visual changes if done right.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	menu.classList.add( 'is-toggling' );
 	target.classList.toggle( 'active' );
 	menuItems.forEach( function( menuItem, index ) {
@@ -750,6 +945,7 @@ function twentytwentyMenuToggle( target, duration ) {
 		menuItem.style.transform = 'translate(' + initialPosition.x + 'px, ' + initialPosition.y + 'px)';
 	} );
 
+<<<<<<< HEAD
 	/*
 	 * The double rAF is unfortunately needed, since we're toggling CSS classes, and
 	 * the only way to ensure layout completion here across browsers is to wait twice.
@@ -763,6 +959,17 @@ function twentytwentyMenuToggle( target, duration ) {
 			 * The animation now runs entirely in CSS, using cheap CSS properties (opacity and transform)
 			 * that don't trigger the layout or paint stages.
 			 */
+=======
+	// The double rAF is unfortunately needed, since we're toggling CSS classes, and
+	// the only way to ensure layout completion here across browsers is to wait twice.
+	// This just delays the start of the animation by 2 frames and is thus not an issue.
+	requestAnimationFrame( function() {
+		requestAnimationFrame( function() {
+			// Step 5: start animation by moving everything to final position.
+			// All the layout work has already happened, while we were preparing for the animation.
+			// The animation now runs entirely in CSS, using cheap CSS properties (opacity and transform)
+			// that don't trigger the layout or paint stages.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			menu.classList.add( 'is-animating' );
 			menuItems.forEach( function( menuItem, index ) {
 				var finalPosition = finalPositions[ index ];
@@ -798,9 +1005,13 @@ function twentytwentyMenuToggle( target, duration ) {
 }
 
 /**
+<<<<<<< HEAD
  * Traverses the DOM up to find elements matching the query.
  *
  * @since Twenty Twenty 1.0
+=======
+ * traverses the DOM up to find elements matching the query
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  *
  * @param {HTMLElement} target
  * @param {string} query
@@ -809,7 +1020,11 @@ function twentytwentyMenuToggle( target, duration ) {
 function twentytwentyFindParents( target, query ) {
 	var parents = [];
 
+<<<<<<< HEAD
 	// Recursively go up the DOM adding matches to the parents array.
+=======
+	// recursively go up the DOM adding matches to the parents array
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	function traverse( item ) {
 		var parent = item.parentNode;
 		if ( parent instanceof HTMLElement ) {

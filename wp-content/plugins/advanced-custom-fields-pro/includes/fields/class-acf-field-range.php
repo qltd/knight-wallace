@@ -113,6 +113,7 @@ if ( ! class_exists( 'acf_field_range' ) ) :
 			);
 			if ( floatval( $atts['step'] ) < 1 ) {
 				$len += strlen( strval( $field['step'] ) ) - 1.5;
+<<<<<<< HEAD
 			}
 
 				// input
@@ -258,6 +259,120 @@ if ( ! class_exists( 'acf_field_range' ) ) :
 		 */
 		public function format_value_for_rest( $value, $post_id, array $field ) {
 			return acf_format_numerics( $value );
+=======
+			}
+
+				// input
+				$html .= acf_get_text_input(
+					array(
+						'type'  => 'number',
+						'id'    => $atts['id'] . '-alt',
+						'value' => $atts['value'],
+						'step'  => $atts['step'],
+						// 'min' => $atts['min'], // removed to avoid browser validation errors
+						// 'max' => $atts['max'],
+						'style' => 'width: ' . ( 1.8 + $len * 0.7 ) . 'em;',
+					)
+				);
+
+				// append
+			if ( $field['append'] !== '' ) {
+				$html .= '<div class="acf-append">' . acf_esc_html( $field['append'] ) . '</div>';
+			}
+
+			// close
+			$html .= '</div>';
+
+			// return
+			echo $html;
+		}
+
+
+		/*
+		*  render_field_settings()
+		*
+		*  Create extra options for your field. This is rendered when editing a field.
+		*  The value of $field['name'] can be used (like bellow) to save extra data to the $field
+		*
+		*  @type    action
+		*  @since   3.6
+		*  @date    23/01/13
+		*
+		*  @param   $field  - an array holding all the field's data
+		*/
+
+		function render_field_settings( $field ) {
+
+			// default_value
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'        => __( 'Default Value', 'acf' ),
+					'instructions' => __( 'Appears when creating a new post', 'acf' ),
+					'type'         => 'number',
+					'name'         => 'default_value',
+				)
+			);
+
+			// min
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'        => __( 'Minimum Value', 'acf' ),
+					'instructions' => '',
+					'type'         => 'number',
+					'name'         => 'min',
+					'placeholder'  => '0',
+				)
+			);
+
+			// max
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'        => __( 'Maximum Value', 'acf' ),
+					'instructions' => '',
+					'type'         => 'number',
+					'name'         => 'max',
+					'placeholder'  => '100',
+				)
+			);
+
+			// step
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'        => __( 'Step Size', 'acf' ),
+					'instructions' => '',
+					'type'         => 'number',
+					'name'         => 'step',
+					'placeholder'  => '1',
+				)
+			);
+
+			// prepend
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'        => __( 'Prepend', 'acf' ),
+					'instructions' => __( 'Appears before the input', 'acf' ),
+					'type'         => 'text',
+					'name'         => 'prepend',
+				)
+			);
+
+			// append
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'        => __( 'Append', 'acf' ),
+					'instructions' => __( 'Appears after the input', 'acf' ),
+					'type'         => 'text',
+					'name'         => 'append',
+				)
+			);
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		}
 
 

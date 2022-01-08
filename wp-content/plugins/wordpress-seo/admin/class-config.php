@@ -118,7 +118,11 @@ class WPSEO_Admin_Pages {
 			$yoast_components_l10n->localize_script( 'settings' );
 		}
 
+<<<<<<< HEAD
 		if ( in_array( $page, [ 'wpseo_social', WPSEO_Admin::PAGE_IDENTIFIER, 'wpseo_titles', 'wpseo_workouts' ], true ) ) {
+=======
+		if ( in_array( $page, [ 'wpseo_social', WPSEO_Admin::PAGE_IDENTIFIER, 'wpseo_titles' ], true ) ) {
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			wp_enqueue_media();
 
 			$script_data['media'] = [

@@ -324,6 +324,7 @@ select {
 	background-position: right 10px top 60%;
 }
 
+<<<<<<< HEAD
 select:focus {
 	border: 3px solid #39414d;
 	border-radius: 0;
@@ -337,6 +338,8 @@ select:focus {
 	background-position: right 10px top 60%;
 }
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 /*
  * text-underline-offset doesn't work in Chrome at all 👎
  * But looks nice in Safari/Firefox, so let's keep it and
@@ -1927,6 +1930,7 @@ pre.wp-block-preformatted {
 	padding: 20px;
 }
 
+<<<<<<< HEAD
 .wp-block-query.has-background {
 	padding: 20px;
 }
@@ -1937,6 +1941,8 @@ pre.wp-block-preformatted {
 	}
 }
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 .wp-block-quote {
 	position: relative;
 	border-left: none;
@@ -3283,6 +3289,7 @@ a {
 	background-color: #fff;
 }
 
+<<<<<<< HEAD
 .has-background:not(.has-text-color).has-black-background-color[class] {
 	color: #fff;
 }
@@ -3295,6 +3302,8 @@ a {
 	color: #fff;
 }
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 .has-background:not(.has-text-color).has-black-background-color[class] > [class*=__inner-container] {
 	color: #28303d;
 }
@@ -3307,6 +3316,7 @@ a {
 	color: #28303d;
 }
 
+<<<<<<< HEAD
 .has-background:not(.has-text-color).has-green-background-color[class] {
 	color: #28303d;
 }
@@ -3335,6 +3345,8 @@ a {
 	color: #28303d;
 }
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 .has-background:not(.has-text-color).has-green-background-color[class] > [class*=__inner-container] {
 	color: #28303d;
 }

@@ -6,7 +6,10 @@ use Exception;
 use WPSEO_Replace_Vars;
 use Yoast\WP\SEO\Context\Meta_Tags_Context;
 use Yoast\WP\SEO\Integrations\Front_End_Integration;
+<<<<<<< HEAD
 use Yoast\WP\SEO\Models\Indexable;
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 use Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter;
 use Yoast\WP\SEO\Presenters\Rel_Next_Presenter;
 use Yoast\WP\SEO\Presenters\Rel_Prev_Presenter;
@@ -22,7 +25,10 @@ use YoastSEO_Vendor\Symfony\Component\DependencyInjection\ContainerInterface;
  * @property int         $company_logo_id                   The attachment ID for the company logo.
  * @property string      $description                       The meta description for the current page, if set.
  * @property int         $estimated_reading_time_minutes    The estimated reading time in minutes for posts.
+<<<<<<< HEAD
  * @property Indexable   $indexable                         The indexable object.
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  * @property string      $main_schema_id                    Schema ID that points to the main Schema thing on the page, usually the webpage or article Schema piece.
  * @property string      $meta_description                  The meta description for the current page, if set.
  * @property string      $open_graph_article_author         The article:author value.

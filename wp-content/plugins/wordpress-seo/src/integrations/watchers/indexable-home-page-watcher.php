@@ -108,11 +108,15 @@ class Indexable_Home_Page_Watcher implements Integration_Interface {
 	 */
 	public function build_indexable() {
 		$indexable = $this->repository->find_for_home_page( false );
+<<<<<<< HEAD
 		$indexable = $this->builder->build_for_home_page( $indexable );
 
 		if ( $indexable ) {
 			$indexable->object_last_modified = \max( $indexable->object_last_modified, \current_time( 'mysql' ) );
 			$indexable->save();
 		}
+=======
+		$this->builder->build_for_home_page( $indexable );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 }

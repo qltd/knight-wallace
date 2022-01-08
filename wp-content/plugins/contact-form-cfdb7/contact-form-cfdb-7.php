@@ -7,7 +7,11 @@ Author: Arshid
 Author URI: http://ciphercoin.com/
 Text Domain: contact-form-cfdb7
 Domain Path: /languages/
+<<<<<<< HEAD
 Version: 1.2.6.2
+=======
+Version: 1.2.5.9
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 */
 
 function cfdb7_create_table(){

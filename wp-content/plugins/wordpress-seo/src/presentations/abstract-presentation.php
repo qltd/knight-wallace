@@ -83,9 +83,15 @@ class Abstract_Presentation {
 	/**
 	 * Returns `true` if this class is a prototype.
 	 *
+<<<<<<< HEAD
 	 * @codeCoverageIgnore Wrapper method.
 	 *
 	 * @return bool If this class is a prototype or not.
+=======
+	 * @return bool If this class is a prototype or not.
+	 *
+	 * @codeCoverageIgnore Wrapper method.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 */
 	protected function is_prototype() {
 		return $this->is_prototype;

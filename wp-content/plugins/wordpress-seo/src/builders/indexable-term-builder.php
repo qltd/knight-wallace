@@ -2,6 +2,7 @@
 
 namespace Yoast\WP\SEO\Builders;
 
+<<<<<<< HEAD
 use wpdb;
 use Yoast\WP\SEO\Exceptions\Indexable\Invalid_Term_Exception;
 use Yoast\WP\SEO\Exceptions\Indexable\Term_Not_Found_Exception;
@@ -9,6 +10,12 @@ use Yoast\WP\SEO\Helpers\Post_Helper;
 use Yoast\WP\SEO\Helpers\Taxonomy_Helper;
 use Yoast\WP\SEO\Models\Indexable;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
+=======
+use Yoast\WP\SEO\Exceptions\Indexable\Invalid_Term_Exception;
+use Yoast\WP\SEO\Exceptions\Indexable\Term_Not_Found_Exception;
+use Yoast\WP\SEO\Helpers\Taxonomy_Helper;
+use Yoast\WP\SEO\Models\Indexable;
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 use Yoast\WP\SEO\Values\Indexables\Indexable_Builder_Versions;
 
 /**
@@ -35,6 +42,7 @@ class Indexable_Term_Builder {
 	protected $version;
 
 	/**
+<<<<<<< HEAD
 	 * Holds the taxonomy helper instance.
 	 *
 	 * @var Post_Helper
@@ -49,10 +57,13 @@ class Indexable_Term_Builder {
 	protected $wpdb;
 
 	/**
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 * Indexable_Term_Builder constructor.
 	 *
 	 * @param Taxonomy_Helper            $taxonomy_helper The taxonomy helper.
 	 * @param Indexable_Builder_Versions $versions        The latest version of each Indexable Builder.
+<<<<<<< HEAD
 	 * @param Post_Helper                $post_helper     The post helper.
 	 * @param wpdb                       $wpdb            The WPDB instance.
 	 */
@@ -66,6 +77,15 @@ class Indexable_Term_Builder {
 		$this->version         = $versions->get_latest_version_for_type( 'term' );
 		$this->post_helper     = $post_helper;
 		$this->wpdb            = $wpdb;
+=======
+	 */
+	public function __construct(
+		Taxonomy_Helper $taxonomy_helper,
+		Indexable_Builder_Versions $versions
+	) {
+		$this->taxonomy_helper = $taxonomy_helper;
+		$this->version         = $versions->get_latest_version_for_type( 'term' );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 	/**
@@ -85,6 +105,7 @@ class Indexable_Term_Builder {
 		if ( $term === null ) {
 			throw new Term_Not_Found_Exception();
 		}
+<<<<<<< HEAD
 
 		if ( \is_wp_error( $term ) ) {
 			throw new Invalid_Term_Exception( $term->get_error_message() );
@@ -96,6 +117,19 @@ class Indexable_Term_Builder {
 			throw new Invalid_Term_Exception( $term_link->get_error_message() );
 		}
 
+=======
+
+		if ( \is_wp_error( $term ) ) {
+			throw new Invalid_Term_Exception( $term->get_error_message() );
+		}
+
+		$term_link = \get_term_link( $term, $term->taxonomy );
+
+		if ( \is_wp_error( $term_link ) ) {
+			throw new Invalid_Term_Exception( $term_link->get_error_message() );
+		}
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		$term_meta = $this->taxonomy_helper->get_term_meta( $term );
 
 		$indexable->object_id       = $term_id;
@@ -132,10 +166,13 @@ class Indexable_Term_Builder {
 		$indexable->is_robots_noimageindex = null;
 		$indexable->is_robots_nosnippet    = null;
 
+<<<<<<< HEAD
 		$timestamps                      = $this->get_object_timestamps( $term_id, $term->taxonomy );
 		$indexable->object_published_at  = $timestamps->published_at;
 		$indexable->object_last_modified = $timestamps->last_modified;
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		$indexable->version = $this->version;
 
 		return $indexable;
@@ -239,6 +276,7 @@ class Indexable_Term_Builder {
 
 		return false;
 	}
+<<<<<<< HEAD
 
 	/**
 	 * Returns the timestamps for a given term.
@@ -269,4 +307,6 @@ class Indexable_Term_Builder {
 		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- We are using wpdb prepare.
 		return $this->wpdb->get_row( $this->wpdb->prepare( $sql, $replacements ) );
 	}
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 }

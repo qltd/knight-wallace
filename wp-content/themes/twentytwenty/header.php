@@ -6,7 +6,11 @@
  *
  * @package WordPress
  * @subpackage Twenty_Twenty
+<<<<<<< HEAD
  * @since Twenty Twenty 1.0
+=======
+ * @since 1.0.0
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 
 ?><!DOCTYPE html>
@@ -50,7 +54,11 @@
 								<span class="toggle-icon">
 									<?php twentytwenty_the_theme_svg( 'search' ); ?>
 								</span>
+<<<<<<< HEAD
 								<span class="toggle-text"><?php _ex( 'Search', 'toggle text', 'twentytwenty' ); ?></span>
+=======
+								<span class="toggle-text"><?php _e( 'Search', 'twentytwenty' ); ?></span>
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 							</span>
 						</button><!-- .search-toggle -->
 
@@ -85,7 +93,11 @@
 					if ( has_nav_menu( 'primary' ) || ! has_nav_menu( 'expanded' ) ) {
 						?>
 
+<<<<<<< HEAD
 							<nav class="primary-menu-wrapper" aria-label="<?php echo esc_attr_x( 'Horizontal', 'menu', 'twentytwenty' ); ?>" role="navigation">
+=======
+							<nav class="primary-menu-wrapper" aria-label="<?php esc_attr_e( 'Horizontal', 'twentytwenty' ); ?>" role="navigation">
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 								<ul class="primary-menu reset-list-style">
 
@@ -154,7 +166,11 @@
 								<button class="toggle search-toggle desktop-search-toggle" data-toggle-target=".search-modal" data-toggle-body-class="showing-search-modal" data-set-focus=".search-modal .search-field" aria-expanded="false">
 									<span class="toggle-inner">
 										<?php twentytwenty_the_theme_svg( 'search' ); ?>
+<<<<<<< HEAD
 										<span class="toggle-text"><?php _ex( 'Search', 'toggle text', 'twentytwenty' ); ?></span>
+=======
+										<span class="toggle-text"><?php _e( 'Search', 'twentytwenty' ); ?></span>
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 									</span>
 								</button><!-- .search-toggle -->
 

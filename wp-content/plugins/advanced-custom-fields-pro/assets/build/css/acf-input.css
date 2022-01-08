@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 /*!****************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/advanced-custom-fields-pro/assets/src/sass/acf-input.scss ***!
   \****************************************************************************************************************************************************************************************************************/
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 /*--------------------------------------------------------------------------------------------
 *
 *	Vars
@@ -650,9 +653,12 @@ html[dir=rtl] .select2-container.-acf .select2-choice .select2-arrow {
 .select2-container.-acf li {
   margin-bottom: 0;
 }
+<<<<<<< HEAD
 .select2-container.-acf[data-select2-id^=select2-data] .select2-selection--multiple {
   overflow: hidden;
 }
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 .select2-container.-acf .select2-selection {
   border-color: #7e8993;
 }
@@ -668,6 +674,7 @@ html[dir=rtl] .select2-container.-acf .select2-choice .select2-arrow {
 .select2-container.-acf .select2-selection--multiple .select2-selection__rendered {
   padding-right: 0;
 }
+<<<<<<< HEAD
 .select2-container.-acf .select2-selection--multiple .select2-selection__rendered[id^=select2-acf-field] {
   display: inline;
   padding: 0;
@@ -676,6 +683,8 @@ html[dir=rtl] .select2-container.-acf .select2-choice .select2-arrow {
 .select2-container.-acf .select2-selection--multiple .select2-selection__rendered[id^=select2-acf-field] .select2-selection__choice {
   margin-right: 0;
 }
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 .select2-container.-acf .select2-selection--multiple .select2-selection__choice {
   background-color: #f7f7f7;
   border-color: #cccccc;
@@ -693,11 +702,14 @@ html[dir=rtl] .select2-container.-acf .select2-choice .select2-arrow {
 .select2-container.-acf .select2-selection--multiple .select2-selection__choice.ui-sortable-helper span {
   visibility: hidden;
 }
+<<<<<<< HEAD
 .select2-container.-acf .select2-selection--multiple .select2-selection__choice .select2-selection__choice__remove {
   position: static;
   border-right: none;
   padding: 0;
 }
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 .select2-container.-acf .select2-selection--multiple .select2-selection__choice.ui-sortable-placeholder {
   background-color: #f7f7f7;
   border-color: #f7f7f7;
@@ -714,10 +726,13 @@ html[dir=rtl] .select2-container.-acf .select2-choice .select2-arrow {
   white-space: normal;
 }
 
+<<<<<<< HEAD
 .select2-dropdown .select2-results__option {
   margin-bottom: 0;
 }
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 .select2-container .select2-dropdown {
   z-index: 900000;
 }
@@ -2952,6 +2967,10 @@ body.is-dragging-metaboxes #acf_after_title-sortables {
   display: flow-root;
   min-height: 60px;
   margin-bottom: 3px !important;
+<<<<<<< HEAD
 }
 
 /*# sourceMappingURL=acf-input.css.map*/
+=======
+}
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394

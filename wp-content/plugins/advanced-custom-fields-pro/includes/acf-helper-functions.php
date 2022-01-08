@@ -317,6 +317,7 @@ function acf_maybe_idval( $value ) {
 }
 
 /**
+<<<<<<< HEAD
  * Convert any numeric strings into their equivalent numeric type. This function will
  * work with both single values and arrays.
  *
@@ -337,6 +338,8 @@ function acf_format_numerics( $value ) {
 }
 
 /**
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  * acf_numval
  *
  * Casts the provided value as eiter an int or float using a simple hack.
@@ -377,6 +380,7 @@ function acf_idify( $str = '' ) {
  * @return  string
  */
 function acf_slugify( $str = '', $glue = '-' ) {
+<<<<<<< HEAD
 	$raw  = $str;
 	$slug = str_replace( array( '_', '-', '/', ' ' ), $glue, strtolower( remove_accents( $raw ) ) );
 	$slug = preg_replace( "/[^A-Za-z0-9" . preg_quote( $glue ) . "]/", '', $slug );
@@ -391,14 +395,24 @@ function acf_slugify( $str = '', $glue = '-' ) {
 	 * @param string $glue The separator used to join the string into a slug.
 	 */
 	return apply_filters( 'acf/slugify', $slug, $raw, $glue );
+=======
+	return str_replace( array( '_', '-', '/', ' ' ), $glue, strtolower( $str ) );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 }
 
 /**
  * Returns a string with correct full stop punctuation.
+<<<<<<< HEAD
  *
  * @date    12/7/19
  * @since   5.8.2
  *
+=======
+ *
+ * @date    12/7/19
+ * @since   5.8.2
+ *
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  * @param   string $str The string to format.
  * @return  string
  */

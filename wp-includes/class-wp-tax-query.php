@@ -527,7 +527,11 @@ class WP_Tax_Query {
 
 			// The sibling must both have compatible operator to share its alias.
 			if ( in_array( strtoupper( $sibling['operator'] ), $compatible_operators, true ) ) {
+<<<<<<< HEAD
 				$alias = preg_replace( '/\W/', '_', $sibling['alias'] );
+=======
+				$alias = $sibling['alias'];
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				break;
 			}
 		}

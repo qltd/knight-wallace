@@ -6,7 +6,11 @@ abstract class WPCF7_WelcomePanelColumn {
 	abstract protected function title();
 	abstract protected function content();
 
+<<<<<<< HEAD
 	public function print_content() {
+=======
+	public function print() {
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		$icon = sprintf(
 			'<span class="dashicons dashicons-%s" aria-hidden="true"></span>',
 			esc_attr( $this->icon() )
@@ -220,7 +224,11 @@ function wpcf7_welcome_panel() {
 <?php
 
 	foreach ( $columns as $column ) {
+<<<<<<< HEAD
 		$column->print_content();
+=======
+		$column->print();
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 ?>

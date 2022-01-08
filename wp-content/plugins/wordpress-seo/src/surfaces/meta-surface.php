@@ -91,7 +91,11 @@ class Meta_Surface {
 	 * @return Meta|false The meta values. False if none could be found.
 	 */
 	public function for_home_page() {
+<<<<<<< HEAD
 		$front_page_id = (int) \get_option( 'page_on_front' );
+=======
+		$front_page_id = \get_option( 'page_on_front' );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		if ( \get_option( 'show_on_front' ) === 'page' && $front_page_id !== 0 ) {
 			$indexable = $this->repository->find_by_id_and_type( $front_page_id, 'post' );
 

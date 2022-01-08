@@ -7,10 +7,16 @@
 /**
  * Toggle an attribute's value
  *
+<<<<<<< HEAD
  * @since Twenty Twenty-One 1.0
  *
  * @param {Element} el - The element.
  * @param {boolean} withListeners - Whether we want to add/remove listeners or not.
+=======
+ * @param {Element} el - The element.
+ * @param {boolean} withListeners - Whether we want to add/remove listeners or not.
+ * @since Twenty Twenty-One 1.0
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 function twentytwentyoneToggleAriaExpanded( el, withListeners ) {
 	if ( 'true' !== el.getAttribute( 'aria-expanded' ) ) {
@@ -38,8 +44,11 @@ function twentytwentyoneCollapseMenuOnClickOutside( event ) {
 /**
  * Changes the position of submenus so they always fit the screen horizontally.
  *
+<<<<<<< HEAD
  * @since Twenty Twenty-One 1.0
  *
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  * @param {Element} li - The li element.
  */
 function twentytwentyoneSubmenuPosition( li ) {
@@ -68,8 +77,11 @@ function twentytwentyoneSubmenuPosition( li ) {
 /**
  * Handle clicks on submenu toggles.
  *
+<<<<<<< HEAD
  * @since Twenty Twenty-One 1.0
  *
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  * @param {Element} el - The element.
  */
 function twentytwentyoneExpandSubMenu( el ) { // jshint ignore:line
@@ -97,12 +109,16 @@ function twentytwentyoneExpandSubMenu( el ) { // jshint ignore:line
 	/**
 	 * Menu Toggle Behaviors
 	 *
+<<<<<<< HEAD
 	 * @since Twenty Twenty-One 1.0
 	 *
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 * @param {string} id - The ID.
 	 */
 	var navMenu = function( id ) {
 		var wrapper = document.body, // this is the element to which a CSS class is added when a mobile nav menu is open
+<<<<<<< HEAD
 			mobileButton = document.getElementById( id + '-mobile-menu' ),
 			navMenuEl = document.getElementById( 'site-navigation' );
 
@@ -110,6 +126,9 @@ function twentytwentyoneExpandSubMenu( el ) { // jshint ignore:line
 		if ( ! navMenuEl ) {
 			return;
 		}
+=======
+			mobileButton = document.getElementById( id + '-mobile-menu' );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 		if ( mobileButton ) {
 			mobileButton.onclick = function() {
@@ -119,12 +138,18 @@ function twentytwentyoneExpandSubMenu( el ) { // jshint ignore:line
 				mobileButton.focus();
 			};
 		}
+<<<<<<< HEAD
 
 		/**
 		 * Trap keyboard navigation in the menu modal.
 		 * Adapted from Twenty Twenty.
 		 *
 		 * @since Twenty Twenty-One 1.0
+=======
+		/**
+		 * Trap keyboard navigation in the menu modal.
+		 * Adapted from TwentyTwenty
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		 */
 		document.addEventListener( 'keydown', function( event ) {
 			var modal, elements, selectors, lastEl, firstEl, activeEl, tabKey, shiftKey, escKey;
@@ -168,9 +193,13 @@ function twentytwentyoneExpandSubMenu( el ) { // jshint ignore:line
 
 		/**
 		 * Close menu and scroll to anchor when an anchor link is clicked.
+<<<<<<< HEAD
 		 * Adapted from Twenty Twenty.
 		 *
 		 * @since Twenty Twenty-One 1.1
+=======
+		 * Adapted from TwentyTwenty.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		 */
 		document.addEventListener( 'click', function( event ) {
 			// If target onclick is <a> with # within the href attribute
@@ -185,7 +214,11 @@ function twentytwentyoneExpandSubMenu( el ) { // jshint ignore:line
 			}
 		} );
 
+<<<<<<< HEAD
 		navMenuEl.querySelectorAll( '.menu-wrapper > .menu-item-has-children' ).forEach( function( li ) {
+=======
+		document.getElementById( 'site-navigation' ).querySelectorAll( '.menu-wrapper > .menu-item-has-children' ).forEach( function( li ) {
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			li.addEventListener( 'mouseenter', function() {
 				this.querySelector( '.sub-menu-toggle' ).setAttribute( 'aria-expanded', 'true' );
 				twentytwentyoneSubmenuPosition( li );

@@ -257,6 +257,7 @@ if ( ! class_exists( 'acf_field_true_false' ) ) :
 			// return
 			return $valid;
 
+<<<<<<< HEAD
 		}
 
 
@@ -316,6 +317,36 @@ if ( ! class_exists( 'acf_field_true_false' ) ) :
 			return (bool) $value;
 		}
 
+=======
+		}
+
+
+		/*
+		*  translate_field
+		*
+		*  This function will translate field settings
+		*
+		*  @type    function
+		*  @date    8/03/2016
+		*  @since   5.3.2
+		*
+		*  @param   $field (array)
+		*  @return  $field
+		*/
+
+		function translate_field( $field ) {
+
+			// translate
+			$field['message']     = acf_translate( $field['message'] );
+			$field['ui_on_text']  = acf_translate( $field['ui_on_text'] );
+			$field['ui_off_text'] = acf_translate( $field['ui_off_text'] );
+
+			// return
+			return $field;
+
+		}
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 

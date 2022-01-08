@@ -4,7 +4,11 @@
  *
  * @package WordPress
  * @subpackage Twenty_Twenty
+<<<<<<< HEAD
  * @since Twenty Twenty 1.0
+=======
+ * @since 1.0.0
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 
 ?>
@@ -44,10 +48,17 @@
 	$color_overlay_classes .= ' opacity-' . $color_overlay_opacity;
 	?>
 
+<<<<<<< HEAD
 	<div class="cover-header <?php echo $cover_header_classes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static output ?>"<?php echo $cover_header_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- We need to double check this, but for now, we want to pass PHPCS ;) ?>>
 		<div class="cover-header-inner-wrapper screen-height">
 			<div class="cover-header-inner">
 				<div class="cover-color-overlay color-accent<?php echo esc_attr( $color_overlay_classes ); ?>"<?php echo $color_overlay_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- We need to double check this, but for now, we want to pass PHPCS ;) ?>></div>
+=======
+	<div class="cover-header <?php echo $cover_header_classes; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static output ?>"<?php echo $cover_header_style; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- We need to double check this, but for now, we want to pass PHPCS ;) ?>>
+		<div class="cover-header-inner-wrapper screen-height">
+			<div class="cover-header-inner">
+				<div class="cover-color-overlay color-accent<?php echo esc_attr( $color_overlay_classes ); ?>"<?php echo $color_overlay_style; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- We need to double check this, but for now, we want to pass PHPCS ;) ?>></div>
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 					<header class="entry-header has-text-align-center">
 						<div class="entry-header-inner section-inner medium">
@@ -57,9 +68,15 @@
 							/**
 							 * Allow child themes and plugins to filter the display of the categories in the article header.
 							 *
+<<<<<<< HEAD
 							 * @since Twenty Twenty 1.0
 							 *
 							 * @param bool Whether to show the categories in article header. Default true.
+=======
+							 * @since 1.0.0
+							 *
+							 * @param bool Whether to show the categories in article header, Default true.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 							 */
 							$show_categories = apply_filters( 'twentytwenty_show_categories_in_entry_header', true );
 
@@ -146,7 +163,11 @@
 		// Single bottom post meta.
 		twentytwenty_the_post_meta( get_the_ID(), 'single-bottom' );
 
+<<<<<<< HEAD
 		if ( post_type_supports( get_post_type( get_the_ID() ), 'author' ) && is_single() ) {
+=======
+		if ( is_single() ) {
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 			get_template_part( 'template-parts/entry-author-bio' );
 
@@ -162,10 +183,17 @@
 		get_template_part( 'template-parts/navigation' );
 	}
 
+<<<<<<< HEAD
 	/*
 	 * Output comments wrapper if it's a post, or if comments are open,
 	 * or if there's a comment number – and check for password.
 	 */
+=======
+	/**
+	 *  Output comments wrapper if it's a post, or if comments are open,
+	 * or if there's a comment number – and check for password.
+	 * */
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	if ( ( is_single() || is_page() ) && ( comments_open() || get_comments_number() ) && ! post_password_required() ) {
 		?>
 

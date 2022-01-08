@@ -13,6 +13,12 @@
  * @var array
  */
 $notifications_data = Yoast_Notifications::get_template_variables();
+<<<<<<< HEAD
+=======
+
+$notifier = new WPSEO_Configuration_Notifier();
+$notifier->listen();
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 $wpseo_contributors_phrase = sprintf(
 	/* translators: %1$s expands to Yoast SEO */
@@ -24,6 +30,14 @@ $wpseo_contributors_phrase = sprintf(
 
 <div class="tab-block">
 	<div class="yoast-notifications">
+<<<<<<< HEAD
+=======
+
+		<?php
+		// phpcs:ignore WordPress.Security.EscapeOutput -- WPSEO_Configuration_Notifier::notify() escapes correctly.
+		echo $notifier->notify();
+		?>
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 		<div class="yoast-container yoast-container__error">
 			<?php require WPSEO_PATH . 'admin/views/partial-notifications-errors.php'; ?>

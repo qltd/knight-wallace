@@ -113,11 +113,18 @@ if ( ! class_exists( 'ACF_Field_User' ) ) :
 		function render_field( $field ) {
 
 			// Change Field into a select.
+<<<<<<< HEAD
 			$field['type']        = 'select';
 			$field['ui']          = 1;
 			$field['ajax']        = 1;
 			$field['choices']     = array();
 			$field['query_nonce'] = wp_create_nonce( 'acf/fields/user/query' . $field['key'] );
+=======
+			$field['type']    = 'select';
+			$field['ui']      = 1;
+			$field['ajax']    = 1;
+			$field['choices'] = array();
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 			// Populate choices.
 			if ( $field['value'] ) {
@@ -345,6 +352,7 @@ if ( ! class_exists( 'ACF_Field_User' ) ) :
 		 * @return  void
 		 */
 		function ajax_query_init( $request, $query ) {
+<<<<<<< HEAD
 			// Require field and make sure it's a user field.
 			if ( ! $query->field || $query->field['type'] !== $this->name ) {
 				$query->send( new WP_Error( 'acf_missing_field', __( 'Error loading field.', 'acf' ), array( 'status' => 404 ) ) );
@@ -353,6 +361,12 @@ if ( ! class_exists( 'ACF_Field_User' ) ) :
 			// Verify that this is a legitimate request using a separate nonce from the main AJAX nonce.
 			if ( ! isset( $_REQUEST['user_query_nonce'] ) || ! wp_verify_nonce( $_REQUEST['user_query_nonce'], 'acf/fields/user/query' . $query->field['key']) ) {
 				$query->send( new WP_Error( 'acf_invalid_request', __( 'Invalid request.', 'acf' ), array( 'status' => 404 ) ) );
+=======
+
+			// Require field.
+			if ( ! $query->field ) {
+				$query->send( new WP_Error( 'acf_missing_field', __( 'Error loading field.', 'acf' ), array( 'status' => 404 ) ) );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			}
 		}
 
@@ -412,6 +426,7 @@ if ( ! class_exists( 'ACF_Field_User' ) ) :
 			 * @param   array $field The ACF field related to this query.
 			 */
 			return apply_filters( 'acf/fields/user/search_columns', $columns, $search, $WP_User_Query, $query->field );
+<<<<<<< HEAD
 		}
 
 		/**
@@ -601,11 +616,81 @@ if ( ! class_exists( 'ACF_Field_User' ) ) :
 		public function format_value_for_rest( $value, $post_id, array $field ) {
 			return acf_format_numerics( $value );
 		}
+=======
+		}
+
+		/**
+		 * Filters the AJAX Query result.
+		 *
+		 * @date    9/3/20
+		 * @since   5.8.8
+		 *
+		 * @param   array          $item The choice id and text.
+		 * @param   WP_User        $user The user object.
+		 * @param   ACF_Ajax_Query $query The query object.
+		 * @return  array
+		 */
+		function ajax_query_result( $item, $user, $query ) {
+
+			/**
+			 * Filters the result text.
+			 *
+			 * @date    21/5/19
+			 * @since   5.8.1
+			 *
+			 * @param   string The result text.
+			 * @param   WP_User $user The user object.
+			 * @param   array $field The ACF field related to this query.
+			 * @param   (int|string) $post_id The post_id being edited.
+			 */
+			$item['text'] = apply_filters( 'acf/fields/user/result', $item['text'], $user, $query->field, $query->post_id );
+			return $item;
+		}
+
+		/**
+		 * Return an array of data formatted for use in a select2 AJAX response.
+		 *
+		 * @date    15/10/2014
+		 * @since   5.0.9
+		 * @deprecated 5.8.9
+		 *
+		 * @param   array $args An array of query args.
+		 * @return  array
+		 */
+		function get_ajax_query( $options = array() ) {
+			_deprecated_function( __FUNCTION__, '5.8.9' );
+			return array();
+		}
+
+		/**
+		 * Filters the WP_User_Query search columns.
+		 *
+		 * @date    15/10/2014
+		 * @since   5.0.9
+		 * @deprecated 5.8.9
+		 *
+		 * @param   array         $columns An array of column names to be searched.
+		 * @param   string        $search The search term.
+		 * @param   WP_User_Query $WP_User_Query The WP_User_Query instance.
+		 * @return  array
+		 */
+		function user_search_columns( $columns, $search, $WP_User_Query ) {
+			_deprecated_function( __FUNCTION__, '5.8.9' );
+			return $columns;
+		}
+	}
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 	}
 
+<<<<<<< HEAD
 
 	// initialize
 	acf_register_field_type( 'ACF_Field_User' );
 
+=======
+	// initialize
+	acf_register_field_type( 'ACF_Field_User' );
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 endif; // class_exists check

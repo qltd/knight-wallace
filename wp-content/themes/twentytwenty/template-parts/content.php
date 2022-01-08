@@ -8,7 +8,11 @@
  *
  * @package WordPress
  * @subpackage Twenty_Twenty
+<<<<<<< HEAD
  * @since Twenty Twenty 1.0
+=======
+ * @since 1.0.0
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 
 ?>
@@ -57,7 +61,11 @@
 		// Single bottom post meta.
 		twentytwenty_the_post_meta( get_the_ID(), 'single-bottom' );
 
+<<<<<<< HEAD
 		if ( post_type_supports( get_post_type( get_the_ID() ), 'author' ) && is_single() ) {
+=======
+		if ( is_single() ) {
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 			get_template_part( 'template-parts/entry-author-bio' );
 
@@ -74,10 +82,17 @@
 
 	}
 
+<<<<<<< HEAD
 	/*
 	 * Output comments wrapper if it's a post, or if comments are open,
 	 * or if there's a comment number – and check for password.
 	 */
+=======
+	/**
+	 *  Output comments wrapper if it's a post, or if comments are open,
+	 * or if there's a comment number – and check for password.
+	 * */
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	if ( ( is_single() || is_page() ) && ( comments_open() || get_comments_number() ) && ! post_password_required() ) {
 		?>
 

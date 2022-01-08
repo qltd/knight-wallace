@@ -6,14 +6,21 @@
  *
  * @package WordPress
  * @subpackage Twenty_Twenty
+<<<<<<< HEAD
  * @since Twenty Twenty 1.0
+=======
+ * @since 1.0.0
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 
 if ( ! class_exists( 'TwentyTwenty_Non_Latin_Languages' ) ) {
 	/**
 	 * Language handling.
+<<<<<<< HEAD
 	 *
 	 * @since Twenty Twenty 1.0
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 */
 	class TwentyTwenty_Non_Latin_Languages {
 
@@ -22,13 +29,19 @@ if ( ! class_exists( 'TwentyTwenty_Non_Latin_Languages' ) ) {
 		 *
 		 * Return CSS for non-latin language, if available, or null
 		 *
+<<<<<<< HEAD
 		 * @since Twenty Twenty 1.0
 		 *
 		 * @param string $type Whether to return CSS for the "front-end", "block-editor", or "classic-editor".
+=======
+		 * @param string $type Whether to return CSS for the "front-end", "block-editor" or "classic-editor".
+		 *
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		 * @return void
 		 */
 		public static function get_non_latin_css( $type = 'front-end' ) {
 
+<<<<<<< HEAD
 			// Fetch site locale.
 			$locale = get_bloginfo( 'language' );
 
@@ -39,6 +52,12 @@ if ( ! class_exists( 'TwentyTwenty_Non_Latin_Languages' ) ) {
 			 *
 			 * @param array $font_family An array of locales and font families.
 			 */
+=======
+			// Fetch users locale.
+			$locale = get_bloginfo( 'language' );
+
+			// Define fallback fonts for non-latin languages.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			$font_family = apply_filters(
 				'twentytwenty_get_localized_font_family_types',
 				array(
@@ -108,6 +127,7 @@ if ( ! class_exists( 'TwentyTwenty_Non_Latin_Languages' ) ) {
 				return;
 			}
 
+<<<<<<< HEAD
 			/**
 			 * Filters the elements to apply fallback fonts to.
 			 *
@@ -115,6 +135,9 @@ if ( ! class_exists( 'TwentyTwenty_Non_Latin_Languages' ) ) {
 			 *
 			 * @param array $elements An array of elements for "front-end", "block-editor", or "classic-editor".
 			 */
+=======
+			// Define elements to apply fallback fonts to.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			$elements = apply_filters(
 				'twentytwenty_get_localized_font_family_elements',
 				array(

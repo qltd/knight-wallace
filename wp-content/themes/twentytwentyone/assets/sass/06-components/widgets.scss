@@ -75,6 +75,7 @@
 	}
 }
 
+<<<<<<< HEAD
 .widget {
 
 	h1,
@@ -110,6 +111,12 @@
 	h6 {
 		font-size: var(--global--font-size-xs);
 	}
+=======
+.widget-title {
+	font-size: var(--global--font-size-sm);
+	font-weight: var(--widget--font-weight-title);
+	line-height: var(--widget--line-height-title);
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 }
 
 // Search widget styles

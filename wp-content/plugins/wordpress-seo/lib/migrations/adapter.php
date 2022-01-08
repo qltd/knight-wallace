@@ -165,12 +165,21 @@ class Adapter {
 	/**
 	 * Quotes a table name string.
 	 *
+<<<<<<< HEAD
 	 * @param string $text Table name.
 	 *
 	 * @return string
 	 */
 	public function quote_table( $text ) {
 		return '`' . $text . '`';
+=======
+	 * @param string $string Table name.
+	 *
+	 * @return string
+	 */
+	public function quote_table( $string ) {
+		return '`' . $string . '`';
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 	/**
@@ -387,6 +396,7 @@ class Adapter {
 	/**
 	 * Escapes a string for usage in queries.
 	 *
+<<<<<<< HEAD
 	 * @param string $text The string.
 	 *
 	 * @return string
@@ -395,17 +405,36 @@ class Adapter {
 		global $wpdb;
 
 		return $wpdb->_escape( $text );
+=======
+	 * @param string $string The string.
+	 *
+	 * @return string
+	 */
+	public function quote_string( $string ) {
+		global $wpdb;
+
+		return $wpdb->_escape( $string );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 	/**
 	 * Returns a quoted string.
 	 *
+<<<<<<< HEAD
 	 * @param string $text The string.
 	 *
 	 * @return string
 	 */
 	public function identifier( $text ) {
 		return '`' . $text . '`';
+=======
+	 * @param string $string The string.
+	 *
+	 * @return string
+	 */
+	public function identifier( $string ) {
+		return '`' . $string . '`';
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 	/**
@@ -998,6 +1027,7 @@ class Adapter {
 	 * Detect whether or not the string represents a function call and if so
 	 * do not wrap it in single-quotes, otherwise do wrap in single quotes.
 	 *
+<<<<<<< HEAD
 	 * @param string $text The string.
 	 *
 	 * @return bool Whether or not it's a SQL function call.
@@ -1005,6 +1035,15 @@ class Adapter {
 	private function is_sql_method_call( $text ) {
 		$text = \trim( $text );
 		if ( \substr( $text, -2, 2 ) === '()' ) {
+=======
+	 * @param string $string The string.
+	 *
+	 * @return bool Whether or not it's a SQL function call.
+	 */
+	private function is_sql_method_call( $string ) {
+		$string = \trim( $string );
+		if ( \substr( $string, -2, 2 ) === '()' ) {
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			return true;
 		}
 		return false;

@@ -65,6 +65,7 @@ if ( ! class_exists( 'acf_field_clone' ) ) :
 
 			return acf_is_filter_enabled( 'clone' );
 
+<<<<<<< HEAD
 		}
 
 
@@ -96,10 +97,13 @@ if ( ! class_exists( 'acf_field_clone' ) ) :
 			// return
 			return $field;
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		}
 
 
 		/*
+<<<<<<< HEAD
 		*  acf_get_fields
 		*
 		*  This function will hook into the 'acf/get_fields' filter and inject/replace seamless clones fields
@@ -160,11 +164,40 @@ if ( ! class_exists( 'acf_field_clone' ) ) :
 
 			// return
 			return $fields;
+=======
+		*  load_field()
+		*
+		*  This filter is appied to the $field after it is loaded from the database
+		*
+		*  @type    filter
+		*  @since   3.6
+		*  @date    23/01/13
+		*
+		*  @param   $field - the field array holding all the field options
+		*
+		*  @return  $field - the field array holding all the field options
+		*/
+
+		function load_field( $field ) {
+
+			// bail early if not enabled
+			if ( ! $this->is_enabled() ) {
+				return $field;
+			}
+
+			// load sub fields
+			// - sub field name's will be modified to include prefix_name settings
+			$field['sub_fields'] = $this->get_cloned_fields( $field );
+
+			// return
+			return $field;
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 		}
 
 
 		/*
+<<<<<<< HEAD
 		*  get_cloned_fields
 		*
 		*  This function will return an array of fields for a given clone field
@@ -239,6 +272,66 @@ if ( ! class_exists( 'acf_field_clone' ) ) :
 
 			}
 
+=======
+		*  acf_get_fields
+		*
+		*  This function will hook into the 'acf/get_fields' filter and inject/replace seamless clones fields
+		*
+		*  @type    function
+		*  @date    17/06/2016
+		*  @since   5.3.8
+		*
+		*  @param   $fields (array)
+		*  @param   $parent (array)
+		*  @return  $fields
+		*/
+
+		function acf_get_fields( $fields, $parent ) {
+
+			// bail early if empty
+			if ( empty( $fields ) ) {
+				return $fields;
+			}
+
+			// bail early if not enabled
+			if ( ! $this->is_enabled() ) {
+				return $fields;
+			}
+
+			// vars
+			$i = 0;
+
+			// loop
+			while ( $i < count( $fields ) ) {
+
+				// vars
+				$field = $fields[ $i ];
+
+				// $i
+				$i++;
+
+				// bail early if not a clone field
+				if ( $field['type'] != 'clone' ) {
+					continue;
+				}
+
+				// bail early if not seamless
+				if ( $field['display'] != 'seamless' ) {
+					continue;
+				}
+
+				// bail early if sub_fields isn't set or not an array
+				if ( ! isset( $field['sub_fields'] ) || ! is_array( $field['sub_fields'] ) ) {
+					continue;
+				}
+
+				// replace this clone field with sub fields
+				$i--;
+				array_splice( $fields, $i, 1, $field['sub_fields'] );
+
+			}
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			// return
 			return $fields;
 
@@ -246,16 +339,23 @@ if ( ! class_exists( 'acf_field_clone' ) ) :
 
 
 		/*
+<<<<<<< HEAD
 		*  acf_clone_field
 		*
 		*  This function is run when cloning a clone field
 		*  Important to run the acf_clone_field function on sub fields to pass on settings such as 'parent_layout'
+=======
+		*  get_cloned_fields
+		*
+		*  This function will return an array of fields for a given clone field
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		*
 		*  @type    function
 		*  @date    28/06/2016
 		*  @since   5.3.8
 		*
 		*  @param   $field (array)
+<<<<<<< HEAD
 		*  @param   $clone_field (array)
 		*  @return  $field
 		*/
@@ -328,21 +428,96 @@ if ( ! class_exists( 'acf_field_clone' ) ) :
 			if ( $field['type'] == 'clone' ) {
 
 				$field = $this->acf_clone_clone_field( $field, $clone_field );
+=======
+		*  @param   $parent (array)
+		*  @return  (array)
+		*/
+
+		function get_cloned_fields( $field ) {
+
+			// vars
+			$fields = array();
+
+			// bail early if no clone setting
+			if ( empty( $field['clone'] ) ) {
+				return $fields;
+			}
+
+			// bail ealry if already cloning this field (avoid infinite looping)
+			if ( isset( $this->cloning[ $field['key'] ] ) ) {
+				return $fields;
+			}
+
+			// update local ref
+			$this->cloning[ $field['key'] ] = 1;
+
+			// Loop over selectors and load fields.
+			foreach ( $field['clone'] as $selector ) {
+
+				// Field Group selector.
+				if ( acf_is_field_group_key( $selector ) ) {
+
+					$field_group = acf_get_field_group( $selector );
+					if ( ! $field_group ) {
+						continue;
+					}
+
+					$field_group_fields = acf_get_fields( $field_group );
+					if ( ! $field_group_fields ) {
+						continue;
+					}
+
+					$fields = array_merge( $fields, $field_group_fields );
+
+					// Field selector.
+				} elseif ( acf_is_field_key( $selector ) ) {
+					$fields[] = acf_get_field( $selector );
+				}
+			}
+
+			// field has ve been loaded for this $parent, time to remove cloning ref
+			unset( $this->cloning[ $field['key'] ] );
+
+			// clear false values (fields that don't exist)
+			$fields = array_filter( $fields );
+
+			// bail early if no sub fields
+			if ( empty( $fields ) ) {
+				return array();
+			}
+
+			// loop
+			// run acf_clone_field() on each cloned field to modify name, key, etc
+			foreach ( array_keys( $fields ) as $i ) {
+
+				$fields[ $i ] = acf_clone_field( $fields[ $i ], $field );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 			}
 
 			// return
+<<<<<<< HEAD
 			return $field;
+=======
+			return $fields;
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 		}
 
 
 		/*
+<<<<<<< HEAD
 		*  acf_clone_clone_field
 		*
 		*  This function is run when cloning a clone field
 		*  Important to run the acf_clone_field function on sub fields to pass on settings such as 'parent_layout'
 		*  Do not delete! Removing this logic causes major issues with cloned clone fields within a flexible content layout.
+=======
+		*  acf_clone_field
+		*
+		*  This function is run when cloning a clone field
+		*  Important to run the acf_clone_field function on sub fields to pass on settings such as 'parent_layout'
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		*
 		*  @type    function
 		*  @date    28/06/2016
@@ -353,6 +528,7 @@ if ( ! class_exists( 'acf_field_clone' ) ) :
 		*  @return  $field
 		*/
 
+<<<<<<< HEAD
 		function acf_clone_clone_field( $field, $clone_field ) {
 
 			// modify the $clone_field name
@@ -377,6 +553,76 @@ if ( ! class_exists( 'acf_field_clone' ) ) :
 
 				// clone
 				$sub_field = acf_clone_field( $sub_field, $clone_field );
+=======
+		function acf_clone_field( $field, $clone_field ) {
+
+			// bail early if this field is being cloned by some other kind of field (future proof)
+			if ( $clone_field['type'] != 'clone' ) {
+				return $field;
+			}
+
+			// backup (used later)
+			// - backup only once (cloned clone fields can cause issues)
+			if ( ! isset( $field['__key'] ) ) {
+
+				$field['__key']   = $field['key'];
+				$field['__name']  = $field['_name'];
+				$field['__label'] = $field['label'];
+
+			}
+
+			// seamless
+			if ( $clone_field['display'] == 'seamless' ) {
+
+				// modify key
+				// - this will allow sub clone fields to correctly load values for the same cloned field
+				// - the original key will later be restored by acf/prepare_field allowing conditional logic JS to work
+				$field['key'] = $clone_field['key'] . '_' . $field['key'];
+
+				// modify prefix allowing clone field to save sub fields
+				// - only used for parent seamless fields. Block or sub field's prefix will be overriden which also works
+				$field['prefix'] = $clone_field['prefix'] . '[' . $clone_field['key'] . ']';
+
+				// modify parent
+				$field['parent'] = $clone_field['parent'];
+
+				// label_format
+				if ( $clone_field['prefix_label'] ) {
+
+					$field['label'] = $clone_field['label'] . ' ' . $field['label'];
+
+				}
+			}
+
+			// prefix_name
+			if ( $clone_field['prefix_name'] ) {
+
+				// modify the field name
+				// - this will allow field to load / save correctly
+				$field['name'] = $clone_field['name'] . '_' . $field['_name'];
+
+				// modify the field _name (orig name)
+				// - this will allow fields to correctly understand the modified field
+				if ( $clone_field['display'] == 'seamless' ) {
+
+					$field['_name'] = $clone_field['_name'] . '_' . $field['_name'];
+
+				}
+			}
+
+			// required
+			if ( $clone_field['required'] ) {
+
+				$field['required'] = 1;
+
+			}
+
+			// type specific
+			// note: seamless clone fields will not be triggered
+			if ( $field['type'] == 'clone' ) {
+
+				$field = $this->acf_clone_clone_field( $field, $clone_field );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 			}
 
@@ -387,6 +633,7 @@ if ( ! class_exists( 'acf_field_clone' ) ) :
 
 
 		/*
+<<<<<<< HEAD
 		*  prepare_field_for_db
 		*
 		*  description
@@ -432,6 +679,47 @@ if ( ! class_exists( 'acf_field_clone' ) ) :
 			foreach ( $field['sub_fields'] as &$sub_field ) {
 
 				$sub_field['name'] = $prefix . $sub_field['name'];
+=======
+		*  acf_clone_clone_field
+		*
+		*  This function is run when cloning a clone field
+		*  Important to run the acf_clone_field function on sub fields to pass on settings such as 'parent_layout'
+		*  Do not delete! Removing this logic causes major issues with cloned clone fields within a flexible content layout.
+		*
+		*  @type    function
+		*  @date    28/06/2016
+		*  @since   5.3.8
+		*
+		*  @param   $field (array)
+		*  @param   $clone_field (array)
+		*  @return  $field
+		*/
+
+		function acf_clone_clone_field( $field, $clone_field ) {
+
+			// modify the $clone_field name
+			// This seems odd, however, the $clone_field is later passed into the acf_clone_field() function
+			// Do not delete!
+			// when cloning a clone field, it is important to also change the _name too
+			// this allows sub clone fields to appear correctly in get_row() row array
+			if ( $field['prefix_name'] ) {
+
+				$clone_field['name']  = $field['_name'];
+				$clone_field['_name'] = $field['_name'];
+
+			}
+
+			// bail early if no sub fields
+			if ( empty( $field['sub_fields'] ) ) {
+				return $field;
+			}
+
+			// loop
+			foreach ( $field['sub_fields'] as &$sub_field ) {
+
+				// clone
+				$sub_field = acf_clone_field( $sub_field, $clone_field );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 			}
 
@@ -442,6 +730,7 @@ if ( ! class_exists( 'acf_field_clone' ) ) :
 
 
 		/*
+<<<<<<< HEAD
 		*  load_value()
 		*
 		*  This filter is applied to the $value after it is loaded from the db
@@ -474,6 +763,134 @@ if ( ! class_exists( 'acf_field_clone' ) ) :
 
 				// add value
 				$value[ $sub_field['key'] ] = acf_get_value( $post_id, $sub_field );
+=======
+		*  prepare_field_for_db
+		*
+		*  description
+		*
+		*  @type    function
+		*  @date    4/11/16
+		*  @since   5.5.0
+		*
+		*  @param   $post_id (int)
+		*  @return  $post_id (int)
+		*/
+
+		function prepare_field_for_db( $field ) {
+
+			// bail early if no sub fields
+			if ( empty( $field['sub_fields'] ) ) {
+				return $field;
+			}
+
+			// bail early if name == _name
+			// this is a parent clone field and does not require any modification to sub field names
+			if ( $field['name'] == $field['_name'] ) {
+				return $field;
+			}
+
+			// this is a sub field
+			// _name = 'my_field'
+			// name = 'rep_0_my_field'
+			// modify all sub fields to add 'rep_0_' name prefix (prefix_name setting has already been applied)
+			$length = strlen( $field['_name'] );
+			$prefix = substr( $field['name'], 0, -$length );
+
+			// bail ealry if _name is not found at the end of name (unknown potential error)
+			if ( $prefix . $field['_name'] !== $field['name'] ) {
+				return $field;
+			}
+
+			// acf_log('== prepare_field_for_db ==');
+			// acf_log('- clone name:', $field['name']);
+			// acf_log('- clone _name:', $field['_name']);
+
+			// loop
+			foreach ( $field['sub_fields'] as &$sub_field ) {
+
+				$sub_field['name'] = $prefix . $sub_field['name'];
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
+
+			}
+
+			// return
+<<<<<<< HEAD
+			return $value;
+=======
+			return $field;
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
+
+		}
+
+
+		/*
+<<<<<<< HEAD
+		*  format_value()
+		*
+		*  This filter is appied to the $value after it is loaded from the db and before it is returned to the template
+=======
+		*  load_value()
+		*
+		*  This filter is applied to the $value after it is loaded from the db
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
+		*
+		*  @type    filter
+		*  @since   3.6
+		*  @date    23/01/13
+		*
+<<<<<<< HEAD
+		*  @param   $value (mixed) the value which was loaded from the database
+		*  @param   $post_id (mixed) the $post_id from which the value was loaded
+		*  @param   $field (array) the field array holding all the field options
+		*
+		*  @return  $value (mixed) the modified value
+		*/
+
+		function format_value( $value, $post_id, $field ) {
+
+			// bail early if no value
+			if ( empty( $value ) ) {
+				return false;
+=======
+		*  @param   $value (mixed) the value found in the database
+		*  @param   $post_id (mixed) the $post_id from which the value was loaded
+		*  @param   $field (array) the field array holding all the field options
+		*  @return  $value
+		*/
+
+		function load_value( $value, $post_id, $field ) {
+
+			// bail early if no sub fields
+			if ( empty( $field['sub_fields'] ) ) {
+				return $value;
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
+			}
+
+			// modify names
+			$field = $this->prepare_field_for_db( $field );
+
+<<<<<<< HEAD
+			// loop
+			foreach ( $field['sub_fields'] as $sub_field ) {
+
+				// extract value
+				$sub_value = acf_extract_var( $value, $sub_field['key'] );
+
+				// format value
+				$sub_value = acf_format_value( $sub_value, $post_id, $sub_field );
+
+				// append to $row
+				$value[ $sub_field['__name'] ] = $sub_value;
+=======
+			// load sub fields
+			$value = array();
+
+			// loop
+			foreach ( $field['sub_fields'] as $sub_field ) {
+
+				// add value
+				$value[ $sub_field['key'] ] = acf_get_value( $post_id, $sub_field );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 			}
 
@@ -482,6 +899,40 @@ if ( ! class_exists( 'acf_field_clone' ) ) :
 
 		}
 
+<<<<<<< HEAD
+		/**
+		 * Apply basic formatting to prepare the value for default REST output.
+		 *
+		 * @param mixed      $value
+		 * @param string|int $post_id
+		 * @param array      $field
+		 * @return mixed
+		 */
+		public function format_value_for_rest( $value, $post_id, array $field ) {
+			if ( empty( $value ) || ! is_array( $value ) ) {
+				return $value;
+			}
+
+			if ( ! is_array( $field ) || ! isset( $field['sub_fields'] ) || ! is_array( $field['sub_fields'] ) ) {
+				return $value;
+			}
+
+			// Loop through each row and within that, each sub field to process sub fields individually.
+			foreach ( $field['sub_fields'] as $sub_field ) {
+
+				// Extract the sub field 'field_key'=>'value' pair from the $value and format it.
+				$sub_value = acf_extract_var( $value, $sub_field['key'] );
+				$sub_value = acf_format_value_for_rest( $sub_value, $post_id, $sub_field );
+
+				// Add the sub field value back to the $value but mapped to the field name instead
+				// of the key reference.
+				$value[ $sub_field['name'] ] = $sub_value;
+			}
+
+			return $value;
+		}
+
+=======
 
 		/*
 		*  format_value()
@@ -528,38 +979,8 @@ if ( ! class_exists( 'acf_field_clone' ) ) :
 
 		}
 
-		/**
-		 * Apply basic formatting to prepare the value for default REST output.
-		 *
-		 * @param mixed      $value
-		 * @param string|int $post_id
-		 * @param array      $field
-		 * @return mixed
-		 */
-		public function format_value_for_rest( $value, $post_id, array $field ) {
-			if ( empty( $value ) || ! is_array( $value ) ) {
-				return $value;
-			}
 
-			if ( ! is_array( $field ) || ! isset( $field['sub_fields'] ) || ! is_array( $field['sub_fields'] ) ) {
-				return $value;
-			}
-
-			// Loop through each row and within that, each sub field to process sub fields individually.
-			foreach ( $field['sub_fields'] as $sub_field ) {
-
-				// Extract the sub field 'field_key'=>'value' pair from the $value and format it.
-				$sub_value = acf_extract_var( $value, $sub_field['key'] );
-				$sub_value = acf_format_value_for_rest( $sub_value, $post_id, $sub_field );
-
-				// Add the sub field value back to the $value but mapped to the field name instead
-				// of the key reference.
-				$value[ $sub_field['name'] ] = $sub_value;
-			}
-
-			return $value;
-		}
-
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		/*
 		*  update_value()
 		*
@@ -1324,6 +1745,7 @@ if ( ! class_exists( 'acf_field_clone' ) ) :
 
 		}
 
+<<<<<<< HEAD
 		/**
 		 * Return the schema array for the REST API.
 		 *
@@ -1371,6 +1793,8 @@ if ( ! class_exists( 'acf_field_clone' ) ) :
 			return $schema;
 		}
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 

@@ -8,7 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wp-migrate-db-pro\n"
 "Report-Msgid-Bugs-To: nom@deliciousbrains.com\n"
+<<<<<<< HEAD
 "POT-Creation-Date: 2021-11-01 08:01-0400\n"
+=======
+"POT-Creation-Date: 2021-10-18 09:17-0400\n"
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"

@@ -258,6 +258,29 @@ class WPCF7_ContactForm {
 		return empty( $this->id );
 	}
 
+<<<<<<< HEAD
+=======
+
+	/**
+	 * Returns the value for the given property name.
+	 *
+	 * @param string $name Property name.
+	 * @return array|string|null Property value. Null if property doesn't exist.
+	 */
+	public function prop( $name ) {
+		$props = $this->get_properties();
+		return isset( $props[$name] ) ? $props[$name] : null;
+	}
+
+
+	/**
+	 * Returns all the properties.
+	 *
+	 * @return array This contact form's properties.
+	 */
+	public function get_properties() {
+		$properties = (array) $this->properties;
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 	/**
 	 * Constructs contact form properties. This is called only once
@@ -297,6 +320,7 @@ class WPCF7_ContactForm {
 
 		$this->properties = $properties;
 
+<<<<<<< HEAD
 		foreach ( $properties as $name => $val ) {
 			$properties[$name] = apply_filters(
 				"wpcf7_contact_form_property_{$name}",
@@ -306,10 +330,13 @@ class WPCF7_ContactForm {
 
 		$this->properties = $properties;
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		$properties = (array) apply_filters(
 			'wpcf7_contact_form_properties',
 			$properties, $this
 		);
+<<<<<<< HEAD
 
 		$this->properties = $properties;
 	}
@@ -323,6 +350,8 @@ class WPCF7_ContactForm {
 	 */
 	private function retrieve_property( $name ) {
 		$property = null;
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 		if ( ! $this->initial() ) {
 			$post_id = $this->id;
@@ -339,6 +368,7 @@ class WPCF7_ContactForm {
 
 
 	/**
+<<<<<<< HEAD
 	 * Returns the value for the given property name.
 	 *
 	 * @param string $name Property name.
@@ -361,6 +391,8 @@ class WPCF7_ContactForm {
 
 
 	/**
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 * Updates properties.
 	 *
 	 * @param array $properties New properties.
@@ -778,6 +810,7 @@ class WPCF7_ContactForm {
 						$this->unit_tag(),
 						$name
 					);
+<<<<<<< HEAD
 
 					$list_item = sprintf(
 						'<li id="%1$s">%2$s</li>',
@@ -785,6 +818,15 @@ class WPCF7_ContactForm {
 						$list_item
 					);
 
+=======
+
+					$list_item = sprintf(
+						'<li id="%1$s">%2$s</li>',
+						$validation_error_id,
+						$list_item
+					);
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 					$validation_errors[] = $list_item;
 				}
 			}

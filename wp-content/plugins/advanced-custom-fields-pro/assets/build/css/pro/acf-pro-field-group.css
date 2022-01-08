@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 /*!******************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/advanced-custom-fields-pro/assets/src/sass/pro/acf-pro-field-group.scss ***!
   \******************************************************************************************************************************************************************************************************************************/
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 /*--------------------------------------------------------------------------------------------
 *
 *	Vars
@@ -67,6 +70,10 @@
 .acf-field-object-clone[data-display=seamless] .acf-field-setting-wrapper,
 .acf-field-object-clone[data-display=seamless] .acf-field-setting-conditional_logic {
   display: none;
+<<<<<<< HEAD
 }
 
 /*# sourceMappingURL=acf-pro-field-group.css.map*/
+=======
+}
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394

@@ -84,9 +84,13 @@ function _acf_apply_hook_variations() {
 
 	// Get variation information.
 	$variations = acf_get_store( 'hook-variations' )->get( $filter );
+<<<<<<< HEAD
 	$index      = $variations['index'];
 	$type       = $variations['type'];
 	$variations = $variations['variations'];
+=======
+	extract( $variations );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 	// Find field in args using index.
 	$field = $args[ $index ];
@@ -191,26 +195,53 @@ function acf_add_deprecated_action( $deprecated, $version, $replacement ) {
  * @return  mixed
  */
 function _acf_apply_deprecated_hook() {
+<<<<<<< HEAD
 	// Get current hook.
 	$current_hook = current_filter();
+=======
+
+	// Get current hook.
+	$hook = current_filter();
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 	// Get args provided.
 	$args = func_get_args();
 
 	// Get deprecated items for this hook.
+<<<<<<< HEAD
 	$deprecated_hooks = acf_get_store( 'deprecated-hooks' )->query( array( 'replacement' => $current_hook ) );
 
 	// Loop over results.
 	foreach ( $deprecated_hooks as $hook ) {
 		// Check if anyone is hooked into this deprecated hook.
 		if ( isset( $hook['deprecated'] ) && has_filter( $hook['deprecated'] ) ) {
+=======
+	$items = acf_get_store( 'deprecated-hooks' )->query( array( 'replacement' => $hook ) );
+
+	// Loop over results.
+	foreach ( $items as $item ) {
+
+		// Extract data.
+		extract( $item );
+
+		// Check if anyone is hooked into this deprecated hook.
+		if ( has_filter( $deprecated ) ) {
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 			// Log warning.
 			// _deprecated_hook( $deprecated, $version, $hook );
 
+<<<<<<< HEAD
 			// Apply the item/do the action.
 			if ( $hook['type'] === 'filter' ) {
 				$args[0] = apply_filters_ref_array( $hook['deprecated'], $args );
+=======
+			// Apply filters.
+			if ( $type === 'filter' ) {
+				$args[0] = apply_filters_ref_array( $deprecated, $args );
+
+				// Or do action.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			} else {
 				do_action_ref_array( $hook['deprecated'], $args );
 			}

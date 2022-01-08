@@ -812,7 +812,11 @@ class WP_Meta_Query {
 			$clause_compare  = strtoupper( $clause['compare'] );
 			$sibling_compare = strtoupper( $sibling['compare'] );
 			if ( in_array( $clause_compare, $compatible_compares, true ) && in_array( $sibling_compare, $compatible_compares, true ) ) {
+<<<<<<< HEAD
 				$alias = preg_replace( '/\W/', '_', $sibling['alias'] );
+=======
+				$alias = $sibling['alias'];
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				break;
 			}
 		}

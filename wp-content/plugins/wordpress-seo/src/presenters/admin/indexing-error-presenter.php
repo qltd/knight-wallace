@@ -72,7 +72,11 @@ class Indexing_Error_Presenter extends Abstract_Presenter {
 			}
 			else {
 				$message = \sprintf(
+<<<<<<< HEAD
 					/* translators: %1$s expands to an opening anchor tag for a link leading to the Premium installation page, %2$s expands to a closing anchor tag. */
+=======
+					// translators: %1$s expands to an opening anchor tag for a link leading to the Premium installation page, %2$s expands to a closing anchor tag.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 					\__(
 						'Oops, something has gone wrong and we couldn\'t complete the optimization of your SEO data. Please make sure to activate your subscription in MyYoast by completing %1$sthese steps%2$s.',
 						'wordpress-seo'
@@ -98,7 +102,11 @@ class Indexing_Error_Presenter extends Abstract_Presenter {
 	 */
 	protected function generate_second_paragraph( $is_premium, $has_valid_premium_subscription ) {
 		return \sprintf(
+<<<<<<< HEAD
 			/* translators: %1$s expands to an opening anchor tag for a link leading to the Premium installation page, %2$s expands to a closing anchor tag. */
+=======
+			// translators: %1$s expands to an opening anchor tag for a link leading to the Premium installation page, %2$s expands to a closing anchor tag.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			\__(
 				'Below are the technical details for the error. See %1$sthis page%2$s for a more detailed explanation.',
 				'wordpress-seo'

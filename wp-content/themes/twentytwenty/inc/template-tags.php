@@ -4,7 +4,11 @@
  *
  * @package WordPress
  * @subpackage Twenty_Twenty
+<<<<<<< HEAD
  * @since Twenty Twenty 1.0
+=======
+ * @since 1.0.0
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 
 /**
@@ -21,6 +25,7 @@
 /**
  * Logo & Description
  */
+<<<<<<< HEAD
 
 /**
  * Displays the site logo, either text or image.
@@ -30,6 +35,15 @@
  * @param array $args Arguments for displaying the site logo either as an image or text.
  * @param bool  $echo Echo or return the HTML.
  * @return string Compiled HTML based on our arguments.
+=======
+/**
+ * Displays the site logo, either text or image.
+ *
+ * @param array   $args Arguments for displaying the site logo either as an image or text.
+ * @param boolean $echo Echo or return the HTML.
+ *
+ * @return string $html Compiled HTML based on our arguments.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 function twentytwenty_site_logo( $args = array(), $echo = true ) {
 	$logo       = get_custom_logo();
@@ -52,10 +66,15 @@ function twentytwenty_site_logo( $args = array(), $echo = true ) {
 	/**
 	 * Filters the arguments for `twentytwenty_site_logo()`.
 	 *
+<<<<<<< HEAD
 	 * @since Twenty Twenty 1.0
 	 *
 	 * @param array $args     Parsed arguments.
 	 * @param array $defaults Function's default arguments.
+=======
+	 * @param array  $args     Parsed arguments.
+	 * @param array  $defaults Function's default arguments.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 */
 	$args = apply_filters( 'twentytwenty_site_logo_args', $args, $defaults );
 
@@ -74,9 +93,13 @@ function twentytwenty_site_logo( $args = array(), $echo = true ) {
 	/**
 	 * Filters the arguments for `twentytwenty_site_logo()`.
 	 *
+<<<<<<< HEAD
 	 * @since Twenty Twenty 1.0
 	 *
 	 * @param string $html      Compiled HTML based on our arguments.
+=======
+	 * @param string $html      Compiled html based on our arguments.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 * @param array  $args      Parsed arguments.
 	 * @param string $classname Class name based on current view, home or single.
 	 * @param string $contents  HTML for site title or logo.
@@ -87,17 +110,27 @@ function twentytwenty_site_logo( $args = array(), $echo = true ) {
 		return $html;
 	}
 
+<<<<<<< HEAD
 	echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+	echo $html; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 }
 
 /**
  * Displays the site description.
  *
+<<<<<<< HEAD
  * @since Twenty Twenty 1.0
  *
  * @param bool $echo Echo or return the html.
  * @return string The HTML to display.
+=======
+ * @param boolean $echo Echo or return the html.
+ *
+ * @return string $html The HTML to display.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 function twentytwenty_site_description( $echo = true ) {
 	$description = get_bloginfo( 'description' );
@@ -111,6 +144,7 @@ function twentytwenty_site_description( $echo = true ) {
 	$html = sprintf( $wrapper, esc_html( $description ) );
 
 	/**
+<<<<<<< HEAD
 	 * Filters the HTML for the site description.
 	 *
 	 * @since Twenty Twenty 1.0
@@ -118,6 +152,15 @@ function twentytwenty_site_description( $echo = true ) {
 	 * @param string $html        The HTML to display.
 	 * @param string $description Site description via `bloginfo()`.
 	 * @param string $wrapper     The format used in case you want to reuse it in a `sprintf()`.
+=======
+	 * Filters the html for the site description.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $html         The HTML to display.
+	 * @param string $description  Site description via `bloginfo()`.
+	 * @param string $wrapper      The format used in case you want to reuse it in a `sprintf()`.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 */
 	$html = apply_filters( 'twentytwenty_site_description', $html, $description, $wrapper );
 
@@ -125,12 +168,17 @@ function twentytwenty_site_description( $echo = true ) {
 		return $html;
 	}
 
+<<<<<<< HEAD
 	echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+	echo $html; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 }
 
 /**
  * Comments
  */
+<<<<<<< HEAD
 
 /**
  * Checks if the specified comment is written by the author of the post commented on.
@@ -138,6 +186,13 @@ function twentytwenty_site_description( $echo = true ) {
  * @since Twenty Twenty 1.0
  *
  * @param object $comment Comment data.
+=======
+/**
+ * Check if the specified comment is written by the author of the post commented on.
+ *
+ * @param object $comment Comment data.
+ *
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  * @return bool
  */
 function twentytwenty_is_comment_by_post_author( $comment = null ) {
@@ -158,6 +213,7 @@ function twentytwenty_is_comment_by_post_author( $comment = null ) {
 }
 
 /**
+<<<<<<< HEAD
  * Filters comment reply link to not JS scroll.
  *
  * Filter the comment reply link to add a class indicating it should not use JS slow-scroll, as it
@@ -167,6 +223,15 @@ function twentytwenty_is_comment_by_post_author( $comment = null ) {
  *
  * @param string $link Link to the top of the page.
  * @return string Link to the top of the page.
+=======
+ * Filter comment reply link to not JS scroll.
+ * Filter the comment reply link to add a class indicating it should not use JS slow-scroll, as it
+ * makes it scroll to the wrong position on the page.
+ *
+ * @param string $link Link to the top of the page.
+ *
+ * @return string $link Link to the top of the page.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 function twentytwenty_filter_comment_reply_link( $link ) {
 
@@ -180,6 +245,7 @@ add_filter( 'comment_reply_link', 'twentytwenty_filter_comment_reply_link' );
 /**
  * Post Meta
  */
+<<<<<<< HEAD
 
 /**
  * Retrieves and displays the post meta.
@@ -189,19 +255,33 @@ add_filter( 'comment_reply_link', 'twentytwenty_filter_comment_reply_link' );
  * @since Twenty Twenty 1.0
  *
  * @param int    $post_id  The ID of the post for which the post meta should be output.
+=======
+/**
+ * Get and Output Post Meta.
+ * If it's a single post, output the post meta values specified in the Customizer settings.
+ *
+ * @param int    $post_id The ID of the post for which the post meta should be output.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  * @param string $location Which post meta location to output – single or preview.
  */
 function twentytwenty_the_post_meta( $post_id = null, $location = 'single-top' ) {
 
+<<<<<<< HEAD
 	echo twentytwenty_get_post_meta( $post_id, $location ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in twentytwenty_get_post_meta().
+=======
+	echo twentytwenty_get_post_meta( $post_id, $location ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in twentytwenty_get_post_meta().
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 }
 
 /**
  * Filters the edit post link to add an icon and use the post meta structure.
  *
+<<<<<<< HEAD
  * @since Twenty Twenty 1.0
  *
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  * @param string $link    Anchor tag for the edit link.
  * @param int    $post_id Post ID.
  * @param string $text    Anchor text.
@@ -237,11 +317,17 @@ function twentytwenty_edit_post_link( $link, $post_id, $text ) {
 add_filter( 'edit_post_link', 'twentytwenty_edit_post_link', 10, 3 );
 
 /**
+<<<<<<< HEAD
  * Retrieves the post meta.
  *
  * @since Twenty Twenty 1.0
  *
  * @param int    $post_id  The ID of the post.
+=======
+ * Get the post meta.
+ *
+ * @param int    $post_id The ID of the post.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  * @param string $location The location where the meta is shown.
  */
 function twentytwenty_get_post_meta( $post_id = null, $location = 'single-top' ) {
@@ -252,6 +338,7 @@ function twentytwenty_get_post_meta( $post_id = null, $location = 'single-top' )
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Filters post types array.
 	 *
 	 * This filter can be used to hide post meta information of post, page or custom post type
@@ -263,6 +350,17 @@ function twentytwenty_get_post_meta( $post_id = null, $location = 'single-top' )
 	 */
 	$disallowed_post_types = apply_filters( 'twentytwenty_disallowed_post_types_for_meta_output', array( 'page' ) );
 
+=======
+	 * Filters post types array
+	 *
+	 * This filter can be used to hide post meta information of post, page or custom post type registerd by child themes or plugins
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array Array of post types
+	 */
+	$disallowed_post_types = apply_filters( 'twentytwenty_disallowed_post_types_for_meta_output', array( 'page' ) );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	// Check whether the post type is allowed to output post meta.
 	if ( in_array( get_post_type( $post_id ), $disallowed_post_types, true ) ) {
 		return;
@@ -274,6 +372,7 @@ function twentytwenty_get_post_meta( $post_id = null, $location = 'single-top' )
 	// Get the post meta settings for the location specified.
 	if ( 'single-top' === $location ) {
 		/**
+<<<<<<< HEAD
 		 * Filters post meta info visibility.
 		 *
 		 * Use this filter to hide post meta information like Author, Post date, Comments, Is sticky status.
@@ -287,6 +386,21 @@ function twentytwenty_get_post_meta( $post_id = null, $location = 'single-top' )
 		 *     @type string $sticky
 		 * }
 		 */
+=======
+		* Filters post meta info visibility
+		*
+		* Use this filter to hide post meta information like Author, Post date, Comments, Is sticky status
+		*
+		* @since 1.0.0
+		*
+		* @param array $args {
+		*  @type string 'author'
+		*  @type string 'post-date'
+		*  @type string 'comments'
+		*  @type string 'sticky'
+		* }
+		*/
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		$post_meta = apply_filters(
 			'twentytwenty_post_meta_location_single_top',
 			array(
@@ -302,6 +416,7 @@ function twentytwenty_get_post_meta( $post_id = null, $location = 'single-top' )
 	} elseif ( 'single-bottom' === $location ) {
 
 		/**
+<<<<<<< HEAD
 		 * Filters post tags visibility.
 		 *
 		 * Use this filter to hide post tags.
@@ -312,6 +427,18 @@ function twentytwenty_get_post_meta( $post_id = null, $location = 'single-top' )
 		 *     @type string $tags
 		 * }
 		 */
+=======
+		* Filters post tags visibility
+		*
+		* Use this filter to hide post tags
+		*
+		* @since 1.0.0
+		*
+		* @param array $args {
+		*   @type string 'tags'
+		* }
+		*/
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		$post_meta = apply_filters(
 			'twentytwenty_post_meta_location_single_bottom',
 			array(
@@ -344,11 +471,19 @@ function twentytwenty_get_post_meta( $post_id = null, $location = 'single-top' )
 				<?php
 
 				/**
+<<<<<<< HEAD
 				 * Fires before post meta HTML display.
 				 *
 				 * Allow output of additional post meta info to be added by child themes and plugins.
 				 *
 				 * @since Twenty Twenty 1.0
+=======
+				 * Fires before post meta html display.
+				 *
+				 * Allow output of additional post meta info to be added by child themes and plugins.
+				 *
+				 * @since 1.0.0
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				 * @since Twenty Twenty 1.1 Added the `$post_meta` and `$location` parameters.
 				 *
 				 * @param int    $post_id   Post ID.
@@ -359,7 +494,11 @@ function twentytwenty_get_post_meta( $post_id = null, $location = 'single-top' )
 				do_action( 'twentytwenty_start_of_post_meta_list', $post_id, $post_meta, $location );
 
 				// Author.
+<<<<<<< HEAD
 				if ( post_type_supports( get_post_type( $post_id ), 'author' ) && in_array( 'author', $post_meta, true ) ) {
+=======
+				if ( in_array( 'author', $post_meta, true ) ) {
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 					$has_meta = true;
 					?>
@@ -371,7 +510,11 @@ function twentytwenty_get_post_meta( $post_id = null, $location = 'single-top' )
 						<span class="meta-text">
 							<?php
 							printf(
+<<<<<<< HEAD
 								/* translators: %s: Author name. */
+=======
+								/* translators: %s: Author name */
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 								__( 'By %s', 'twentytwenty' ),
 								'<a href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author_meta( 'display_name' ) ) . '</a>'
 							);
@@ -471,11 +614,19 @@ function twentytwenty_get_post_meta( $post_id = null, $location = 'single-top' )
 				}
 
 				/**
+<<<<<<< HEAD
 				 * Fires after post meta HTML display.
 				 *
 				 * Allow output of additional post meta info to be added by child themes and plugins.
 				 *
 				 * @since Twenty Twenty 1.0
+=======
+				 * Fires after post meta html display.
+				 *
+				 * Allow output of additional post meta info to be added by child themes and plugins.
+				 *
+				 * @since 1.0.0
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				 * @since Twenty Twenty 1.1 Added the `$post_meta` and `$location` parameters.
 				 *
 				 * @param int    $post_id   Post ID.
@@ -510,6 +661,7 @@ function twentytwenty_get_post_meta( $post_id = null, $location = 'single-top' )
 /**
  * Menus
  */
+<<<<<<< HEAD
 
 /**
  * Filters classes of wp_list_pages items to match menu items.
@@ -527,6 +679,22 @@ function twentytwenty_get_post_meta( $post_id = null, $location = 'single-top' )
  * @return array CSS class names.
  */
 function twentytwenty_filter_wp_list_pages_item_classes( $css_class, $page, $depth, $args, $current_page ) {
+=======
+/**
+ * Filter Classes of wp_list_pages items to match menu items.
+ * Filter the class applied to wp_list_pages() items with children to match the menu class, to simplify.
+ * styling of sub levels in the fallback. Only applied if the match_menu_classes argument is set.
+ *
+ * @param array  $css_class CSS Class names.
+ * @param string $item Comment.
+ * @param int    $depth Depth of the current comment.
+ * @param array  $args An array of arguments.
+ * @param string $current_page Whether or not the item is the current item.
+ *
+ * @return array $css_class CSS Class names.
+ */
+function twentytwenty_filter_wp_list_pages_item_classes( $css_class, $item, $depth, $args, $current_page ) {
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 	// Only apply to wp_list_pages() calls with match_menu_classes set to true.
 	$match_menu_classes = isset( $args['match_menu_classes'] );
@@ -552,6 +720,7 @@ function twentytwenty_filter_wp_list_pages_item_classes( $css_class, $page, $dep
 add_filter( 'page_css_class', 'twentytwenty_filter_wp_list_pages_item_classes', 10, 5 );
 
 /**
+<<<<<<< HEAD
  * Adds a Sub Nav Toggle to the Expanded Menu and Mobile Menu.
  *
  * @since Twenty Twenty 1.0
@@ -560,6 +729,15 @@ add_filter( 'page_css_class', 'twentytwenty_filter_wp_list_pages_item_classes', 
  * @param WP_Post  $item  Menu item data object.
  * @param int      $depth Depth of menu item. Used for padding.
  * @return stdClass An object of wp_nav_menu() arguments.
+=======
+ * Add a Sub Nav Toggle to the Expanded Menu and Mobile Menu.
+ *
+ * @param stdClass $args An array of arguments.
+ * @param string   $item Menu item.
+ * @param int      $depth Depth of the current menu item.
+ *
+ * @return stdClass $args An object of wp_nav_menu() arguments.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 function twentytwenty_add_sub_toggles_to_main_menu( $args, $item, $depth ) {
 
@@ -600,6 +778,7 @@ function twentytwenty_add_sub_toggles_to_main_menu( $args, $item, $depth ) {
 add_filter( 'nav_menu_item_args', 'twentytwenty_add_sub_toggles_to_main_menu', 10, 3 );
 
 /**
+<<<<<<< HEAD
  * Displays SVG icons in social links menu.
  *
  * @since Twenty Twenty 1.0
@@ -609,6 +788,15 @@ add_filter( 'nav_menu_item_args', 'twentytwenty_add_sub_toggles_to_main_menu', 1
  * @param int      $depth       Depth of the menu. Used for padding.
  * @param stdClass $args        An object of wp_nav_menu() arguments.
  * @return string The menu item output with social icon.
+=======
+ * Display SVG icons in social links menu.
+ *
+ * @param  string  $item_output The menu item output.
+ * @param  WP_Post $item        Menu item object.
+ * @param  int     $depth       Depth of the menu.
+ * @param  array   $args        wp_nav_menu() arguments.
+ * @return string  $item_output The menu item output with social icon.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 function twentytwenty_nav_menu_social_icons( $item_output, $item, $depth, $args ) {
 	// Change SVG icon inside social links menu if there is supported URL.
@@ -628,6 +816,7 @@ add_filter( 'walker_nav_menu_start_el', 'twentytwenty_nav_menu_social_icons', 10
 /**
  * Classes
  */
+<<<<<<< HEAD
 
 /**
  * Adds 'no-js' class.
@@ -635,6 +824,11 @@ add_filter( 'walker_nav_menu_start_el', 'twentytwenty_nav_menu_social_icons', 10
  * If we're missing JavaScript support, the HTML element will have a 'no-js' class.
  *
  * @since Twenty Twenty 1.0
+=======
+/**
+ * Add No-JS Class.
+ * If we're missing JavaScript support, the HTML element will have a no-js class.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 function twentytwenty_no_js_class() {
 
@@ -647,12 +841,20 @@ function twentytwenty_no_js_class() {
 add_action( 'wp_head', 'twentytwenty_no_js_class' );
 
 /**
+<<<<<<< HEAD
  * Adds conditional body classes.
  *
  * @since Twenty Twenty 1.0
  *
  * @param array $classes Classes added to the body tag.
  * @return array Classes added to the body tag.
+=======
+ * Add conditional body classes.
+ *
+ * @param array $classes Classes added to the body tag.
+ *
+ * @return array $classes Classes added to the body tag.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 function twentytwenty_body_classes( $classes ) {
 
@@ -748,6 +950,7 @@ add_filter( 'body_class', 'twentytwenty_body_classes' );
 /**
  * Archives
  */
+<<<<<<< HEAD
 
 /**
  * Filters the archive title and styles the word before the first colon.
@@ -766,6 +969,17 @@ function twentytwenty_get_the_archive_title( $title ) {
 	 *
 	 * @param array $regex An array of regular expression pattern and replacement.
 	 */
+=======
+/**
+ * Filters the archive title and styles the word before the first colon.
+ *
+ * @param string $title Current archive title.
+ *
+ * @return string $title Current archive title.
+ */
+function twentytwenty_get_the_archive_title( $title ) {
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	$regex = apply_filters(
 		'twentytwenty_get_the_archive_title_regex',
 		array(
@@ -789,6 +1003,7 @@ add_filter( 'get_the_archive_title', 'twentytwenty_get_the_archive_title' );
 /**
  * Miscellaneous
  */
+<<<<<<< HEAD
 
 /**
  * Toggles animation duration in milliseconds.
@@ -796,14 +1011,26 @@ add_filter( 'get_the_archive_title', 'twentytwenty_get_the_archive_title' );
  * @since Twenty Twenty 1.0
  *
  * @return int Duration in milliseconds
+=======
+/**
+ * Toggle animation duration in milliseconds.
+ *
+ * @return integer Duration in milliseconds
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 function twentytwenty_toggle_duration() {
 	/**
 	 * Filters the animation duration/speed used usually for submenu toggles.
 	 *
+<<<<<<< HEAD
 	 * @since Twenty Twenty 1.0
 	 *
 	 * @param int $duration Duration in milliseconds.
+=======
+	 * @since 1.0
+	 *
+	 * @param integer $duration Duration in milliseconds.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 */
 	$duration = apply_filters( 'twentytwenty_toggle_duration', 250 );
 
@@ -811,17 +1038,28 @@ function twentytwenty_toggle_duration() {
 }
 
 /**
+<<<<<<< HEAD
  * Gets unique ID.
+=======
+ * Get unique ID.
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  *
  * This is a PHP implementation of Underscore's uniqueId method. A static variable
  * contains an integer that is incremented with each call. This number is returned
  * with the optional prefix. As such the returned value is not universally unique,
  * but it is unique across the life of the PHP process.
  *
+<<<<<<< HEAD
  * @since Twenty Twenty 1.0
  *
  * @see wp_unique_id() Themes requiring WordPress 5.0.3 and greater should use this instead.
  *
+=======
+ * @see wp_unique_id() Themes requiring WordPress 5.0.3 and greater should use this instead.
+ *
+ * @staticvar int $id_counter
+ *
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  * @param string $prefix Prefix for the returned ID.
  * @return string Unique ID.
  */

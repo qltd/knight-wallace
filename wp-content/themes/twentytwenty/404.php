@@ -4,7 +4,11 @@
  *
  * @package WordPress
  * @subpackage Twenty_Twenty
+<<<<<<< HEAD
  * @since Twenty Twenty 1.0
+=======
+ * @since 1.0.0
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 
 get_header();
@@ -21,7 +25,11 @@ get_header();
 		<?php
 		get_search_form(
 			array(
+<<<<<<< HEAD
 				'aria_label' => __( '404 not found', 'twentytwenty' ),
+=======
+				'label' => __( '404 not found', 'twentytwenty' ),
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			)
 		);
 		?>

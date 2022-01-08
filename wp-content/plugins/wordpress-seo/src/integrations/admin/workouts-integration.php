@@ -2,6 +2,7 @@
 
 namespace Yoast\WP\SEO\Integrations\Admin;
 
+<<<<<<< HEAD
 use WPSEO_Addon_Manager;
 use WPSEO_Admin_Asset_Manager;
 use WPSEO_Admin_Asset_Yoast_Components_L10n;
@@ -11,6 +12,13 @@ use Yoast\WP\SEO\Helpers\Options_Helper;
 use Yoast\WP\SEO\Helpers\Product_Helper;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
 use Yoast\WP\SEO\Presenters\Admin\Notice_Presenter;
+=======
+use WPSEO_Admin_Asset_Manager;
+use WPSEO_Shortlinker;
+use Yoast\WP\SEO\Conditionals\Admin_Conditional;
+use Yoast\WP\SEO\Conditionals\Premium_Inactive_Conditional;
+use Yoast\WP\SEO\Integrations\Integration_Interface;
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 /**
  * WorkoutsIntegration class
@@ -25,6 +33,7 @@ class Workouts_Integration implements Integration_Interface {
 	private $admin_asset_manager;
 
 	/**
+<<<<<<< HEAD
 	 * The addon manager.
 	 *
 	 * @var WPSEO_Addon_Manager
@@ -51,17 +60,29 @@ class Workouts_Integration implements Integration_Interface {
 	 * @var Indexing_Helper
 	 */
 	private $indexing_helper;
+=======
+	 * The shortlinker.
+	 *
+	 * @var WPSEO_Shortlinker
+	 */
+	private $shortlinker;
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public static function get_conditionals() {
+<<<<<<< HEAD
 		return [ Admin_Conditional::class ];
+=======
+		return [ Admin_Conditional::class, Premium_Inactive_Conditional::class ];
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 	/**
 	 * Workouts_Integration constructor.
 	 *
+<<<<<<< HEAD
 	 * @param WPSEO_Addon_Manager       $addon_manager       The addon manager.
 	 * @param WPSEO_Admin_Asset_Manager $admin_asset_manager The admin asset manager.
 	 * @param Options_Helper            $options_helper      The options helper.
@@ -80,6 +101,17 @@ class Workouts_Integration implements Integration_Interface {
 		$this->options_helper      = $options_helper;
 		$this->product_helper      = $product_helper;
 		$this->indexing_helper     = $indexing_helper;
+=======
+	 * @param WPSEO_Admin_Asset_Manager $admin_asset_manager The admin asset manager.
+	 * @param WPSEO_Shortlinker         $shortlinker         The shortlinker.
+	 */
+	public function __construct(
+		WPSEO_Admin_Asset_Manager $admin_asset_manager,
+		WPSEO_Shortlinker $shortlinker
+	) {
+		$this->admin_asset_manager = $admin_asset_manager;
+		$this->shortlinker         = $shortlinker;
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 	/**
@@ -87,9 +119,13 @@ class Workouts_Integration implements Integration_Interface {
 	 */
 	public function register_hooks() {
 		\add_filter( 'wpseo_submenu_pages', [ $this, 'add_submenu_page' ], 8 );
+<<<<<<< HEAD
 		\add_filter( 'wpseo_submenu_pages', [ $this, 'remove_old_submenu_page' ], 10 );
 		\add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ], 11 );
 		\add_action( 'admin_notices', [ $this, 'configuration_workout_notice' ] );
+=======
+		\add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 	/**
@@ -100,6 +136,7 @@ class Workouts_Integration implements Integration_Interface {
 	 * @return array The filtered submenu pages.
 	 */
 	public function add_submenu_page( $submenu_pages ) {
+<<<<<<< HEAD
 		$submenu_pages[] = [
 			'wpseo_dashboard',
 			'',
@@ -107,12 +144,23 @@ class Workouts_Integration implements Integration_Interface {
 			'edit_others_posts',
 			'wpseo_workouts',
 			[ $this, 'render_target' ],
+=======
+		// this inserts the workouts menu page at the correct place in the array without overriding that position.
+		$submenu_pages[] = [
+			'wpseo_dashboard',
+			'',
+			\__( 'Workouts', 'wordpress-seo' ) . ' <span class="yoast-badge yoast-premium-badge"></span>',
+			'edit_others_posts',
+			'wpseo_workouts',
+			[ $this, 'render' ],
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		];
 
 		return $submenu_pages;
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Removes the workouts submenu page from older Premium versions
 	 *
 	 * @param array $submenu_pages The Yoast SEO submenu pages.
@@ -140,6 +188,8 @@ class Workouts_Integration implements Integration_Interface {
 	}
 
 	/**
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 * Enqueue the workouts app.
 	 */
 	public function enqueue_assets() {
@@ -148,6 +198,7 @@ class Workouts_Integration implements Integration_Interface {
 			return;
 		}
 
+<<<<<<< HEAD
 		if ( $this->should_update_premium() ) {
 			\wp_dequeue_script( 'yoast-seo-premium-workouts' );
 		}
@@ -177,11 +228,15 @@ class Workouts_Integration implements Integration_Interface {
 				'canEditWordPressOptions'   => $this->user_can_edit_wordpress_options(),
 			]
 		);
+=======
+		$this->admin_asset_manager->enqueue_style( 'workouts' );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 	/**
 	 * Renders the target for the React to mount to.
 	 */
+<<<<<<< HEAD
 	public function render_target() {
 		if ( $this->should_update_premium() ) {
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Output escaped in get_update_premium_notice.
@@ -504,5 +559,11 @@ class Workouts_Integration implements Integration_Interface {
 
 		return ! empty( $this->options_helper->get( 'company_or_person_user_id' ) )
 			&& ! empty( $this->options_helper->get( 'person_logo', '' ) );
+=======
+	public function render() {
+		$cornerstone_guide  = $this->shortlinker->build_shortlink( 'https://yoa.st/4f1' );
+		$cornerstone_upsell = $this->shortlinker->build_shortlink( 'https://yoa.st/4f2' );
+		require_once \WPSEO_PATH . 'admin/views/workouts.php';
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 }

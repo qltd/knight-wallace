@@ -7,7 +7,10 @@ use Yoast\WP\SEO\Conditionals\Migrations_Conditional;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
 
+<<<<<<< HEAD
 // phpcs:disable Yoast.NamingConventions.ObjectNameDepth.MaxExceeded
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 /**
  * Post type archive watcher to save the meta data to an Indexable.
  *
@@ -122,11 +125,15 @@ class Indexable_Post_Type_Archive_Watcher implements Integration_Interface {
 	 */
 	public function build_indexable( $post_type ) {
 		$indexable = $this->repository->find_for_post_type_archive( $post_type, false );
+<<<<<<< HEAD
 		$indexable = $this->builder->build_for_post_type_archive( $post_type, $indexable );
 
 		if ( $indexable ) {
 			$indexable->object_last_modified = \max( $indexable->object_last_modified, \current_time( 'mysql' ) );
 			$indexable->save();
 		}
+=======
+		$this->builder->build_for_post_type_archive( $post_type, $indexable );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 }

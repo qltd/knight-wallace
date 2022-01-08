@@ -11,7 +11,11 @@
  *
  * @package WordPress
  * @subpackage Twenty_Twenty
+<<<<<<< HEAD
  * @since Twenty Twenty 1.0
+=======
+ * @since 1.0.0
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 
 get_header();
@@ -35,7 +39,11 @@ get_header();
 
 		if ( $wp_query->found_posts ) {
 			$archive_subtitle = sprintf(
+<<<<<<< HEAD
 				/* translators: %s: Number of search results. */
+=======
+				/* translators: %s: Number of search results */
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				_n(
 					'We found %s result for your search.',
 					'We found %s results for your search.',
@@ -47,8 +55,11 @@ get_header();
 		} else {
 			$archive_subtitle = __( 'We could not find any results for your search. You can give it another try through the search form below.', 'twentytwenty' );
 		}
+<<<<<<< HEAD
 	} elseif ( is_archive() && ! have_posts() ) {
 		$archive_title = __( 'Nothing Found', 'twentytwenty' );
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	} elseif ( ! is_home() ) {
 		$archive_title    = get_the_archive_title();
 		$archive_subtitle = get_the_archive_description();
@@ -98,7 +109,11 @@ get_header();
 			<?php
 			get_search_form(
 				array(
+<<<<<<< HEAD
 					'aria_label' => __( 'search again', 'twentytwenty' ),
+=======
+					'label' => __( 'search again', 'twentytwenty' ),
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				)
 			);
 			?>

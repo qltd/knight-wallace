@@ -2,9 +2,13 @@
 
 namespace Yoast\WP\SEO\Builders;
 
+<<<<<<< HEAD
 use wpdb;
 use Yoast\WP\SEO\Helpers\Author_Archive_Helper;
 use Yoast\WP\SEO\Helpers\Post_Helper;
+=======
+use Yoast\WP\SEO\Helpers\Author_Archive_Helper;
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 use Yoast\WP\SEO\Models\Indexable;
 use Yoast\WP\SEO\Values\Indexables\Indexable_Builder_Versions;
 
@@ -32,6 +36,7 @@ class Indexable_Author_Builder {
 	protected $version;
 
 	/**
+<<<<<<< HEAD
 	 * Holds the taxonomy helper instance.
 	 *
 	 * @var Post_Helper
@@ -46,10 +51,13 @@ class Indexable_Author_Builder {
 	protected $wpdb;
 
 	/**
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 * Indexable_Author_Builder constructor.
 	 *
 	 * @param Author_Archive_Helper      $author_archive The author archive helper.
 	 * @param Indexable_Builder_Versions $versions       The Indexable version manager.
+<<<<<<< HEAD
 	 * @param Post_Helper                $post_helper    The post helper.
 	 * @param wpdb                       $wpdb           The WPDB instance.
 	 */
@@ -63,6 +71,15 @@ class Indexable_Author_Builder {
 		$this->version        = $versions->get_latest_version_for_type( 'user' );
 		$this->post_helper    = $post_helper;
 		$this->wpdb           = $wpdb;
+=======
+	 */
+	public function __construct(
+		Author_Archive_Helper $author_archive,
+		Indexable_Builder_Versions $versions
+	) {
+		$this->author_archive = $author_archive;
+		$this->version        = $versions->get_latest_version_for_type( 'user' );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 	/**
@@ -94,10 +111,13 @@ class Indexable_Author_Builder {
 		$this->reset_social_images( $indexable );
 		$this->handle_social_images( $indexable );
 
+<<<<<<< HEAD
 		$timestamps                      = $this->get_object_timestamps( $user_id );
 		$indexable->object_published_at  = $timestamps->published_at;
 		$indexable->object_last_modified = $timestamps->last_modified;
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		$indexable->version = $this->version;
 
 		return $indexable;
@@ -166,6 +186,7 @@ class Indexable_Author_Builder {
 
 		return false;
 	}
+<<<<<<< HEAD
 
 	/**
 	 * Returns the timestamps for a given author.
@@ -190,4 +211,6 @@ class Indexable_Author_Builder {
 		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- We are using wpdb prepare.
 		return $this->wpdb->get_row( $this->wpdb->prepare( $sql, $replacements ) );
 	}
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 }

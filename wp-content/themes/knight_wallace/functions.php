@@ -1008,8 +1008,9 @@ function knight_wallace_scripts() {
   wp_enqueue_script('bx-slider-js', get_stylesheet_directory_uri() . '/assets/bxslider/jquery.bxslider.min.js', array('jquery'), false, true);
   wp_enqueue_script('knight_wallace-appjs', get_stylesheet_directory_uri() . '/assets/js/app.js', array('jquery', 'bx-slider-js'), false, true);
 
-
-
+  wp_enqueue_style('fancybox-css', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css');
+  wp_enqueue_script('fancybox-js', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', array('jquery'), false, true);
+   
     wp_enqueue_script( 'knight_wallace-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
 
     wp_enqueue_script( 'knight_wallace-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
@@ -1287,10 +1288,17 @@ function custom_wpse_mail_from_name( $original_email_from ) {
  * Disable Gutenberg everywhere
  */
 // WP < 5.0 beta
+<<<<<<< HEAD
 // add_filter('gutenberg_can_edit_post', '__return_false', 5);
 
 // WP >= 5.0
 // add_filter('use_block_editor_for_post', '__return_false', 5);
+=======
+//add_filter('gutenberg_can_edit_post', '__return_false', 5);
+
+// WP >= 5.0
+//add_filter('use_block_editor_for_post', '__return_false', 5);
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 /**
  * Enable Gutenberg on Specific Posts
@@ -1316,3 +1324,17 @@ function custom_wpse_mail_from_name( $original_email_from ) {
  * Fixes WP Custom Fields not displaying with ACF active
  */
 add_filter('acf/settings/remove_wp_meta_box', '__return_false');
+
+
+
+add_action( 'wp_head', function(){
+    echo '
+        <script type="text/javascript">
+            window.umcookieconsent = {
+                content: {
+                    href: "https://wallacehouse.umich.edu/privacy-policy"
+                }
+            };
+        </script>
+    ';
+});

@@ -18,6 +18,7 @@ acf_render_field_wrap(
 	// 'ui_off_text' => __('Inactive', 'acf'),
 	)
 );
+<<<<<<< HEAD
 
 
 // Show fields in REST API.
@@ -36,6 +37,8 @@ if ( acf_get_setting( 'rest_api_enabled' ) ) {
 		)
 	);
 }
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 
 // style

@@ -289,7 +289,11 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 				$enriched_defaults[ 'display-metabox-pt-' . $pt->name ]      = true;
 				$enriched_defaults[ 'post_types-' . $pt->name . '-maintax' ] = 0; // Select box.
 				$enriched_defaults[ 'schema-page-type-' . $pt->name ]        = 'WebPage';
+<<<<<<< HEAD
 				$enriched_defaults[ 'schema-article-type-' . $pt->name ]     = ( $pt->name === 'post' ) ? 'Article' : 'None';
+=======
+				$enriched_defaults[ 'schema-article-type-' . $pt->name ]     = ( YoastSEO()->helpers->schema->article->is_article_post_type( $pt->name ) ) ? 'Article' : 'None';
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 				if ( $pt->name !== 'attachment' ) {
 					$enriched_defaults[ 'social-title-' . $pt->name ]       = '%%title%%'; // Text field.
@@ -980,6 +984,7 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 				'option' => '&#8902;',
 				'label'  => __( 'Low asterisk', 'wordpress-seo' ),
 			],
+<<<<<<< HEAD
 			'sc-pipe'   => [
 				'option' => '|',
 				'label'  => __( 'Vertical bar', 'wordpress-seo' ),
@@ -988,6 +993,8 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 				'option' => '~',
 				'label'  => __( 'Small tilde', 'wordpress-seo' ),
 			],
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			'sc-laquo'  => [
 				'option' => '&laquo;',
 				'label'  => __( 'Left angle quotation mark', 'wordpress-seo' ),

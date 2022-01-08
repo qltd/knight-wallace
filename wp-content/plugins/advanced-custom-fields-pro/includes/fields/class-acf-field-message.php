@@ -4,7 +4,10 @@ if ( ! class_exists( 'acf_field_message' ) ) :
 
 	class acf_field_message extends acf_field {
 
+<<<<<<< HEAD
 		public $show_in_rest = false;
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 		/*
 		*  __construct

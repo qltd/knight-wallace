@@ -138,7 +138,11 @@
 			}
 		} );
 
+<<<<<<< HEAD
 		$( '#wpcf7-ctct-enable-contact-list, #wpcf7-sendinblue-enable-contact-list, #wpcf7-sendinblue-enable-transactional-email' ).on( 'change', function() {
+=======
+		$( '#wpcf7-sendinblue-enable-contact-list, #wpcf7-sendinblue-enable-transactional-email' ).on( 'change', function() {
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			if ( $( this ).is( ':checked' ) ) {
 				$( this ).closest( 'tr' ).removeClass( 'inactive' );
 			} else {

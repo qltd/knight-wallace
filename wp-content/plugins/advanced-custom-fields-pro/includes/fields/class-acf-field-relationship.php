@@ -182,6 +182,7 @@ if ( ! class_exists( 'acf_field_relationship' ) ) :
 					'taxonomy' => $term['taxonomy'],
 					'field'    => 'slug',
 					'terms'    => $term['term'],
+<<<<<<< HEAD
 				);
 
 			} elseif ( ! empty( $field['taxonomy'] ) ) {
@@ -194,6 +195,20 @@ if ( ! class_exists( 'acf_field_relationship' ) ) :
 					'relation' => 'OR',
 				);
 
+=======
+				);
+
+			} elseif ( ! empty( $field['taxonomy'] ) ) {
+
+				// vars
+				$terms = acf_decode_taxonomy_terms( $field['taxonomy'] );
+
+				// append to $args
+				$args['tax_query'] = array(
+					'relation' => 'OR',
+				);
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				// now create the tax queries
 				foreach ( $terms as $k => $v ) {
 
@@ -760,6 +775,7 @@ if ( ! class_exists( 'acf_field_relationship' ) ) :
 		}
 
 
+<<<<<<< HEAD
 		/**
 		 *  update_value()
 		 *
@@ -776,6 +792,26 @@ if ( ! class_exists( 'acf_field_relationship' ) ) :
 		 *  @return  $value - the modified value
 		 */
 		function update_value( $value, $post_id, $field ) {
+=======
+		/*
+		*  update_value()
+		*
+		*  This filter is applied to the $value before it is updated in the db
+		*
+		*  @type    filter
+		*  @since   3.6
+		*  @date    23/01/13
+		*
+		*  @param   $value - the value which will be saved in the database
+		*  @param   $post_id - the $post_id of which the value will be saved
+		*  @param   $field - the field array holding all the field options
+		*
+		*  @return  $value - the modified value
+		*/
+
+		function update_value( $value, $post_id, $field ) {
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			// Bail early if no value.
 			if ( empty( $value ) ) {
 				return $value;
@@ -797,6 +833,7 @@ if ( ! class_exists( 'acf_field_relationship' ) ) :
 			return $value;
 		}
 
+<<<<<<< HEAD
 		/**
 		 * Validates relationship fields updated via the REST API.
 		 *
@@ -881,6 +918,8 @@ if ( ! class_exists( 'acf_field_relationship' ) ) :
 			return acf_format_numerics( $value );
 		}
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 

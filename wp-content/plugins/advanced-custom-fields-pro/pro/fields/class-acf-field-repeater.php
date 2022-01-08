@@ -1089,6 +1089,7 @@ if ( ! class_exists( 'acf_field_repeater' ) ) :
 			return $field;
 		}
 
+<<<<<<< HEAD
 		/**
 		 * Additional validation for the repeater field when submitted via REST.
 		 *
@@ -1180,6 +1181,8 @@ if ( ! class_exists( 'acf_field_repeater' ) ) :
 			return $value;
 		}
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 

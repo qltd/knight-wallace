@@ -57,7 +57,11 @@ else {
 			'paper_style'             => false,
 			'label_title'             => __( 'Social title', 'wordpress-seo' ),
 			'label_description'       => __( 'Social description', 'wordpress-seo' ),
+<<<<<<< HEAD
 			'description_placeholder' => '',
+=======
+			'description_placeholder' => __( 'Modify your social description by editing it right here.', 'wordpress-seo' ),
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		]
 	);
 	$editor->render();

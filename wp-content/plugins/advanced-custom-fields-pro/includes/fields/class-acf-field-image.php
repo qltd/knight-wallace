@@ -195,6 +195,7 @@ if ( ! class_exists( 'acf_field_image' ) ) :
 					$field[ $k ] = '';
 
 				}
+<<<<<<< HEAD
 			}
 
 			// return_format
@@ -374,11 +375,213 @@ if ( ! class_exists( 'acf_field_image' ) ) :
 
 			// return
 			return $value;
+=======
+			}
+
+			// return_format
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'        => __( 'Return Format', 'acf' ),
+					'instructions' => '',
+					'type'         => 'radio',
+					'name'         => 'return_format',
+					'layout'       => 'horizontal',
+					'choices'      => array(
+						'array' => __( 'Image Array', 'acf' ),
+						'url'   => __( 'Image URL', 'acf' ),
+						'id'    => __( 'Image ID', 'acf' ),
+					),
+				)
+			);
+
+			// preview_size
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'        => __( 'Preview Size', 'acf' ),
+					'instructions' => '',
+					'type'         => 'select',
+					'name'         => 'preview_size',
+					'choices'      => acf_get_image_sizes(),
+				)
+			);
+
+			// library
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'        => __( 'Library', 'acf' ),
+					'instructions' => __( 'Limit the media library choice', 'acf' ),
+					'type'         => 'radio',
+					'name'         => 'library',
+					'layout'       => 'horizontal',
+					'choices'      => array(
+						'all'        => __( 'All', 'acf' ),
+						'uploadedTo' => __( 'Uploaded to post', 'acf' ),
+					),
+				)
+			);
+
+			// min
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'        => __( 'Minimum', 'acf' ),
+					'instructions' => __( 'Restrict which images can be uploaded', 'acf' ),
+					'type'         => 'text',
+					'name'         => 'min_width',
+					'prepend'      => __( 'Width', 'acf' ),
+					'append'       => 'px',
+				)
+			);
+
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'   => '',
+					'type'    => 'text',
+					'name'    => 'min_height',
+					'prepend' => __( 'Height', 'acf' ),
+					'append'  => 'px',
+					'_append' => 'min_width',
+				)
+			);
+
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'   => '',
+					'type'    => 'text',
+					'name'    => 'min_size',
+					'prepend' => __( 'File size', 'acf' ),
+					'append'  => 'MB',
+					'_append' => 'min_width',
+				)
+			);
+
+			// max
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'        => __( 'Maximum', 'acf' ),
+					'instructions' => __( 'Restrict which images can be uploaded', 'acf' ),
+					'type'         => 'text',
+					'name'         => 'max_width',
+					'prepend'      => __( 'Width', 'acf' ),
+					'append'       => 'px',
+				)
+			);
+
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'   => '',
+					'type'    => 'text',
+					'name'    => 'max_height',
+					'prepend' => __( 'Height', 'acf' ),
+					'append'  => 'px',
+					'_append' => 'max_width',
+				)
+			);
+
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'   => '',
+					'type'    => 'text',
+					'name'    => 'max_size',
+					'prepend' => __( 'File size', 'acf' ),
+					'append'  => 'MB',
+					'_append' => 'max_width',
+				)
+			);
+
+			// allowed type
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'        => __( 'Allowed file types', 'acf' ),
+					'instructions' => __( 'Comma separated list. Leave blank for all types', 'acf' ),
+					'type'         => 'text',
+					'name'         => 'mime_types',
+				)
+			);
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 		}
 
 
 		/*
+<<<<<<< HEAD
+		*  get_media_item_args
+		*
+		*  description
+		*
+		*  @type    function
+		*  @date    27/01/13
+		*  @since   3.6.0
+		*
+		*  @param   $vars (array)
+		*  @return  $vars
+		*/
+
+		function get_media_item_args( $vars ) {
+
+			$vars['send'] = true;
+			return( $vars );
+=======
+		*  format_value()
+		*
+		*  This filter is appied to the $value after it is loaded from the db and before it is returned to the template
+		*
+		*  @type    filter
+		*  @since   3.6
+		*  @date    23/01/13
+		*
+		*  @param   $value (mixed) the value which was loaded from the database
+		*  @param   $post_id (mixed) the $post_id from which the value was loaded
+		*  @param   $field (array) the field array holding all the field options
+		*
+		*  @return  $value (mixed) the modified value
+		*/
+
+		function format_value( $value, $post_id, $field ) {
+
+			// bail early if no value
+			if ( empty( $value ) ) {
+				return false;
+			}
+
+			// bail early if not numeric (error message)
+			if ( ! is_numeric( $value ) ) {
+				return false;
+			}
+
+			// convert to int
+			$value = intval( $value );
+
+			// format
+			if ( $field['return_format'] == 'url' ) {
+
+				return wp_get_attachment_url( $value );
+
+			} elseif ( $field['return_format'] == 'array' ) {
+
+				return acf_get_attachment( $value );
+
+			}
+
+			// return
+			return $value;
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
+
+		}
+
+
+		/*
+<<<<<<< HEAD
+=======
 		*  get_media_item_args
 		*
 		*  description
@@ -400,6 +603,7 @@ if ( ! class_exists( 'acf_field_image' ) ) :
 
 
 		/*
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		*  update_value()
 		*
 		*  This filter is appied to the $value before it is updated in the db
@@ -422,6 +626,7 @@ if ( ! class_exists( 'acf_field_image' ) ) :
 		}
 
 
+<<<<<<< HEAD
 		/**
 		 *  validate_value
 		 *
@@ -471,6 +676,25 @@ if ( ! class_exists( 'acf_field_image' ) ) :
 		 */
 		public function format_value_for_rest( $value, $post_id, array $field ) {
 			return acf_format_numerics( $value );
+=======
+		/*
+		*  validate_value
+		*
+		*  This function will validate a basic file input
+		*
+		*  @type    function
+		*  @date    11/02/2014
+		*  @since   5.0.0
+		*
+		*  @param   $post_id (int)
+		*  @return  $post_id (int)
+		*/
+
+		function validate_value( $valid, $value, $field, $input ) {
+
+			return acf_get_field_type( 'file' )->validate_value( $valid, $value, $field, $input );
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		}
 
 	}

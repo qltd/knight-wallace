@@ -4,15 +4,22 @@
  *
  * Contains handlers to make Theme Customizer preview reload changes asynchronously.
  *
+<<<<<<< HEAD
  * @since Twenty Twenty 1.0
+=======
+ * @since 1.0.0
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 
 ( function( $, api, _ ) {
 	/**
 	 * Return a value for our partial refresh.
 	 *
+<<<<<<< HEAD
 	 * @since Twenty Twenty 1.0
 	 *
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 * @param {Object} partial  Current partial.
 	 *
 	 * @return {jQuery.Promise} Resolved promise.
@@ -27,6 +34,7 @@
 		return deferred.promise();
 	}
 
+<<<<<<< HEAD
 	// Selective refresh for "Fixed Background Image".
 	api.selectiveRefresh.partialConstructor.cover_fixed = api.selectiveRefresh.Partial.extend( {
 
@@ -34,6 +42,13 @@
 		 * Override the refresh method.
 		 *
 		 * @since Twenty Twenty 1.0
+=======
+	// Selective refresh for "Fixed Background Image"
+	api.selectiveRefresh.partialConstructor.cover_fixed = api.selectiveRefresh.Partial.extend( {
+
+		/**
+		 * Override the refresh method
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		 *
 		 * @return {jQuery.Promise} Resolved promise.
 		 */
@@ -53,21 +68,32 @@
 
 	} );
 
+<<<<<<< HEAD
 	// Selective refresh for "Image Overlay Opacity".
+=======
+	// Selective refresh for "Image Overlay Opacity"
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	api.selectiveRefresh.partialConstructor.cover_opacity = api.selectiveRefresh.Partial.extend( {
 
 		/**
 		 * Input attributes.
 		 *
+<<<<<<< HEAD
 		 * @since Twenty Twenty 1.0
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		 * @type {Object}
 		 */
 		attrs: {},
 
 		/**
+<<<<<<< HEAD
 		 * Override the refresh method.
 		 *
 		 * @since Twenty Twenty 1.0
+=======
+		 * Override the refresh method
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		 *
 		 * @return {jQuery.Promise} Resolved promise.
 		 */
@@ -153,7 +179,11 @@
 	/**
 	 * Add styles to elements in the preview pane.
 	 *
+<<<<<<< HEAD
 	 * @since Twenty Twenty 1.0
+=======
+	 * @since 1.0.0
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 *
 	 * @param {string} context The area for which we want to generate styles. Can be for example "content", "header" etc.
 	 *

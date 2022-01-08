@@ -57,7 +57,11 @@ if ( ! class_exists( 'acf_field_select' ) ) :
 
 		function input_admin_enqueue_scripts() {
 
+<<<<<<< HEAD
 			// bail early if no enqueue
+=======
+			// bail ealry if no enqueue
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			if ( ! acf_get_setting( 'enqueue_select2' ) ) {
 				return;
 			}
@@ -83,7 +87,11 @@ if ( ! class_exists( 'acf_field_select' ) ) :
 			// v4
 			if ( $major == 4 ) {
 
+<<<<<<< HEAD
 				$version = '4.0.13';
+=======
+				$version = '4.0';
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				$script  = acf_get_url( "assets/inc/select2/4/select2.full{$min}.js" );
 				$style   = acf_get_url( "assets/inc/select2/4/select2{$min}.css" );
 
@@ -324,10 +332,13 @@ if ( ! class_exists( 'acf_field_select' ) ) :
 				);
 			}
 
+<<<<<<< HEAD
 			if ( ! empty( $field['query_nonce'] ) ) {
 				$select['data-query-nonce'] = $field['query_nonce'];
 			}
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			// append
 			$select['value']   = $value;
 			$select['choices'] = $choices;
@@ -541,6 +552,7 @@ if ( ! class_exists( 'acf_field_select' ) ) :
 			}
 
 			// return
+<<<<<<< HEAD
 			return $value;
 		}
 
@@ -592,10 +604,13 @@ if ( ! class_exists( 'acf_field_select' ) ) :
 			} else {
 				$value = $this->format_value_single( $value, $post_id, $field );
 			}
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			return $value;
 		}
 
 
+<<<<<<< HEAD
 		function format_value_single( $value, $post_id, $field ) {
 
 			// bail ealry if is empty
@@ -710,6 +725,92 @@ if ( ! class_exists( 'acf_field_select' ) ) :
 			}
 
 			return $schema;
+=======
+		/*
+		*  translate_field
+		*
+		*  This function will translate field settings
+		*
+		*  @type    function
+		*  @date    8/03/2016
+		*  @since   5.3.2
+		*
+		*  @param   $field (array)
+		*  @return  $field
+		*/
+
+		function translate_field( $field ) {
+
+			// translate
+			$field['choices'] = acf_translate( $field['choices'] );
+
+			// return
+			return $field;
+
+		}
+
+
+		/*
+		*  format_value()
+		*
+		*  This filter is appied to the $value after it is loaded from the db and before it is returned to the template
+		*
+		*  @type    filter
+		*  @since   3.6
+		*  @date    23/01/13
+		*
+		*  @param   $value (mixed) the value which was loaded from the database
+		*  @param   $post_id (mixed) the $post_id from which the value was loaded
+		*  @param   $field (array) the field array holding all the field options
+		*
+		*  @return  $value (mixed) the modified value
+		*/
+		function format_value( $value, $post_id, $field ) {
+			if ( is_array( $value ) ) {
+				foreach ( $value as $i => $val ) {
+					$value[ $i ] = $this->format_value_single( $val, $post_id, $field );
+				}
+			} else {
+				$value = $this->format_value_single( $value, $post_id, $field );
+			}
+			return $value;
+		}
+
+
+		function format_value_single( $value, $post_id, $field ) {
+
+			// bail ealry if is empty
+			if ( acf_is_empty( $value ) ) {
+				return $value;
+			}
+
+			// vars
+			$label = acf_maybe_get( $field['choices'], $value, $value );
+
+			// value
+			if ( $field['return_format'] == 'value' ) {
+
+				// do nothing
+
+				// label
+			} elseif ( $field['return_format'] == 'label' ) {
+
+				$value = $label;
+
+				// array
+			} elseif ( $field['return_format'] == 'array' ) {
+
+				$value = array(
+					'value' => $value,
+					'label' => $label,
+				);
+
+			}
+
+			// return
+			return $value;
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		}
 
 	}

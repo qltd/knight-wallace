@@ -179,6 +179,7 @@ if ( ! class_exists( 'acf_field_wysiwyg' ) ) :
 			);
 		}
 
+<<<<<<< HEAD
 		/**
 		 * Create the HTML interface for your field
 		 *
@@ -188,6 +189,20 @@ if ( ! class_exists( 'acf_field_wysiwyg' ) ) :
 		 * @since   3.6
 		 * @date    23/01/13
 		 */
+=======
+		/*
+		*  render_field()
+		*
+		*  Create the HTML interface for your field
+		*
+		*  @param   $field - an array holding all the field's data
+		*
+		*  @type    action
+		*  @since   3.6
+		*  @date    23/01/13
+		*/
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		function render_field( $field ) {
 
 			// enqueue
@@ -237,8 +252,11 @@ if ( ! class_exists( 'acf_field_wysiwyg' ) ) :
 
 			// filter
 			add_filter( 'acf_the_editor_content', 'format_for_editor', 10, 2 );
+<<<<<<< HEAD
 
 			$field['value'] = is_string( $field['value'] ) ? $field['value'] : '';
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			$field['value'] = apply_filters( 'acf_the_editor_content', $field['value'], $default_editor );
 
 			// attr
@@ -402,6 +420,7 @@ if ( ! class_exists( 'acf_field_wysiwyg' ) ) :
 
 		}
 
+<<<<<<< HEAD
 		/**
 		 * This filter is applied to the $value after it is loaded from the db, and before it is returned to the template
 		 *
@@ -425,6 +444,41 @@ if ( ! class_exists( 'acf_field_wysiwyg' ) ) :
 
 			// Follow the_content function in /wp-includes/post-template.php
 			return str_replace( ']]>', ']]&gt;', $value );
+=======
+
+		/*
+		*  format_value()
+		*
+		*  This filter is appied to the $value after it is loaded from the db and before it is returned to the template
+		*
+		*  @type    filter
+		*  @since   3.6
+		*  @date    23/01/13
+		*
+		*  @param   $value (mixed) the value which was loaded from the database
+		*  @param   $post_id (mixed) the $post_id from which the value was loaded
+		*  @param   $field (array) the field array holding all the field options
+		*
+		*  @return  $value (mixed) the modified value
+		*/
+
+		function format_value( $value, $post_id, $field ) {
+
+			// bail early if no value
+			if ( empty( $value ) ) {
+
+				return $value;
+
+			}
+
+			// apply filters
+			$value = apply_filters( 'acf_the_content', $value );
+
+			// follow the_content function in /wp-includes/post-template.php
+			$value = str_replace( ']]>', ']]&gt;', $value );
+
+			return $value;
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		}
 
 	}

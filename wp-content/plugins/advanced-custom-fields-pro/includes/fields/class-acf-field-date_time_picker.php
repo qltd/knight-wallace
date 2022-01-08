@@ -130,7 +130,11 @@ if ( ! class_exists( 'acf_field_date_and_time_picker' ) ) :
 				'value' => $hidden_value,
 			);
 			$text_input   = array(
+<<<<<<< HEAD
 				'class' => $field['class'] . ' input',
+=======
+				'class' => 'input',
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				'value' => $display_value,
 			);
 			foreach ( array( 'readonly', 'disabled' ) as $k ) {
@@ -249,6 +253,7 @@ if ( ! class_exists( 'acf_field_date_and_time_picker' ) ) :
 			return acf_format_date( $value, $field['return_format'] );
 
 		}
+<<<<<<< HEAD
 		
 
 		/**
@@ -288,6 +293,8 @@ if ( ! class_exists( 'acf_field_date_and_time_picker' ) ) :
 				'required'    => ! empty( $field['required'] ),
 			);
 		}
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 	}
 

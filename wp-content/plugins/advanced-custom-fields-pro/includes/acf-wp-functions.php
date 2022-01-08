@@ -178,7 +178,10 @@ function acf_decode_post_id( $post_id = 0 ) {
 			$id   = absint( $id );
 			break;
 		case 'block_%s':
+<<<<<<< HEAD
 		case 'block_%d':
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			$type = 'block';
 			$id   = $post_id;
 			break;
@@ -217,6 +220,7 @@ function acf_decode_post_id( $post_id = 0 ) {
 	 */
 	return apply_filters( 'acf/decode_post_id', compact( 'type', 'id' ), $post_id );
 }
+<<<<<<< HEAD
 
 /**
  * Determine the REST base for a post type or taxonomy object. Note that this is not intended for use
@@ -260,3 +264,5 @@ function acf_get_object_id( $object ) {
 
 	return null;
 }
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394

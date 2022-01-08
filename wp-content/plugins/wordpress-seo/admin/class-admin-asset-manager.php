@@ -150,6 +150,7 @@ class WPSEO_Admin_Asset_Manager {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Adds an inline script.
 	 *
 	 * @param string $handle   The script handle.
@@ -161,6 +162,8 @@ class WPSEO_Admin_Asset_Manager {
 	}
 
 	/**
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 * A list of styles that shouldn't be registered but are needed in other locations in the plugin.
 	 *
 	 * @return array
@@ -240,12 +243,16 @@ class WPSEO_Admin_Asset_Manager {
 			'analysis-worker'    => [ self::PREFIX . 'analysis-package' ],
 			'api-client'         => [ 'wp-api' ],
 			'dashboard-widget'   => [ self::PREFIX . 'api-client' ],
+<<<<<<< HEAD
 			'elementor'          => [
 				self::PREFIX . 'api-client',
 				self::PREFIX . 'externals-components',
 				self::PREFIX . 'externals-contexts',
 				self::PREFIX . 'externals-redux',
 			],
+=======
+			'elementor'          => [ self::PREFIX . 'api-client' ],
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			'indexation'         => [
 				'jquery-ui-core',
 				'jquery-ui-progressbar',
@@ -253,9 +260,12 @@ class WPSEO_Admin_Asset_Manager {
 			'post-edit'          => [
 				self::PREFIX . 'api-client',
 				self::PREFIX . 'block-editor',
+<<<<<<< HEAD
 				self::PREFIX . 'externals-components',
 				self::PREFIX . 'externals-contexts',
 				self::PREFIX . 'externals-redux',
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				self::PREFIX . 'select2',
 			],
 			'reindex-links'      => [
@@ -271,9 +281,12 @@ class WPSEO_Admin_Asset_Manager {
 			'term-edit'          => [
 				self::PREFIX . 'api-client',
 				self::PREFIX . 'classic-editor',
+<<<<<<< HEAD
 				self::PREFIX . 'externals-components',
 				self::PREFIX . 'externals-contexts',
 				self::PREFIX . 'externals-redux',
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				self::PREFIX . 'select2',
 			],
 		];
@@ -285,6 +298,7 @@ class WPSEO_Admin_Asset_Manager {
 				'additional_deps' => $additional_dependencies,
 				'header_scripts'  => $header_scripts,
 			]
+<<<<<<< HEAD
 		);
 		$external_scripts = $this->load_generated_asset_file(
 			[
@@ -306,6 +320,29 @@ class WPSEO_Admin_Asset_Manager {
 				'header_scripts'  => $header_scripts,
 			]
 		);
+=======
+		);
+		$external_scripts = $this->load_generated_asset_file(
+			[
+				'asset_file'      => __DIR__ . '/../src/generated/assets/externals.php',
+				'ext_length'      => $ext_length,
+				'suffix'          => '-package',
+				'base_dir'        => 'externals/',
+				'additional_deps' => $additional_dependencies,
+				'header_scripts'  => $header_scripts,
+			]
+		);
+		$language_scripts = $this->load_generated_asset_file(
+			[
+				'asset_file'      => __DIR__ . '/../src/generated/assets/languages.php',
+				'ext_length'      => $ext_length,
+				'suffix'          => '-language',
+				'base_dir'        => 'languages/',
+				'additional_deps' => $additional_dependencies,
+				'header_scripts'  => $header_scripts,
+			]
+		);
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		$select2_scripts  = $this->load_select2_scripts();
 		$renamed_scripts  = $this->load_renamed_scripts();
 
@@ -332,6 +369,7 @@ class WPSEO_Admin_Asset_Manager {
 			'in_footer' => ! in_array( 'post-edit-classic', $header_scripts, true ),
 		];
 
+<<<<<<< HEAD
 		$scripts['workouts'] = [
 			'name' => 'workouts',
 			'src'  => 'workouts-' . $flat_version . '.js',
@@ -355,6 +393,8 @@ class WPSEO_Admin_Asset_Manager {
 			],
 		];
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		// Add the current language to every script that requires the analysis package.
 		foreach ( $scripts as $name => $script ) {
 			if ( substr( $name, -8 ) === 'language' ) {
@@ -463,7 +503,11 @@ class WPSEO_Admin_Asset_Manager {
 			'deps'    => [
 				'jquery',
 			],
+<<<<<<< HEAD
 			'version' => '4.1.0-rc.0',
+=======
+			'version' => '4.0.3',
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		];
 		$scripts['select2-translations'] = [
 			'name'    => 'select2-translations',
@@ -472,7 +516,11 @@ class WPSEO_Admin_Asset_Manager {
 				'jquery',
 				self::PREFIX . 'select2-core',
 			],
+<<<<<<< HEAD
 			'version' => '4.1.0-rc.0',
+=======
+			'version' => '4.0.3',
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		];
 
 		return $scripts;

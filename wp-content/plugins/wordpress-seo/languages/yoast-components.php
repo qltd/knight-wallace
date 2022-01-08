@@ -38,6 +38,7 @@ $generated_i18n_strings = array(
 	// Reference: packages/components/src/LanguageNotice.js:54
 	/* %s expands to the actual language. */
 	__( 'Your site language is set to %s. If this is not correct, contact your site administrator.', 'wordpress-seo' ),
+<<<<<<< HEAD
 
 	// Reference: packages/components/src/LanguageNotice.js:70
 	__( 'Change language', 'wordpress-seo' ),
@@ -61,6 +62,31 @@ $generated_i18n_strings = array(
 	__( 'The following words occur the most in the content. These give an indication of what your content focuses on. If the words differ a lot from your topic, you might want to rewrite your content accordingly. ', 'wordpress-seo' ),
 
 	// Reference: packages/components/src/WordOccurrenceInsights.js:71
+=======
+
+	// Reference: packages/components/src/LanguageNotice.js:70
+	__( 'Change language', 'wordpress-seo' ),
+
+	// Reference: packages/components/src/Notification.js:101
+	__( 'Dismiss this notice', 'wordpress-seo' ),
+
+	// Reference: packages/components/src/Toggle.js:146
+	__( 'On', 'wordpress-seo' ),
+
+	// Reference: packages/components/src/Toggle.js:146
+	__( 'Off', 'wordpress-seo' ),
+
+	// Reference: packages/components/src/WordOccurrenceInsights.js:21
+	__( 'Read our %1$sultimate guide to keyword research%2$s to learn more about keyword research and keyword strategy.', 'wordpress-seo' ),
+
+	// Reference: packages/components/src/WordOccurrenceInsights.js:47
+	__( 'Once you add a bit more copy, we\'ll give you a list of words that occur the most in the content. These give an indication of what your content focuses on.', 'wordpress-seo' ),
+
+	// Reference: packages/components/src/WordOccurrenceInsights.js:54
+	__( 'The following words occur the most in the content. These give an indication of what your content focuses on. If the words differ a lot from your topic, you might want to rewrite your content accordingly. ', 'wordpress-seo' ),
+
+	// Reference: packages/components/src/WordOccurrenceInsights.js:72
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	// Reference: packages/components/src/data-model/DataModel.js:50
 	__( 'Prominent words', 'wordpress-seo' ),
 
@@ -93,10 +119,17 @@ $generated_i18n_strings = array(
 
 	// Reference: packages/components/src/inputs/DurationInput.js:167
 	__( 'seconds', 'wordpress-seo' ),
+<<<<<<< HEAD
 
 	// Reference: packages/components/src/new-badge/NewBadge.js:14
 	__( 'New', 'wordpress-seo' ),
 
+=======
+
+	// Reference: packages/components/src/new-badge/NewBadge.js:14
+	__( 'New', 'wordpress-seo' ),
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	// Reference: packages/yoast-components/composites/LinkSuggestions/LinkSuggestion.js:65
 	__( 'Copy link', 'wordpress-seo' ),
 
@@ -106,6 +139,7 @@ $generated_i18n_strings = array(
 
 	// Reference: packages/yoast-components/composites/LinkSuggestions/LinkSuggestions.js:20
 	__( 'We could not find any relevant articles on your website that you could link to from your post.', 'wordpress-seo' ),
+<<<<<<< HEAD
 
 	// Reference: packages/yoast-components/composites/LinkSuggestions/LinkSuggestions.js:26
 	/* Text between {{a}} and {{/a}} will be a link to an article about site structure. */
@@ -122,6 +156,24 @@ $generated_i18n_strings = array(
 	__( 'Copied!', 'wordpress-seo' ),
 
 	// Reference: packages/yoast-components/composites/LinkSuggestions/LinkSuggestions.js:84
+=======
+
+	// Reference: packages/yoast-components/composites/LinkSuggestions/LinkSuggestions.js:24
+	/* Text between {{a}} and {{/a}} will be a link to an article about site structure. */
+	__( '{{a}}Read our article about site structure{{/a}} to learn more about how internal linking can help improve your SEO.', 'wordpress-seo' ),
+
+	// Reference: packages/yoast-components/composites/LinkSuggestions/LinkSuggestions.js:29
+	/* Text between {{a}} and {{/a}} will be a link to an article about cornerstone content. */
+	__( 'Consider linking to these {{a}}cornerstone articles:{{/a}}', 'wordpress-seo' ),
+
+	// Reference: packages/yoast-components/composites/LinkSuggestions/LinkSuggestions.js:31
+	__( 'Consider linking to these articles:', 'wordpress-seo' ),
+
+	// Reference: packages/yoast-components/composites/LinkSuggestions/LinkSuggestions.js:62
+	__( 'Copied!', 'wordpress-seo' ),
+
+	// Reference: packages/yoast-components/composites/LinkSuggestions/LinkSuggestions.js:81
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	__( 'Not supported!', 'wordpress-seo' ),
 
 	// Reference: packages/yoast-components/composites/Plugin/CornerstoneContent/components/CornerstoneToggle.js:26
@@ -175,6 +227,7 @@ $generated_i18n_strings = array(
 
 	// Reference: packages/search-metadata-previews/src/snippet-editor/ModeSwitcher.js:79
 	__( 'Preview as:', 'wordpress-seo' ),
+<<<<<<< HEAD
 
 	// Reference: packages/search-metadata-previews/src/snippet-editor/ModeSwitcher.js:91
 	__( 'Mobile result', 'wordpress-seo' ),
@@ -183,6 +236,19 @@ $generated_i18n_strings = array(
 	__( 'Close snippet editor', 'wordpress-seo' ),
 
 	// Reference: packages/search-metadata-previews/src/snippet-editor/SnippetEditor.js:585
+=======
+
+	// Reference: packages/search-metadata-previews/src/snippet-editor/ModeSwitcher.js:91
+	__( 'Mobile result', 'wordpress-seo' ),
+
+	// Reference: packages/search-metadata-previews/src/snippet-editor/SnippetEditor.js:277
+	__( 'Modify your meta description by editing it right here', 'wordpress-seo' ),
+
+	// Reference: packages/search-metadata-previews/src/snippet-editor/SnippetEditor.js:300
+	__( 'Close snippet editor', 'wordpress-seo' ),
+
+	// Reference: packages/search-metadata-previews/src/snippet-editor/SnippetEditor.js:591
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	__( 'Edit snippet', 'wordpress-seo' ),
 
 	// Reference: packages/search-metadata-previews/src/snippet-editor/SnippetEditorFields.js:292
@@ -217,6 +283,7 @@ $generated_i18n_strings = array(
 	// Reference: packages/search-metadata-previews/src/snippet-preview/SnippetPreview.js:475
 	__( 'Please provide a meta description by editing the snippet below. If you don’t, Google will try to find a relevant part of your post to show in the search results.', 'wordpress-seo' ),
 
+<<<<<<< HEAD
 	// Reference: packages/search-metadata-previews/src/snippet-preview/SnippetPreview.js:587
 	__( 'Url preview', 'wordpress-seo' ),
 
@@ -249,5 +316,38 @@ $generated_i18n_strings = array(
 
 	// Reference: packages/replacement-variable-editor/src/ReplacementVariableEditorStandalone.js:323
 	__( 'No results', 'wordpress-seo' )
+=======
+	// Reference: packages/search-metadata-previews/src/snippet-preview/SnippetPreview.js:584
+	__( 'Url preview', 'wordpress-seo' ),
+
+	// Reference: packages/search-metadata-previews/src/snippet-preview/SnippetPreview.js:759
+	__( 'Shopping data preview:', 'wordpress-seo' ),
+
+	// Reference: packages/search-metadata-previews/src/snippet-preview/SnippetPreview.js:817
+	__( 'SEO title preview', 'wordpress-seo' ),
+
+	// Reference: packages/search-metadata-previews/src/snippet-preview/SnippetPreview.js:834
+	__( 'Meta description preview:', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/MailchimpSignup.js:119
+	__( 'MailChimp signup failed:', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/MailchimpSignup.js:216
+	__( 'Sign Up!', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/MailchimpSignup.js:235
+	__( 'Email', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/MediaUpload.js:21
+	// Reference: packages/js/src/components/MediaUpload.js:22
+	// Reference: packages/js/src/components/MediaUpload.js:145
+	__( 'Choose an image', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/MediaUpload.js:104
+	__( 'Remove the image', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/MediaUpload.js:126
+	__( 'image preview', 'wordpress-seo' )
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 );
 /* THIS IS THE END OF THE GENERATED FILE */

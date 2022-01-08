@@ -328,19 +328,30 @@ ul.config-error li {
 }
 
 /*
+<<<<<<< HEAD
  * Tabs for integration modules
  */
 #ctct-panel table tr.inactive ~ tr,
+=======
+ * Sendinblue Tab
+ */
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 #sendinblue-panel table tr.inactive ~ tr {
 	display: none;
 }
 
+<<<<<<< HEAD
 #ctct-panel .dashicons,
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 #sendinblue-panel .dashicons {
  	text-decoration: none;
 }
 
+<<<<<<< HEAD
 #ctct-panel td p,
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 #sendinblue-panel td p {
  	margin-top: 12px;
 }

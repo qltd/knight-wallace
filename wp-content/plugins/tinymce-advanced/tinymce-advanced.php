@@ -5,7 +5,11 @@ Plugin URI: https://wordpress.org/plugins/tinymce-advanced/
 Description: Extends and enhances the block editor (Gutenberg) and the classic editor (TinyMCE).
 Version: 5.6.0
 Requires at least: 5.6
+<<<<<<< HEAD
 Tested up to: 5.7
+=======
+Tested up to: 5.6
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 Requires PHP: 5.6
 Author: Automattic
 Author URI: https://automattic.com

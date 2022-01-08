@@ -2444,7 +2444,11 @@ function enqueue_block_styles_assets() {
 				if ( wp_should_load_separate_core_block_assets() ) {
 					add_filter(
 						'render_block',
+<<<<<<< HEAD
 						function( $html ) use ( $style_properties ) {
+=======
+						function( $html, $block ) use ( $style_properties ) {
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 							wp_enqueue_style( $style_properties['style_handle'] );
 							return $html;
 						}

@@ -49,7 +49,10 @@ class CFDB7_Form_Details
                         foreach ($form_data as $key => $data):
 
                             $matches = array();
+<<<<<<< HEAD
                             $key     = esc_html( $key );
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
                             if ( $key == 'cfdb7_status' )  continue;
                             if( $rm_underscore ) preg_match('/^_.*$/m', $key, $matches);

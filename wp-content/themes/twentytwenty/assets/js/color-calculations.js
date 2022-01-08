@@ -3,7 +3,11 @@
 /**
  * Color Calculations.
  *
+<<<<<<< HEAD
  * @since Twenty Twenty 1.0
+=======
+ * @since 1.0.0
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  *
  * @param {string} backgroundColor - The background color.
  * @param {number} accentHue - The hue for our accent color.
@@ -29,7 +33,11 @@ function _twentyTwentyColor( backgroundColor, accentHue ) {
  * For improved performance we only build half the array
  * depending on dark/light background-color.
  *
+<<<<<<< HEAD
  * @since Twenty Twenty 1.0
+=======
+ * @since 1.0.0
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  *
  * @return {Object} - this
  */
@@ -51,8 +59,12 @@ _twentyTwentyColor.prototype.setAccentColorsArray = function() {
 				/**
 				 * Get a score for this color in contrast to its background color and surrounding text.
 				 *
+<<<<<<< HEAD
 				 * @since Twenty Twenty 1.0
 				 *
+=======
+				 * @since 1.0.0
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				 * @param {number} contrastBackground - WCAG contrast with the background color.
 				 * @param {number} contrastSurroundingText - WCAG contrast with surrounding text.
 				 * @return {number} - 0 is best, higher numbers have bigger difference with the desired scores.
@@ -112,7 +124,11 @@ _twentyTwentyColor.prototype.setAccentColorsArray = function() {
 /**
  * Get accessible text-color.
  *
+<<<<<<< HEAD
  * @since Twenty Twenty 1.0
+=======
+ * @since 1.0.0
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  *
  * @return {Color} - Returns a Color object.
  */
@@ -123,7 +139,11 @@ _twentyTwentyColor.prototype.getTextColor = function() {
 /**
  * Get accessible color for the defined accent-hue and background-color.
  *
+<<<<<<< HEAD
  * @since Twenty Twenty 1.0
+=======
+ * @since 1.0.0
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  *
  * @return {Color} - Returns a Color object.
  */
@@ -143,8 +163,12 @@ _twentyTwentyColor.prototype.getAccentColor = function() {
 /**
  * Return a new instance of the _twentyTwentyColor object.
  *
+<<<<<<< HEAD
  * @since Twenty Twenty 1.0
  *
+=======
+ * @since 1.0.0
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  * @param {string} backgroundColor - The background color.
  * @param {number} accentHue - The hue for our accent color.
  * @return {Object} - this

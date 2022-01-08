@@ -2,7 +2,11 @@
 
 // vars
 $active   = $license ? true : false;
+<<<<<<< HEAD
 $nonce    = $active ? 'deactivate_pro_license' : 'activate_pro_license';
+=======
+$nonce    = $active ? 'deactivate_pro_licence' : 'activate_pro_licence';
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 $button   = $active ? __( 'Deactivate License', 'acf' ) : __( 'Activate License', 'acf' );
 $readonly = $active ? 1 : 0;
 
@@ -16,6 +20,7 @@ $readonly = $active ? 1 : 0;
 			<h3><?php _e( 'License Information', 'acf' ); ?></h3>
 		</div>
 		<div class="inner">
+<<<<<<< HEAD
 			<?php if ( $is_defined_license ) { ?>
 
 				<p>
@@ -66,6 +71,42 @@ $readonly = $active ? 1 : 0;
 					</table>
 				</form>
 			<?php } ?>
+=======
+			<p><?php printf( __( 'To unlock updates, please enter your license key below. If you don\'t have a licence key, please see <a href="%s" target="_blank">details & pricing</a>.', 'acf' ), esc_url( 'https://www.advancedcustomfields.com/pro/?utm_source=ACF%2Bpro%2Bplugin&utm_medium=insideplugin&utm_campaign=ACF%2Bupgrade&utm_content=license%2Bactivations' ) ); ?></p>
+			<form action="" method="post">
+				<?php acf_nonce_input( $nonce ); ?>
+				<table class="form-table">
+					<tbody>
+						<tr>
+							<th>
+								<label for="acf-field-acf_pro_licence"><?php _e( 'License Key', 'acf' ); ?></label>
+							</th>
+							<td>
+								<?php
+
+								// render field
+								acf_render_field(
+									array(
+										'type'     => 'text',
+										'name'     => 'acf_pro_licence',
+										'value'    => str_repeat( '*', strlen( $license ) ),
+										'readonly' => $readonly,
+									)
+								);
+
+								?>
+							</td>
+						</tr>
+						<tr>
+							<th></th>
+							<td>
+								<input type="submit" value="<?php echo esc_attr( $button ); ?>" class="button button-primary">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			
 		</div>
 		
@@ -103,9 +144,13 @@ $readonly = $active ? 1 : 0;
 								
 								<span style="margin-right: 5px;"><?php _e( 'Yes', 'acf' ); ?></span>
 								
+<<<<<<< HEAD
 								<?php if ( $license_error ) : ?>
 									<a class="button" disabled="disabled" href="#"><?php _e( 'Please reactivate your license to unlock updates', 'acf' ); ?></a>
 								<?php elseif ( $active ) : ?>
+=======
+								<?php if ( $active ) : ?>
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 									<a class="button button-primary" href="<?php echo esc_attr( admin_url( 'plugins.php?s=Advanced+Custom+Fields+Pro' ) ); ?>"><?php _e( 'Update Plugin', 'acf' ); ?></a>
 								<?php else : ?>
 									<a class="button" disabled="disabled" href="#"><?php _e( 'Please enter your license key above to unlock updates', 'acf' ); ?></a>

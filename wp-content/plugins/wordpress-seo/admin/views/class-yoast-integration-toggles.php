@@ -5,8 +5,11 @@
  * @package WPSEO\Admin
  */
 
+<<<<<<< HEAD
 use Yoast\WP\SEO\Conditionals\Wincher_Conditional;
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 /**
  * Class for managing integration toggles.
  */
@@ -121,6 +124,7 @@ class Yoast_Integration_Toggles {
 			],
 		];
 
+<<<<<<< HEAD
 		// Don't render when feature flag is not enabled.
 		$conditional = new Wincher_Conditional();
 		if ( $conditional->is_met() ) {
@@ -137,6 +141,8 @@ class Yoast_Integration_Toggles {
 			];
 		}
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		/**
 		 * Filter to add integration toggles from add-ons.
 		 *
@@ -148,8 +154,11 @@ class Yoast_Integration_Toggles {
 		$integration_toggles = array_map( [ $this, 'ensure_toggle' ], $integration_toggles );
 		usort( $integration_toggles, [ $this, 'sort_toggles_callback' ] );
 
+<<<<<<< HEAD
 		add_action( 'Yoast\WP\SEO\admin_integration_after', [ $this, 'load_toggle_additional_content' ] );
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		return $integration_toggles;
 	}
 
@@ -187,6 +196,7 @@ class Yoast_Integration_Toggles {
 	protected function sort_toggles_callback( Yoast_Feature_Toggle $feature_a, Yoast_Feature_Toggle $feature_b ) {
 		return ( $feature_a->order - $feature_b->order );
 	}
+<<<<<<< HEAD
 
 	/**
 	 * Loads additional content for the passed integration.
@@ -204,4 +214,6 @@ class Yoast_Integration_Toggles {
 				break;
 		}
 	}
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 }

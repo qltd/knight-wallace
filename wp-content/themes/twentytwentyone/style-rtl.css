@@ -7,9 +7,15 @@ Author: the WordPress team
 Author URI: https://wordpress.org/
 Description: Twenty Twenty-One is a blank canvas for your ideas and it makes the block editor your best brush. With new block patterns, which allow you to create a beautiful layout in a matter of seconds, this theme’s soft colors and eye-catching — yet timeless — design will let your work shine. Take it for a spin! See how Twenty Twenty-One elevates your portfolio, business website, or personal blog.
 Requires at least: 5.3
+<<<<<<< HEAD
 Tested up to: 5.8
 Requires PHP: 5.6
 Version: 1.4
+=======
+Tested up to: 5.6
+Requires PHP: 5.6
+Version: 1.2
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: twentytwentyone
@@ -914,8 +920,12 @@ template {
 .site-main > .not-found > *,
 .entry-content > *,
 [class*=inner-container] > *,
+<<<<<<< HEAD
 .wp-block-template-part > *,
 .wp-block-post-template :where(li > *) {
+=======
+.wp-block-template-part > * {
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	margin-top: calc(0.666 * var(--global--spacing-vertical));
 	margin-bottom: calc(0.666 * var(--global--spacing-vertical));
 }
@@ -925,8 +935,12 @@ template {
 	.site-main > .not-found > *,
 	.entry-content > *,
 	[class*=inner-container] > *,
+<<<<<<< HEAD
 	.wp-block-template-part > *,
 	.wp-block-post-template :where(li > *) {
+=======
+	.wp-block-template-part > * {
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		margin-top: var(--global--spacing-vertical);
 		margin-bottom: var(--global--spacing-vertical);
 	}
@@ -936,8 +950,12 @@ template {
 .site-main > .not-found > *:first-child,
 .entry-content > *:first-child,
 [class*=inner-container] > *:first-child,
+<<<<<<< HEAD
 .wp-block-template-part > *:first-child,
 .wp-block-post-template :where(li > *):first-child {
+=======
+.wp-block-template-part > *:first-child {
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	margin-top: 0;
 }
 
@@ -945,8 +963,12 @@ template {
 .site-main > .not-found > *:last-child,
 .entry-content > *:last-child,
 [class*=inner-container] > *:last-child,
+<<<<<<< HEAD
 .wp-block-template-part > *:last-child,
 .wp-block-post-template :where(li > *):last-child {
+=======
+.wp-block-template-part > *:last-child {
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	margin-bottom: 0;
 }
 
@@ -2462,11 +2484,14 @@ h6,
 	margin-bottom: 0;
 }
 
+<<<<<<< HEAD
 .widget-area .wp-block-latest-posts:not(.is-grid) > li {
 	margin-top: 0;
 	margin-bottom: 0;
 }
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 .wp-block-latest-posts.is-grid {
 	word-wrap: break-word;
 	word-break: break-word;
@@ -2515,11 +2540,14 @@ h6,
 	margin-bottom: calc(0.333 * var(--global--spacing-vertical));
 }
 
+<<<<<<< HEAD
 .widget-area .wp-block-latest-posts > li > a {
 	font-size: var(--global--font-size-sm);
 	margin-bottom: 0;
 }
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 .wp-block-latest-posts .wp-block-latest-posts__post-author {
 	color: var(--global--color-primary);
 	font-size: var(--global--font-size-md);
@@ -3011,6 +3039,7 @@ pre.wp-block-preformatted {
 	max-width: initial;
 }
 
+<<<<<<< HEAD
 .wp-block-query.has-background {
 	padding: calc(0.666 * var(--global--spacing-vertical));
 }
@@ -3021,6 +3050,8 @@ pre.wp-block-preformatted {
 	}
 }
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 .wp-block-quote {
 	border-right: none;
 
@@ -5468,16 +5499,22 @@ h1.page-title {
 	clear: both;
 }
 
+<<<<<<< HEAD
 .widget h1,
 .widget h2,
 .widget h3,
 .widget h4,
 .widget h5,
 .widget h6 {
+=======
+.widget-title {
+	font-size: var(--global--font-size-sm);
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	font-weight: var(--widget--font-weight-title);
 	line-height: var(--widget--line-height-title);
 }
 
+<<<<<<< HEAD
 .widget h1 {
 	font-size: var(--global--font-size-md);
 }
@@ -5502,6 +5539,8 @@ h1.page-title {
 	font-size: var(--global--font-size-xs);
 }
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 .search-form {
 	display: flex;
 	flex-wrap: wrap;

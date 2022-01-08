@@ -294,6 +294,7 @@ if ( ! class_exists( 'acf_field_checkbox' ) ) :
 			// return
 			return $html;
 
+<<<<<<< HEAD
 		}
 
 
@@ -418,6 +419,132 @@ if ( ! class_exists( 'acf_field_checkbox' ) ) :
 		}
 
 
+=======
+		}
+
+
+
+		/*
+		*  render_field_settings()
+		*
+		*  Create extra options for your field. This is rendered when editing a field.
+		*  The value of $field['name'] can be used (like bellow) to save extra data to the $field
+		*
+		*  @type    action
+		*  @since   3.6
+		*  @date    23/01/13
+		*
+		*  @param   $field  - an array holding all the field's data
+		*/
+
+		function render_field_settings( $field ) {
+
+			// encode choices (convert from array)
+			$field['choices']       = acf_encode_choices( $field['choices'] );
+			$field['default_value'] = acf_encode_choices( $field['default_value'], false );
+
+			// choices
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'        => __( 'Choices', 'acf' ),
+					'instructions' => __( 'Enter each choice on a new line.', 'acf' ) . '<br /><br />' . __( 'For more control, you may specify both a value and label like this:', 'acf' ) . '<br /><br />' . __( 'red : Red', 'acf' ),
+					'type'         => 'textarea',
+					'name'         => 'choices',
+				)
+			);
+
+			// other_choice
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'        => __( 'Allow Custom', 'acf' ),
+					'instructions' => '',
+					'name'         => 'allow_custom',
+					'type'         => 'true_false',
+					'ui'           => 1,
+					'message'      => __( "Allow 'custom' values to be added", 'acf' ),
+				)
+			);
+
+			// save_other_choice
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'        => __( 'Save Custom', 'acf' ),
+					'instructions' => '',
+					'name'         => 'save_custom',
+					'type'         => 'true_false',
+					'ui'           => 1,
+					'message'      => __( "Save 'custom' values to the field's choices", 'acf' ),
+					'conditions'   => array(
+						'field'    => 'allow_custom',
+						'operator' => '==',
+						'value'    => 1,
+					),
+				)
+			);
+
+			// default_value
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'        => __( 'Default Value', 'acf' ),
+					'instructions' => __( 'Enter each default value on a new line', 'acf' ),
+					'type'         => 'textarea',
+					'name'         => 'default_value',
+				)
+			);
+
+			// layout
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'        => __( 'Layout', 'acf' ),
+					'instructions' => '',
+					'type'         => 'radio',
+					'name'         => 'layout',
+					'layout'       => 'horizontal',
+					'choices'      => array(
+						'vertical'   => __( 'Vertical', 'acf' ),
+						'horizontal' => __( 'Horizontal', 'acf' ),
+					),
+				)
+			);
+
+			// layout
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'        => __( 'Toggle', 'acf' ),
+					'instructions' => __( 'Prepend an extra checkbox to toggle all choices', 'acf' ),
+					'name'         => 'toggle',
+					'type'         => 'true_false',
+					'ui'           => 1,
+				)
+			);
+
+			// return_format
+			acf_render_field_setting(
+				$field,
+				array(
+					'label'        => __( 'Return Value', 'acf' ),
+					'instructions' => __( 'Specify the returned value on front end', 'acf' ),
+					'type'         => 'radio',
+					'name'         => 'return_format',
+					'layout'       => 'horizontal',
+					'choices'      => array(
+						'value' => __( 'Value', 'acf' ),
+						'label' => __( 'Label', 'acf' ),
+						'array' => __( 'Both (Array)', 'acf' ),
+					),
+				)
+			);
+
+		}
+
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		/*
 		*  update_field()
 		*
@@ -564,6 +691,7 @@ if ( ! class_exists( 'acf_field_checkbox' ) ) :
 			return acf_get_field_type( 'select' )->format_value( $value, $post_id, $field );
 		}
 
+<<<<<<< HEAD
 		/**
 		 * Return the schema array for the REST API.
 		 *
@@ -603,6 +731,8 @@ if ( ! class_exists( 'acf_field_checkbox' ) ) :
 			return $schema;
 		}
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 

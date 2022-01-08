@@ -128,6 +128,7 @@ add_action( 'admin_notices', 'acf_render_admin_notices', 99 );
  *
  * @param   string $text The admin notice text.
  * @param   string $class The type of notice (warning, error, success, info).
+<<<<<<< HEAD
  * @param   string $dismissable Is this notification dismissible (default true) (since 5.11.0)
  * @return  ACF_Admin_Notice
  */
@@ -137,6 +138,15 @@ function acf_add_admin_notice( $text = '', $type = 'info', $dismissible = true )
 			'text'        => $text,
 			'type'        => $type,
 			'dismissible' => $dismissible,
+=======
+ * @return  ACF_Admin_Notice
+ */
+function acf_add_admin_notice( $text = '', $type = 'info' ) {
+	return acf_new_admin_notice(
+		array(
+			'text' => $text,
+			'type' => $type,
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		)
 	);
 }

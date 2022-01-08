@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 /*!*****************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/advanced-custom-fields-pro/assets/src/sass/acf-global.scss ***!
   \*****************************************************************************************************************************************************************************************************************/
+=======
+@charset "UTF-8";
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 /*--------------------------------------------------------------------------------------------
 *
 *	Vars
@@ -338,6 +342,7 @@
 }
 
 .acf-icon.-plus:before {
+<<<<<<< HEAD
   content: "\f543";
 }
 
@@ -359,68 +364,143 @@
 
 .acf-icon.-up:before {
   content: "\f343";
+=======
+  content: "";
+}
+
+.acf-icon.-minus:before {
+  content: "";
+}
+
+.acf-icon.-cancel:before {
+  content: "";
+}
+
+.acf-icon.-pencil:before {
+  content: "";
+}
+
+.acf-icon.-location:before {
+  content: "";
+}
+
+.acf-icon.-up:before {
+  content: "";
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
   margin-top: -0.1em;
 }
 
 .acf-icon.-down:before {
+<<<<<<< HEAD
   content: "\f347";
+=======
+  content: "";
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
   margin-top: 0.1em;
 }
 
 .acf-icon.-left:before {
+<<<<<<< HEAD
   content: "\f341";
+=======
+  content: "";
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
   margin-left: -0.1em;
 }
 
 .acf-icon.-right:before {
+<<<<<<< HEAD
   content: "\f345";
+=======
+  content: "";
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
   margin-left: 0.1em;
 }
 
 .acf-icon.-sync:before {
+<<<<<<< HEAD
   content: "\f463";
 }
 
 .acf-icon.-globe:before {
   content: "\f319";
+=======
+  content: "";
+}
+
+.acf-icon.-globe:before {
+  content: "";
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
   margin-top: 0.1em;
   margin-left: 0.1em;
 }
 
 .acf-icon.-picture:before {
+<<<<<<< HEAD
   content: "\f128";
 }
 
 .acf-icon.-check:before {
   content: "\f147";
+=======
+  content: "";
+}
+
+.acf-icon.-check:before {
+  content: "";
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
   margin-left: -0.1em;
 }
 
 .acf-icon.-dot-3:before {
+<<<<<<< HEAD
   content: "\f533";
+=======
+  content: "";
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
   margin-top: -0.1em;
 }
 
 .acf-icon.-arrow-combo:before {
+<<<<<<< HEAD
   content: "\f156";
 }
 
 .acf-icon.-arrow-up:before {
   content: "\f142";
+=======
+  content: "";
+}
+
+.acf-icon.-arrow-up:before {
+  content: "";
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
   margin-left: -0.1em;
 }
 
 .acf-icon.-arrow-down:before {
+<<<<<<< HEAD
   content: "\f140";
+=======
+  content: "";
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
   margin-left: -0.1em;
 }
 
 .acf-icon.-search:before {
+<<<<<<< HEAD
   content: "\f179";
 }
 
 .acf-icon.-link-ext:before {
   content: "\f504";
+=======
+  content: "";
+}
+
+.acf-icon.-link-ext:before {
+  content: "";
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 }
 
 .acf-icon.-duplicate {
@@ -445,12 +525,20 @@
 }
 
 .acf-icon.-collapse:before {
+<<<<<<< HEAD
   content: "\f142";
+=======
+  content: "";
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
   margin-left: -0.1em;
 }
 
 .-collapsed .acf-icon.-collapse:before {
+<<<<<<< HEAD
   content: "\f140";
+=======
+  content: "";
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
   margin-left: -0.1em;
 }
 
@@ -1661,6 +1749,10 @@ html[dir=rtl] .acf-table > tbody > tr > td.order + td {
     background-image: url(../../images/spinner@2x.gif);
     background-size: 20px 20px;
   }
+<<<<<<< HEAD
 }
 
 /*# sourceMappingURL=acf-global.css.map*/
+=======
+}
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394

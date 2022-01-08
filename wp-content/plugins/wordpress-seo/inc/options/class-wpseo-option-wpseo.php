@@ -79,6 +79,7 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 		'enable_metabox_insights'                  => true,
 		'enable_link_suggestions'                  => true,
 		'algolia_integration_active'               => false,
+<<<<<<< HEAD
 		'import_cursors'                           => [],
 		'workouts_data'                            => [ 'configuration' => [ 'finishedSteps' => [] ] ],
 		'dismiss_configuration_workout_notice'     => false,
@@ -88,6 +89,8 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 		'wincher_automatically_add_keyphrases'     => false,
 		'wincher_website_id'                       => '',
 		'first_time_install'                       => false,
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	];
 
 	/**
@@ -272,7 +275,10 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 				case 'license_server_version':
 				case 'home_url':
 				case 'zapier_api_key':
+<<<<<<< HEAD
 				case 'wincher_website_id':
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 					if ( isset( $dirty[ $key ] ) ) {
 						$clean[ $key ] = $dirty[ $key ];
 					}
@@ -345,8 +351,11 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 				case 'semrush_tokens':
 				case 'custom_taxonomy_slugs':
 				case 'zapier_subscription':
+<<<<<<< HEAD
 				case 'wincher_tokens':
 				case 'workouts_data':
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 					$clean[ $key ] = $old[ $key ];
 
 					if ( isset( $dirty[ $key ] ) ) {
@@ -370,6 +379,7 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 					}
 					break;
 
+<<<<<<< HEAD
 				case 'import_cursors':
 				case 'workouts_data':
 				case 'importing_completed':
@@ -378,6 +388,8 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 					}
 					break;
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				/*
 				 * Boolean (checkbox) fields.
 				 */
@@ -389,7 +401,10 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 				 *  'yoast_tracking'
 				 *  'dynamic_permalinks'
 				 *  'indexing_first_time'
+<<<<<<< HEAD
 				 *  'first_time_install'
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				 *  and most of the feature variables.
 				 */
 				default:
@@ -430,7 +445,10 @@ class WPSEO_Option_Wpseo extends WPSEO_Option {
 			'enable_enhanced_slack_sharing'  => false,
 			'semrush_integration_active'     => false,
 			'zapier_integration_active'      => false,
+<<<<<<< HEAD
 			'wincher_integration_active'     => false,
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		];
 
 		// We can reuse this logic from the base class with the above defaults to parse with the correct feature values.

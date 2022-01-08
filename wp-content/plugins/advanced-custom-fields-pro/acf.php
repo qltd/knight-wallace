@@ -3,7 +3,11 @@
 Plugin Name: Advanced Custom Fields PRO
 Plugin URI: https://www.advancedcustomfields.com
 Description: Customize WordPress with powerful, professional and intuitive fields.
+<<<<<<< HEAD
 Version: 5.11.4
+=======
+Version: 5.10.2
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 Author: Delicious Brains
 Author URI: https://www.advancedcustomfields.com
 Text Domain: acf
@@ -19,7 +23,11 @@ if ( ! class_exists( 'ACF' ) ) :
 	class ACF {
 
 		/** @var string The plugin version number. */
+<<<<<<< HEAD
 		var $version = '5.11.4';
+=======
+		var $version = '5.10.2';
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 		/** @var array The plugin settings array. */
 		var $settings = array();
@@ -97,9 +105,12 @@ if ( ! class_exists( 'ACF' ) ) :
 				'select2_version'        => 4,
 				'row_index_offset'       => 1,
 				'remove_wp_meta_box'     => true,
+<<<<<<< HEAD
 				'rest_api_enabled'       => true,
 				'rest_api_format'        => 'light',
 				'rest_api_embed_links'   => true,
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			);
 
 			// Include utility functions.
@@ -145,7 +156,10 @@ if ( ! class_exists( 'ACF' ) ) :
 			acf_include( 'includes/updates.php' );
 			acf_include( 'includes/upgrades.php' );
 			acf_include( 'includes/validation.php' );
+<<<<<<< HEAD
 			acf_include( 'includes/rest-api.php' );
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 			// Include ajax.
 			acf_include( 'includes/ajax/class-acf-ajax.php' );

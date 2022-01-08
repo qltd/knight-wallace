@@ -393,6 +393,7 @@ if ( ! class_exists( 'acf_field_file' ) ) :
 			return $attachment_id;
 		}
 
+<<<<<<< HEAD
 		/**
 		 *  validate_value
 		 *
@@ -405,6 +406,23 @@ if ( ! class_exists( 'acf_field_file' ) ) :
 		 *  @param   $post_id (int)
 		 *  @return  $post_id (int)
 		 */
+=======
+
+
+		/*
+		*  validate_value
+		*
+		*  This function will validate a basic file input
+		*
+		*  @type    function
+		*  @date    11/02/2014
+		*  @since   5.0.0
+		*
+		*  @param   $post_id (int)
+		*  @return  $post_id (int)
+		*/
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		function validate_value( $valid, $value, $field, $input ) {
 
 			// bail early if empty
@@ -436,6 +454,7 @@ if ( ! class_exists( 'acf_field_file' ) ) :
 
 			// append error
 			if ( ! empty( $errors ) ) {
+<<<<<<< HEAD
 				$valid = implode( "\n", $errors );
 			}
 
@@ -533,6 +552,16 @@ if ( ! class_exists( 'acf_field_file' ) ) :
 		 */
 		public function format_value_for_rest( $value, $post_id, array $field ) {
 			return acf_format_numerics( $value );
+=======
+
+				$valid = implode( "\n", $errors );
+
+			}
+
+			// return
+			return $valid;
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		}
 
 	}

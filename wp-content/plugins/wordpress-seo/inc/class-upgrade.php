@@ -73,8 +73,13 @@ class WPSEO_Upgrade {
 			'15.9.1-RC0' => 'upgrade_1591',
 			'16.2-RC0'   => 'upgrade_162',
 			'16.5-RC0'   => 'upgrade_165',
+<<<<<<< HEAD
 			'17.2-RC0'   => 'upgrade_172',
 			'17.7.1-RC0' => 'upgrade_1771',
+=======
+			'17.1-RC0'   => 'upgrade_171',
+			'17.2-RC0'   => 'upgrade_172',
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		];
 
 		array_walk( $routines, [ $this, 'run_upgrade_routine' ], $version );
@@ -846,12 +851,24 @@ class WPSEO_Upgrade {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Performs the 17.7.1 upgrade routine.
 	 */
 	private function upgrade_1771() {
 		$enabled_auto_updates = \get_site_option( 'auto_update_plugins' );
 		$addon_update_watcher = YoastSEO()->classes->get( \Yoast\WP\SEO\Integrations\Watchers\Addon_Update_Watcher::class );
 		$addon_update_watcher->toggle_auto_updates_for_add_ons( 'auto_update_plugins', $enabled_auto_updates, [] );
+=======
+	 * Performs the 17.1 upgrade. Removes the pipe and tilde separators and replaces them with the dash separator.
+	 *
+	 * @return void
+	 */
+	private function upgrade_171() {
+		$separator = WPSEO_Options::get( 'separator' );
+		if ( $separator === 'sc-pipe' || $separator === 'sc-tilde' ) {
+			WPSEO_Options::set( 'separator', 'sc-dash' );
+		}
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 	/**

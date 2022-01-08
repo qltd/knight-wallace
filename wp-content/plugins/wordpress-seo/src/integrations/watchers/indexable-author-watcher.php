@@ -83,11 +83,15 @@ class Indexable_Author_Watcher implements Integration_Interface {
 	 */
 	public function build_indexable( $user_id ) {
 		$indexable = $this->repository->find_by_id_and_type( $user_id, 'user', false );
+<<<<<<< HEAD
 		$indexable = $this->builder->build_for_id_and_type( $user_id, 'user', $indexable );
 
 		if ( $indexable ) {
 			$indexable->object_last_modified = \max( $indexable->object_last_modified, \current_time( 'mysql' ) );
 			$indexable->save();
 		}
+=======
+		$this->builder->build_for_id_and_type( $user_id, 'user', $indexable );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 }

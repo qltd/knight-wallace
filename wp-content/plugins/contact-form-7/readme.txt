@@ -4,7 +4,11 @@ Donate link: https://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 5.7
 Tested up to: 5.8
+<<<<<<< HEAD
 Stable tag: 5.5.3
+=======
+Stable tag: 5.5.1
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +81,7 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 
 For more information, see [Releases](https://contactform7.com/category/releases/).
 
+<<<<<<< HEAD
 = 5.5.3 =
 
 [https://contactform7.com/contact-form-7-553/](https://contactform7.com/contact-form-7-553/)
@@ -105,6 +110,27 @@ For more information, see [Releases](https://contactform7.com/category/releases/
 
 = 5.4 =
 
+=======
+= 5.5.1 =
+
+* Fixed: Reserved keyword was used in PHP class constant name.
+* Fixed: Uncaught TypeError on `in_array()` call.
+
+= 5.5 =
+
+[https://contactform7.com/contact-form-7-55/](https://contactform7.com/contact-form-7-55/)
+
+= 5.4.2 =
+
+[https://contactform7.com/contact-form-7-542/](https://contactform7.com/contact-form-7-542/)
+
+= 5.4.1 =
+
+[https://contactform7.com/contact-form-7-541/](https://contactform7.com/contact-form-7-541/)
+
+= 5.4 =
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 [https://contactform7.com/contact-form-7-54/](https://contactform7.com/contact-form-7-54/)
 
 == Upgrade Notice ==

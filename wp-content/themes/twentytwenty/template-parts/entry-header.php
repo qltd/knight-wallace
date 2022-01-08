@@ -4,7 +4,11 @@
  *
  * @package WordPress
  * @subpackage Twenty_Twenty
+<<<<<<< HEAD
  * @since Twenty Twenty 1.0
+=======
+ * @since 1.0.0
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 
 $entry_header_classes = '';
@@ -20,6 +24,7 @@ if ( is_singular() ) {
 	<div class="entry-header-inner section-inner medium">
 
 		<?php
+<<<<<<< HEAD
 		/**
 		 * Allow child themes and plugins to filter the display of the categories in the entry header.
 		 *
@@ -27,6 +32,15 @@ if ( is_singular() ) {
 		 *
 		 * @param bool Whether to show the categories in header. Default true.
 		 */
+=======
+			/**
+			 * Allow child themes and plugins to filter the display of the categories in the entry header.
+			 *
+			 * @since 1.0.0
+			 *
+			 * @param bool   Whether to show the categories in header, Default true.
+			 */
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		$show_categories = apply_filters( 'twentytwenty_show_categories_in_entry_header', true );
 
 		if ( true === $show_categories && has_category() ) {
@@ -59,7 +73,11 @@ if ( is_singular() ) {
 		if ( has_excerpt() && is_singular() ) {
 			?>
 
+<<<<<<< HEAD
 			<div class="intro-text section-inner max-percentage<?php echo $intro_text_width; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static output ?>">
+=======
+			<div class="intro-text section-inner max-percentage<?php echo $intro_text_width; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static output ?>">
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				<?php the_excerpt(); ?>
 			</div>
 

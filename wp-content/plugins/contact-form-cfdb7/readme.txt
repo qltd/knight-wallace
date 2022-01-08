@@ -3,8 +3,13 @@ Contributors: arshidkv12
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=H5F3Z6S3MNTXA&lc=IN&item_name=wp%2dlogin%2dlimit&amount=5%2e00&currency_code=USD&button_subtype=services&bn=PP%2dBuyNowBF%3abtn_buynowCC_LG%2egif%3aNonHosted
 Tags: cf7, contact form 7, contact form 7 db, contact form db, contact form seven, contact form storage, export contact form, save contact form, wpcf7
 Requires at least: 4.8
+<<<<<<< HEAD
 Tested up to: 5.8
 Stable tag: 1.2.6.2
+=======
+Tested up to: 5.7
+Stable tag: 1.2.5.9
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.6
@@ -27,9 +32,12 @@ By simply installing the plugin, it will automatically begin to capture form sub
 * Developer friendly & easy to customize
 * Display all created contact form 7 form list.
 * Export CF7 DB (CF7 Database - cf7db) data in CSV file
+<<<<<<< HEAD
 
 = Android/iOS App =
 * [Download APP](https://github.com/arshidkv12/cfdb7-connector/blob/main/readme.md)
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 = Pro Addons =
 * [CFDB7 DB Switcher](https://ciphercoin.com/downloads/cfdb7-database-switcher/)
@@ -49,6 +57,10 @@ Easy to export contact forms from database to PDF file
 Support : [http://www.ciphercoin.com/contact/](https://www.ciphercoin.com/contact/)
 Extensions : [Contact form 7 more Add-ons](https://ciphercoin.com/contact-form-7-database-cfdb7-add-ons/)
 
+<<<<<<< HEAD
+=======
+[CFDB7 vs flamingo](https://wpdebuglog.com/forums/topic/cfdb7-vs-flamingo/)
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 == Installation ==
 
@@ -62,12 +74,15 @@ Extensions : [Contact form 7 more Add-ons](https://ciphercoin.com/contact-form-7
 
 == Changelog ==
 
+<<<<<<< HEAD
 = 1.2.6.2 =
 Fixed xss issues 
 
 = 1.2.6.1 =
 Fixed nonce issue 
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 = 1.2.5.9 =
 Fixed upload issue 
 
@@ -87,6 +102,11 @@ Meaningfull headings
 = 1.2.4.11 =
 UTF-8 CSV Export Fixed
 
+<<<<<<< HEAD
+=======
+= 1.2.4.10 =
+Solved upload file issue 
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 
 = 1.0.0 =

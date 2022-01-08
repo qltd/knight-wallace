@@ -276,6 +276,9 @@ require_once ABSPATH . 'wp-admin/admin-header.php';
 					?>
 				</p>
 			</div>
+		</div>
+
+		<div class="about__section has-1-column">
 			<div class="column">
 				<h3>
 					<?php _e( 'Adding support for WebP' ); ?>

@@ -246,6 +246,10 @@ body#tinymce.wp-editor.content h6 {
 /* Blockquote -------------------------------- */
 
 body#tinymce.wp-editor.content blockquote {
+<<<<<<< HEAD
+=======
+	border-style: solid;
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	border: none;
 	border-left: 2px solid #cd2653;
 	margin: 0 0 1.6em 0;
@@ -282,7 +286,11 @@ body#tinymce.wp-editor.content ul {
 body#tinymce.wp-editor.content ol {
 	margin-left: 1.5em;
 	padding-left: 0;
+<<<<<<< HEAD
 	list-style: decimal;
+=======
+	list-style: square;
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 }
 
 body#tinymce.wp-editor.content ul ul {

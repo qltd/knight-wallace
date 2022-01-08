@@ -87,7 +87,10 @@ class WPSEO_Term_Metabox_Formatter implements WPSEO_Metabox_Formatter_Interface 
 				'social_title_template'       => $this->get_social_title_template(),
 				'social_description_template' => $this->get_social_description_template(),
 				'social_image_template'       => $this->get_social_image_template(),
+<<<<<<< HEAD
 				'wincherIntegrationActive'    => 0,
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			];
 		}
 

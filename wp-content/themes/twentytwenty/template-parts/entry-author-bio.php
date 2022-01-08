@@ -4,7 +4,11 @@
  *
  * @package WordPress
  * @subpackage Twenty_Twenty
+<<<<<<< HEAD
  * @since Twenty Twenty 1.0
+=======
+ * @since 1.0.0
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 
 if ( (bool) get_the_author_meta( 'description' ) && (bool) get_theme_mod( 'show_author_bio', true ) ) : ?>
@@ -16,7 +20,11 @@ if ( (bool) get_the_author_meta( 'description' ) && (bool) get_theme_mod( 'show_
 		<h2 class="author-title heading-size-4">
 			<?php
 			printf(
+<<<<<<< HEAD
 				/* translators: %s: Author name. */
+=======
+				/* translators: %s: Author name */
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				__( 'By %s', 'twentytwenty' ),
 				esc_html( get_the_author() )
 			);

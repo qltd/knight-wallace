@@ -279,6 +279,7 @@ if ( ! class_exists( 'acf_field_link' ) ) :
 
 			// return
 			return $value;
+<<<<<<< HEAD
 		}
 
 		/**
@@ -305,6 +306,8 @@ if ( ! class_exists( 'acf_field_link' ) ) :
 					),
 				),
 			);
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		}
 	}
 

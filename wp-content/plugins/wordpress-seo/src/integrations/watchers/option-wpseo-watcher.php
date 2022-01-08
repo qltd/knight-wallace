@@ -23,7 +23,10 @@ class Option_Wpseo_Watcher implements Integration_Interface {
 	 */
 	public function register_hooks() {
 		\add_action( 'update_option_wpseo', [ $this, 'check_semrush_option_disabled' ], 10, 2 );
+<<<<<<< HEAD
 		\add_action( 'update_option_wpseo', [ $this, 'check_wincher_option_disabled' ], 10, 2 );
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 	/**
@@ -38,6 +41,7 @@ class Option_Wpseo_Watcher implements Integration_Interface {
 	 * @return bool Whether the SEMrush tokens have been deleted or not.
 	 */
 	public function check_semrush_option_disabled( $old_value, $new_value ) {
+<<<<<<< HEAD
 		return $this->check_token_option_disabled( 'semrush_integration_active', 'semrush_tokens', $new_value );
 	}
 
@@ -76,6 +80,11 @@ class Option_Wpseo_Watcher implements Integration_Interface {
 	protected function check_token_option_disabled( $integration_option, $target_option, $new_value ) {
 		if ( \array_key_exists( $integration_option, $new_value ) && $new_value[ $integration_option ] === false ) {
 			\YoastSEO()->helpers->options->set( $target_option, [] );
+=======
+		if ( \array_key_exists( 'semrush_integration_active', $new_value )
+			&& $new_value['semrush_integration_active'] === false ) {
+			\YoastSEO()->helpers->options->set( 'semrush_tokens', [] );
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			return true;
 		}
 		return false;

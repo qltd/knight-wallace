@@ -1,10 +1,13 @@
 <?php
 /* THIS IS A GENERATED FILE. DO NOT EDIT DIRECTLY. */
 $generated_i18n_strings = array(
+<<<<<<< HEAD
 	// Reference: packages/js/src/analysis/PostDataCollector.js:386
 	// Reference: packages/js/src/components/contentAnalysis/SeoAnalysis.js:216
 	__( 'Enter a focus keyphrase to calculate the SEO score', 'wordpress-seo' ),
 
+=======
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	// Reference: packages/js/src/analysis/getIndicatorForScore.js:17
 	__( 'Feedback', 'wordpress-seo' ),
 
@@ -42,6 +45,7 @@ $generated_i18n_strings = array(
 	// Reference: packages/js/src/components/AddonInstallation.js:84
 	__( 'the following addons', 'wordpress-seo' ),
 
+<<<<<<< HEAD
 	// Reference: packages/js/src/components/AdvancedSettings.js:127
 	/* %s translates to the Post Label in singular form */
 	__( 'Should search engines follow links on this %s', 'wordpress-seo' ),
@@ -74,6 +78,40 @@ $generated_i18n_strings = array(
 	__( 'Canonical URL', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/components/AdvancedSettings.js:228
+=======
+	// Reference: packages/js/src/components/AdvancedSettings.js:128
+	/* %s translates to the Post Label in singular form */
+	__( 'Should search engines follow links on this %s', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/AdvancedSettings.js:135
+	__( 'Learn more about the no-follow setting on our help page.', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/AdvancedSettings.js:161
+	__( 'Meta robots advanced', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/AdvancedSettings.js:166
+	__( 'No Image Index', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/AdvancedSettings.js:167
+	__( 'No Archive', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/AdvancedSettings.js:168
+	__( 'No Snippet', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/AdvancedSettings.js:172
+	__( 'Learn more about advanced meta robots settings on our help page.', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/AdvancedSettings.js:195
+	__( 'Breadcrumbs Title', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/AdvancedSettings.js:200
+	__( 'Learn more about the breadcrumbs title setting on our help page.', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/AdvancedSettings.js:224
+	__( 'Canonical URL', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/AdvancedSettings.js:229
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	__( 'Learn more about canonical URLs on our help page.', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/components/AdvancedSettings.js:25
@@ -89,11 +127,19 @@ $generated_i18n_strings = array(
 	// Reference: packages/js/src/components/AdvancedSettings.js:75
 	__( 'Even though you can set the meta robots setting here, the entire site is set to noindex in the sitewide privacy settings, so these settings won\'t have an effect.', 'wordpress-seo' ),
 
+<<<<<<< HEAD
 	// Reference: packages/js/src/components/AdvancedSettings.js:86
 	/* %s translates to the Post Label in singular form */
 	__( 'Allow search engines to show this %s in search results?', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/components/AdvancedSettings.js:94
+=======
+	// Reference: packages/js/src/components/AdvancedSettings.js:87
+	/* %s translates to the Post Label in singular form */
+	__( 'Allow search engines to show this %s in search results?', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/AdvancedSettings.js:95
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	__( 'Learn more about the no-index setting on our help page.', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/components/AnalysisChecklist.js:22
@@ -122,6 +168,7 @@ $generated_i18n_strings = array(
 	// Reference: packages/js/src/components/CornerstoneToggle.js:26
 	__( 'Mark as cornerstone content', 'wordpress-seo' ),
 
+<<<<<<< HEAD
 	// Reference: packages/js/src/components/Indexation.js:269
 	__( 'This feature includes and replaces the Text Link Counter and Internal Linking Analysis', 'wordpress-seo' ),
 
@@ -139,6 +186,24 @@ $generated_i18n_strings = array(
 
 	// Reference: packages/js/src/components/Indexation.js:384
 	// Reference: packages/js/src/workouts/components/WorkoutIndexation.js:25
+=======
+	// Reference: packages/js/src/components/Indexation.js:253
+	__( 'This feature includes and replaces the Text Link Counter and Internal Linking Analysis', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/Indexation.js:282
+	__( 'Stop SEO data optimization', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/Indexation.js:298
+	__( 'Start SEO data optimization', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/Indexation.js:302
+	__( 'SEO data optimization is disabled for non-production environments.', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/Indexation.js:321
+	__( 'Optimizing SEO data... This may take a while.', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/Indexation.js:368
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	__( 'SEO data optimization complete', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/components/IndexingError.js:89
@@ -187,10 +252,17 @@ $generated_i18n_strings = array(
 
 	// Reference: packages/js/src/components/PrePublish.js:21
 	__( 'We\'ve analyzed your post. Everything looks good. Well done!', 'wordpress-seo' ),
+<<<<<<< HEAD
 
 	// Reference: packages/js/src/components/PrePublish.js:23
 	__( 'We\'ve analyzed your post. There is still room for improvement!', 'wordpress-seo' ),
 
+=======
+
+	// Reference: packages/js/src/components/PrePublish.js:23
+	__( 'We\'ve analyzed your post. There is still room for improvement!', 'wordpress-seo' ),
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	// Reference: packages/js/src/components/PrimaryTaxonomyFilter.js:78
 	/* %s expands to Yoast SEO. */
 	__( 'An error occurred loading the %s primary taxonomy picker.', 'wordpress-seo' ),
@@ -210,6 +282,7 @@ $generated_i18n_strings = array(
 
 	// Reference: packages/js/src/components/SEMrushRelatedKeyphrasesModal.js:212
 	__( '(Opens in a new browser window)', 'wordpress-seo' ),
+<<<<<<< HEAD
 
 	// Reference: packages/js/src/components/SEMrushRelatedKeyphrasesModalContent.js:57
 	__( 'Sorry, there\'s no data available for that keyphrase/country combination.', 'wordpress-seo' ),
@@ -234,6 +307,32 @@ $generated_i18n_strings = array(
 	/* %1$s expands to an indexable object's name, e.g. Posts or Pages. */
 	_n_noop( 'Upon saving, this setting will apply to all of your %1$s. %1$s that are manually configured will be left untouched.', 'Upon saving, these settings will apply to all of your %1$s. %1$s that are manually configured will be left untouched.', 'wordpress-seo' ),
 
+=======
+
+	// Reference: packages/js/src/components/SEMrushRelatedKeyphrasesModalContent.js:57
+	__( 'Sorry, there\'s no data available for that keyphrase/country combination.', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/SchemaSettings.js:110
+	__( 'Default Page type', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/SchemaSettings.js:119
+	__( 'Default Article type', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/SchemaSettings.js:80
+	__( 'Schema settings', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/SchemaSettings.js:82
+	__( 'Learn more about the schema settings', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/SchemaSettings.js:85
+	/* %1$s expands to an indexable object's name, e.g. Posts or Pages. */
+	__( 'Choose how your %1$s should be described by default in your site\'s schema.org markup. You can change these settings for individual %1$s.', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/SchemaSettings.js:96
+	/* %1$s expands to an indexable object's name, e.g. Posts or Pages. */
+	_n_noop( 'Upon saving, this setting will apply to all of your %1$s. %1$s that are manually configured will be left untouched.', 'Upon saving, these settings will apply to all of your %1$s. %1$s that are manually configured will be left untouched.', 'wordpress-seo' ),
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	// Reference: packages/js/src/components/SchemaTab.js:103
 	__( 'Read more about Schema.', 'wordpress-seo' ),
 
@@ -262,6 +361,7 @@ $generated_i18n_strings = array(
 	// Reference: packages/js/src/components/SchemaTab.js:82
 	__( 'Learn more about structured data with Schema.org', 'wordpress-seo' ),
 
+<<<<<<< HEAD
 	// Reference: packages/js/src/components/WincherKeyphrasesTable.js:347
 	__( 'Tracking', 'wordpress-seo' ),
 
@@ -339,6 +439,27 @@ $generated_i18n_strings = array(
 	// Reference: packages/js/src/components/WordPressUserSelectorSearchAppearance.js:69
 	__( 'Please select a user below to make your site\'s meta data complete.', 'wordpress-seo' ),
 
+=======
+	// Reference: packages/js/src/components/SettingsReplacementVariableEditor.js:39
+	__( 'Modify your meta description by editing it right here', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/WordPressUserSelector.js:113
+	__( 'Select a user...', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/WordPressUserSelectorOnboardingWizard.js:45
+	__( 'The name of the person', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/WordPressUserSelectorOnboardingWizard.js:53
+	/* %1$s expands to WordPress */
+	__( 'You can edit the details shown in meta data, like the social profiles, the name and the description of this user on their %1$s profile page.', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/WordPressUserSelectorSearchAppearance.js:116
+	__( 'Name', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/WordPressUserSelectorSearchAppearance.js:69
+	__( 'Please select a user below to make your site\'s meta data complete.', 'wordpress-seo' ),
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	// Reference: packages/js/src/components/WordPressUserSelectorSearchAppearance.js:85
 	__( 'You have selected the user %1$s as the person this site represents. Their user profile information will now be used in search results. %2$sUpdate their profile to make sure the information is correct.%3$s', 'wordpress-seo' ),
 
@@ -349,6 +470,7 @@ $generated_i18n_strings = array(
 	__( 'Please enter a focus keyphrase first to get related keyphrases', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/components/contentAnalysis/KeywordInput.js:66
+<<<<<<< HEAD
 	__( 'Please enter a focus keyphrase first to track keyphrase performance', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/components/contentAnalysis/KeywordInput.js:70
@@ -358,6 +480,14 @@ $generated_i18n_strings = array(
 	__( 'Your keyphrase is too long. It can be a maximum of 191 characters.', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/components/contentAnalysis/KeywordInput.js:96
+=======
+	__( 'Are you trying to use multiple keyphrases? You should add them separately below.', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/contentAnalysis/KeywordInput.js:70
+	__( 'Your keyphrase is too long. It can be a maximum of 191 characters.', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/contentAnalysis/KeywordInput.js:92
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	// Reference: packages/js/src/values/defaultReplaceVariables.js:50
 	__( 'Focus keyphrase', 'wordpress-seo' ),
 
@@ -383,6 +513,12 @@ $generated_i18n_strings = array(
 	// Reference: packages/js/src/components/contentAnalysis/SeoAnalysis.js:155
 	__( 'Add related keyphrase', 'wordpress-seo' ),
 
+<<<<<<< HEAD
+=======
+	// Reference: packages/js/src/components/contentAnalysis/SeoAnalysis.js:216
+	__( 'Enter a focus keyphrase to calculate the SEO score', 'wordpress-seo' ),
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	// Reference: packages/js/src/components/contentAnalysis/SeoAnalysis.js:227
 	__( 'SEO analysis', 'wordpress-seo' ),
 
@@ -392,11 +528,16 @@ $generated_i18n_strings = array(
 	// Reference: packages/js/src/components/contentAnalysis/SeoAnalysis.js:74
 	__( 'Would you like to add keyphrase synonyms?', 'wordpress-seo' ),
 
+<<<<<<< HEAD
 	// Reference: packages/js/src/components/fills/MetaboxFill.js:62
+=======
+	// Reference: packages/js/src/components/fills/MetaboxFill.js:50
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	// Reference: packages/js/src/components/modals/editorModals/GooglePreviewModal.js:16
 	// Reference: packages/js/src/elementor/components/modals/editorModals/GooglePreviewModal.js:16
 	__( 'Google preview', 'wordpress-seo' ),
 
+<<<<<<< HEAD
 	// Reference: packages/js/src/components/fills/MetaboxFill.js:93
 	// Reference: packages/js/src/components/fills/SidebarFill.js:62
 	// Reference: packages/js/src/elementor/components/fills/ElementorFill.js:75
@@ -404,6 +545,15 @@ $generated_i18n_strings = array(
 
 	// Reference: packages/js/src/components/fills/SidebarFill.js:55
 	// Reference: packages/js/src/elementor/components/fills/ElementorFill.js:68
+=======
+	// Reference: packages/js/src/components/fills/MetaboxFill.js:68
+	// Reference: packages/js/src/components/fills/SidebarFill.js:63
+	// Reference: packages/js/src/elementor/components/fills/ElementorFill.js:76
+	__( 'Advanced', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/fills/SidebarFill.js:56
+	// Reference: packages/js/src/elementor/components/fills/ElementorFill.js:69
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	// Reference: packages/js/src/structured-data-blocks/faq/block.js:28
 	// Reference: packages/js/src/structured-data-blocks/how-to/block.js:56
 	__( 'Schema', 'wordpress-seo' ),
@@ -547,6 +697,7 @@ $generated_i18n_strings = array(
 	// Reference: packages/js/src/components/modals/SeoAnalysisModal.js:25
 	__( 'Close', 'wordpress-seo' ),
 
+<<<<<<< HEAD
 	// Reference: packages/js/src/components/modals/WincherAddedAllAlert.js:18
 	/* %s: Expands to "Wincher". */
 	__( 'Adding all your existing keyphrases to %s has completed successfully', 'wordpress-seo' ),
@@ -642,12 +793,66 @@ $generated_i18n_strings = array(
 	// Reference: packages/js/src/containers/SchemaTab.js:58
 	__( 'This helps search engines understand your website and your content. You can change some of your settings for this page below.', 'wordpress-seo' ),
 
+=======
+	// Reference: packages/js/src/components/modals/editorModals/EditorModal.js:65
+	/* %s translates to the Post Label in singular form */
+	__( 'Make sure to save your %s for changes to take effect', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/modals/editorModals/EditorModal.js:75
+	/* %s translates to the Post Label in singular form */
+	__( 'Return to your %s', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/modals/editorModals/FacebookPreviewModal.js:16
+	// Reference: packages/js/src/elementor/components/modals/editorModals/FacebookPreviewModal.js:16
+	__( 'Facebook preview', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/modals/editorModals/TwitterPreviewModal.js:16
+	// Reference: packages/js/src/elementor/components/modals/editorModals/TwitterPreviewModal.js:16
+	__( 'Twitter preview', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/social/SocialMetadata.js:31
+	/* %s expands to Twitter. */
+	__( '%s preview', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/social/SocialUpsell.js:28
+	/* %s expands to the social medium name, which is either Twitter or Facebook. %s expands to Yoast SEO Premium */
+	__( 'Want to see how your content will look when it’s shared on %s?', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/social/SocialUpsell.js:34
+	/* %s expands to Yoast SEO Premium */
+	__( 'Get %s to unlock social previews!', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/containers/FacebookEditor.js:67
+	// Reference: packages/js/src/containers/TwitterEditor.js:71
+	// Reference: packages/js/src/elementor/containers/FacebookEditor.js:83
+	// Reference: packages/js/src/elementor/containers/TwitterEditor.js:87
+	/* %s expands to the social medium name, i.e. Faceboook. */
+	__( 'Modify your %s title by editing it right here...', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/containers/FacebookEditor.js:74
+	// Reference: packages/js/src/containers/TwitterEditor.js:78
+	// Reference: packages/js/src/elementor/containers/FacebookEditor.js:90
+	// Reference: packages/js/src/elementor/containers/TwitterEditor.js:94
+	/* %s expands to the social medium name, i.e. Faceboook. */
+	__( 'Modify your %s description by editing it right here...', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/containers/SchemaSettings.js:15
+	__( 'default', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/containers/SchemaTab.js:57
+	__( 'Yoast SEO automatically describes your pages using schema.org', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/containers/SchemaTab.js:58
+	__( 'This helps search engines understand your website and your content. You can change some of your settings for this page below.', 'wordpress-seo' ),
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	// Reference: packages/js/src/containers/SnippetEditor.js:58
 	// Reference: packages/js/src/elementor/containers/SnippetEditor.js:90
 	__( 'Please provide a meta description by editing the snippet below.', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/dynamic-blocks.js:13
 	__( 'Yoast Breadcrumbs', 'wordpress-seo' ),
+<<<<<<< HEAD
 
 	// Reference: packages/js/src/dynamic-blocks.js:16
 	__( 'Adds the Yoast SEO breadcrumbs to your template or content.', 'wordpress-seo' ),
@@ -728,6 +933,88 @@ $generated_i18n_strings = array(
 	// Reference: packages/js/src/inline-links/inline.js:185
 	__( 'Link edited.', 'wordpress-seo' ),
 
+=======
+
+	// Reference: packages/js/src/dynamic-blocks.js:16
+	__( 'Adds the Yoast SEO breadcrumbs to your template or content.', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/dynamic-blocks.js:18
+	__( 'seo', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/dynamic-blocks.js:19
+	__( 'breadcrumbs', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/dynamic-blocks.js:20
+	__( 'internal linking', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/dynamic-blocks.js:21
+	__( 'site structure', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/elementor/initializers/introduction.js:19
+	__( 'New: Yoast SEO for Elementor', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/elementor/initializers/introduction.js:20
+	__( 'Get started with Yoast SEO\'s content analysis for Elementor!', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/elementor/initializers/introduction.js:40
+	__( 'Got it', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/help-scout-beacon.js:231
+	__( 'When you click OK we will open our HelpScout beacon where you can find answers to your questions. This beacon will load our support data and also potentially set cookies.', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/helpers/addCheckToChecklist.js:105
+	__( 'Schema analysis:', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/helpers/addCheckToChecklist.js:18
+	__( 'No focus keyword was entered', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/helpers/addCheckToChecklist.js:39
+	__( 'Readability analysis:', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/helpers/addCheckToChecklist.js:61
+	__( 'SEO analysis:', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/initializers/block-editor-integration.js:151
+	__( 'Yoast SEO', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/initializers/block-editor-integration.js:54
+	__( 'Marking links with nofollow/sponsored has been disabled for WordPress installs < 5.4.', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/initializers/block-editor-integration.js:57
+	__( 'Please upgrade your WordPress version or install the Gutenberg plugin to get this %1$s feature.', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/initializers/elementor-editor-integration.js:54
+	/* %1$s translates to the Post Label in singular form */
+	__( 'Unfortunately we cannot save changes to your SEO settings while you are working on a draft of an already-published %1$s. If you want to save your SEO changes, make sure to click \'Update\', or wait to make your SEO changes until you are ready to update the %1$s.', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/initializers/search-appearance.js:55
+	__( 'Organization logo', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/initializers/search-appearance.js:65
+	__( 'Person logo / avatar', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/initializers/search-appearance.js:78
+	__( 'Social image', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/initializers/social-settings.js:16
+	__( 'Image', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/inline-links/edit-link.js:106
+	__( 'Link removed.', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/inline-links/edit-link.js:146
+	__( 'Unlink', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/inline-links/edit-link.js:24
+	__( 'Link', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/inline-links/inline.js:178
+	__( 'Warning: the link has been inserted but may have errors. Please test it.', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/inline-links/inline.js:185
+	__( 'Link edited.', 'wordpress-seo' ),
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	// Reference: packages/js/src/inline-links/inline.js:187
 	__( 'Link inserted.', 'wordpress-seo' ),
 
@@ -873,6 +1160,13 @@ $generated_i18n_strings = array(
 	// Reference: packages/js/src/structured-data-blocks/how-to/components/HowToStep.js:347
 	__( 'Enter a step description', 'wordpress-seo' ),
 
+<<<<<<< HEAD
+=======
+	// Reference: packages/js/src/structured-data-blocks/how-to/legacy/utils/8.2.js:31
+	// Reference: packages/js/src/structured-data-blocks/how-to/utils/buildDurationString.js:31
+	_n_noop( '%d day', '%d days', 'wordpress-seo' ),
+
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	// Reference: packages/js/src/structured-data-blocks/how-to/legacy/utils/8.2.js:34
 	// Reference: packages/js/src/structured-data-blocks/how-to/utils/buildDurationString.js:34
 	_n_noop( '%d hour', '%d hours', 'wordpress-seo' ),
@@ -940,6 +1234,7 @@ $generated_i18n_strings = array(
 	__( 'Tag description', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/values/defaultReplaceVariables.js:95
+<<<<<<< HEAD
 	__( 'Term description', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/workouts/components/ConfigurationWorkout.js:478
@@ -1245,5 +1540,8 @@ $generated_i18n_strings = array(
 	// Reference: packages/js/src/workouts/components/WorkoutsPage.js:116
 	/* %1$s translates to a leftward pointing arrow ( ← ) */
 	__( '%1$sBack to all workouts', 'wordpress-seo' )
+=======
+	__( 'Term description', 'wordpress-seo' )
+>>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 );
 /* THIS IS THE END OF THE GENERATED FILE */
