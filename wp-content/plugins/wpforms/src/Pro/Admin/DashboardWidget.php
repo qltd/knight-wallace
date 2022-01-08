@@ -5,11 +5,7 @@ namespace WPForms\Pro\Admin;
 /**
  * Dashboard Widget shows a chart and the form entries stats in WP Dashboard.
  *
- * @package    WPForms\Pro\Admin
- * @author     WPForms
- * @since      1.5.0
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2018, WPForms LLC
+ * @since 1.5.0
  */
 class DashboardWidget {
 
@@ -58,7 +54,7 @@ class DashboardWidget {
 	public function init() {
 
 		// This widget should be displayed for certain high-level users only.
-		if ( ! wpforms_current_user_can() ) {
+		if ( ! wpforms_current_user_can( 'view_forms' ) ) {
 			return;
 		}
 
@@ -91,10 +87,10 @@ class DashboardWidget {
 			// Transient lifetime in seconds. Defaults to the end of a current day.
 			'transient_lifetime'               => \apply_filters( 'wpforms_' . static::SLUG . '_transient_lifetime', \strtotime( 'tomorrow' ) - \time() ),
 
-			// Determines if the days with no entries should appear on a chart. Once switched, the effect applies after cache expiration.
+			// Determine if the days with no entries should appear on a chart. Once switched, the effect applies after cache expiration.
 			'display_chart_empty_entries'      => \apply_filters( 'wpforms_' . static::SLUG . '_display_chart_empty_entries', true ),
 
-			// Determines if the forms with no entries should appear in a forms list. Once switched, the effect applies after cache expiration.
+			// Determine if the forms with no entries should appear in a forms list. Once switched, the effect applies after cache expiration.
 			'display_forms_list_empty_entries' => \apply_filters( 'wpforms_' . static::SLUG . '_display_forms_list_empty_entries', true ),
 		);
 	}
@@ -261,9 +257,13 @@ class DashboardWidget {
 			<img class="wpforms-dash-widget-block-sullie-logo" src="<?php echo \esc_url( WPFORMS_PLUGIN_URL . 'assets/images/sullie.png' ); ?>" alt="<?php \esc_attr_e( 'Sullie the WPForms mascot', 'wpforms' ); ?>">
 			<h2><?php \esc_html_e( 'Create Your First Form to Start Collecting Leads', 'wpforms' ); ?></h2>
 			<p><?php \esc_html_e( 'You can use WPForms to build contact forms, surveys, payment forms, and more with just a few clicks.', 'wpforms' ); ?></p>
-			<a href="<?php echo \esc_url( $create_form_url ); ?>" class="button button-primary">
-				<?php \esc_html_e( 'Create Your Form', 'wpforms' ); ?>
-			</a>
+
+			<?php if ( wpforms_current_user_can( 'create_forms' ) ) : ?>
+				<a href="<?php echo \esc_url( $create_form_url ); ?>" class="button button-primary">
+					<?php \esc_html_e( 'Create Your Form', 'wpforms' ); ?>
+				</a>
+			<?php endif; ?>
+
 			<a href="<?php echo \esc_url( $learn_more_url ); ?>" class="button" target="_blank" rel="noopener noreferrer">
 				<?php \esc_html_e( 'Learn More', 'wpforms' ); ?>
 			</a>
@@ -328,8 +328,7 @@ class DashboardWidget {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param array  $options Timespan options (in days).
-	 * @param string $meta    Widget meta name to get user saved timespan from.
+	 * @param array $options Timespan options (in days).
 	 */
 	public function timespan_options_html( $options ) {
 
@@ -368,6 +367,8 @@ class DashboardWidget {
 	 * @since 1.5.0
 	 *
 	 * @param int $days Timespan (in days) to fetch the data for.
+	 *
+	 * @throws \Exception When date is failing.
 	 */
 	public function forms_list_block( $days ) {
 
@@ -399,7 +400,7 @@ class DashboardWidget {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param array   $forms Forms to display in the list.
+	 * @param array $forms Forms to display in the list.
 	 */
 	public function forms_list_block_html( $forms ) {
 
@@ -476,7 +477,9 @@ class DashboardWidget {
 				<span class="recommended"><?php \esc_html_e( 'Recommended Plugin:', 'wpforms' ); ?></span>
 				<span>
 					<b><?php \esc_html_e( 'MonsterInsights', 'wpforms' ); ?></b> <span class="sep">-</span>
-					<a href="<?php echo \esc_url( $install_mi_url ); ?>"><?php \esc_html_e( 'Install', 'wpforms' ); ?></a> <span class="sep sep-vertical">&vert;</span>
+					<?php if ( wpforms_can_install( 'plugin' ) ) { ?>
+						<a href="<?php echo \esc_url( $install_mi_url ); ?>"><?php \esc_html_e( 'Install', 'wpforms' ); ?></a> <span class="sep sep-vertical">&vert;</span>
+					<?php } ?>
 					<a href="https://www.monsterinsights.com/?utm_source=wpformsplugin&utm_medium=link&utm_campaign=wpformsdashboardwidget"><?php \esc_html_e( 'Learn More', 'wpforms' ); ?></a>
 				</span>
 			</span>
@@ -512,9 +515,11 @@ class DashboardWidget {
 	 * Get timespan options for $element (in days).
 	 *
 	 * @since 1.5.0
+	 *
 	 * @deprecated 1.5.2
 	 *
-	 * @param string $element 'chart' or 'forms_list'.
+	 * @param string $element Possible value: 'chart' or 'forms_list'.
+	 *
 	 * @return array
 	 */
 	public function get_timespan_options_for( $element ) {
@@ -565,9 +570,11 @@ class DashboardWidget {
 	 * Get default timespan option for $element.
 	 *
 	 * @since 1.5.0
+	 *
 	 * @deprecated 1.5.2
 	 *
-	 * @param string $element 'chart' or 'forms_list'.
+	 * @param string $element Possible value: 'chart' or 'forms_list'.
+	 *
 	 * @return int|null
 	 */
 	public function get_timespan_default_for( $element ) {
@@ -601,9 +608,9 @@ class DashboardWidget {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param string $action  'get' or 'set'.
-	 * @param string $meta    Meta name.
-	 * @param int    $value   Value to set.
+	 * @param string $action Possible value: 'get' or 'set'.
+	 * @param string $meta   Meta name.
+	 * @param int    $value  Value to set.
 	 *
 	 * @return mixed
 	 */
@@ -629,7 +636,7 @@ class DashboardWidget {
 
 		if ( 'get' === $action ) {
 			$meta_value = \absint( \get_user_meta( \get_current_user_id(), $meta_key, true ) );
-			// Returns default value from $defaults if $meta_value is empty.
+			// Return a default value from $defaults if $meta_value is empty.
 			return empty( $meta_value ) ? $defaults[ $meta ] : $meta_value;
 		}
 
@@ -646,7 +653,7 @@ class DashboardWidget {
 	}
 
 	/**
-	 * Convertes number of days to day start and day end values..
+	 * Converts number of days to day start and day end values.
 	 *
 	 * @since 1.5.5
 	 *
@@ -700,11 +707,12 @@ class DashboardWidget {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param string $param   'date' or 'form'.
+	 * @param string $param   Possible value: 'date' or 'form'.
 	 * @param int    $days    Timespan (in days) to fetch the data for.
 	 * @param int    $form_id Form ID to fetch the data for.
 	 *
 	 * @return array
+	 * @throws \Exception When dates management fails.
 	 */
 	public function get_entries_count_by( $param, $days = 0, $form_id = 0 ) {
 
@@ -715,6 +723,7 @@ class DashboardWidget {
 		}
 
 		$dates = $this->get_days_interval( $days );
+		$cache = false;
 
 		// Allow results caching to reduce DB load.
 		$allow_caching = $this->settings['allow_data_caching'];
@@ -729,6 +738,7 @@ class DashboardWidget {
 
 		// is_array() detects cached empty searches.
 		if ( $allow_caching && \is_array( $cache ) ) {
+
 			return $cache;
 		}
 
@@ -764,8 +774,13 @@ class DashboardWidget {
 	 * @param \DateTime $date_end   End date for the search.
 	 *
 	 * @return array
+	 * @throws \Exception When dates are failing.
 	 */
 	public function get_entries_count_by_date_sql( $form_id = 0, $date_start = null, $date_end = null ) {
+
+		if ( ! empty( $form_id ) && ! \wpforms_current_user_can( 'view_entries_form_single', $form_id ) ) {
+			return array();
+		}
 
 		global $wpdb;
 
@@ -778,17 +793,24 @@ class DashboardWidget {
 				WHERE 1=1";
 
 		if ( ! empty( $form_id ) ) {
-			$sql .= ' AND form_id = %d';
+			$sql           .= ' AND form_id = %d';
 			$placeholders[] = $form_id;
+		} else {
+			$allowed_forms = \wpforms()->form->get( '', array( 'fields' => 'ids' ) );
+		}
+
+		if ( ! empty( $allowed_forms ) ) {
+			$sql         .= ' AND form_id IN (' . implode( ',', array_fill( 0, \count( $allowed_forms ), '%d' ) ) . ')';
+			$placeholders = \array_merge( $placeholders, $allowed_forms );
 		}
 
 		if ( ! empty( $date_start ) ) {
-			$sql .= ' AND date >= %s';
+			$sql           .= ' AND date >= %s';
 			$placeholders[] = $date_start->format( $format );
 		}
 
 		if ( ! empty( $date_end ) ) {
-			$sql .= ' AND date <= %s';
+			$sql           .= ' AND date <= %s';
 			$placeholders[] = $date_end->format( $format );
 		}
 
@@ -804,7 +826,7 @@ class DashboardWidget {
 			return array();
 		}
 
-		// Determines if the days with no entries should appear on a chart. Once switched, the effect applies after cache expiration.
+		// Determine if the days with no entries should appear on a chart. Once switched, the effect applies after cache expiration.
 		if ( $this->settings['display_chart_empty_entries'] ) {
 			$results = $this->fill_chart_empty_entries( $results, $date_start, $date_end );
 		}
@@ -827,27 +849,39 @@ class DashboardWidget {
 	 */
 	public function get_entries_count_by_form_sql( $form_id = 0, $date_start = null, $date_end = null ) {
 
+		if ( ! empty( $form_id ) && ! \wpforms_current_user_can( 'view_entries_form_single', $form_id ) ) {
+			return array();
+		}
+
 		global $wpdb;
 
-		$table_name = \wpforms()->entry->table_name;
-		$format     = 'Y-m-d H:i:s';
+		$table_name   = \wpforms()->entry->table_name;
+		$format       = 'Y-m-d H:i:s';
+		$placeholders = array();
 
 		$sql = "SELECT form_id, COUNT(entry_id) as count
 				FROM {$table_name}
 				WHERE 1=1";
 
 		if ( ! empty( $form_id ) ) {
-			$sql .= ' AND form_id = %d';
+			$sql           .= ' AND form_id = %d';
 			$placeholders[] = $form_id;
+		} else {
+			$allowed_forms = \wpforms()->form->get( '', array( 'fields' => 'ids' ) );
+		}
+
+		if ( ! empty( $allowed_forms ) ) {
+			$sql         .= ' AND form_id IN (' . implode( ',', array_fill( 0, \count( $allowed_forms ), '%d' ) ) . ')';
+			$placeholders = \array_merge( $placeholders, $allowed_forms );
 		}
 
 		if ( ! empty( $date_start ) ) {
-			$sql .= ' AND date >= %s';
+			$sql           .= ' AND date >= %s';
 			$placeholders[] = $date_start->format( $format );
 		}
 
 		if ( ! empty( $date_end ) ) {
-			$sql .= ' AND date <= %s';
+			$sql           .= ' AND date <= %s';
 			$placeholders[] = $date_end->format( $format );
 		}
 
@@ -859,7 +893,13 @@ class DashboardWidget {
 
 		$results = $wpdb->get_results( $sql, \OBJECT_K );
 
-		// Determines if the forms with no entries should appear in a forms list. Once switched, the effect applies after cache expiration.
+		foreach ( $results as $id => $result ) {
+			if ( ! \wpforms_current_user_can( 'view_entries_form_single', $id ) ) {
+				unset( $results[ $id ] );
+			}
+		}
+
+		// Determine if the forms with no entries should appear in a forms list. Once switched, the effect applies after cache expiration.
 		if ( $this->settings['display_forms_list_empty_entries'] ) {
 			return $this->fill_forms_list_empty_entries_form_data( $results );
 		}

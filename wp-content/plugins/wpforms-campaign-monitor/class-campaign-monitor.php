@@ -3,7 +3,6 @@
  * Campaign Monitor integration.
  *
  * @since 1.0.0
- * @package WPFormsCampaignMonitor
  */
 class WPForms_Campaign_Monitor extends WPForms_Provider {
 
@@ -95,21 +94,33 @@ class WPForms_Campaign_Monitor extends WPForms_Provider {
 				$custom_field = explode( '.', $custom_field );
 				$id           = $custom_field[0];
 				$key          = ! empty( $custom_field[1] ) ? $custom_field[1] : 'value';
+				$type         = ! empty( $custom_field[2] ) ? $custom_field[2] : 'text';
 
 				// Check if mapped form field has a value.
 				if ( empty( $fields[ $id ] [ $key ] ) ) {
 					continue;
 				}
 
-				$value = $fields[ $id ][ $key ];
+				// Special formatting for different types.
+				switch ( $type ) {
+					case 'MultiSelectMany':
+						$data['CustomFields'] = array_merge(
+							$data['CustomFields'],
+							$this->format_multi_select_many( $fields[ $id ], $name )
+						);
+						break;
 
-				// Add the custom field to the array.
-				// Square brackets are stripped from our custom field keys somewhere in WPForms.
-				// As [] are used for all Campaign Monitor custom fields, so we reinstate them on the key here.
-				$data['CustomFields'][] = array(
-					'Key'   => '[' . $name . ']',
-					'Value' => $value,
-				);
+					case 'Date':
+						$data['CustomFields'][] = $this->format_date( $fields[ $id ], $name, $form_data['fields'][ $id ], 'Y-m-d' );
+						break;
+
+					default:
+						$data['CustomFields'][] = [
+							'Key'   => '[' . $name . ']',
+							'Value' => $fields[ $id ][ $key ],
+						];
+						break;
+				}
 			}
 
 			// Submit to API.
@@ -128,6 +139,86 @@ class WPForms_Campaign_Monitor extends WPForms_Provider {
 			}
 
 		endforeach;
+	}
+
+	/**
+	 * Format a value in expected format for `Date` field type.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param array  $field           Field attributes.
+	 * @param string $name            Custom Field name.
+	 * @param array  $field_data      Field data.
+	 * @param string $expected_format Date format.
+	 *
+	 * @return array
+	 */
+	private function format_date( $field, $name, $field_data, $expected_format ) {
+
+		$result = [
+			'Key'   => '[' . $name . ']',
+			'Value' => '',
+		];
+
+		if (
+			empty( $field_data['format'] ) ||
+			! in_array( $field_data['format'], [ 'date', 'date-time' ], true )
+		) {
+			return $result;
+		}
+
+		// Parse a value with date string according to a specified format.
+		$date_time = false;
+		if ( ! empty( $field_data['date_format'] ) ) {
+			$date_time = date_create_from_format( $field_data['date_format'], $field['value'] );
+		}
+
+		// Fallback with using timestamp value.
+		if ( ! $date_time && ! empty( $field['unix'] ) ) {
+			$date_time = date_create( '@' . $field['unix'] );
+		}
+
+		if ( $date_time ) {
+			$result['Value'] = $date_time->format( $expected_format );
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Format a value(s) for `MultiSelectMany` field type.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param array $field Field attributes.
+	 * @param array $name  Custom Field name.
+	 *
+	 * @return array
+	 */
+	private function format_multi_select_many( $field, $name ) {
+
+		// Firstly, check if submitted field value is empty.
+		if ( empty( $field['value'] ) ) {
+			return [
+				[
+					'Key'   => '[' . $name . ']',
+					'Value' => '',
+				],
+			];
+		}
+
+		// "Multiple" field types, like `Checkbox`, use "\n" for delimiter.
+		$values = explode( "\n", $field['value'] );
+
+		return array_map(
+			static function( $option ) use ( $name ) {
+				return [
+					'Key'   => '[' . $name . ']',
+					'Value' => $option,
+				];
+			},
+			$values
+		);
 	}
 
 	/************************************************************************

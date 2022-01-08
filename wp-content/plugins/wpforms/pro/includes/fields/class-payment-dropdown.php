@@ -3,18 +3,33 @@
 /**
  * Dropdown payment field.
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.3.1
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2016, WPForms LLC
+ * @since 1.3.1
  */
 class WPForms_Field_Payment_Select extends WPForms_Field {
+
+	/**
+	 * Classic (old) style.
+	 *
+	 * @since 1.6.1
+	 *
+	 * @var string
+	 */
+	const STYLE_CLASSIC = 'classic';
+
+	/**
+	 * Modern style.
+	 *
+	 * @since 1.6.1
+	 *
+	 * @var string
+	 */
+	const STYLE_MODERN = 'modern';
 
 	/**
 	 * Primary class constructor.
 	 *
 	 * @since 1.3.1
+	 * @since 1.6.1 Added a `Modern` style select support - frontend CSS/JS enqueues.
 	 */
 	public function init() {
 
@@ -27,29 +42,36 @@ class WPForms_Field_Payment_Select extends WPForms_Field {
 		$this->defaults = array(
 			1 => array(
 				'label'   => esc_html__( 'First Item', 'wpforms' ),
-				'value'   => '10.00',
+				'value'   => wpforms_format_amount( '10.00' ),
 				'default' => '',
 			),
 			2 => array(
 				'label'   => esc_html__( 'Second Item', 'wpforms' ),
-				'value'   => '25.00',
+				'value'   => wpforms_format_amount( '25.00' ),
 				'default' => '',
 			),
 			3 => array(
 				'label'   => esc_html__( 'Third Item', 'wpforms' ),
-				'value'   => '50.00',
+				'value'   => wpforms_format_amount( '50.00' ),
 				'default' => '',
 			),
 		);
 
 		// Define additional field properties.
 		add_filter( 'wpforms_field_properties_' . $this->type, array( $this, 'field_properties' ), 5, 3 );
+
+		// Form frontend CSS enqueues.
+		add_action( 'wpforms_frontend_css', array( $this, 'enqueue_frontend_css' ) );
+
+		// Form frontend JS enqueues.
+		add_action( 'wpforms_frontend_js', array( $this, 'enqueue_frontend_js' ) );
 	}
 
 	/**
 	 * Define additional field properties.
 	 *
 	 * @since 1.5.0
+	 * @since 1.6.1 Added a `Modern` style select support - additional class for container.
 	 *
 	 * @param array $properties Field properties.
 	 * @param array $field      Field settings.
@@ -120,15 +142,33 @@ class WPForms_Field_Payment_Select extends WPForms_Field {
 			$properties['input_container']['class'][] = 'wpforms-field-required';
 		}
 
+		// Add additional class for container.
+		if (
+			! empty( $field['style'] ) &&
+			in_array( $field['style'], array( self::STYLE_CLASSIC, self::STYLE_MODERN ), true )
+		) {
+			$properties['container']['class'][] = "wpforms-field-select-style-{$field['style']}";
+		}
+
 		return $properties;
 	}
 
 	/**
-	 * @inheritdoc
+	 * Get the value, that is used to prefill via dynamic or fallback population.
+	 * Based on field data and current properties.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $raw_value  Value from a GET param, always a string.
+	 * @param string $input      Represent a subfield inside the field. May be empty.
+	 * @param array  $properties Field properties.
+	 * @param array  $field      Current field specific data.
+	 *
+	 * @return array Modified field properties.
 	 */
 	protected function get_field_populated_single_property_value( $raw_value, $input, $properties, $field ) {
 		/*
-		 * When the form is submitted we get from Fallback only values (prices).
+		 * When the form is submitted we get from Fallback only values (choice ID).
 		 * As payment-dropdown field doesn't support 'show_values' option -
 		 * we should transform value into label to check against using general logic in parent method.
 		 */
@@ -141,35 +181,26 @@ class WPForms_Field_Payment_Select extends WPForms_Field {
 			return $properties;
 		}
 
-		// The form submits only the sum, so shortcut for Dynamic.
+		// The form submits only the choice ID, so shortcut for Dynamic when we have a label there.
 		if ( ! is_numeric( $raw_value ) ) {
 			return parent::get_field_populated_single_property_value( $raw_value, $input, $properties, $field );
 		}
 
-		$get_value = wpforms_format_amount( wpforms_sanitize_amount( $raw_value ) );
-
-		foreach ( $field['choices'] as $choice ) {
-			if (
-				isset( $choice['label'], $choice['value'] ) &&
-				wpforms_format_amount( wpforms_sanitize_amount( $choice['value'] ) ) === $get_value
-			) {
-				$trans_value = $choice['label'];
-				// Stop iterating over choices.
-				break;
-			}
+		if (
+			! empty( $field['choices'][ $raw_value ]['label'] ) &&
+			! empty( $field['choices'][ $raw_value ]['value'] )
+		) {
+			return parent::get_field_populated_single_property_value( $field['choices'][ $raw_value ]['label'], $input, $properties, $field );
 		}
 
-		if ( empty( $trans_value ) ) {
-			return $properties;
-		}
-
-		return parent::get_field_populated_single_property_value( $trans_value, $input, $properties, $field );
+		return $properties;
 	}
 
 	/**
 	 * Field options panel inside the builder.
 	 *
 	 * @since 1.3.1
+	 * @since 1.6.1 Added a `Modern` style select support - new `Style` option.
 	 *
 	 * @param array $field Field settings.
 	 */
@@ -187,6 +218,25 @@ class WPForms_Field_Payment_Select extends WPForms_Field {
 		// Choices option.
 		$this->field_option( 'choices_payments', $field );
 
+		// Show price after item labels.
+		$fld  = $this->field_element(
+			'toggle',
+			$field,
+			[
+				'slug'    => 'show_price_after_labels',
+				'value'   => isset( $field['show_price_after_labels'] ) ? '1' : '0',
+				'desc'    => esc_html__( 'Show price after item labels', 'wpforms' ),
+				'tooltip' => esc_html__( 'Check this option to show price of the item after the label.', 'wpforms' ),
+			],
+			false
+		);
+		$args = [
+			'slug'    => 'show_price_after_labels',
+			'content' => $fld,
+		];
+
+		$this->field_element( 'row', $field, $args );
+
 		// Description.
 		$this->field_option( 'description', $field );
 
@@ -203,26 +253,62 @@ class WPForms_Field_Payment_Select extends WPForms_Field {
 		// Options open markup.
 		$this->field_option( 'advanced-options', $field, array( 'markup' => 'open' ) );
 
+		// Style.
+		$lbl = $this->field_element(
+			'label',
+			$field,
+			array(
+				'slug'    => 'style',
+				'value'   => esc_html__( 'Style', 'wpforms' ),
+				'tooltip' => esc_html__( 'Classic style is the default one generated by your browser. Modern has a fresh look and displays all selected options in a single row.', 'wpforms' ),
+			),
+			false
+		);
+
+		$fld = $this->field_element(
+			'select',
+			$field,
+			array(
+				'slug'    => 'style',
+				'value'   => ! empty( $field['style'] ) ? $field['style'] : self::STYLE_CLASSIC,
+				'options' => array(
+					self::STYLE_CLASSIC => esc_html__( 'Classic', 'wpforms' ),
+					self::STYLE_MODERN  => esc_html__( 'Modern', 'wpforms' ),
+				),
+			),
+			false
+		);
+
+		$this->field_element(
+			'row',
+			$field,
+			array(
+				'slug'    => 'style',
+				'content' => $lbl . $fld,
+			)
+		);
+
 		// Size.
 		$this->field_option( 'size', $field );
 
 		// Placeholder.
 		$this->field_option( 'placeholder', $field );
 
-		// Hide label.
-		$this->field_option( 'label_hide', $field );
-
 		// Custom CSS classes.
 		$this->field_option( 'css', $field );
 
+		// Hide label.
+		$this->field_option( 'label_hide', $field );
+
 		// Options close markup.
-		$this->field_option( 'advanced-options', $field, array( 'markup' => 'close' ) );
+		$this->field_option( 'advanced-options', $field, [ 'markup' => 'close' ] );
 	}
 
 	/**
 	 * Field preview inside the builder.
 	 *
 	 * @since 1.3.1
+	 * @since 1.6.1 Added a `Modern` style select support - arguments for choices.
 	 *
 	 * @param array $field Field settings.
 	 */
@@ -231,8 +317,19 @@ class WPForms_Field_Payment_Select extends WPForms_Field {
 		// Label.
 		$this->field_preview_option( 'label', $field );
 
+		// Prepare arguments.
+		$args['modern'] = false;
+
+		if (
+			! empty( $field['style'] ) &&
+			self::STYLE_MODERN === $field['style']
+		) {
+			$args['modern'] = true;
+			$args['class']  = 'choicesjs-select';
+		}
+
 		// Choices.
-		$this->field_preview_option( 'choices', $field );
+		$this->field_preview_option( 'choices', $field, $args );
 
 		// Description.
 		$this->field_preview_option( 'description', $field );
@@ -243,6 +340,7 @@ class WPForms_Field_Payment_Select extends WPForms_Field {
 	 *
 	 * @since 1.3.1
 	 * @since 1.5.0 Converted to a new format, where all the data are taken not from $deprecated, but field properties.
+	 * @since 1.6.1 Added a `Modern` style select support - fake placeholder, `data-custom-properties` attribute, container and size classes.
 	 *
 	 * @param array $field      Field data and settings.
 	 * @param array $deprecated Deprecated array of field attributes.
@@ -250,14 +348,27 @@ class WPForms_Field_Payment_Select extends WPForms_Field {
 	 */
 	public function field_display( $field, $deprecated, $form_data ) {
 
-		$container = $field['properties']['input_container'];
-
+		$container         = $field['properties']['input_container'];
 		$field_placeholder = ! empty( $field['placeholder'] ) ? $field['placeholder'] : '';
+		$is_modern         = ! empty( $field['style'] ) && self::STYLE_MODERN === $field['style'];
+		$choices           = $field['properties']['inputs'];
+
 		if ( ! empty( $field['required'] ) ) {
 			$container['attr']['required'] = 'required';
 		}
 
-		$choices     = $field['properties']['inputs'];
+		// Add a class for Choices.js initialization.
+		if ( $is_modern ) {
+			$container['class'][] = 'choicesjs-select';
+
+			// Add a size-class to data attribute - it is used when Choices.js is initialized.
+			if ( ! empty( $field['size'] ) ) {
+				$container['data']['size-class'] = 'wpforms-field-row wpforms-field-' . sanitize_html_class( $field['size'] );
+			}
+
+			$container['data']['search-enabled'] = $this->is_choicesjs_search_enabled( count( $choices ) );
+		}
+
 		$has_default = false;
 
 		// Check to see if any of the options were selected by default.
@@ -266,6 +377,13 @@ class WPForms_Field_Payment_Select extends WPForms_Field {
 				$has_default = true;
 				break;
 			}
+		}
+
+		// Fake placeholder for Modern style.
+		if ( $is_modern && empty( $field_placeholder ) ) {
+			$first_choices      = reset( $choices );
+			$field_placeholder  = $first_choices['label']['text'];
+			$field_placeholder .= ! empty( $field['show_price_after_labels'] ) && isset( $first_choices['attr']['value'] ) ? ' - ' . wpforms_format_amount( wpforms_sanitize_amount( $first_choices['attr']['value'] ), true ) : '';
 		}
 
 		// Preselect default if no other choices were marked as default.
@@ -283,16 +401,30 @@ class WPForms_Field_Payment_Select extends WPForms_Field {
 			);
 		}
 
+		// Format string for option.
+		if ( $is_modern ) {
+
+			// `data-custom-properties` - it's a Choices.js attribite and it store a copy of `data-amount` attribute.
+			$option_format = '<option value="%1$s" data-amount="%2$s" data-custom-properties="%2$s" %3$s>%4$s</option>';
+
+		} else {
+			$option_format = '<option value="%1$s" data-amount="%2$s" %3$s>%4$s</option>';
+		}
+
 		// Build the select options.
 		foreach ( $choices as $key => $choice ) {
 			$amount = wpforms_format_amount( wpforms_sanitize_amount( $choice['attr']['value'] ) );
+			$label  = isset( $choice['label']['text'] ) ? $choice['label']['text'] : '';
+			/* translators: %s - Choice item number. */
+			$label  = $label !== '' ? $label : sprintf( esc_html__( 'Item %s', 'wpforms' ), $key );
+			$label .= ! empty( $field['show_price_after_labels'] ) && isset( $choice['attr']['value'] ) ? ' - ' . wpforms_format_amount( wpforms_sanitize_amount( $choice['attr']['value'] ), true ) : '';
 
 			printf(
-				'<option value="%s" data-amount="%s" %s>%s</option>',
+				$option_format, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				esc_attr( $key ),
 				esc_attr( $amount ),
 				selected( true, ! empty( $choice['default'] ), false ),
-				esc_html( $choice['label']['text'] )
+				esc_html( $label )
 			);
 		}
 
@@ -300,7 +432,7 @@ class WPForms_Field_Payment_Select extends WPForms_Field {
 	}
 
 	/**
-	 * Validates field on form submit.
+	 * Validate field on form submit.
 	 *
 	 * @since 1.3.1
 	 *
@@ -324,7 +456,7 @@ class WPForms_Field_Payment_Select extends WPForms_Field {
 	}
 
 	/**
-	 * Formats and sanitizes field.
+	 * Format and sanitize field.
 	 *
 	 * @since 1.3.1
 	 *
@@ -361,10 +493,121 @@ class WPForms_Field_Payment_Select extends WPForms_Field {
 			'value_raw'    => sanitize_text_field( $field_submit ),
 			'amount'       => wpforms_format_amount( $amount ),
 			'amount_raw'   => $amount,
-			'currency'     => wpforms_setting( 'currency', 'USD' ),
+			'currency'     => wpforms_get_currency(),
 			'id'           => absint( $field_id ),
 			'type'         => $this->type,
 		);
+	}
+
+	/**
+	 * Form frontend CSS enqueues.
+	 *
+	 * @since 1.6.1
+	 *
+	 * @param array $forms Forms on the current page.
+	 */
+	public function enqueue_frontend_css( $forms ) {
+
+		$has_modern_select = false;
+
+		foreach ( $forms as $form ) {
+			if ( $this->is_field_style( $form, self::STYLE_MODERN ) ) {
+				$has_modern_select = true;
+
+				break;
+			}
+		}
+
+		if ( $has_modern_select || wpforms()->frontend->assets_global() ) {
+			$min = \wpforms_get_min_suffix();
+
+			wp_enqueue_style(
+				'wpforms-choicesjs',
+				WPFORMS_PLUGIN_URL . "assets/css/choices{$min}.css",
+				array(),
+				'9.0.1'
+			);
+		}
+	}
+
+	/**
+	 * Form frontend JS enqueues.
+	 *
+	 * @since 1.6.1
+	 *
+	 * @param array $forms Forms on the current page.
+	 */
+	public function enqueue_frontend_js( $forms ) {
+
+		$has_modern_select = false;
+
+		foreach ( $forms as $form ) {
+			if ( $this->is_field_style( $form, self::STYLE_MODERN ) ) {
+				$has_modern_select = true;
+
+				break;
+			}
+		}
+
+		if ( $has_modern_select || wpforms()->frontend->assets_global() ) {
+			$this->enqueue_choicesjs_once( $forms );
+		}
+	}
+
+	/**
+	 * Whether the provided form has a dropdown field with a specified style.
+	 *
+	 * @since 1.6.1
+	 *
+	 * @param array  $form  Form data.
+	 * @param string $style Desired field style.
+	 *
+	 * @return bool
+	 */
+	protected function is_field_style( $form, $style ) {
+
+		$is_field_style = false;
+
+		if ( empty( $form['fields'] ) ) {
+
+			return $is_field_style;
+		}
+
+		foreach ( (array) $form['fields'] as $field ) {
+
+			if (
+				! empty( $field['type'] ) &&
+				$field['type'] === $this->type &&
+				! empty( $field['style'] ) &&
+				sanitize_key( $style ) === $field['style']
+			) {
+				$is_field_style = true;
+				break;
+			}
+		}
+
+		return $is_field_style;
+	}
+
+	/**
+	 * Get field name for ajax error message.
+	 *
+	 * @since 1.6.3
+	 *
+	 * @param string $name  Field name for error triggered.
+	 * @param array  $field Field settings.
+	 * @param array  $props List of properties.
+	 * @param string $error Error message.
+	 *
+	 * @return string
+	 */
+	public function ajax_error_field_name( $name, $field, $props, $error ) {
+
+		if ( ! isset( $field['type'] ) || 'payment-select' !== $field['type'] ) {
+			return $name;
+		}
+
+		return isset( $props['input_container']['attr']['name'] ) ? $props['input_container']['attr']['name'] : '';
 	}
 }
 

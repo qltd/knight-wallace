@@ -3,13 +3,16 @@
 /**
  * Phone number field.
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.0.0
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2016, WPForms LLC
+ * @since 1.0.0
  */
 class WPForms_Field_Phone extends WPForms_Field {
+
+	/**
+	 * International Telephone Input library CSS.
+	 *
+	 * @since 1.6.3
+	 */
+	const INTL_VERSION = '17.0.5';
 
 	/**
 	 * Primary class constructor.
@@ -33,6 +36,9 @@ class WPForms_Field_Phone extends WPForms_Field {
 
 		// Form frontend JS enqueues.
 		add_action( 'wpforms_frontend_js', array( $this, 'enqueue_frontend_js' ) );
+
+		// Add frontend strings.
+		add_action( 'wpforms_frontend_strings', array( $this, 'add_frontend_strings' ) );
 	}
 
 	/**
@@ -48,21 +54,23 @@ class WPForms_Field_Phone extends WPForms_Field {
 	 */
 	public function field_properties( $properties, $field, $form_data ) {
 
-		// Input primary: add validation rule and class for smart phone field.
-		if ( 'smart' === $field['format'] ) {
+		// Smart: add validation rule and class.
+		if ( $field['format'] === 'smart' ) {
 			$properties['inputs']['primary']['class'][]                        = 'wpforms-smart-phone-field';
 			$properties['inputs']['primary']['data']['rule-smart-phone-field'] = 'true';
 		}
 
-		// Input primary: add input mask and class for US formatted numbers.
-		if ( 'us' === $field['format'] ) {
-			$properties['inputs']['primary']['class'][]           = 'wpforms-masked-input';
-			$properties['inputs']['primary']['data']['inputmask'] = "'mask': '(999) 999-9999'";
+		// US: add input mask and class.
+		if ( $field['format'] === 'us' ) {
+			$properties['inputs']['primary']['class'][]                     = 'wpforms-masked-input';
+			$properties['inputs']['primary']['data']['inputmask']           = "'mask': '(999) 999-9999'";
+			$properties['inputs']['primary']['data']['rule-us-phone-field'] = 'true';
+			$properties['inputs']['primary']['data']['inputmask-inputmode'] = 'tel';
 		}
 
-		// Input primary: RTL support for input masks.
-		if ( is_rtl() ) {
-			$properties['inputs']['primary']['attr']['dir'] = 'rtl';
+		// International: add validation rule and class.
+		if ( $field['format'] === 'international' ) {
+			$properties['inputs']['primary']['data']['rule-int-phone-field'] = 'true';
 		}
 
 		return $properties;
@@ -72,9 +80,14 @@ class WPForms_Field_Phone extends WPForms_Field {
 	 * Form frontend CSS enqueues.
 	 *
 	 * @since 1.5.2
+	 *
+	 * @param array $forms Form data of forms on the current page.
 	 */
-	public function enqueue_frontend_css() {
+	public function enqueue_frontend_css( $forms ) {
 
+		if ( ! wpforms()->frontend->assets_global() && ! $this->has_smart_format( $forms ) ) {
+			return;
+		}
 		$min = \wpforms_get_min_suffix();
 
 		// International Telephone Input library CSS.
@@ -82,7 +95,7 @@ class WPForms_Field_Phone extends WPForms_Field {
 			'wpforms-smart-phone-field',
 			WPFORMS_PLUGIN_URL . "pro/assets/css/vendor/intl-tel-input{$min}.css",
 			array(),
-			'15.0.0'
+			self::INTL_VERSION
 		);
 	}
 
@@ -90,9 +103,14 @@ class WPForms_Field_Phone extends WPForms_Field {
 	 * Form frontend JS enqueues.
 	 *
 	 * @since 1.5.2
+	 *
+	 * @param array $forms Form data of forms on the current page.
 	 */
-	public function enqueue_frontend_js() {
+	public function enqueue_frontend_js( $forms ) {
 
+		if ( ! wpforms()->frontend->assets_global() && ! $this->has_smart_format( $forms ) ) {
+			return;
+		}
 		$min = \wpforms_get_min_suffix();
 
 		// Load International Telephone Input library - https://github.com/jackocnr/intl-tel-input.
@@ -100,9 +118,51 @@ class WPForms_Field_Phone extends WPForms_Field {
 			'wpforms-smart-phone-field',
 			WPFORMS_PLUGIN_URL . "pro/assets/js/vendor/jquery.intl-tel-input{$min}.js",
 			array( 'jquery' ),
-			'15.0.0',
+			self::INTL_VERSION,
 			true
 		);
+	}
+
+	/**
+	 * Find phone field with smart format.
+	 *
+	 * @since 1.6.3
+	 *
+	 * @param array $forms Form data of forms on the current page.
+	 *
+	 * @return bool
+	 */
+	private function has_smart_format( $forms ) {
+
+		foreach ( $forms as $form_data ) {
+			if ( empty( $form_data['fields'] ) ) {
+				continue;
+			}
+
+			foreach ( $form_data['fields'] as $field ) {
+				if ( 'phone' === $field['type'] && isset( $field['format'] ) && 'smart' === $field['format'] ) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Add phone validation error to frontend strings.
+	 *
+	 * @since 1.5.8
+	 *
+	 * @param array $strings Frontend strings.
+	 *
+	 * @return array Frontend strings.
+	 */
+	public function add_frontend_strings( $strings ) {
+
+		$strings['val_phone'] = wpforms_setting( 'validation-phone', esc_html__( 'Please enter a valid phone number.', 'wpforms' ) );
+
+		return $strings;
 	}
 
 	/**
@@ -110,7 +170,7 @@ class WPForms_Field_Phone extends WPForms_Field {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $field
+	 * @param array $field Field data.
 	 */
 	public function field_options( $field ) {
 		/*
@@ -185,19 +245,20 @@ class WPForms_Field_Phone extends WPForms_Field {
 		// Placeholder.
 		$this->field_option( 'placeholder', $field );
 
-		// Hide Label.
-		$this->field_option( 'label_hide', $field );
-
 		// Default value.
 		$this->field_option( 'default_value', $field );
 
 		// Custom CSS classes.
 		$this->field_option( 'css', $field );
 
+		// Hide Label.
+		$this->field_option( 'label_hide', $field );
+
 		// Options close markup.
-		$args = array(
+		$args = [
 			'markup' => 'close',
-		);
+		];
+
 		$this->field_option( 'advanced-options', $field, $args );
 	}
 
@@ -206,18 +267,18 @@ class WPForms_Field_Phone extends WPForms_Field {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $field
+	 * @param array $field Field data.
 	 */
 	public function field_preview( $field ) {
 
 		// Define data.
-		$placeholder = ! empty( $field['placeholder'] ) ? esc_attr( $field['placeholder'] ) : '';
+		$placeholder = ! empty( $field['placeholder'] ) ? $field['placeholder'] : '';
 
 		// Label.
 		$this->field_preview_option( 'label', $field );
 
 		// Primary input.
-		echo '<input type="text" placeholder="' . $placeholder . '" class="primary-input" disabled>';
+		echo '<input type="text" placeholder="' . esc_attr( $placeholder ) . '" class="primary-input" readonly>';
 
 		// Description.
 		$this->field_preview_option( 'description', $field );
@@ -247,6 +308,85 @@ class WPForms_Field_Phone extends WPForms_Field {
 			wpforms_html_attributes( $primary['id'], $primary['class'], $primary['data'], $primary['attr'] ),
 			$primary['required']
 		);
+	}
+
+	/**
+	 * Validate field on form submit.
+	 *
+	 * @since 1.5.8
+	 *
+	 * @param int   $field_id     Field ID.
+	 * @param mixed $field_submit Submitted value.
+	 * @param array $form_data    Form data and settings.
+	 */
+	public function validate( $field_id, $field_submit, $form_data ) {
+
+		$form_id = $form_data['id'];
+		$value   = $this->sanitize_value( $field_submit );
+
+		// If field is marked as required, check for entry data.
+		if (
+			! empty( $form_data['fields'][ $field_id ]['required'] ) &&
+			empty( $value )
+		) {
+			wpforms()->process->errors[ $form_id ][ $field_id ] = wpforms_get_required_label();
+		}
+
+		if (
+			empty( $value ) ||
+			empty( $form_data['fields'][ $field_id ]['format'] )
+		) {
+			return;
+		}
+
+		$value  = preg_replace( '/[^\d]/', '', $value );
+		$length = strlen( $value );
+
+		if ( $form_data['fields'][ $field_id ]['format'] === 'us' ) {
+			$error = $length !== 10;
+		} else {
+			$error = $length === 0;
+		}
+
+		if ( $error ) {
+			wpforms()->process->errors[ $form_id ][ $field_id ] = wpforms_setting( 'validation-phone', esc_html__( 'Please enter a valid phone number.', 'wpforms' ) );
+		}
+	}
+
+	/**
+	 * Format and sanitize field.
+	 *
+	 * @since 1.5.8
+	 *
+	 * @param int    $field_id     Field id.
+	 * @param string $field_submit Submitted value.
+	 * @param array  $form_data    Form data.
+	 */
+	public function format( $field_id, $field_submit, $form_data ) {
+
+		$name = ! empty( $form_data['fields'][ $field_id ]['label'] ) ? $form_data['fields'][ $field_id ]['label'] : '';
+
+		// Set final field details.
+		wpforms()->process->fields[ $field_id ] = array(
+			'name'  => sanitize_text_field( $name ),
+			'value' => $this->sanitize_value( $field_submit ),
+			'id'    => absint( $field_id ),
+			'type'  => $this->type,
+		);
+	}
+
+	/**
+	 * Sanitize the value.
+	 *
+	 * @since 1.5.8
+	 *
+	 * @param string $value The Phone field submitted value.
+	 *
+	 * @return string
+	 */
+	private function sanitize_value( $value ) {
+
+		return preg_replace( '/[^-+0-9() ]/', '', $value );
 	}
 }
 

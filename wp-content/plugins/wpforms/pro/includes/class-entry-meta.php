@@ -3,11 +3,7 @@
 /**
  * Entry meta DB class.
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.1.6
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2016, WPForms LLC
+ * @since 1.1.6
  */
 class WPForms_Entry_Meta_Handler extends WPForms_DB {
 
@@ -99,12 +95,12 @@ class WPForms_Entry_Meta_Handler extends WPForms_DB {
 		$where = '';
 
 		// Allowed int arg items.
-		$keys = array( 'id', 'entry_id', 'form_id', 'user_id' );
+		$keys = [ 'id', 'entry_id', 'form_id', 'user_id' ];
+
 		foreach ( $keys as $key ) {
 			// Value `$args[ $key ]` can be a natural number and a numeric string.
 			// We should skip empty string values, but continue working with '0'.
-			// For some reason using `==` makes various parts of the code work.
-			if ( '' == $args[ $key ] ) {
+			if ( empty( $args[ $key ] ) && $args[ $key ] !== '0' ) {
 				continue;
 			}
 

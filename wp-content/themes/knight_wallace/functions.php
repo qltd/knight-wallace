@@ -1287,10 +1287,10 @@ function custom_wpse_mail_from_name( $original_email_from ) {
  * Disable Gutenberg everywhere
  */
 // WP < 5.0 beta
-add_filter('gutenberg_can_edit_post', '__return_false', 5);
+// add_filter('gutenberg_can_edit_post', '__return_false', 5);
 
 // WP >= 5.0
-add_filter('use_block_editor_for_post', '__return_false', 5);
+// add_filter('use_block_editor_for_post', '__return_false', 5);
 
 /**
  * Enable Gutenberg on Specific Posts

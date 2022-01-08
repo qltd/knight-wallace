@@ -2,11 +2,7 @@
 /**
  * Load the field types.
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.0.0
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2016, WPForms LLC
+ * @since 1.0.0
  */
 class WPForms_Fields {
 
@@ -49,6 +45,7 @@ class WPForms_Fields {
 				'radio',
 				'checkbox',
 				'divider',
+				'entry-preview',
 				'email',
 				'url',
 				'hidden',
@@ -68,6 +65,8 @@ class WPForms_Fields {
 				'payment-dropdown',
 				'payment-credit-card',
 				'payment-total',
+				'number-slider',
+				'richtext',
 			)
 		);
 
@@ -84,6 +83,8 @@ class WPForms_Fields {
 				require_once WPFORMS_PLUGIN_DIR . 'pro/includes/fields/class-' . $field . '.php';
 			}
 		}
+
+		new \WPForms_Field_Email();
 	}
 }
 new WPForms_Fields();

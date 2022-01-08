@@ -2,16 +2,17 @@
 
 namespace WPForms\Pro\Admin\Entries\Export;
 
+use WPForms\Helpers\Transient;
+use WPForms\Pro\Admin\Entries;
+
 /**
  * Ajax endpoints and data processing.
  *
- * @since      1.5.5
- * @author     WPForms
- * @package    WPForms\Pro\Admin\Entries\Export
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2019, WPForms LLC
+ * @since 1.5.5
  */
 class Ajax {
+
+	use Entries\FilterSearch;
 
 	/**
 	 * Instance of Export Class.
@@ -52,8 +53,8 @@ class Ajax {
 	 */
 	public function hooks() {
 
-		add_action( 'wp_ajax_wpforms_tools_entries_export_form_data', array( $this, 'ajax_form_data' ) );
-		add_action( 'wp_ajax_wpforms_tools_entries_export_step', array( $this, 'ajax_export_step' ) );
+		add_action( 'wp_ajax_wpforms_tools_entries_export_form_data', [ $this, 'ajax_form_data' ] );
+		add_action( 'wp_ajax_wpforms_tools_entries_export_step', [ $this, 'ajax_export_step' ] );
 	}
 
 	/**
@@ -66,6 +67,7 @@ class Ajax {
 	public function ajax_form_data() {
 
 		try {
+
 			// Run a security check.
 			if ( ! check_ajax_referer( 'wpforms-tools-entries-export-nonce', 'nonce', false ) ) {
 				throw new \Exception( $this->export->errors['security'] );
@@ -75,39 +77,55 @@ class Ajax {
 				throw new \Exception( $this->export->errors['form_data'] );
 			}
 
-			$disallowed_fields = $this->export->configuration['disallowed_fields'];
+			$fields = empty( $this->export->data['form_data']['fields'] ) ? [] : (array) $this->export->data['form_data']['fields'];
 
-			$fields = empty( $this->export->data['form_data']['fields'] ) ? array() : (array) $this->export->data['form_data']['fields'];
-
-			$fields = array_filter(
-				array_values( $fields ),
-				function ( $v ) use ( $disallowed_fields ) {
-					return ! in_array( $v['type'], $disallowed_fields, true );
-				}
-			);
 			$fields = array_map(
-				function ( $field ) {
+				static function ( $field ) {
 					/* translators: %d - Field ID. */
 					$field['label'] = ! empty( $field['label'] ) ? trim( wp_strip_all_tags( $field['label'] ) ) : sprintf( esc_html__( 'Field #%d', 'wpforms' ), (int) $field['id'] );
 					return $field;
 				},
 				$fields
 			);
+
 			wp_send_json_success(
-				array(
-					'fields' => $fields,
-				)
+				[
+					'fields' => $this->exclude_disallowed_fields( $fields ),
+				]
 			);
 
 		} catch ( \Exception $e ) {
 
 			$error = $this->export->errors['common'] . '<br>' . $e->getMessage();
+
 			if ( wpforms_debug() ) {
 				$error .= '<br><b>WPFORMS DEBUG</b>: ' . $e->__toString();
 			}
-			wp_send_json_error( array( 'error' => $error ) );
 
+			wp_send_json_error( [ 'error' => $error ] );
 		}
+	}
+
+	/**
+	 * Exclude disallowed fields from fields array.
+	 *
+	 * @since 1.6.6
+	 *
+	 * @param array $fields Fields array.
+	 *
+	 * @return array
+	 */
+	private function exclude_disallowed_fields( $fields ) {
+
+		$disallowed_fields = $this->export->configuration['disallowed_fields'];
+
+		return array_filter(
+			array_values( $fields ),
+			static function ( $v ) use ( $disallowed_fields ) {
+
+				return isset( $v['type'] ) && ! in_array( $v['type'], $disallowed_fields, true );
+			}
+		);
 	}
 
 	/**
@@ -117,7 +135,7 @@ class Ajax {
 	 *
 	 * @throws \Exception Try-catch.
 	 */
-	public function ajax_export_step() {
+	public function ajax_export_step() {// phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
 		try {
 
@@ -130,7 +148,7 @@ class Ajax {
 				! check_ajax_referer( 'wpforms-tools-entries-export-nonce', 'nonce', false ) ||
 				empty( $args['nonce'] ) ||
 				empty( $args['action'] ) ||
-				! wpforms_current_user_can()
+				! wpforms_current_user_can( 'view_entries' )
 			) {
 				throw new \Exception( $this->export->errors['security'] );
 			}
@@ -141,42 +159,41 @@ class Ajax {
 			}
 
 			// Unlimited execution time.
-			set_time_limit( 0 );
+			wpforms_set_time_limit();
 
-			// Getting request data.
-			if ( empty( $args['request_id'] ) ) {
-				$this->request_data = $this->get_request_data( $args );
-			} else {
-				$this->request_data = get_transient( 'wpforms-tools-entries-export-request-' . $args['request_id'] );
+			// Apply search by fields and advanced options.
+			$this->process_filter_search();
+
+			$this->request_data = $this->get_request_data( $args );
+
+			if ( empty( $this->request_data ) ) {
+				throw new \Exception( $this->export->errors['unknown_request'] );
 			}
 
-			// Prepare entries DB query args.
-			$this->request_data['db_args']['offset'] = $this->request_data['step'] * $this->request_data['db_args']['number'];
-
-			// Get export data.
-			$export_data = $this->get_data();
-
-			// Writing portion to csv file.
-			$this->export->file->write_csv( $export_data, $this->request_data );
-
-			// Increment step.
-			$this->request_data['step'] += 1;
+			if ( $this->request_data['type'] === 'xlsx' ) {
+				// Write to the .xlsx file.
+				$this->export->file->write_xlsx( $this->request_data );
+			} else {
+				// Writing to the .csv file.
+				$this->export->file->write_csv( $this->request_data );
+			}
 
 			// Prepare response.
-			$response = $this->get_response_data( $this->request_data );
+			$response = $this->get_response_data();
 
 			// Store request data.
-			set_transient( 'wpforms-tools-entries-export-request-' . $this->request_data['request_id'], $this->request_data, $this->export->configuration['request_data_ttl'] );
+			Transient::set( 'wpforms-tools-entries-export-request-' . $this->request_data['request_id'], $this->request_data, $this->export->configuration['request_data_ttl'] );
 
 			wp_send_json_success( $response );
 
 		} catch ( \Exception $e ) {
 
 			$error = $this->export->errors['common'] . '<br>' . $e->getMessage();
+
 			if ( wpforms_debug() ) {
 				$error .= '<br><b>WPFORMS DEBUG</b>: ' . $e->__toString();
 			}
-			wp_send_json_error( array( 'error' => $error ) );
+			wp_send_json_error( [ 'error' => $error ] );
 
 		}
 	}
@@ -193,7 +210,7 @@ class Ajax {
 	public function get_request_data( $args ) {
 
 		// Prepare arguments.
-		$db_args = array(
+		$db_args = [
 			'number'      => 0,
 			'offset'      => 0,
 			'form_id'     => $args['form_id'],
@@ -201,9 +218,9 @@ class Ajax {
 			'is_filtered' => ! empty( $args['entry_id'] ),
 			'date'        => $args['dates'],
 			'select'      => 'entry_ids',
-		);
+		];
 
-		if ( '' !== $args['search']['term'] ) {
+		if ( $args['search']['term'] !== '' ) {
 			$db_args['value']         = $args['search']['term'];
 			$db_args['value_compare'] = $args['search']['comparison'];
 			$db_args['field_id']      = $args['search']['field'];
@@ -212,33 +229,35 @@ class Ajax {
 		$db_args['select'] = 'entry_ids';
 
 		// Count total entries.
-		$count = wpforms()->entry->get_entries( $db_args, true );
+		$count = wpforms()->get( 'entry' )->get_entries( $db_args, true );
 
 		// Retrieve form data.
-		$form_data = wpforms()->form->get(
+		$form_data = wpforms()->get( 'form' )->get(
 			$args['form_id'],
-			array(
+			[
 				'content_only' => true,
-			)
+			]
 		);
 
 		// Prepare get entries args for further steps.
 		unset( $db_args['select'] );
 		$db_args['number'] = $this->export->configuration['entries_per_step'];
 
-		$form_data['fields'] = empty( $form_data['fields'] ) ? array() : (array) $form_data['fields'];
+		$form_data['fields'] = empty( $form_data['fields'] ) ? [] : (array) $form_data['fields'];
 
 		// Prepare `request data` for saving.
-		$request_data = array(
+		$request_data = [
 			'request_id'      => md5( wp_json_encode( $db_args ) . microtime() ),
 			'form_data'       => $form_data,
 			'db_args'         => $db_args,
-			'fields'          => empty( $args['entry_id'] ) ? $args['fields'] : wp_list_pluck( $form_data['fields'], 'id' ),
+			'fields'          => empty( $args['entry_id'] ) ? $args['fields'] : wp_list_pluck( $this->exclude_disallowed_fields( $form_data['fields'] ), 'id' ),
 			'additional_info' => empty( $args['entry_id'] ) ? $args['additional_info'] : array_keys( $this->export->additional_info_fields ),
 			'count'           => $count,
-			'step'            => 0,
 			'total_steps'     => ceil( $count / $this->export->configuration['entries_per_step'] ),
-		);
+			'type'            => ! empty( $args['export_options'] ) ? $args['export_options'][0] : 'csv',
+		];
+
+		$request_data['columns_row'] = $this->get_csv_cols( $request_data );
 
 		return $request_data;
 	}
@@ -248,26 +267,15 @@ class Ajax {
 	 *
 	 * @since 1.5.5
 	 *
-	 * @param array $request_data Request data array.
-	 *
 	 * @return array Export data.
 	 */
-	protected function get_response_data( $request_data ) {
+	protected function get_response_data() {
 
-		$response = array(
-			'request_id' => $request_data['request_id'],
-			'count'      => $request_data['count'],
-		);
+		return [
+			'request_id' => $this->request_data['request_id'],
+			'count'      => $this->request_data['count'],
+		];
 
-		// Step.
-		if ( $request_data['step'] >= $request_data['total_steps'] ) {
-			$response['step'] = 'stop';
-		} else {
-			$response['step']        = $request_data['step'];
-			$response['total_steps'] = $request_data['total_steps'];
-		}
-
-		return $response;
 	}
 
 	/**
@@ -280,26 +288,34 @@ class Ajax {
 	 * @return array CSV columns (first row).
 	 */
 	public function get_csv_cols( $request_data ) {
-		$columns_row = array();
+
+		$columns_row = [];
+
 		if ( ! empty( $request_data['form_data']['fields'] ) ) {
-			$fields         = array_map(
-				function ( $field ) {
+			$fields = array_map(
+				static function ( $field ) {
 					/* translators: %d - Field ID. */
 					$field['label'] = ! empty( $field['label'] ) ? trim( wp_strip_all_tags( $field['label'] ) ) : sprintf( esc_html__( 'Field #%d', 'wpforms' ), (int) $field['id'] );
+
 					return $field;
 				},
 				$request_data['form_data']['fields']
 			);
+
 			$columns_labels = wp_list_pluck( $fields, 'label', 'id' );
+
 			foreach ( $request_data['fields'] as $field_id ) {
+				if ( ! isset( $columns_labels[ $field_id ] ) ) {
+					continue;
+				}
 				$columns_row[ $field_id ] = $columns_labels[ $field_id ];
 			}
 		} else {
-			$fields = array();
+			$fields = [];
 		}
 		if ( ! empty( $request_data['additional_info'] ) ) {
 			foreach ( $request_data['additional_info'] as $field_id ) {
-				if ( 'del_fields' === $field_id ) {
+				if ( $field_id === 'del_fields' ) {
 					$columns_row = $columns_row + $this->get_deleted_fields_columns( $fields, $request_data );
 				} else {
 					$columns_row[ $field_id ] = $this->export->additional_info_fields[ $field_id ];
@@ -309,7 +325,7 @@ class Ajax {
 
 		$columns_row = apply_filters_deprecated(
 			'wpforms_export_get_csv_cols',
-			array( $columns_row, ! empty( $request_data['db_args']['entry_id'] ) ? (int) $request_data['db_args']['entry_id'] : 'all' ),
+			[ $columns_row, ! empty( $request_data['db_args']['entry_id'] ) ? (int) $request_data['db_args']['entry_id'] : 'all' ],
 			'1.5.5 of the WPForms plugin',
 			'wpforms_pro_admin_entries_export_ajax_get_csv_cols'
 		);
@@ -318,78 +334,70 @@ class Ajax {
 	}
 
 	/**
-	 * Get data for export.
+	 * Get single entry data.
 	 *
-	 * @since 1.5.5
+	 * @since 1.6.5
 	 *
-	 * @return array Export data.
+	 * @param array $entries Entries.
+	 *
+	 * @return \Generator
 	 */
-	public function get_data() {
+	public function get_entry_data( $entries ) {
 
-		$request_data = $this->request_data;
-
-		// Get entries.
-		$entries = wpforms()->entry->get_entries( $request_data['db_args'] );
-
-		// Prepare column labels.
-		if ( empty( $request_data['columns_row'] ) ) {
-			$request_data['columns_row'] = $this->get_csv_cols( $this->request_data );
-			$this->request_data          = $request_data;
-			$add_columns_row             = true;
-		}
-
-		$export_data = array();
-
-		$no_fields  = empty( $request_data['form_data']['fields'] );
-		$del_fields = in_array( 'del_fields', $request_data['additional_info'], true );
+		$no_fields  = empty( $this->request_data['form_data']['fields'] );
+		$del_fields = in_array( 'del_fields', $this->request_data['additional_info'], true );
 
 		// Prepare entries data.
 		foreach ( $entries as $entry ) {
 			$fields = $this->get_entry_fields_data( $entry );
-			$row    = array();
-			foreach ( $request_data['columns_row'] as $col_id => $col_label ) {
+			$row    = [];
+
+			foreach ( $this->request_data['columns_row'] as $col_id => $col_label ) {
 				if ( is_numeric( $col_id ) ) {
-					$row[ $col_id ] = ! empty( $fields[ $col_id ]['value'] ) ? $fields[ $col_id ]['value'] : '';
+					$row[ $col_id ] = isset( $fields[ $col_id ]['value'] ) ? $fields[ $col_id ]['value'] : '';
 				} elseif ( strpos( $col_id, 'del_field_' ) !== false ) {
 					$f_id           = str_replace( 'del_field_', '', $col_id );
-					$row[ $col_id ] = ! empty( $fields[ $f_id ]['value'] ) ? $fields[ $f_id ]['value'] : '';
+					$row[ $col_id ] = isset( $fields[ $f_id ]['value'] ) ? $fields[ $f_id ]['value'] : '';
 				} else {
-					$row[ $col_id ] = $this->get_additional_info_value( $col_id, $entry );
+					$row[ $col_id ] = $this->get_additional_info_value( $col_id, $entry, $this->request_data['form_data'] );
 				}
 				$row[ $col_id ] = html_entity_decode( $row[ $col_id ], ENT_QUOTES );
 			}
 			if ( $no_fields && ! $del_fields ) {
 				continue;
 			}
-			$export_data[ $entry->entry_id ] = $row;
+
+			$export_data = apply_filters_deprecated(
+				'wpforms_export_get_data',
+				[ [ $entry->entry_id => $row ], ! empty( $this->request_data['db_args']['entry_id'] ) ? (int) $this->request_data['db_args']['entry_id'] : 'all' ],
+				'1.5.5 of the WPForms plugin',
+				'wpforms_pro_admin_entries_export_get_entry_data'
+			);
+
+			$export_data = apply_filters_deprecated(
+				'wpforms_pro_admin_entries_export_ajax_get_data',
+				[ $export_data, $this->request_data ],
+				'1.6.5 of the WPForms plugin',
+				'wpforms_pro_admin_entries_export_get_entry_data'
+			);
+
+			yield apply_filters( 'wpforms_pro_admin_entries_export_ajax_get_entry_data', $export_data[ $entry->entry_id ], $this->request_data );
 		}
-
-		// Add column labels in the first row.
-		if ( ! empty( $add_columns_row ) ) {
-			array_unshift( $export_data, $request_data['columns_row'] );
-		}
-
-		$export_data = apply_filters_deprecated(
-			'wpforms_export_get_data',
-			array( $export_data, ! empty( $request_data['db_args']['entry_id'] ) ? (int) $request_data['db_args']['entry_id'] : 'all' ),
-			'1.5.5 of the WPForms plugin',
-			'wpforms_pro_admin_entries_export_ajax_get_data'
-		);
-
-		return apply_filters( 'wpforms_pro_admin_entries_export_ajax_get_data', $export_data, $request_data );
 	}
 
 	/**
 	 * Get value of additional information column.
 	 *
 	 * @since 1.5.5
+	 * @since 1.5.9 Added $form_data parameter and Payment Status data processing.
 	 *
-	 * @param string $col_id Column id.
-	 * @param object $entry  Entry object.
+	 * @param string $col_id    Column id.
+	 * @param object $entry     Entry object.
+	 * @param array  $form_data Form data.
 	 *
 	 * @return string
 	 */
-	public function get_additional_info_value( $col_id, $entry ) {
+	public function get_additional_info_value( $col_id, $entry, $form_data = [] ) {
 
 		$entry = (array) $entry;
 
@@ -407,15 +415,25 @@ class Ajax {
 				$val = $this->get_additional_info_geodata_value( $entry );
 				break;
 
+			case 'pstatus':
+				$val = wpforms_has_payment( 'form', $form_data ) ? $this->get_additional_info_pstatus_value( $entry ) : '';
+				break;
+
 			case 'pginfo':
-				$val = $this->get_additional_info_pginfo_value( $entry );
+				$val = wpforms_has_payment( 'form', $form_data ) ? $this->get_additional_info_pginfo_value( $entry ) : '';
+				break;
+
+			case 'viewed':
+			case 'starred':
+				$val = (bool) $entry[ $col_id ] ? esc_html__( 'Yes', 'wpforms' ) : esc_html__( 'No', 'wpforms' );
+
 				break;
 
 			default:
 				$val = $entry[ $col_id ];
 		}
 
-		return $val;
+		return apply_filters( 'wpforms_pro_admin_entries_export_ajax_get_additional_info_value', $val, $col_id, $entry );
 	}
 
 	/**
@@ -430,22 +448,21 @@ class Ajax {
 	public function get_additional_info_notes_value( $entry ) {
 
 		$entry_notes = wpforms()->entry_meta->get_meta(
-			array(
+			[
 				'entry_id' => $entry['entry_id'],
 				'type'     => 'note',
-			)
+			]
 		);
 
 		$val = '';
+
 		if ( empty( $entry_notes ) ) {
 			return $val;
 		}
 
-		$ths = $this;
-
 		$val = array_reduce(
 			$entry_notes,
-			function ( $carry, $item ) use ( $ths ) {
+			function ( $carry, $item ) {
 
 				$item = (array) $item;
 
@@ -453,7 +470,7 @@ class Ajax {
 				$author_name  = ! empty( $author->first_name ) ? $author->first_name : $author->user_login;
 				$author_name .= ! empty( $author->last_name ) ? ' ' . $author->last_name : '';
 
-				$carry .= date_i18n( $ths->date_format(), strtotime( $item['date'] ) + $ths->gmt_offset_sec() ) . ', ';
+				$carry .= date_i18n( $this->date_format(), strtotime( $item['date'] ) + $this->gmt_offset_sec() ) . ', ';
 				$carry .= $author_name . ': ';
 				$carry .= wp_strip_all_tags( $item['data'] ) . "\n";
 
@@ -477,24 +494,26 @@ class Ajax {
 	public function get_additional_info_geodata_value( $entry ) {
 
 		$location = wpforms()->entry_meta->get_meta(
-			array(
+			[
 				'entry_id' => $entry['entry_id'],
 				'type'     => 'location',
 				'number'   => 1,
-			)
+			]
 		);
 
 		$val = '';
+
 		if ( empty( $location[0]->data ) ) {
 			return $val;
 		}
 
 		$location = json_decode( $location[0]->data, true );
-		$loc_ary  = array();
+		$loc_ary  = [];
 
-		$map_query_args = array();
+		$map_query_args = [];
 
 		$loc = '';
+
 		if ( ! empty( $location['city'] ) ) {
 			$map_query_args['q'] = $location['city'];
 			$loc                 = $location['city'];
@@ -513,10 +532,10 @@ class Ajax {
 				$map_query_args['ll'] = '';
 			}
 			$map_query_args['ll'] .= $location['latitude'] . ',' . $location['longitude'];
-			$loc_ary['latlong']    = array(
+			$loc_ary['latlong']    = [
 				'label' => esc_html__( 'Lat/Long', 'wpforms' ),
 				'val'   => $location['latitude'] . ', ' . $location['longitude'],
-			);
+			];
 		}
 
 		if ( ! empty( $map_query_args ) ) {
@@ -525,22 +544,23 @@ class Ajax {
 
 			$map = add_query_arg( $map_query_args, 'https://maps.google.com/maps' );
 
-			$loc_ary['map'] = array(
+			$loc_ary['map'] = [
 				'label' => esc_html__( 'Map', 'wpforms' ),
 				'val'   => $map,
-			);
+			];
 		}
 
 		if ( ! empty( $loc ) ) {
-			$loc_ary['loc'] = array(
+			$loc_ary['loc'] = [
 				'label' => esc_html__( 'Location', 'wpforms' ),
 				'val'   => $loc,
-			);
+			];
 		}
 
 		if ( ! empty( $location['postal'] ) ) {
-			$loc_ary['zip'] = array();
-			if ( ! empty( $location['country'] ) && 'US' === $location['country'] ) {
+			$loc_ary['zip'] = [];
+
+			if ( ! empty( $location['country'] ) && $location['country'] === 'US' ) {
 				$loc_ary['zip']['label'] = esc_html__( 'Zipcode', 'wpforms' );
 			} else {
 				$loc_ary['zip']['label'] = esc_html__( 'Postal', 'wpforms' );
@@ -549,10 +569,10 @@ class Ajax {
 		}
 
 		if ( ! empty( $location['country'] ) ) {
-			$loc_ary['country'] = array(
+			$loc_ary['country'] = [
 				'label' => esc_html__( 'Country', 'wpforms' ),
 				'val'   => $location['country'],
-			);
+			];
 		}
 
 		$val = array_reduce(
@@ -571,6 +591,34 @@ class Ajax {
 	}
 
 	/**
+	 * Get the value of additional payment status information.
+	 *
+	 * @since 1.5.9
+	 *
+	 * @param array $entry Entry array.
+	 *
+	 * @return string
+	 */
+	public function get_additional_info_pstatus_value( $entry ) {
+
+		if ( $entry['type'] === 'payment' ) {
+			if ( ! empty( $entry['status'] ) ) {
+				$val = ucwords( sanitize_text_field( $entry['status'] ) );
+			} else {
+				$val = esc_html__( 'Unknown', 'wpforms' );
+			}
+		} else {
+			if ( ! empty( $entry['status'] ) ) {
+				$val = ucwords( sanitize_text_field( $entry['status'] ) );
+			} else {
+				$val = esc_html__( 'Completed', 'wpforms' );
+			}
+		}
+
+		return $val;
+	}
+
+	/**
 	 * Get value of additional payment gateway information.
 	 *
 	 * @since 1.5.5
@@ -582,14 +630,15 @@ class Ajax {
 	public function get_additional_info_pginfo_value( $entry ) {
 
 		$payment = wpforms()->entry_meta->get_meta(
-			array(
+			[
 				'entry_id' => $entry['entry_id'],
 				'type'     => 'payment',
 				'number'   => 1,
-			)
+			]
 		);
 
 		$val = '';
+
 		if ( empty( $payment[0]->data ) ) {
 			if ( empty( $entry['meta'] ) ) {
 				return $val;
@@ -599,7 +648,7 @@ class Ajax {
 			$payment = json_decode( $payment[0]->data, true );
 		}
 
-		$pginfo_labels = array(
+		$pginfo_labels = [
 			'payment_type'         => esc_html__( 'Payment gateway', 'wpforms' ),
 			'payment_recipient'    => esc_html__( 'Recipient', 'wpforms' ),
 			'payment_transaction'  => esc_html__( 'Transaction', 'wpforms' ),
@@ -609,12 +658,13 @@ class Ajax {
 			'payment_subscription' => esc_html__( 'Subscription', 'wpforms' ),
 			'payment_customer'     => esc_html__( 'Customer', 'wpforms' ),
 			'payment_period'       => esc_html__( 'Period', 'wpforms' ),
-		);
+		];
 
 		$val = '';
+
 		array_walk(
 			$payment,
-			function ( $item, $key ) use ( $pginfo_labels, &$val ) {
+			static function( $item, $key ) use ( $pginfo_labels, &$val ) {
 				if ( strpos( $key, 'payment_' ) === false ) {
 					return;
 				}
@@ -643,12 +693,11 @@ class Ajax {
 		$table_name = wpforms()->entry_fields->table_name;
 
 		$sql = $wpdb->prepare(
-			"SELECT DISTINCT field_id FROM `{$table_name}` WHERE `form_id` = %d AND `field_id` NOT IN ( %s )", // phpcs:ignore
-			(int) $request_data['db_args']['form_id'],
-			implode( ',', wp_list_pluck( $existing_fields, 'id' ) )
+			"SELECT DISTINCT field_id FROM `{$table_name}` WHERE `form_id` = %d AND `field_id` NOT IN ( " . implode( ',', wp_list_pluck( $existing_fields, 'id' ) ) . " )", // phpcs:ignore
+			(int) $request_data['db_args']['form_id']
 		);
 
-		$deleted_fields_columns = array();
+		$deleted_fields_columns = [];
 		$db_result              = $wpdb->get_col( $sql ); // phpcs:ignore
 
 		foreach ( $db_result as $id ) {
@@ -670,17 +719,24 @@ class Ajax {
 	 */
 	public function get_entry_fields_data( $entry ) {
 
-		$fields_by_id = array();
+		$fields_by_id = [];
 
 		if ( empty( $entry->fields ) ) {
 			return $fields_by_id;
 		}
 
 		$fields = json_decode( $entry->fields, true );
+
 		if ( empty( $fields ) ) {
 			return $fields_by_id;
 		}
+
 		foreach ( $fields as $field ) {
+
+			if ( ! isset( $field['id'] ) ) {
+				continue;
+			}
+
 			$fields_by_id[ $field['id'] ] = $field;
 		}
 

@@ -3,11 +3,7 @@
 /**
  * Rating field.
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.4.4
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2018, WPForms LLC
+ * @since 1.4.4
  */
 class WPForms_Rating_Text extends WPForms_Field {
 
@@ -322,19 +318,19 @@ class WPForms_Rating_Text extends WPForms_Field {
 			)
 		);
 
-		// Hide label.
-		$this->field_option( 'label_hide', $field );
-
 		// Custom CSS classes.
 		$this->field_option( 'css', $field );
+
+		// Hide label.
+		$this->field_option( 'label_hide', $field );
 
 		// Options close markup.
 		$this->field_option(
 			'advanced-options',
 			$field,
-			array(
+			[
 				'markup' => 'close',
-			)
+			]
 		);
 	}
 
@@ -491,7 +487,7 @@ class WPForms_Rating_Text extends WPForms_Field {
 	}
 
 	/**
-	 * Formats field.
+	 * Format field.
 	 *
 	 * @since 1.4.4
 	 *
