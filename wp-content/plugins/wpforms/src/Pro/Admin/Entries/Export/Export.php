@@ -5,13 +5,16 @@ namespace WPForms\Pro\Admin\Entries\Export;
 /**
  * Entries Export.
  *
- * @since      1.5.5
- * @author     WPForms
- * @package    WPForms\Pro\Admin\Entries
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2019, WPForms LLC
+ * @since 1.5.5
  */
 class Export {
+
+	/**
+	 * ActionScheduler task name for cleaning up orphaned export files.
+	 *
+	 * @since 1.6.5
+	 */
+	const TASK_CLEANUP = 'wpforms_pro_admin_entries_export_remove_old_export_files';
 
 	/**
 	 * Configuration.
@@ -20,17 +23,18 @@ class Export {
 	 *
 	 * @var array
 	 */
-	public $configuration = array(
+	public $configuration = [
 		'request_data_ttl'     => DAY_IN_SECONDS, // Export request and a temp file TTL value.
-		'entries_per_step'     => 1000,           // Number of entries in a chunk that are retrieved and saved into a temp file per one step.
+		'entries_per_step'     => 5000,           // Number of entries in a chunk that are retrieved and saved into a temp file per one iteration.
 		'csv_export_separator' => ',',            // Columns separator.
-		'disallowed_fields'    => array(          // Disallowed fields array.
+		'disallowed_fields'    => [               // Disallowed fields array.
+			'captcha',
+			'entry-preview',
 			'divider',
 			'html',
 			'pagebreak',
-			'captcha',
-		),
-	);
+		],
+	];
 
 	/**
 	 * Translatable strings for JS responses.
@@ -58,6 +62,15 @@ class Export {
 	 * @var array
 	 */
 	public $additional_info_fields = array();
+
+	/**
+	 * Type checkboxes.
+	 *
+	 * @since 1.6.5
+	 *
+	 * @var array
+	 */
+	public $export_options_fields = [];
 
 	/**
 	 * Array for store/read some data.
@@ -96,11 +109,23 @@ class Export {
 	public $file;
 
 	/**
-	 * Constructor.
+	 * Initialize.
 	 *
-	 * @since 1.5.5
+	 * @since 1.6.1
 	 */
-	public function __construct() {
+	public function init() {
+
+		if ( ! wpforms_current_user_can( 'view_entries' ) && ! wp_doing_cron() ) {
+			return;
+		}
+
+		if (
+			! $this->is_entries_export_ajax() &&
+			! $this->is_tools_export_page() &&
+			! wp_doing_cron()
+		) {
+			return;
+		}
 
 		$this->init_args();
 		$this->init_settings();
@@ -119,7 +144,7 @@ class Export {
 	protected function init_settings() {
 
 		// Additional information fields.
-		$this->additional_info_fields = array(
+		$this->additional_info_fields = [
 			'entry_id'   => esc_html__( 'Entry ID', 'wpforms' ),
 			'date'       => esc_html__( 'Entry Date', 'wpforms' ),
 			'notes'      => esc_html__( 'Entry Notes', 'wpforms' ),
@@ -128,9 +153,36 @@ class Export {
 			'user_agent' => esc_html__( 'User Agent', 'wpforms' ),
 			'ip_address' => esc_html__( 'User IP', 'wpforms' ),
 			'user_uuid'  => esc_html__( 'Unique Generated User ID', 'wpforms' ),
-			'geodata'    => esc_html__( 'Geolocation Details', 'wpforms' ),
+			'pstatus'    => esc_html__( 'Payment Status', 'wpforms' ),
 			'pginfo'     => esc_html__( 'Payment Gateway Information', 'wpforms' ),
 			'del_fields' => esc_html__( 'Include data of previously deleted fields', 'wpforms' ),
+		];
+
+		if ( function_exists( 'wpforms_geolocation' ) ) {
+			$this->additional_info_fields['geodata'] = esc_html__( 'Geolocation Details', 'wpforms' );
+		}
+
+		/**
+		 * Additional information fields for entries export.
+		 *
+		 * @since 1.5.5.1
+		 *
+		 * @param array $fields Additional info fields.
+		 */
+		$this->additional_info_fields = apply_filters(
+			'wpforms_pro_admin_entries_export_additional_info_fields',
+			$this->additional_info_fields
+		);
+
+		// This option should be available only if zip PHP extension is loaded.
+		if ( class_exists( 'ZipArchive' ) ) {
+			$this->export_options_fields['xlsx'] = esc_html__( 'Export in Microsoft Excel (.xlsx)', 'wpforms' );
+		}
+
+		// Export options fields.
+		$this->export_options_fields = apply_filters(
+			'wpforms_pro_admin_entries_export_options_fields',
+			$this->export_options_fields
 		);
 
 		// Error strings.
@@ -148,16 +200,14 @@ class Export {
 
 		// Strings to localize.
 		$this->i18n = array(
-			'error_prefix'        => $this->errors['common'],
-			'error_form_empty'    => $this->errors['form_empty'],
-			'prc_1_filtering'     => esc_html__( 'Generating a list of entries according to your filters.', 'wpforms' ),
-			'prc_1_please_wait'   => esc_html__( 'This can take a while. Please wait.', 'wpforms' ),
-			'prc_2_no_entries'    => esc_html__( 'No entries found after applying your filters.', 'wpforms' ),
-			'prc_2_total_entries' => esc_html__( 'Number of entries found: {total_entries}.', 'wpforms' ),
-			'prc_2_progress'      => esc_html__( 'Generating a CSV file: {progress}% completed. Please wait for generation to complete, file download will start automatically.', 'wpforms' ),
-			'prc_3_done'          => esc_html__( 'The file was generated successfully.', 'wpforms' ),
-			'prc_3_download'      => esc_html__( 'If the download does not start automatically', 'wpforms' ),
-			'prc_3_click_here'    => esc_html__( 'click here', 'wpforms' ),
+			'error_prefix'      => $this->errors['common'],
+			'error_form_empty'  => $this->errors['form_empty'],
+			'prc_1_filtering'   => esc_html__( 'Generating a list of entries according to your filters.', 'wpforms' ),
+			'prc_1_please_wait' => esc_html__( 'This can take a while. Please wait.', 'wpforms' ),
+			'prc_2_no_entries'  => esc_html__( 'No entries found after applying your filters.', 'wpforms' ),
+			'prc_3_done'        => esc_html__( 'The file was generated successfully.', 'wpforms' ),
+			'prc_3_download'    => esc_html__( 'If the download does not start automatically', 'wpforms' ),
+			'prc_3_click_here'  => esc_html__( 'click here', 'wpforms' ),
 		);
 
 		// Keeping default configuration data.
@@ -236,72 +286,89 @@ class Export {
 	 */
 	public function init_args( $method = 'GET' ) {
 
-		$args = array();
+		$args = [];
 
-		$method = 'GET' === $method ? 'GET' : 'POST';
-		$req    = 'GET' === $method ? $_GET : $_POST; // phpcs:ignore
+		$method = $method === 'GET' ? 'GET' : 'POST';
+		$req    = $method === 'GET' ? $_GET : $_POST; // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
 
 		// Action.
 		$args['action'] = '';
+
 		if ( ! empty( $req['action'] ) ) {
 			$args['action'] = sanitize_text_field( wp_unslash( $req['action'] ) );
 		}
 
 		// Nonce.
 		$args['nonce'] = '';
+
 		if ( ! empty( $req['nonce'] ) ) {
 			$args['nonce'] = sanitize_text_field( wp_unslash( $req['nonce'] ) );
 		}
 
 		// Form ID.
 		$args['form_id'] = 0;
+
 		if ( ! empty( $req['form'] ) ) {
 			$args['form_id'] = (int) $req['form'];
 		}
 
 		// Entry ID.
 		$args['entry_id'] = 0;
+
 		if ( ! empty( $req['entry_id'] ) ) {
 			$args['entry_id'] = (int) $req['entry_id'];
 		}
 
 		// Fields.
-		$args['fields'] = array();
+		$args['fields'] = [];
+
 		if ( ! empty( $req['fields'] ) ) {
 			$args['fields'] = array_map( 'intval', wp_unslash( $req['fields'] ) );
 		}
 
 		// Additional Information.
-		$args['additional_info'] = array();
+		$args['additional_info'] = [];
+
 		if ( ! empty( $req['additional_info'] ) ) {
 			$args['additional_info'] = array_map( 'sanitize_text_field', wp_unslash( $req['additional_info'] ) );
 		}
 
+		// Export Options Information.
+		$args['export_options'] = [];
+
+		if ( ! empty( $req['export_options'] ) ) {
+			$args['export_options'] = array_map( 'sanitize_text_field', wp_unslash( $req['export_options'] ) );
+		}
+
 		// Date range.
-		$args['dates'] = array();
+		$args['dates'] = [];
+
 		if ( ! empty( $req['date'] ) ) {
 			$dates = explode( ' - ', sanitize_text_field( wp_unslash( $req['date'] ) ) );
 
 			switch ( count( $dates ) ) {
 				case 1:
-					$args['dates'] = sanitize_text_field( $req['date'] ); // phpcs:ignore
+					$args['dates'] = sanitize_text_field( $req['date'] );
+
 					break;
 
 				case 2:
 					$args['dates'] = array_map( 'sanitize_text_field', $dates );
+
 					break;
 			}
 		}
 
 		// Search.
-		$args['search'] = array(
+		$args['search'] = [
 			'field'      => 'any',
 			'comparison' => 'contains',
 			'term'       => '',
-		);
+		];
+
 		if ( isset( $req['search'] ) ) {
-			if ( isset( $req['search']['field'] ) && is_numeric( $req['search']['field'] ) ) {
-				$args['search']['field'] = (int) $req['search']['field'];
+			if ( isset( $req['search']['field'] ) ) {
+				$args['search']['field'] = sanitize_key( $req['search']['field'] );
 			}
 			if ( ! empty( $req['search']['comparison'] ) ) {
 				$args['search']['comparison'] = sanitize_key( $req['search']['comparison'] );
@@ -313,6 +380,7 @@ class Export {
 
 		// Request ID.
 		$args['request_id'] = '';
+
 		if ( ! empty( $req['request_id'] ) ) {
 			$args['request_id'] = sanitize_text_field( wp_unslash( $req['request_id'] ) );
 		}
@@ -331,6 +399,7 @@ class Export {
 			$this->data['get_args']['form_id'],
 			array(
 				'content_only' => true,
+				'cap'          => 'view_entries_form_single',
 			)
 		);
 	}
@@ -349,10 +418,61 @@ class Export {
 			return false;
 		}
 
-		// Check for user with correct capabilities.
-		if ( ! wpforms_current_user_can() ) {
+		return true;
+	}
+
+	/**
+	 * Helper function to determine if it is entries export ajax request.
+	 *
+	 * @since 1.6.1
+	 *
+	 * @return bool
+	 */
+	public function is_entries_export_ajax() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
+
+		if ( ! wp_doing_ajax() ) {
 			return false;
 		}
+
+		$ref = wp_get_raw_referer();
+
+		if ( ! $ref ) {
+			return false;
+		}
+
+		$query = wp_parse_url( $ref, PHP_URL_QUERY );
+		wp_parse_str( $query, $query_vars );
+
+		if (
+			empty( $query_vars['page'] ) ||
+			empty( $query_vars['view'] )
+		) {
+			return false;
+		}
+
+		if (
+			$query_vars['page'] !== 'wpforms-tools' ||
+			$query_vars['view'] !== 'export'
+		) {
+			return false;
+		}
+
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		if (
+			empty( $_REQUEST['action'] ) ||
+			empty( $_REQUEST['nonce'] ) ||
+			( empty( $_REQUEST['form'] ) && empty( $_REQUEST['request_id'] ) )
+		) {
+			return false;
+		}
+
+		if (
+			$_REQUEST['action'] !== 'wpforms_tools_entries_export_form_data' &&
+			$_REQUEST['action'] !== 'wpforms_tools_entries_export_step'
+		) {
+			return false;
+		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 		return true;
 	}

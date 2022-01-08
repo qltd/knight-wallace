@@ -3,11 +3,7 @@
 /**
  * Hidden text field.
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.0.0
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2016, WPForms LLC
+ * @since 1.0.0
  */
 class WPForms_Field_Hidden extends WPForms_Field {
 
@@ -22,7 +18,7 @@ class WPForms_Field_Hidden extends WPForms_Field {
 		$this->name  = esc_html__( 'Hidden Field', 'wpforms' );
 		$this->type  = 'hidden';
 		$this->icon  = 'fa-eye-slash';
-		$this->order = 150;
+		$this->order = 170;
 		$this->group = 'fancy';
 	}
 
@@ -39,20 +35,22 @@ class WPForms_Field_Hidden extends WPForms_Field {
 		 */
 
 		// Options open markup.
-		$args = array(
+		$args = [
 			'markup' => 'open',
-		);
+		];
+
 		$this->field_option( 'basic-options', $field, $args );
 
 		// Label.
 		$this->field_option( 'label', $field );
 
 		// Set label to disabled.
-		$args = array(
+		$args = [
 			'type'  => 'hidden',
 			'slug'  => 'label_disable',
 			'value' => '1',
-		);
+		];
+
 		$this->field_element( 'text', $field, $args );
 
 		// Default value.
@@ -62,9 +60,10 @@ class WPForms_Field_Hidden extends WPForms_Field {
 		$this->field_option( 'css', $field );
 
 		// Options close markup.
-		$args = array(
+		$args = [
 			'markup' => 'close',
-		);
+		];
+
 		$this->field_option( 'basic-options', $field, $args );
 	}
 
@@ -81,7 +80,7 @@ class WPForms_Field_Hidden extends WPForms_Field {
 		$this->field_preview_option( 'label', $field );
 
 		// Primary input.
-		echo '<input type="text" class="primary-input" disabled>';
+		echo '<input type="text" class="primary-input" readonly>';
 	}
 
 	/**

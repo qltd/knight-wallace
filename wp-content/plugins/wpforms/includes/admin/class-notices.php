@@ -9,13 +9,7 @@
  * @example
  * WPForms_Admin_Notice::warning( 'Do something please.' );
  *
- * @todo       Persistent, dismissible notices.
- * @link       https://gist.github.com/monkeymonk/2ea17e2260daaecd0049c46c8d6c85fd
- * @package    WPForms
- * @author     WPForms
- * @since      1.3.9
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2017, WPForms LLC
+ * @since 1.3.9
  */
 class WPForms_Admin_Notice {
 
@@ -66,7 +60,8 @@ class WPForms_Admin_Notice {
 	 */
 	public function display() {
 
-		if ( ! wpforms_current_user_can() ) {
+		// At least one WPForms capability is needed to see admin notices.
+		if ( ! wpforms_current_user_can( 'any' ) ) {
 			return;
 		}
 
@@ -79,7 +74,7 @@ class WPForms_Admin_Notice {
 	 * @since 1.3.9
 	 *
 	 * @param string $message Message to display.
-	 * @param string $type Type of the notice (default: '').
+	 * @param string $type    Type of the notice (default: '').
 	 */
 	public static function add( $message, $type = '' ) {
 

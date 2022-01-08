@@ -24,15 +24,18 @@ $sorted_judges = sort_judges($judges);
 </div>
 </section>
 <div class="row">
+
     <div class="large-12 columns">
         <h1 class="entry-title text-center">Judges</h1>
     </div>
 </div>
 <main id="main" class="site-main post-main" role="main">
     <div class="row content">
-    <?php while ( have_posts() ) : the_post(); ?>
-        <?php get_template_part( 'template-parts/content', 'page' ); ?>
-    <?php endwhile; // End of the loop. ?>
+        <div class="large-10 large-centered columns">
+        <?php while ( have_posts() ) : the_post(); ?>
+            <?php the_content(); ?>
+        <?php endwhile; // End of the loop. ?>
+        </div>
     </div>
 
      <div class="row judges">

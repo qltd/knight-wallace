@@ -1,16 +1,13 @@
 <?php
 
 /**
- * Exports entries to CSV.
+ * Export entries to CSV.
  *
  * Inspired by Easy Digital Download's EDD_Export class.
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.1.5
+ * @since 1.1.5
+ *
  * @deprecated 1.5.5
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2016, WPForms LLC
  */
 class WPForms_Entries_Export {
 
@@ -80,6 +77,7 @@ class WPForms_Entries_Export {
 		return array(
 			'text',
 			'textarea',
+			'number-slider',
 			'select',
 			'radio',
 			'checkbox',
@@ -129,7 +127,7 @@ class WPForms_Entries_Export {
 	 *
 	 * @since 1.1.5
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function is_single_entry() {
 
@@ -151,9 +149,7 @@ class WPForms_Entries_Export {
 
 		ignore_user_abort( true );
 
-		if ( ! in_array( 'set_time_limit', explode( ',', ini_get( 'disable_functions' ) ), true ) ) {
-			set_time_limit( 0 );
-		}
+		wpforms_set_time_limit();
 
 		if ( ! $this->is_single_entry() ) {
 			$file_name = 'wpforms-' . sanitize_file_name( get_the_title( $this->form_id ) ) . '-' . date( 'm-d-Y' ) . '.csv';
@@ -199,6 +195,7 @@ class WPForms_Entries_Export {
 				$this->form_id,
 				array(
 					'content_only' => true,
+					'cap'          => 'view_entries_form_single',
 				)
 			);
 
@@ -212,9 +209,9 @@ class WPForms_Entries_Export {
 		foreach ( $this->fields as $id => $field ) {
 			if ( in_array( $field['type'], $allowed, true ) ) {
 				if ( $this->is_single_entry() ) {
-					$cols[ $field['id'] ] = wpforms_decode_string( sanitize_text_field( $field['name'] ) );
+					$cols[ $field['id'] ] = wpforms_decode_string( $field['name'] );
 				} else {
-					$cols[ $field['id'] ] = wpforms_decode_string( sanitize_text_field( $field['label'] ) );
+					$cols[ $field['id'] ] = wpforms_decode_string( $field['label'] );
 				}
 			}
 		}
@@ -281,10 +278,12 @@ class WPForms_Entries_Export {
 				$fields = wpforms_decode( $entry->fields );
 
 				foreach ( $form_fields as $form_field ) {
-					if ( in_array( $form_field['type'], $allowed, true ) && array_key_exists( $form_field['id'], $fields ) ) {
-						$data[ $entry->entry_id ][ $form_field['id'] ] = wpforms_decode_string( $fields[ $form_field['id'] ]['value'] );
-					} elseif ( in_array( $form_field['type'], $allowed, true ) ) {
-						$data[ $entry->entry_id ][ $form_field['id'] ] = '';
+					if ( in_array( $form_field['type'], $allowed, true ) ) {
+						if ( array_key_exists( $form_field['id'], $fields ) ) {
+							$data[ $entry->entry_id ][ $form_field['id'] ] = wpforms_decode_string( $fields[ $form_field['id'] ]['value'] );
+						} else {
+							$data[ $entry->entry_id ][ $form_field['id'] ] = '';
+						}
 					}
 				}
 				$date_format                          = sprintf( '%s %s', get_option( 'date_format' ), get_option( 'time_format' ) );
@@ -358,7 +357,9 @@ class WPForms_Entries_Export {
 	 */
 	public function export() {
 
-		if ( ! wpforms_current_user_can() ) {
+		$form_id = isset( $_GET['form_id'] ) ? absint( $_GET['form_id'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		if ( empty( $form_id ) || ! wpforms_current_user_can( 'view_entries_form_single', $form_id ) ) {
 			wp_die(
 				esc_html__( 'You do not have permission to export entries.', 'wpforms' ),
 				esc_html__( 'Error', 'wpforms' ),

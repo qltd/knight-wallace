@@ -1,13 +1,15 @@
 <?php
 /**
- * Plugin Name: WPForms Campaign Monitor
- * Plugin URI:  https://wpforms.com
- * Description: Campaign Monitor integration with WPForms.
- * Author:      WPForms
- * Author URI:  https://wpforms.com
- * Version:     1.2.0
- * Text Domain: wpforms-campaign-monitor
- * Domain Path: languages
+ * Plugin Name:       WPForms Campaign Monitor
+ * Plugin URI:        https://wpforms.com
+ * Description:       Campaign Monitor integration with WPForms.
+ * Requires at least: 4.9
+ * Requires PHP:      5.5
+ * Author:            WPForms
+ * Author URI:        https://wpforms.com
+ * Version:           1.2.1
+ * Text Domain:       wpforms-campaign-monitor
+ * Domain Path:       languages
  *
  * WPForms is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,11 +23,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with WPForms. If not, see <http://www.gnu.org/licenses/>.
- *
- * @package    WPFormsCampaignMonitor
- * @since      1.0.0
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2016, WP Forms LLC
  */
 
 // Exit if accessed directly.
@@ -34,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin version.
-define( 'WPFORMS_CAMPAIGN_MONITOR_VERSION', '1.2.0' );
+define( 'WPFORMS_CAMPAIGN_MONITOR_VERSION', '1.2.1' );
 
 /**
  * Load the provider class.
@@ -44,7 +41,7 @@ define( 'WPFORMS_CAMPAIGN_MONITOR_VERSION', '1.2.0' );
 function wpforms_campaign_monitor() {
 
 	// WPForms Pro is required.
-	if ( ! class_exists( 'WPForms_Pro' ) ) {
+	if ( ! wpforms()->pro ) {
 		return;
 	}
 

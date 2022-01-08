@@ -1,4 +1,4 @@
-# Copyright (C) 2019 WPForms Campaign Monitor
+# Copyright (C) 2020 WPForms Campaign Monitor
 # This file is distributed under the same license as the WPForms Campaign Monitor package.
 msgid ""
 msgstr ""
@@ -14,37 +14,37 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: class-campaign-monitor.php:257
+#: class-campaign-monitor.php:348
 msgid "Groups do not exist."
 msgstr ""
 
 #. translators: %s - API error message.
-#: class-campaign-monitor.php:308
+#: class-campaign-monitor.php:399
 msgid "API fields error: %s"
 msgstr ""
 
-#: class-campaign-monitor.php:333
+#: class-campaign-monitor.php:424
 msgid "Add New Account"
 msgstr ""
 
 #. translators: %s - current provider name.
 #. translators: %s - current provider name.
-#: class-campaign-monitor.php:339, class-campaign-monitor.php:401
+#: class-campaign-monitor.php:430, class-campaign-monitor.php:492
 msgid "%s API Key"
 msgstr ""
 
 #. translators: %s - current provider name.
 #. translators: %s - current provider name.
-#: class-campaign-monitor.php:348, class-campaign-monitor.php:410
+#: class-campaign-monitor.php:439, class-campaign-monitor.php:501
 msgid "%s Client ID"
 msgstr ""
 
 #. translators: %s - current provider name.
 #. translators: %s - current provider name.
-#: class-campaign-monitor.php:357, class-campaign-monitor.php:419
+#: class-campaign-monitor.php:448, class-campaign-monitor.php:510
 msgid "%s Account Nickname"
 msgstr ""
 
-#: class-campaign-monitor.php:362
+#: class-campaign-monitor.php:453
 msgid "Connect"
 msgstr ""

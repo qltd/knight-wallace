@@ -1,4 +1,4 @@
-/* globals wpforms_tools_entries_export, ajaxurl */
+/* global wpforms_tools_entries_export, ajaxurl */
 /**
  * WPForms Entries Export function.
  *
@@ -77,7 +77,7 @@ var WPFormsEntriesExport = window.WPFormsEntriesExport || ( function( document, 
 		 */
 		init: function() {
 
-			$( document ).ready( app.ready );
+			$( app.ready );
 		},
 
 		/**
@@ -183,31 +183,22 @@ var WPFormsEntriesExport = window.WPFormsEntriesExport || ( function( document, 
 					clearTimeout( vars.timerId );
 					if ( ! res.success ) {
 						app.displaySubmitMsg( res.data.error, 'error' );
-						app.displaySubmitSpinner( false );
 						return;
 					}
 					if ( res.data.count === 0 ) {
 						app.displaySubmitMsg( i18n.prc_2_no_entries );
-						app.displaySubmitSpinner( false );
 						return;
 					}
-					if ( 'stop' === res.data.step ) {
-						msg = i18n.prc_3_done;
-						msg += '<br>' + i18n.prc_3_download + ', <a href="#" class="wpforms-download-link">' + i18n.prc_3_click_here + '</a>.';
-						app.displaySubmitMsg( msg, 'info' );
-						app.displaySubmitSpinner( false );
-						app.triggerDownload( res.data.request_id );
-						vars.processing = true;
-						return;
-					}
-					msg = i18n.prc_2_total_entries.replace( '{total_entries}', res.data.count );
-					msg += '<br>' + i18n.prc_2_progress.replace( '{progress}', Math.ceil( ( ( res.data.step - 1 ) * 100 ) / res.data.total_steps ) );
+					msg = i18n.prc_3_done;
+					msg += '<br>' + i18n.prc_3_download + ', <a href="#" class="wpforms-download-link">' + i18n.prc_3_click_here + '</a>.';
 					app.displaySubmitMsg( msg, 'info' );
-					app.exportAjaxStep( res.data.request_id );
+					app.triggerDownload( res.data.request_id );
 				} )
 				.fail( function( jqXHR, textStatus, errorThrown ) {
 					clearTimeout( vars.timerId );
 					app.displaySubmitMsg( i18n.error_prefix + ':<br>' + errorThrown, 'error' );
+				} )
+				.always( function() {
 					app.displaySubmitSpinner( false );
 				} );
 		},
@@ -380,8 +371,8 @@ var WPFormsEntriesExport = window.WPFormsEntriesExport || ( function( document, 
 
 			el.$fieldsCheckboxes.html( html.checkboxes );
 
-			el.$searchField.find( 'option:not(:first-child)' ).remove();
-			el.$searchField.append( html.options );
+			el.$searchField.find( 'optgroup:first-child option:not(:first-child)' ).remove();
+			el.$searchField.find( 'optgroup:first-child' ).append( html.options );
 		},
 
 		/**
@@ -432,11 +423,7 @@ var WPFormsEntriesExport = window.WPFormsEntriesExport || ( function( document, 
 		 */
 		displaySubmitMsg: function( msg, type ) {
 
-			if ( ! vars.processing ) {
-				return;
-			}
-
-			if ( type && 'error' === type ) {
+			if ( type && type === 'error' ) {
 				el.$processMsg.addClass( 'wpforms-error' );
 			} else {
 				el.$processMsg.removeClass( 'wpforms-error' );
@@ -445,9 +432,9 @@ var WPFormsEntriesExport = window.WPFormsEntriesExport || ( function( document, 
 			el.$processMsg.html( msg );
 
 			if ( msg.length > 0 ) {
-				el.$processMsg.removeClass('hidden');
+				el.$processMsg.removeClass( 'hidden' );
 			} else {
-				el.$processMsg.addClass('hidden');
+				el.$processMsg.addClass( 'hidden' );
 			}
 		},
 

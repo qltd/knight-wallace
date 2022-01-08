@@ -1,31 +1,31 @@
 <?php
 
+use WPForms\Helpers\Transient;
+
 /**
  * License key fun.
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.0.0
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2016, WPForms LLC
+ * @since 1.0.0
  */
 class WPForms_License {
 
 	/**
-	 * Holds any license error messages.
+	 * Store any license error messages.
 	 *
 	 * @since 1.0.0
+	 *
 	 * @var array
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
-	 * Holds any license success messages.
+	 * Store any license success messages.
 	 *
 	 * @since 1.0.0
+	 *
 	 * @var array
 	 */
-	public $success = array();
+	public $success = [];
 
 	/**
 	 * Primary class constructor.
@@ -35,8 +35,8 @@ class WPForms_License {
 	public function __construct() {
 
 		// Admin notices.
-		if ( wpforms()->pro && ( ! isset( $_GET['page'] ) || 'wpforms-settings' !== $_GET['page'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-			add_action( 'admin_notices', array( $this, 'notices' ) );
+		if ( wpforms()->pro && ( ! isset( $_GET['page'] ) || $_GET['page'] !== 'wpforms-settings' ) ) { // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput
+			add_action( 'admin_notices', [ $this, 'notices' ] );
 		}
 
 		// Periodic background license check.
@@ -46,17 +46,19 @@ class WPForms_License {
 	}
 
 	/**
-	 * Load the license key.
+	 * Retrieve the license key.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return string
 	 */
 	public function get() {
 
 		// Check for license key.
-		$key = wpforms_setting( 'key', false, 'wpforms_license' );
+		$key = wpforms_setting( 'key', '', 'wpforms_license' );
 
 		// Allow wp-config constant to pass key.
-		if ( ! $key && defined( 'WPFORMS_LICENSE_KEY' ) ) {
+		if ( empty( $key ) && defined( 'WPFORMS_LICENSE_KEY' ) ) {
 			$key = WPFORMS_LICENSE_KEY;
 		}
 
@@ -64,24 +66,42 @@ class WPForms_License {
 	}
 
 	/**
-	 * Load the license key level.
+	 * Check how license key is provided.
 	 *
-	 * @since 1.0.0
+	 * @since 1.6.3
+	 *
+	 * @return string
 	 */
-	public function type() {
+	public function get_key_location() {
 
-		$type = wpforms_setting( 'type', false, 'wpforms_license' );
+		if ( defined( 'WPFORMS_LICENSE_KEY' ) ) {
+			return 'constant';
+		}
 
-		return $type;
+		$key = wpforms_setting( 'key', '', 'wpforms_license' );
+
+		return ! empty( $key ) ? 'option' : 'missing';
 	}
 
 	/**
-	 * Verifies a license key entered by the user.
+	 * Load the license key level.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $key
-	 * @param bool $ajax
+	 * @return string
+	 */
+	public function type() {
+
+		return wpforms_setting( 'type', '', 'wpforms_license' );
+	}
+
+	/**
+	 * Verify a license key entered by the user.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $key  License key.
+	 * @param bool   $ajax True if this is an ajax request.
 	 *
 	 * @return bool
 	 */
@@ -92,11 +112,12 @@ class WPForms_License {
 		}
 
 		// Perform a request to verify the key.
-		$verify = $this->perform_remote_request( 'verify-key', array( 'tgm-updater-key' => $key ) );
+		$verify = $this->perform_remote_request( 'verify-key', [ 'tgm-updater-key' => $key ] );
 
-		// If it returns false, send back a generic error message and return.
+		// If the verification request returns false, send back a generic error message and return.
 		if ( ! $verify ) {
 			$msg = esc_html__( 'There was an error connecting to the remote key API. Please try again later.', 'wpforms' );
+
 			if ( $ajax ) {
 				wp_send_json_error( $msg );
 			} else {
@@ -119,27 +140,40 @@ class WPForms_License {
 
 		$success = isset( $verify->success ) ? $verify->success : esc_html__( 'Congratulations! This site is now receiving automatic updates.', 'wpforms' );
 
-		// Otherwise, our request has been done successfully. Update the option and set the success message.
-		$option                = (array) get_option( 'wpforms_license', array() );
+		// Otherwise, user's license has been verified successfully, update the option and set the success message.
+		$option                = (array) get_option( 'wpforms_license', [] );
 		$option['key']         = $key;
 		$option['type']        = isset( $verify->type ) ? $verify->type : $option['type'];
 		$option['is_expired']  = false;
 		$option['is_disabled'] = false;
 		$option['is_invalid']  = false;
 		$this->success[]       = $success;
-		update_option( 'wpforms_license', $option );
-		delete_transient( '_wpforms_addons' );
 
-		wp_clean_plugins_cache( true );
+		update_option( 'wpforms_license', $option );
+
+		$this->clear_cache();
 
 		if ( $ajax ) {
 			wp_send_json_success(
-				array(
+				[
 					'type' => $option['type'],
 					'msg'  => $success,
-				)
+				]
 			);
 		}
+	}
+
+	/**
+	 * Clear license cache routine.
+	 *
+	 * @since 1.6.8
+	 */
+	private function clear_cache() {
+
+		Transient::delete( 'addons' );
+		Transient::delete( 'addons_urls' );
+
+		wp_clean_plugins_cache();
 	}
 
 	/**
@@ -176,15 +210,18 @@ class WPForms_License {
 	}
 
 	/**
-	 * Validates a license key entered by the user.
+	 * Validate a license key entered by the user.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $key
-	 * @param bool $forced Force to set contextual messages (false by default).
-	 * @param bool $ajax
+	 * @param string $key           Key.
+	 * @param bool   $forced        Force to set contextual messages (false by default).
+	 * @param bool   $ajax          AJAX.
+	 * @param bool   $return_status Option to return the license status.
+	 *
+	 * @return string|bool
 	 */
-	public function validate_key( $key = '', $forced = false, $ajax = false ) {
+	public function validate_key( $key = '', $forced = false, $ajax = false, $return_status = false ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
 		$validate = $this->perform_remote_request( 'validate-key', array( 'tgm-updater-key' => $key ) );
 
@@ -200,12 +237,12 @@ class WPForms_License {
 				}
 			}
 
-			return;
+			return false;
 		}
 
+		$option = (array) get_option( 'wpforms_license' );
 		// If a key or author error is returned, the license no longer exists or the user has been deleted, so reset license.
 		if ( isset( $validate->key ) || isset( $validate->author ) ) {
-			$option                = get_option( 'wpforms_license' );
 			$option['is_expired']  = false;
 			$option['is_disabled'] = false;
 			$option['is_invalid']  = true;
@@ -214,12 +251,11 @@ class WPForms_License {
 				wp_send_json_error( esc_html__( 'Your license key for WPForms is invalid. The key no longer exists or the user associated with the key has been deleted. Please use a different key to continue receiving automatic updates.', 'wpforms' ) );
 			}
 
-			return;
+			return $return_status ? 'invalid' : false;
 		}
 
 		// If the license has expired, set the transient and expired flag and return.
 		if ( isset( $validate->expired ) ) {
-			$option                = get_option( 'wpforms_license' );
 			$option['is_expired']  = true;
 			$option['is_disabled'] = false;
 			$option['is_invalid']  = false;
@@ -228,12 +264,11 @@ class WPForms_License {
 				wp_send_json_error( esc_html__( 'Your license key for WPForms has expired. Please renew your license key on WPForms.com to continue receiving automatic updates.', 'wpforms' ) );
 			}
 
-			return;
+			return $return_status ? 'expired' : false;
 		}
 
 		// If the license is disabled, set the transient and disabled flag and return.
 		if ( isset( $validate->disabled ) ) {
-			$option                = get_option( 'wpforms_license' );
 			$option['is_expired']  = false;
 			$option['is_disabled'] = true;
 			$option['is_invalid']  = false;
@@ -242,11 +277,10 @@ class WPForms_License {
 				wp_send_json_error( esc_html__( 'Your license key for WPForms has been disabled. Please use a different key to continue receiving automatic updates.', 'wpforms' ) );
 			}
 
-			return;
+			return $return_status ? 'disabled' : false;
 		}
 
 		// Otherwise, our check has returned successfully. Set the transient and update our license type and flags.
-		$option                = get_option( 'wpforms_license' );
 		$option['type']        = isset( $validate->type ) ? $validate->type : $option['type'];
 		$option['is_expired']  = false;
 		$option['is_disabled'] = false;
@@ -266,14 +300,16 @@ class WPForms_License {
 				);
 			}
 		}
+
+		return $return_status ? 'valid' : true;
 	}
 
 	/**
-	 * Deactivates a license key entered by the user.
+	 * Deactivate a license key entered by the user.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param bool $ajax
+	 * @param bool $ajax True if this is an ajax request.
 	 */
 	public function deactivate_key( $ajax = false ) {
 
@@ -284,11 +320,13 @@ class WPForms_License {
 		}
 
 		// Perform a request to deactivate the key.
-		$deactivate = $this->perform_remote_request( 'deactivate-key', array( 'tgm-updater-key' => $key ) );
+		$deactivate = $this->perform_remote_request( 'deactivate-key', [ 'tgm-updater-key' => $key ] );
 
-		// If it returns false, send back a generic error message and return.
+		// If the deactivation request returns false, send back a generic error message and return.
 		if ( ! $deactivate ) {
+
 			$msg = esc_html__( 'There was an error connecting to the remote key API. Please try again later.', 'wpforms' );
+
 			if ( $ajax ) {
 				wp_send_json_error( $msg );
 			} else {
@@ -309,11 +347,13 @@ class WPForms_License {
 			}
 		}
 
-		// Otherwise, our request has been done successfully. Reset the option and set the success message.
+		// Otherwise, user's license has been deactivated successfully, reset the option and set the success message.
 		$success         = isset( $deactivate->success ) ? $deactivate->success : esc_html__( 'You have deactivated the key from this site successfully.', 'wpforms' );
 		$this->success[] = $success;
+
 		update_option( 'wpforms_license', '' );
-		delete_transient( '_wpforms_addons' );
+
+		$this->clear_cache();
 
 		if ( $ajax ) {
 			wp_send_json_success( $success );
@@ -321,7 +361,7 @@ class WPForms_License {
 	}
 
 	/**
-	 * Returns possible license key error flag.
+	 * Return possible license key error flag.
 	 *
 	 * @since 1.0.0
 	 * @return bool True if there are license key errors, false otherwise.
@@ -334,112 +374,130 @@ class WPForms_License {
 	}
 
 	/**
-	 * Outputs any notices generated by the class.
+	 * Output any notices generated by the class.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param bool $below_h2
+	 * @param bool $below_h2 Whether to display a notice below H2.
 	 */
 	public function notices( $below_h2 = false ) {
 
 		// Grab the option and output any nag dealing with license keys.
-		$key      = $this->get();
-		$option   = get_option( 'wpforms_license' );
-		$below_h2 = $below_h2 ? 'below-h2' : '';
+		$key    = $this->get();
+		$option = get_option( 'wpforms_license' );
+		$class  = $below_h2 ? 'below-h2 ' : '';
+		$class .= 'wpforms-license-notice';
 
 		// If there is no license key, output nag about ensuring key is set for automatic updates.
-		if ( ! $key ) :
-			?>
-			<div class="notice notice-info <?php echo $below_h2; ?> wpforms-license-notice">
-				<p>
-					<?php
-					printf(
-						wp_kses(
-						/* translators: %s - plugin settings page URL. */
-							__( 'Please <a href="%s">enter and activate</a> your license key for WPForms to enable automatic updates.', 'wpforms' ),
-							array(
-								'a' => array(
-									'href' => array(),
-								),
-							)
-						),
-						esc_url( add_query_arg( array( 'page' => 'wpforms-settings' ), admin_url( 'admin.php' ) ) )
-					);
-					?>
-				</p>
-			</div>
-		<?php
-		endif;
+		if ( ! $key ) {
+			$notice = sprintf(
+				wp_kses( /* translators: %s - plugin settings page URL. */
+					__( 'Please <a href="%s">enter and activate</a> your license key for WPForms to enable automatic updates.', 'wpforms' ),
+					[
+						'a' => [
+							'href' => [],
+						],
+					]
+				),
+				esc_url( add_query_arg( [ 'page' => 'wpforms-settings' ], admin_url( 'admin.php' ) ) )
+			);
+
+			\WPForms\Admin\Notice::info(
+				$notice,
+				[ 'class' => $class ]
+			);
+		}
 
 		// If a key has expired, output nag about renewing the key.
 		if ( isset( $option['is_expired'] ) && $option['is_expired'] ) :
-			?>
-			<div class="error notice <?php echo $below_h2; ?> wpforms-license-notice">
+
+			$renew_now_url  = add_query_arg(
+				[
+					'utm_source'   => 'WordPress',
+					'utm_medium'   => 'Admin Notice',
+					'utm_campaign' => 'plugin',
+					'utm_content'  => 'Renew Now',
+				],
+				'https://wpforms.com/account/licenses/'
+			);
+			$learn_more_url = add_query_arg(
+				[
+					'utm_source'   => 'WordPress',
+					'utm_medium'   => 'Admin Notice',
+					'utm_campaign' => 'plugin',
+					'utm_content'  => 'Learn More',
+				],
+				'https://wpforms.com/docs/how-to-renew-your-wpforms-license/'
+			);
+
+			$notice = sprintf(
+				'<h3 style="margin: .75em 0 0 0;">
+					<img src="%1$s" style="vertical-align: text-top; width: 20px; margin-right: 7px;">%2$s
+				</h3>
+				<p>%3$s</p>
 				<p>
-					<?php
-					printf(
-						wp_kses(
-						/* translators: %s - WPForms.com login page URL. */
-							__( 'Your license key for WPForms has expired. <a href="%s" target="_blank" rel="noopener noreferrer">Please click here to renew your license key and continue receiving automatic updates.</a>', 'wpforms' ),
-							array(
-								'a' => array(
-									'href'   => array(),
-									'target' => array(),
-									'rel'    => array(),
-								),
-							)
-						),
-						'https://wpforms.com/login/'
-					);
-					?>
-				</p>
-			</div>
-		<?php
+					<a href="%4$s" class="button-primary">%5$s</a> &nbsp
+					<a href="%6$s" class="button-secondary">%7$s</a>
+				</p>',
+				esc_url( WPFORMS_PLUGIN_URL . 'assets/images/exclamation-triangle.svg' ),
+				esc_html__( 'Heads up! Your WPForms license has expired.', 'wpforms' ),
+				esc_html__( 'An active license is needed to create new forms and edit existing forms. It also provides access to new features & addons, plugin updates (including security improvements), and our world class support!', 'wpforms' ),
+				esc_url( $renew_now_url ),
+				esc_html__( 'Renew Now', 'wpforms' ),
+				esc_url( $learn_more_url ),
+				esc_html__( 'Learn More', 'wpforms' )
+			);
+
+			\WPForms\Admin\Notice::error(
+				$notice,
+				[
+					'class' => $class,
+					'autop' => false,
+				]
+			);
 		endif;
 
 		// If a key has been disabled, output nag about using another key.
-		if ( isset( $option['is_disabled'] ) && $option['is_disabled'] ) :
-			?>
-			<div class="error notice <?php echo $below_h2; ?> wpforms-license-notice">
-				<p><?php esc_html_e( 'Your license key for WPForms has been disabled. Please use a different key to continue receiving automatic updates.', 'wpforms' ); ?></p>
-			</div>
-		<?php
-		endif;
+		if ( isset( $option['is_disabled'] ) && $option['is_disabled'] ) {
+			\WPForms\Admin\Notice::error(
+				esc_html__( 'Your license key for WPForms has been disabled. Please use a different key to continue receiving automatic updates.', 'wpforms' ),
+				[ 'class' => $class ]
+			);
+		}
 
 		// If a key is invalid, output nag about using another key.
-		if ( isset( $option['is_invalid'] ) && $option['is_invalid'] ) :
-			?>
-			<div class="error notice <?php echo $below_h2; ?> wpforms-license-notice">
-				<p><?php esc_html_e( 'Your license key for WPForms is invalid. The key no longer exists or the user associated with the key has been deleted. Please use a different key to continue receiving automatic updates.', 'wpforms' ); ?></p>
-			</div>
-		<?php
-		endif;
+		if ( isset( $option['is_invalid'] ) && $option['is_invalid'] ) {
+			\WPForms\Admin\Notice::error(
+				esc_html__( 'Your license key for WPForms is invalid. The key no longer exists or the user associated with the key has been deleted. Please use a different key to continue receiving automatic updates.', 'wpforms' ),
+				[ 'class' => $class ]
+			);
+		}
 
 		// If there are any license errors, output them now.
-		if ( ! empty( $this->errors ) ) :
-			?>
-			<div class="error notice <?php echo $below_h2; ?> wpforms-license-notice">
-				<p><?php echo implode( '<br>', $this->errors ); ?></p>
-			</div>
-		<?php
-		endif;
+		if ( ! empty( $this->errors ) ) {
+			\WPForms\Admin\Notice::error(
+				implode( '<br>', $this->errors ),
+				[ 'class' => $class ]
+			);
+		}
 
 		// If there are any success messages, output them now.
-		if ( ! empty( $this->success ) ) :
-			?>
-			<div class="updated notice <?php echo $below_h2; ?> wpforms-license-notice">
-				<p><?php echo implode( '<br>', $this->success ); ?></p>
-			</div>
-		<?php
-		endif;
+		if ( ! empty( $this->success ) ) {
+			\WPForms\Admin\Notice::info(
+				implode( '<br>', $this->success ),
+				[ 'class' => $class ]
+			);
+		}
 	}
 
 	/**
-	 * Retrieves addons from the stored transient or remote server.
+	 * Retrieve addons from the stored transient or remote server.
 	 *
-	 * @param bool $force
+	 * @since 1.0.0
 	 *
-	 * @return array|bool|mixed 1.0.0
+	 * @param bool $force Whether to force the addons retrieval or re-use transient cache.
+	 *
+	 * @return array|bool
 	 */
 	public function addons( $force = false ) {
 
@@ -449,7 +507,7 @@ class WPForms_License {
 			return false;
 		}
 
-		$addons = get_transient( '_wpforms_addons' );
+		$addons = Transient::get( 'addons' );
 
 		if ( $force || false === $addons ) {
 			$addons = $this->get_addons();
@@ -459,7 +517,7 @@ class WPForms_License {
 	}
 
 	/**
-	 * Pings the remote server for addons data.
+	 * Ping the remote server for addons data.
 	 *
 	 * @since 1.0.0
 	 *
@@ -472,64 +530,64 @@ class WPForms_License {
 
 		// If there was an API error, set transient for only 10 minutes.
 		if ( ! $addons ) {
-			set_transient( '_wpforms_addons', false, 10 * MINUTE_IN_SECONDS );
+			Transient::set( 'addons', false, 10 * MINUTE_IN_SECONDS );
 
 			return false;
 		}
 
 		// If there was an error retrieving the addons, set the error.
 		if ( isset( $addons->error ) ) {
-			set_transient( '_wpforms_addons', false, 10 * MINUTE_IN_SECONDS );
+			Transient::set( 'addons', false, 10 * MINUTE_IN_SECONDS );
 
 			return false;
 		}
 
 		// Otherwise, our request worked. Save the data and return it.
-		set_transient( '_wpforms_addons', $addons, DAY_IN_SECONDS );
+		Transient::set( 'addons', $addons, DAY_IN_SECONDS );
 
 		return $addons;
 	}
 
 	/**
-	 * Queries the remote URL via wp_remote_post and returns a json decoded response.
+	 * Request the remote URL via wp_remote_post and return a json decoded response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $action The name of the $_POST action var.
-	 * @param array $body The content to retrieve from the remote URL.
-	 * @param array $headers The headers to send to the remote URL.
+	 * @param string $action        The name of the $_POST action var.
+	 * @param array  $body          The content to retrieve from the remote URL.
+	 * @param array  $headers       The headers to send to the remote URL.
 	 * @param string $return_format The format for returning content from the remote URL.
 	 *
-	 * @return string|bool Json decoded response on success, false on failure.
+	 * @return mixed Json decoded response on success, false on failure.
 	 */
-	public function perform_remote_request( $action, $body = array(), $headers = array(), $return_format = 'json' ) {
+	public function perform_remote_request( $action, $body = [], $headers = [], $return_format = 'json' ) {
 
 		// Build the body of the request.
 		$body = wp_parse_args(
 			$body,
-			array(
+			[
 				'tgm-updater-action'     => $action,
 				'tgm-updater-key'        => $body['tgm-updater-key'],
 				'tgm-updater-wp-version' => get_bloginfo( 'version' ),
 				'tgm-updater-referer'    => site_url(),
-			)
+			]
 		);
 		$body = http_build_query( $body, '', '&' );
 
 		// Build the headers of the request.
 		$headers = wp_parse_args(
 			$headers,
-			array(
+			[
 				'Content-Type'   => 'application/x-www-form-urlencoded',
 				'Content-Length' => strlen( $body ),
-			)
+			]
 		);
 
 		// Setup variable for wp_remote_post.
-		$post = array(
+		$post = [
 			'headers' => $headers,
 			'body'    => $body,
-		);
+		];
 
 		// Perform the query and retrieve the response.
 		$response      = wp_remote_post( WPFORMS_UPDATER_API, $post );
@@ -537,7 +595,7 @@ class WPForms_License {
 		$response_body = wp_remote_retrieve_body( $response );
 
 		// Bail out early if there are any errors.
-		if ( 200 != $response_code || is_wp_error( $response_body ) ) {
+		if ( (int) $response_code !== 200 || is_wp_error( $response_body ) ) {
 			return false;
 		}
 
@@ -546,7 +604,7 @@ class WPForms_License {
 	}
 
 	/**
-	 * Checks to see if the site is using an active license.
+	 * Check to see if the site is using an active license.
 	 *
 	 * @since 1.5.0
 	 *

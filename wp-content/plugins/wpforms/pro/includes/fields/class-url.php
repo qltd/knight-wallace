@@ -3,11 +3,7 @@
 /**
  * URL text field.
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.0.0
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2016, WPForms LLC
+ * @since 1.0.0
  */
 class WPForms_Field_URL extends WPForms_Field {
 
@@ -31,7 +27,7 @@ class WPForms_Field_URL extends WPForms_Field {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $field
+	 * @param array $field Field data.
 	 */
 	public function field_options( $field ) {
 		/*
@@ -75,19 +71,20 @@ class WPForms_Field_URL extends WPForms_Field {
 		// Placeholder.
 		$this->field_option( 'placeholder', $field );
 
-		// Hide label.
-		$this->field_option( 'label_hide', $field );
-
 		// Default value.
 		$this->field_option( 'default_value', $field );
 
 		// Custom CSS classes.
 		$this->field_option( 'css', $field );
 
+		// Hide label.
+		$this->field_option( 'label_hide', $field );
+
 		// Options close markup.
-		$args = array(
+		$args = [
 			'markup' => 'close',
-		);
+		];
+
 		$this->field_option( 'advanced-options', $field, $args );
 	}
 
@@ -96,18 +93,18 @@ class WPForms_Field_URL extends WPForms_Field {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $field
+	 * @param array $field Field data.
 	 */
 	public function field_preview( $field ) {
 
 		// Define data.
-		$placeholder = ! empty( $field['placeholder'] ) ? esc_attr( $field['placeholder'] ) : '';
+		$placeholder = ! empty( $field['placeholder'] ) ? $field['placeholder'] : '';
 
 		// Label.
 		$this->field_preview_option( 'label', $field );
 
 		// Primary input.
-		echo '<input type="url" placeholder="' . $placeholder . '" class="primary-input" disabled>';
+		echo '<input type="url" placeholder="' . esc_attr( $placeholder ) . '" class="primary-input" readonly>';
 
 		// Description.
 		$this->field_preview_option( 'description', $field );
@@ -131,18 +128,18 @@ class WPForms_Field_URL extends WPForms_Field {
 		printf(
 			'<input type="url" %s %s>',
 			wpforms_html_attributes( $primary['id'], $primary['class'], $primary['data'], $primary['attr'] ),
-			$primary['required']
+			esc_attr( $primary['required'] )
 		);
 	}
 
 	/**
-	 * Validates field on form submit.
+	 * Validate field on form submit.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param int    $field_id
-	 * @param string $field_submit
-	 * @param array  $form_data
+	 * @param int    $field_id     Field ID.
+	 * @param string $field_submit Submitted value.
+	 * @param array  $form_data    Form data and settings.
 	 */
 	public function validate( $field_id, $field_submit, $form_data ) {
 
@@ -153,10 +150,30 @@ class WPForms_Field_URL extends WPForms_Field {
 			wpforms()->process->errors[ $form_id ][ $field_id ] = wpforms_get_required_label();
 		}
 
-		// Check that URL is valid format.
+		// Check that URL is in the valid format.
 		if ( ! empty( $field_submit ) && ! wpforms_is_url( $field_submit ) ) {
 			wpforms()->process->errors[ $form_id ][ $field_id ] = apply_filters( 'wpforms_valid_url_label', esc_html__( 'Please enter a valid URL.', 'wpforms' ) );
 		}
+	}
+
+	/**
+	 * Format field.
+	 *
+	 * @since 1.5.8
+	 *
+	 * @param int    $field_id     Field ID.
+	 * @param string $field_submit Submitted value.
+	 * @param array  $form_data    Form data.
+	 */
+	public function format( $field_id, $field_submit, $form_data ) {
+
+		// Set field details.
+		wpforms()->process->fields[ $field_id ] = array(
+			'name'  => ! empty( $form_data['fields'][ $field_id ]['label'] ) ? sanitize_text_field( $form_data['fields'][ $field_id ]['label'] ) : '',
+			'value' => trim( $field_submit ),
+			'id'    => absint( $field_id ),
+			'type'  => $this->type,
+		);
 	}
 }
 
