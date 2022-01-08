@@ -2,13 +2,9 @@
 
 namespace Yoast\WP\SEO\Builders;
 
-<<<<<<< HEAD
 use wpdb;
 use Yoast\WP\SEO\Helpers\Options_Helper;
 use Yoast\WP\SEO\Helpers\Post_Helper;
-=======
-use Yoast\WP\SEO\Helpers\Options_Helper;
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 use Yoast\WP\SEO\Helpers\Url_Helper;
 use Yoast\WP\SEO\Models\Indexable;
 use Yoast\WP\SEO\Values\Indexables\Indexable_Builder_Versions;
@@ -46,7 +42,6 @@ class Indexable_Home_Page_Builder {
 	protected $version;
 
 	/**
-<<<<<<< HEAD
 	 * Holds the taxonomy helper instance.
 	 *
 	 * @var Post_Helper
@@ -68,18 +63,10 @@ class Indexable_Home_Page_Builder {
 	 * @param Indexable_Builder_Versions $versions    Knows the latest version of each Indexable type.
 	 * @param Post_Helper                $post_helper The post helper.
 	 * @param wpdb                       $wpdb        The WPDB instance.
-=======
-	 * Indexable_Home_Page_Builder constructor.
-	 *
-	 * @param Options_Helper             $options    The options helper.
-	 * @param Url_Helper                 $url_helper The url helper.
-	 * @param Indexable_Builder_Versions $versions   Knows the latest version of each Indexable type.
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 */
 	public function __construct(
 		Options_Helper $options,
 		Url_Helper $url_helper,
-<<<<<<< HEAD
 		Indexable_Builder_Versions $versions,
 		Post_Helper $post_helper,
 		wpdb $wpdb
@@ -89,13 +76,6 @@ class Indexable_Home_Page_Builder {
 		$this->version     = $versions->get_latest_version_for_type( 'home-page' );
 		$this->post_helper = $post_helper;
 		$this->wpdb        = $wpdb;
-=======
-		Indexable_Builder_Versions $versions
-	) {
-		$this->options    = $options;
-		$this->url_helper = $url_helper;
-		$this->version    = $versions->get_latest_version_for_type( 'home-page' );
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 	/**
@@ -134,18 +114,14 @@ class Indexable_Home_Page_Builder {
 			$this->set_open_graph_image_meta_data( $indexable );
 		}
 
-<<<<<<< HEAD
 		$timestamps                      = $this->get_object_timestamps();
 		$indexable->object_published_at  = $timestamps->published_at;
 		$indexable->object_last_modified = $timestamps->last_modified;
 
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		$indexable->version = $this->version;
 
 		return $indexable;
 	}
-<<<<<<< HEAD
 
 	/**
 	 * Returns the timestamps for the homepage.
@@ -166,6 +142,4 @@ class Indexable_Home_Page_Builder {
 		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- We are using wpdb prepare.
 		return $this->wpdb->get_row( $this->wpdb->prepare( $sql, $post_statuses ) );
 	}
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 }

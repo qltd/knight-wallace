@@ -288,7 +288,6 @@ if ( ! class_exists( 'acf_field_button_group' ) ) :
 
 		}
 
-<<<<<<< HEAD
 		/**
 		 * Return the schema array for the REST API.
 		 *
@@ -323,8 +322,6 @@ if ( ! class_exists( 'acf_field_button_group' ) ) :
 			return $schema;
 		}
 
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 

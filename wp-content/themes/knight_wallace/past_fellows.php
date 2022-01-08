@@ -13,7 +13,8 @@ include_once('helpers.php');
 //grab our junk
 //get_post_id_by_meta_key_and_value('year', date('Y') - 1)
 $this_page_meta = get_post_meta($post->ID);
-$current_year_global = get_option('fellows_current_year');
+$current_year_global = get_option('fellows_current_year'); // old meta boxes don't work with gutenberg
+$current_year_global = get_field('fellows_current_year') ?: $current_year_global; // old metas will still work, now they can use ACF for newer years
 $this_year = !empty($this_page_meta['year']) ? $this_page_meta['year'][0] : $current_year_global;
 // if this is the default past fellows page without a year, get the most recent past year
 $pid = !empty($this_page_meta['year']) ?  $post->ID : get_post_id_by_meta_key_and_value('year', $current_year_global);
@@ -26,7 +27,7 @@ $sorted_fellows = sort_fellows_by_year($fellows, $this_year);
 <section class="breadcrumb">
 <div class="row">
     <div class="small-6 columns">
-        <a href="/knight-wallace/our-fellows/" class="library-link ">&nbsp;Current Fellows</a>
+        <a href="/knight-wallace/current-fellows/" class="library-link ">&nbsp;Current Fellows</a>
     </div>
 </div>
 </section>

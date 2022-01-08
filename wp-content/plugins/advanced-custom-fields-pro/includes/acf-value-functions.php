@@ -60,7 +60,6 @@ function acf_get_value( $post_id, $field ) {
 	// Get field name.
 	$field_name = $field['name'];
 
-<<<<<<< HEAD
 	// If we still don't have a proper field array, the field doesn't exist currently.
 	if ( empty( $field['type'] ) && empty( $field['key'] ) ) {
 		//  Get field ID & type.
@@ -73,8 +72,6 @@ function acf_get_value( $post_id, $field ) {
 		do_action( 'acf/get_invalid_field_value', $field, __FUNCTION__ );
 	}
 
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	// Check store.
 	$store = acf_get_store( 'values' );
 	if ( $store->has( "$post_id:$field_name" ) ) {
@@ -337,7 +334,6 @@ function acf_preview_value( $value, $post_id, $field ) {
 
 // Register variation.
 acf_add_filter_variations( 'acf/preview_value', array( 'type', 'name', 'key' ), 2 );
-<<<<<<< HEAD
 
 /**
  * Potentially log an error if a field doesn't exist when we expect it to.
@@ -361,5 +357,3 @@ function acf_log_invalid_field_notice( $field, $function ) {
 	_doing_it_wrong( $function, $error_text, '5.11.1' );
 }
 add_action( 'acf/get_invalid_field_value', 'acf_log_invalid_field_notice', 10, 2 );
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394

@@ -315,7 +315,6 @@ if ( ! class_exists( 'acf_field_taxonomy' ) ) :
 			if ( $field['load_terms'] ) {
 
 				// Decode $post_id for $type and $id.
-<<<<<<< HEAD
 				$decoded = acf_decode_post_id( $post_id );
 				$type    = $decoded['type'];
 				$id      = $decoded['id'];
@@ -354,43 +353,6 @@ if ( ! class_exists( 'acf_field_taxonomy' ) ) :
 
 				}
 
-=======
-				extract( acf_decode_post_id( $post_id ) );
-				if ( $type === 'block' ) {
-					// Get parent block...
-				}
-
-				// get terms
-				$term_ids = wp_get_object_terms(
-					$id,
-					$field['taxonomy'],
-					array(
-						'fields'  => 'ids',
-						'orderby' => 'none',
-					)
-				);
-
-				// bail early if no terms
-				if ( empty( $term_ids ) || is_wp_error( $term_ids ) ) {
-					return false;
-				}
-
-				// sort
-				if ( ! empty( $value ) ) {
-
-					$order = array();
-
-					foreach ( $term_ids as $i => $v ) {
-
-						$order[ $i ] = array_search( $v, $value );
-
-					}
-
-					array_multisort( $order, $term_ids );
-
-				}
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				// update value
 				$value = $term_ids;
 
@@ -467,7 +429,6 @@ if ( ! class_exists( 'acf_field_taxonomy' ) ) :
 
 		}
 
-<<<<<<< HEAD
 		/**
 		 * This function will save any terms in the save_post_terms array
 		 *
@@ -491,32 +452,6 @@ if ( ! class_exists( 'acf_field_taxonomy' ) ) :
 				$type    = $decoded['type'];
 				$id      = $decoded['id'];
 
-=======
-
-		/*
-		*  save_post
-		*
-		*  This function will save any terms in the save_post_terms array
-		*
-		*  @type    function
-		*  @date    26/11/2014
-		*  @since   5.0.9
-		*
-		*  @param   $post_id (int)
-		*  @return  n/a
-		*/
-
-		function save_post( $post_id ) {
-
-			// Check for saved terms.
-			if ( ! empty( $this->save_post_terms ) ) {
-
-				// Determine object ID allowing for non "post" $post_id (user, taxonomy, etc).
-				// Although not fully supported by WordPress, non "post" objects may use the term relationships table.
-				// Sharing taxonomies across object types is discoraged, but unique taxonomies work well.
-				// Note: Do not attempt to restrict to "post" only. This has been attempted in 5.8.9 and later reverted.
-				extract( acf_decode_post_id( $post_id ) );
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				if ( $type === 'block' ) {
 					// Get parent block...
 				}
@@ -531,10 +466,6 @@ if ( ! class_exists( 'acf_field_taxonomy' ) ) :
 			}
 		}
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		/*
 		*  format_value()
 		*
@@ -949,7 +880,6 @@ if ( ! class_exists( 'acf_field_taxonomy' ) ) :
 				$extra = array();
 				if ( $args['term_parent'] ) {
 					$extra['parent'] = (int) $args['term_parent'];
-<<<<<<< HEAD
 				}
 
 				// insert
@@ -1021,88 +951,12 @@ if ( ! class_exists( 'acf_field_taxonomy' ) ) :
 						'allow_null' => 1,
 						'ui'         => 0,
 						'choices'    => $choices,
-=======
-				}
-
-				// insert
-				$data = wp_insert_term( $args['term_name'], $field['taxonomy'], $extra );
-
-				// error
-				if ( is_wp_error( $data ) ) {
-					wp_send_json_error(
-						array(
-							'error' => $data->get_error_message(),
-						)
-					);
-				}
-
-				// load term
-				$term = get_term( $data['term_id'] );
-
-				// prepend ancenstors count to term name
-				$prefix    = '';
-				$ancestors = get_ancestors( $term->term_id, $term->taxonomy );
-				if ( ! empty( $ancestors ) ) {
-					$prefix = str_repeat( '- ', count( $ancestors ) );
-				}
-
-				// success
-				wp_send_json_success(
-					array(
-						'message'     => sprintf( __( '%s added', 'acf' ), $taxonomy_label ),
-						'term_id'     => $term->term_id,
-						'term_name'   => $term->name,
-						'term_label'  => $prefix . $term->name,
-						'term_parent' => $term->parent,
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 					)
 				);
 
 			}
 
 			?>
-<<<<<<< HEAD
-=======
-		<form method="post">
-			<?php
-
-			acf_render_field_wrap(
-				array(
-					'label' => __( 'Name', 'acf' ),
-					'name'  => 'term_name',
-					'type'  => 'text',
-				)
-			);
-
-			if ( is_taxonomy_hierarchical( $field['taxonomy'] ) ) {
-
-				$choices  = array();
-				$response = $this->get_ajax_query( $args );
-
-				if ( $response ) {
-
-					foreach ( $response['results'] as $v ) {
-
-						$choices[ $v['id'] ] = $v['text'];
-
-					}
-				}
-
-				acf_render_field_wrap(
-					array(
-						'label'      => __( 'Parent', 'acf' ),
-						'name'       => 'term_parent',
-						'type'       => 'select',
-						'allow_null' => 1,
-						'ui'         => 0,
-						'choices'    => $choices,
-					)
-				);
-
-			}
-
-			?>
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		<p class="acf-submit">
 			<button class="acf-submit-button button button-primary" type="submit"><?php _e( 'Add', 'acf' ); ?></button>
 		</p>
@@ -1113,7 +967,6 @@ if ( ! class_exists( 'acf_field_taxonomy' ) ) :
 
 		}
 
-<<<<<<< HEAD
 		/**
 		 * Return the schema array for the REST API.
 		 *
@@ -1175,8 +1028,6 @@ if ( ! class_exists( 'acf_field_taxonomy' ) ) :
 
 			return $links;
 		}
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 	}
 

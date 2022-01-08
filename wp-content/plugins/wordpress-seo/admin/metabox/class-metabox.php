@@ -141,7 +141,6 @@ class WPSEO_Metabox extends WPSEO_Meta {
 				[ '__block_editor_compatible_meta_box' => true ]
 			);
 		}
-<<<<<<< HEAD
 	}
 
 	/**
@@ -164,30 +163,6 @@ class WPSEO_Metabox extends WPSEO_Meta {
 	}
 
 	/**
-=======
-	}
-
-	/**
-	 * Renders the content for the internet explorer metabox.
-	 *
-	 * @return void
-	 */
-	public function render_internet_explorer_notice() {
-		$content = sprintf(
-			/* translators: 1: Link start tag to the Firefox website, 2: Link start tag to the Chrome website, 3: Link start tag to the Edge website, 4: Link closing tag. */
-			esc_html__( 'The browser you are currently using is unfortunately rather dated. Since we strive to give you the best experience possible, we no longer support this browser. Instead, please use %1$sFirefox%4$s, %2$sChrome%4$s or %3$sMicrosoft Edge%4$s.', 'wordpress-seo' ),
-			'<a href="https://www.mozilla.org/firefox/new/">',
-			'<a href="https://www.google.com/chrome/">',
-			'<a href="https://www.microsoft.com/windows/microsoft-edge">',
-			'</a>'
-		);
-
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Output escaped above.
-		echo new Alert_Presenter( $content );
-	}
-
-	/**
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 * Translates text strings for use in the meta box.
 	 *
 	 * IMPORTANT: if you want to add a new string (option) somewhere, make sure you add that array key to
@@ -323,13 +298,10 @@ class WPSEO_Metabox extends WPSEO_Meta {
 			$values['semrushIntegrationActive'] = 0;
 		}
 
-<<<<<<< HEAD
 		if ( $values['wincherIntegrationActive'] && $this->post->post_type === 'attachment' ) {
 			$values['wincherIntegrationActive'] = 0;
 		}
 
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		return $values;
 	}
 
@@ -931,10 +903,7 @@ class WPSEO_Metabox extends WPSEO_Meta {
 			'userLanguageCode' => WPSEO_Language_Utils::get_language( \get_user_locale() ),
 			'isPost'           => true,
 			'isBlockEditor'    => $is_block_editor,
-<<<<<<< HEAD
 			'postStatus'       => get_post_status( $post_id ),
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			'analysis'         => [
 				'plugins'                     => $plugins_script_data,
 				'worker'                      => $worker_script_data,

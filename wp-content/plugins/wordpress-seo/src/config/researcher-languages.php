@@ -7,9 +7,5 @@ namespace Yoast\WP\SEO\Config;
  */
 class Researcher_Languages {
 
-<<<<<<< HEAD
 	const SUPPORTED_LANGUAGES = [ 'ar', 'ca', 'de', 'en', 'es', 'fa', 'fr', 'he', 'hu', 'id', 'it', 'nb', 'nl', 'pl', 'pt', 'ru', 'sv', 'tr', 'cs', 'sk', 'el' ];
-=======
-	const SUPPORTED_LANGUAGES = [ 'ar', 'ca', 'de', 'en', 'es', 'fa', 'fr', 'he', 'hu', 'id', 'it', 'nb', 'nl', 'pl', 'pt', 'ru', 'sv', 'tr', 'cs', 'sk' ];
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 }

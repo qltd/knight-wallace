@@ -81,11 +81,7 @@ class Installation_Integration implements Integration_Interface {
 	/**
 	 * Installs and activates missing addons.
 	 *
-<<<<<<< HEAD
 	 * @return void
-=======
-	 * @returns void
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 */
 	public function install_and_activate_addons() {
 		if ( \filter_input( \INPUT_GET, 'action' ) !== 'install' ) {
@@ -145,21 +141,13 @@ class Installation_Integration implements Integration_Interface {
 		try {
 			$this->addon_activate_action->activate_addon( $addon_slug );
 
-<<<<<<< HEAD
 			/* Translators: %s expands to the name of the addon. */
-=======
-			// Translators: %s expands to the name of the addon.
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			$output[] = \__( 'Addon activated.', 'wordpress-seo' );
 		} catch ( User_Cannot_Activate_Plugins_Exception $exception ) {
 			$output[] = \__( 'You are not allowed to activate plugins.', 'wordpress-seo' );
 		} catch ( Addon_Activation_Error_Exception $exception ) {
 			$output[] = \sprintf(
-<<<<<<< HEAD
 				/* Translators:%s expands to the error message. */
-=======
-			// Translators:%s expands to the error message.
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				\__( 'Addon activation failed because of an error: %s.', 'wordpress-seo' ),
 				$exception->getMessage()
 			);
@@ -183,11 +171,7 @@ class Installation_Integration implements Integration_Interface {
 		try {
 			$installed = $this->addon_install_action->install_addon( $addon_slug, $addon_download );
 		} catch ( Addon_Already_Installed_Exception $exception ) {
-<<<<<<< HEAD
 			/* Translators: %s expands to the name of the addon. */
-=======
-			// Translators: %s expands to the name of the addon.
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			$output[] = \__( 'Addon installed.', 'wordpress-seo' );
 
 			$installed = true;
@@ -195,11 +179,7 @@ class Installation_Integration implements Integration_Interface {
 			$output[] = \__( 'You are not allowed to install plugins.', 'wordpress-seo' );
 		} catch ( Addon_Installation_Error_Exception $exception ) {
 			$output[] = \sprintf(
-<<<<<<< HEAD
 				/* Translators: %s expands to the error message. */
-=======
-			// Translators: %s expands to the error message.
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				\__( 'Addon installation failed because of an error: %s.', 'wordpress-seo' ),
 				$exception->getMessage()
 			);

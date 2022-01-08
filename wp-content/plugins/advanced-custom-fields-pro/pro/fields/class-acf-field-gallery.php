@@ -173,21 +173,12 @@ if ( ! class_exists( 'acf_field_gallery' ) ) :
 
 				if ( isset( $changes['caption'] ) ) {
 					$post['post_excerpt'] = $changes['caption'];
-<<<<<<< HEAD
 				}
 
 				if ( isset( $changes['description'] ) ) {
 					$post['post_content'] = $changes['description'];
 				}
 
-=======
-				}
-
-				if ( isset( $changes['description'] ) ) {
-					$post['post_content'] = $changes['description'];
-				}
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				if ( isset( $changes['alt'] ) ) {
 					$alt = wp_unslash( $changes['alt'] );
 					if ( $alt != get_post_meta( $id, '_wp_attachment_image_alt', true ) ) {
@@ -883,7 +874,6 @@ if ( ! class_exists( 'acf_field_gallery' ) ) :
 			// Return value.
 			return $value;
 
-<<<<<<< HEAD
 		}
 
 		/**
@@ -972,8 +962,6 @@ if ( ! class_exists( 'acf_field_gallery' ) ) :
 		 */
 		public function format_value_for_rest( $value, $post_id, array $field ) {
 			return acf_format_numerics( $value );
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		}
 	}
 

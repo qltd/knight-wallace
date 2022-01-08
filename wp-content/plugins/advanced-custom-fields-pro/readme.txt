@@ -2,7 +2,6 @@
 Contributors: elliotcondon
 Tags: acf, fields, custom fields, meta, repeater
 Requires at least: 4.7
-<<<<<<< HEAD
 Tested up to: 5.8.1
 Requires PHP: 5.6
 Stable tag: 5.11.4
@@ -10,15 +9,6 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Customize WordPress with powerful, professional and intuitive fields. Proudly powering over 2 million websites, Advanced Custom Fields is the plugin WordPress developers love.
-=======
-Tested up to: 5.8
-Requires PHP: 5.6
-Stable tag: 5.10.2
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
-
-Customize WordPress with powerful, professional and intuitive fields. Proudly powering over 1 million websites, Advanced Custom Fields is the plugin WordPress developers love.
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 == Description ==
 
@@ -86,7 +76,6 @@ From your WordPress dashboard
 
 == Changelog ==
 
-<<<<<<< HEAD
 = 5.11.4 =
 *Release Date - 2nd December 2021*
 
@@ -144,8 +133,6 @@ From your WordPress dashboard
 * i18n - Updated Polish Translations (props @webnatural)
 * Dev - Formatted JavaScript to WordPress code standards
 
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 = 5.10.2 =
 *Release Date - 31 August 2021*
 

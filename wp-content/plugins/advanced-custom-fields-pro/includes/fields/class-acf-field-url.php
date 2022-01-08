@@ -116,7 +116,6 @@ if ( ! class_exists( 'acf_field_url' ) ) :
 				)
 			);
 
-<<<<<<< HEAD
 		}
 
 
@@ -172,50 +171,6 @@ if ( ! class_exists( 'acf_field_url' ) ) :
 			$schema['format'] = 'uri';
 
 			return $schema;
-=======
-		}
-
-
-		/*
-		*  validate_value
-		*
-		*  description
-		*
-		*  @type    function
-		*  @date    11/02/2014
-		*  @since   5.0.0
-		*
-		*  @param   $post_id (int)
-		*  @return  $post_id (int)
-		*/
-
-		function validate_value( $valid, $value, $field, $input ) {
-
-			// bail early if empty
-			if ( empty( $value ) ) {
-
-				return $valid;
-
-			}
-
-			if ( strpos( $value, '://' ) !== false ) {
-
-				// url
-
-			} elseif ( strpos( $value, '//' ) === 0 ) {
-
-				// protocol relative url
-
-			} else {
-
-				$valid = __( 'Value must be a valid URL', 'acf' );
-
-			}
-
-			// return
-			return $valid;
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		}
 
 	}

@@ -284,7 +284,6 @@ if ( ! class_exists( 'acf_admin_options_page' ) ) :
 		}
 
 
-<<<<<<< HEAD
 		/**
 		 * Renders a postbox on an ACF options page.
 		 *
@@ -299,27 +298,6 @@ if ( ! class_exists( 'acf_admin_options_page' ) ) :
 		function postbox_acf( $post, $args ) {
 			$id          = $args['id'];
 			$field_group = $args['args']['field_group'];
-=======
-		/*
-		*  render_meta_box
-		*
-		*  description
-		*
-		*  @type    function
-		*  @date    24/02/2014
-		*  @since   5.0.0
-		*
-		*  @param   $post (object)
-		*  @param   $args (array)
-		*  @return  n/a
-		*/
-
-		function postbox_acf( $post, $args ) {
-
-			// extract args
-			extract( $args ); // all variables from the add_meta_box function
-			extract( $args ); // all variables from the args argument
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 			// vars
 			$o = array(
@@ -354,10 +332,6 @@ if( typeof acf !== 'undefined' ) {
 }
 </script>
 			<?php
-<<<<<<< HEAD
-=======
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		}
 
 

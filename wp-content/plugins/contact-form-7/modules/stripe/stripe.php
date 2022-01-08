@@ -1,12 +1,7 @@
 <?php
 
-<<<<<<< HEAD
 wpcf7_include_module_file( 'stripe/service.php' );
 wpcf7_include_module_file( 'stripe/api.php' );
-=======
-include_once path_join( WPCF7_PLUGIN_MODULES_DIR, 'stripe/service.php' );
-include_once path_join( WPCF7_PLUGIN_MODULES_DIR, 'stripe/api.php' );
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 
 add_action(
@@ -218,11 +213,7 @@ add_filter(
 /**
  * Registers the [_stripe_payment_link] special mail-tag.
  */
-<<<<<<< HEAD
 function wpcf7_stripe_smt( $output, $tag_name, $html, $mail_tag = null ) {
-=======
-function wpcf7_stripe_smt( $output, $tag_name, $html, $mail_tag ) {
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	if ( '_stripe_payment_link' === $tag_name ) {
 		$submission = WPCF7_Submission::get_instance();
 

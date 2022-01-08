@@ -419,7 +419,6 @@ function acf_parse_type( $v ) {
 }
 
 
-<<<<<<< HEAD
 /**
  *  This function will load in a file from the 'admin/views' folder and allow variables to be passed through
  *
@@ -443,39 +442,6 @@ function acf_get_view( $view_path = '', $view_args = array() ) {
 		extract( $view_args, EXTR_SKIP );
 		include $view_path;
 	}
-=======
-/*
-*  acf_get_view
-*
-*  This function will load in a file from the 'admin/views' folder and allow variables to be passed through
-*
-*  @type    function
-*  @date    28/09/13
-*  @since   5.0.0
-*
-*  @param   $view_name (string)
-*  @param   $args (array)
-*  @return  n/a
-*/
-
-function acf_get_view( $path = '', $args = array() ) {
-
-	// allow view file name shortcut
-	if ( substr( $path, -4 ) !== '.php' ) {
-
-		$path = acf_get_path( "includes/admin/views/{$path}.php" );
-
-	}
-
-	// include
-	if ( file_exists( $path ) ) {
-
-		extract( $args );
-		include $path;
-
-	}
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 }
 
 
@@ -3289,7 +3255,6 @@ function acf_get_valid_terms( $terms = false, $taxonomy = 'category' ) {
 		return $terms;
 
 	}
-<<<<<<< HEAD
 
 	// attempt to find new terms
 	foreach ( $terms as $i => $term_id ) {
@@ -3298,16 +3263,6 @@ function acf_get_valid_terms( $terms = false, $taxonomy = 'category' ) {
 
 		if ( $new_term_id ) {
 
-=======
-
-	// attempt to find new terms
-	foreach ( $terms as $i => $term_id ) {
-
-		$new_term_id = wp_get_split_term( $term_id, $taxonomy );
-
-		if ( $new_term_id ) {
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			$terms[ $i ] = $new_term_id;
 
 		}
@@ -4283,11 +4238,7 @@ function acf_remove_array_key_prefix( $array, $prefix ) {
 *  acf_strip_protocol
 *
 *  This function will remove the proticol from a url
-<<<<<<< HEAD
 *  Used to allow licenses to remain active if a site is switched to https
-=======
-*  Used to allow licences to remain active if a site is switched to https
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 *
 *  @type    function
 *  @date    10/01/2017

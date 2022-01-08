@@ -66,11 +66,7 @@ if ( ! class_exists( 'acf_field_time_picker' ) ) :
 				'value' => $field['value'],
 			);
 			$text_input   = array(
-<<<<<<< HEAD
 				'class' => $field['class'] . ' input',
-=======
-				'class' => 'input',
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				'type'  => 'text',
 				'value' => $display_value,
 			);
@@ -170,7 +166,6 @@ if ( ! class_exists( 'acf_field_time_picker' ) ) :
 
 		}
 
-<<<<<<< HEAD
 		/**
 		 *  This filter is applied to the $field after it is loaded from the database
 		 *  and ensures the return and display values are set.
@@ -208,8 +203,6 @@ if ( ! class_exists( 'acf_field_time_picker' ) ) :
 				'required'    => ! empty( $field['required'] ),
 			);
 		}
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 

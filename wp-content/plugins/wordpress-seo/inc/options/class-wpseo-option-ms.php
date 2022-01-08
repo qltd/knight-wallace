@@ -100,10 +100,7 @@ class WPSEO_Option_MS extends WPSEO_Option {
 			"{$allow_prefix}enable_enhanced_slack_sharing"  => true,
 			"{$allow_prefix}semrush_integration_active"     => true,
 			"{$allow_prefix}zapier_integration_active"      => true,
-<<<<<<< HEAD
 			"{$allow_prefix}wincher_integration_active"     => true,
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		];
 
 		if ( is_multisite() ) {

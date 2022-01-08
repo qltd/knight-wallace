@@ -51,10 +51,7 @@ class WPSEO_Expose_Shortlinks implements WPSEO_WordPress_Integration {
 		'shortlinks.semrush.trend_help'                             => 'https://yoa.st/3-v',
 		'shortlinks.semrush.prices'                                 => 'https://yoa.st/semrush-prices',
 		'shortlinks.semrush.premium_landing_page'                   => 'https://yoa.st/413',
-<<<<<<< HEAD
 		'shortlinks.wincher.seo_performance'                        => 'https://yoa.st/wincher-integration',
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	];
 
 	/**

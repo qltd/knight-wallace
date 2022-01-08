@@ -81,35 +81,10 @@ function the_field( $selector, $post_id = false, $format_value = true ) {
 		$value = @implode( ', ', $value );
 
 	}
-<<<<<<< HEAD
-=======
 
 	echo $value;
 
 }
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
-
-	echo $value;
-
-<<<<<<< HEAD
-}
-=======
-/*
-*  get_field_object()
-*
-*  This function will return an array containing all the field data for a given field_name
-*
-*  @type    function
-*  @since   3.6
-*  @date    3/02/13
-*
-*  @param   $selector (string) the field name or key
-*  @param   $post_id (mixed) the post_id of which the value is saved against
-*  @param   $format_value (boolean) whether or not to format the field value
-*  @param   $load_value (boolean) whether or not to load the field value
-*  @return  $field (array)
-*/
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 /**
  * This function will return an array containing all the field data for a given field_name.
@@ -125,7 +100,6 @@ function the_field( $selector, $post_id = false, $format_value = true ) {
  * @return array $field
  */
 function get_field_object( $selector, $post_id = false, $format_value = true, $load_value = true ) {
-<<<<<<< HEAD
 	// Compatibility with ACF ~4.
 	if ( is_array( $format_value ) && isset( $format_value['format_value'] ) ) {
 		$format_value = $format_value['format_value'];
@@ -134,26 +108,10 @@ function get_field_object( $selector, $post_id = false, $format_value = true, $l
 	$post_id = acf_get_valid_post_id( $post_id );
 	$field   = acf_maybe_get_field( $selector, $post_id );
 
-=======
-
-	// compatibilty
-	if ( is_array( $format_value ) ) {
-		extract( $format_value );
-	}
-
-	// get valid post_id
-	$post_id = acf_get_valid_post_id( $post_id );
-
-	// get field key
-	$field = acf_maybe_get_field( $selector, $post_id );
-
-	// bail early if no field found
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	if ( ! $field ) {
 		return false;
 	}
 
-<<<<<<< HEAD
 	if ( $load_value ) {
 		$field['value'] = acf_get_value( $post_id, $field );
 	}
@@ -163,26 +121,6 @@ function get_field_object( $selector, $post_id = false, $format_value = true, $l
 	}
 
 	return $field;
-=======
-	// load value
-	if ( $load_value ) {
-
-		$field['value'] = acf_get_value( $post_id, $field );
-
-	}
-
-	// format value
-	if ( $format_value ) {
-
-		// get value for field
-		$field['value'] = acf_format_value( $field['value'], $post_id, $field );
-
-	}
-
-	// return
-	return $field;
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 }
 
 /*
@@ -507,7 +445,6 @@ function have_rows( $selector, $post_id = false ) {
 			$args['value']   = $active_loop['value'][ $active_loop['i'] ][ $sub_field['key'] ];
 			$args['name']    = "{$active_loop['name']}_{$active_loop['i']}_{$sub_field['name']}";
 			$args['post_id'] = $active_loop['post_id'];
-<<<<<<< HEAD
 		}
 
 		// Bail early if value is either empty or a non array.
@@ -515,15 +452,6 @@ function have_rows( $selector, $post_id = false ) {
 			return false;
 		}
 
-=======
-		}
-
-		// Bail early if value is either empty or a non array.
-		if ( ! $args['value'] || ! is_array( $args['value'] ) ) {
-			return false;
-		}
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		// Allow for non repeatable data for Group and Clone fields.
 		if ( acf_get_field_type_prop( $args['field']['type'], 'have_rows' ) === 'single' ) {
 			$args['value'] = array( $args['value'] );
@@ -936,7 +864,6 @@ function acf_shortcode( $atts ) {
 		return;
 	}
 
-<<<<<<< HEAD
 	$atts = shortcode_atts(
 		array(
 			'field'        => '',
@@ -968,57 +895,6 @@ function acf_shortcode( $atts ) {
 
 	return $value;
 }
-=======
-/*
-*  acf_shortcode()
-*
-*  This function is used to add basic shortcode support for the ACF plugin
-*  eg. [acf field="heading" post_id="123" format_value="1"]
-*
-*  @type    function
-*  @since   1.1.1
-*  @date    29/01/13
-*
-*  @param   $field (string) the field name or key
-*  @param   $post_id (mixed) the post_id of which the value is saved against
-*  @param   $format_value (boolean) whether or not to format the field value
-*  @return  (string)
-*/
-
-function acf_shortcode( $atts ) {
-	// Mitigate issue where some AJAX requests can return ACF field data.
-	if ( wp_doing_ajax() && ! current_user_can( 'edit_posts' ) ) {
-		return;
-	}
-
-	// extract attributs
-	extract(
-		shortcode_atts(
-			array(
-				'field'        => '',
-				'post_id'      => false,
-				'format_value' => true,
-			),
-			$atts
-		)
-	);
-
-	// get value and return it
-	$value = get_field( $field, $post_id, $format_value );
-
-	// array
-	if ( is_array( $value ) ) {
-
-		$value = @implode( ', ', $value );
-
-	}
-
-	// return
-	return $value;
-
-}
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 add_shortcode( 'acf', 'acf_shortcode' );
 
 

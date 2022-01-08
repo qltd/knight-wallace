@@ -84,7 +84,6 @@ if ( ! class_exists( 'acf_field_radio' ) ) :
 				// 4. Default to first choice.
 			} else {
 				$checked = (string) key( $field['choices'] );
-<<<<<<< HEAD
 			}
 
 			// other choice
@@ -159,82 +158,6 @@ if ( ! class_exists( 'acf_field_radio' ) ) :
 				$e .= '<li><label' . ( $is_selected ? ' class="selected"' : '' ) . '><input ' . acf_esc_attr( $attrs ) . '/>' . acf_esc_html( $label ) . '</label>' . $additional_html . '</li>';
 			}
 
-=======
-			}
-
-			// other choice
-			$other_input = false;
-			if ( $field['other_choice'] ) {
-
-				// Define other input attrs.
-				$other_input = array(
-					'type'     => 'text',
-					'name'     => $field['name'],
-					'value'    => '',
-					'disabled' => 'disabled',
-					'class'    => 'acf-disabled',
-				);
-
-				// Select other choice if value is not a valid choice.
-				if ( $checked === 'other' ) {
-					unset( $other_input['disabled'] );
-					$other_input['value'] = $field['value'];
-				}
-
-				// Ensure an 'other' choice is defined.
-				if ( ! isset( $field['choices']['other'] ) ) {
-					$field['choices']['other'] = '';
-				}
-			}
-
-			// Bail early if no choices.
-			if ( empty( $field['choices'] ) ) {
-				return;
-			}
-
-			// Hiden input.
-			$e .= acf_get_hidden_input( array( 'name' => $field['name'] ) );
-
-			// Open <ul>.
-			$e .= '<ul ' . acf_esc_attr( $ul ) . '>';
-
-			// Loop through choices.
-			foreach ( $field['choices'] as $value => $label ) {
-				$is_selected = false;
-
-				// Ensure value is a string.
-				$value = (string) $value;
-
-				// Define input attrs.
-				$attrs = array(
-					'type'  => 'radio',
-					'id'    => sanitize_title( $field['id'] . '-' . $value ),
-					'name'  => $field['name'],
-					'value' => $value,
-				);
-
-				// Check if selected.
-				if ( esc_attr( $value ) === esc_attr( $checked ) ) {
-					$attrs['checked'] = 'checked';
-					$is_selected      = true;
-				}
-
-				// Check if is disabled.
-				if ( isset( $field['disabled'] ) && acf_in_array( $value, $field['disabled'] ) ) {
-					$attrs['disabled'] = 'disabled';
-				}
-
-				// Additional HTML (the "Other" input).
-				$additional_html = '';
-				if ( $value === 'other' && $other_input ) {
-					$additional_html = ' ' . acf_get_text_input( $other_input );
-				}
-
-				// append
-				$e .= '<li><label' . ( $is_selected ? ' class="selected"' : '' ) . '><input ' . acf_esc_attr( $attrs ) . '/>' . acf_esc_html( $label ) . '</label>' . $additional_html . '</li>';
-			}
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			// Close <ul>.
 			$e .= '</ul>';
 
@@ -409,7 +332,6 @@ if ( ! class_exists( 'acf_field_radio' ) ) :
 			// bail early if no value (allow 0 to be saved)
 			if ( ! $value && ! is_numeric( $value ) ) {
 				return $value;
-<<<<<<< HEAD
 			}
 
 			// save_other_choice
@@ -471,52 +393,15 @@ if ( ! class_exists( 'acf_field_radio' ) ) :
 
 				$value = array_pop( $value );
 
-=======
-			}
-
-			// save_other_choice
-			if ( $field['save_other_choice'] ) {
-
-				// value isn't in choices yet
-				if ( ! isset( $field['choices'][ $value ] ) ) {
-
-					// get raw $field (may have been changed via repeater field)
-					// if field is local, it won't have an ID
-					$selector = $field['ID'] ? $field['ID'] : $field['key'];
-					$field    = acf_get_field( $selector, true );
-
-					// bail early if no ID (JSON only)
-					if ( ! $field['ID'] ) {
-						return $value;
-					}
-
-					// unslash (fixes serialize single quote issue)
-					$value = wp_unslash( $value );
-
-					// sanitize (remove tags)
-					$value = sanitize_text_field( $value );
-
-					// update $field
-					$field['choices'][ $value ] = $value;
-
-					// save
-					acf_update_field( $field );
-
-				}
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			}
 
 			// return
 			return $value;
-<<<<<<< HEAD
 
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		}
 
 
 		/*
-<<<<<<< HEAD
 		*  translate_field
 		*
 		*  This function will translate field settings
@@ -594,80 +479,6 @@ if ( ! class_exists( 'acf_field_radio' ) ) :
 			return $schema;
 		}
 
-=======
-		*  load_value()
-		*
-		*  This filter is appied to the $value after it is loaded from the db
-		*
-		*  @type    filter
-		*  @since   5.2.9
-		*  @date    23/01/13
-		*
-		*  @param   $value - the value found in the database
-		*  @param   $post_id - the $post_id from which the value was loaded from
-		*  @param   $field - the field array holding all the field options
-		*
-		*  @return  $value - the value to be saved in te database
-		*/
-
-		function load_value( $value, $post_id, $field ) {
-
-			// must be single value
-			if ( is_array( $value ) ) {
-
-				$value = array_pop( $value );
-
-			}
-
-			// return
-			return $value;
-
-		}
-
-
-		/*
-		*  translate_field
-		*
-		*  This function will translate field settings
-		*
-		*  @type    function
-		*  @date    8/03/2016
-		*  @since   5.3.2
-		*
-		*  @param   $field (array)
-		*  @return  $field
-		*/
-
-		function translate_field( $field ) {
-
-			return acf_get_field_type( 'select' )->translate_field( $field );
-
-		}
-
-
-		/*
-		*  format_value()
-		*
-		*  This filter is appied to the $value after it is loaded from the db and before it is returned to the template
-		*
-		*  @type    filter
-		*  @since   3.6
-		*  @date    23/01/13
-		*
-		*  @param   $value (mixed) the value which was loaded from the database
-		*  @param   $post_id (mixed) the $post_id from which the value was loaded
-		*  @param   $field (array) the field array holding all the field options
-		*
-		*  @return  $value (mixed) the modified value
-		*/
-
-		function format_value( $value, $post_id, $field ) {
-
-			return acf_get_field_type( 'select' )->format_value( $value, $post_id, $field );
-
-		}
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 

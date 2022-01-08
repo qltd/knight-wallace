@@ -138,14 +138,9 @@ class CFDB7_List_Table extends WP_List_Table
             foreach ($first_row as $key => $value) {
 
                 $matches = array();
-<<<<<<< HEAD
                 $key     = esc_html( $key );
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
                 if ( $key == 'cfdb7_status' ) continue;
-                if( $rm_underscore ) preg_match('/^_.*$/m', $key, $matches);
-                if( ! empty($matches[0]) ) continue;
 
                 if( $rm_underscore ) preg_match('/^_.*$/m', $key, $matches);
                 if( ! empty($matches[0]) ) continue;

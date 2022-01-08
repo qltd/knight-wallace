@@ -593,17 +593,10 @@ class WPSEO_Utils {
 	 *
 	 * @return string
 	 */
-<<<<<<< HEAD
 	public static function trim_nbsp_from_string( $text ) {
 		$find = [ '&nbsp;', chr( 0xC2 ) . chr( 0xA0 ) ];
 		$text = str_replace( $find, ' ', $text );
 		$text = trim( $text );
-=======
-	public static function trim_nbsp_from_string( $string ) {
-		$find   = [ '&nbsp;', chr( 0xC2 ) . chr( 0xA0 ) ];
-		$string = str_replace( $find, ' ', $string );
-		$string = trim( $string );
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 		return $text;
 	}
@@ -1142,7 +1135,6 @@ class WPSEO_Utils {
 
 	/**
 	 * List all the available user roles.
-<<<<<<< HEAD
 	 *
 	 * @since      1.8.0
 	 * @deprecated 15.0
@@ -1189,54 +1181,6 @@ class WPSEO_Utils {
 		_deprecated_function( __METHOD__, 'WPSEO 15.2' );
 
 		return YoastSEO()->helpers->string->standardize_whitespace( $text );
-=======
-	 *
-	 * @since      1.8.0
-	 * @deprecated 15.0
-	 * @codeCoverageIgnore
-	 *
-	 * @return array
-	 */
-	public static function get_roles() {
-		_deprecated_function( __METHOD__, '15.0', 'wp_roles()->get_names()' );
-		$yoast_seo_wp_roles = wp_roles();
-
-		$roles = $yoast_seo_wp_roles->get_names();
-
-		return $roles;
-	}
-
-	/**
-	 * Checks if the current installation supports MyYoast access tokens.
-	 *
-	 * @deprecated 15.0
-	 * @codeCoverageIgnore
-	 *
-	 * @return bool True if access_tokens are supported.
-	 */
-	public static function has_access_token_support() {
-		_deprecated_function( __METHOD__, 'WPSEO 15.0' );
-		return false;
-	}
-
-	/**
-	 * Standardize whitespace in a string.
-	 *
-	 * Replace line breaks, carriage returns, tabs with a space, then remove double spaces.
-	 *
-	 * @since      1.8.0
-	 * @deprecated 15.2
-	 * @codeCoverageIgnore
-	 *
-	 * @param string $string String input to standardize.
-	 *
-	 * @return string
-	 */
-	public static function standardize_whitespace( $string ) {
-		_deprecated_function( __METHOD__, 'WPSEO 15.2' );
-
-		return YoastSEO()->helpers->string->standardize_whitespace( $string );
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 	/**
@@ -1303,26 +1247,16 @@ class WPSEO_Utils {
 	 * @deprecated 15.5
 	 * @codeCoverageIgnore
 	 *
-<<<<<<< HEAD
 	 * @param array  $graph        The Schema graph array to output.
 	 * @param string $class_to_add The (optional) class to add to the script tag.
 	 *
 	 * @return bool
 	 */
 	public static function schema_output( $graph, $class_to_add = 'yoast-schema-graph' ) {
-=======
-	 * @param array  $graph The Schema graph array to output.
-	 * @param string $class The (optional) class to add to the script tag.
-	 *
-	 * @return bool
-	 */
-	public static function schema_output( $graph, $class = 'yoast-schema-graph' ) {
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		_deprecated_function( __METHOD__, 'WPSEO 15.5' );
 
 		if ( ! is_array( $graph ) || empty( $graph ) ) {
 			return false;
-<<<<<<< HEAD
 		}
 
 		// phpcs:ignore WordPress.Security.EscapeOutput -- Escaping happens in WPSEO_Utils::schema_tag, which should be whitelisted.
@@ -1432,117 +1366,6 @@ SVG;
 			return $plugin_details['Name'];
 		}
 
-=======
-		}
-
-		// phpcs:ignore WordPress.Security.EscapeOutput -- Escaping happens in WPSEO_Utils::schema_tag, which should be whitelisted.
-		echo self::schema_tag( $graph, $class );
-		return true;
-	}
-
-	/**
-	 * Returns a script tag with Schema blob.
-	 *
-	 * @deprecated 15.5
-	 * @codeCoverageIgnore
-	 *
-	 * @param array  $graph The Schema graph array to output.
-	 * @param string $class The (optional) class to add to the script tag.
-	 *
-	 * @return false|string A schema blob with script tags.
-	 */
-	public static function schema_tag( $graph, $class = 'yoast-schema-graph' ) {
-		_deprecated_function( __METHOD__, 'WPSEO 15.5' );
-
-		if ( ! is_array( $graph ) || empty( $graph ) ) {
-			return false;
-		}
-
-		$output = [
-			'@context' => 'https://schema.org',
-			'@graph'   => $graph,
-		];
-		return "<script type='application/ld+json' class='" . esc_attr( $class ) . "'>" . self::format_json_encode( $output ) . '</script>' . "\n";
-	}
-
-	/**
-	 * Returns the SVG for the traffic light in the metabox.
-	 *
-	 * @deprecated 15.5
-	 * @codeCoverageIgnore
-	 *
-	 * @return string
-	 */
-	public static function traffic_light_svg() {
-		_deprecated_function( __METHOD__, 'WPSEO 15.5' );
-
-		return <<<'SVG'
-<svg class="yst-traffic-light init" version="1.1" xmlns="http://www.w3.org/2000/svg"
-	 role="img" aria-hidden="true" focusable="false"
-	 x="0px" y="0px" viewBox="0 0 30 47" enable-background="new 0 0 30 47" xml:space="preserve">
-<g id="BG_1_">
-</g>
-<g id="traffic_light">
-	<g>
-		<g>
-			<g>
-				<path fill="#5B2942" d="M22,0H8C3.6,0,0,3.6,0,7.9v31.1C0,43.4,3.6,47,8,47h14c4.4,0,8-3.6,8-7.9V7.9C30,3.6,26.4,0,22,0z
-					 M27.5,38.8c0,3.1-2.6,5.7-5.8,5.7H8.3c-3.2,0-5.8-2.5-5.8-5.7V8.3c0-1.5,0.6-2.9,1.7-4c1.1-1,2.5-1.6,4.1-1.6h13.4
-					c1.5,0,3,0.6,4.1,1.6c1.1,1.1,1.7,2.5,1.7,4V38.8z"/>
-			</g>
-			<g class="traffic-light-color traffic-light-red">
-				<ellipse fill="#C8C8C8" cx="15" cy="23.5" rx="5.7" ry="5.6"/>
-				<ellipse fill="#DC3232" cx="15" cy="10.9" rx="5.7" ry="5.6"/>
-				<ellipse fill="#C8C8C8" cx="15" cy="36.1" rx="5.7" ry="5.6"/>
-			</g>
-			<g class="traffic-light-color traffic-light-orange">
-				<ellipse fill="#F49A00" cx="15" cy="23.5" rx="5.7" ry="5.6"/>
-				<ellipse fill="#C8C8C8" cx="15" cy="10.9" rx="5.7" ry="5.6"/>
-				<ellipse fill="#C8C8C8" cx="15" cy="36.1" rx="5.7" ry="5.6"/>
-			</g>
-			<g class="traffic-light-color traffic-light-green">
-				<ellipse fill="#C8C8C8" cx="15" cy="23.5" rx="5.7" ry="5.6"/>
-				<ellipse fill="#C8C8C8" cx="15" cy="10.9" rx="5.7" ry="5.6"/>
-				<ellipse fill="#63B22B" cx="15" cy="36.1" rx="5.7" ry="5.6"/>
-			</g>
-			<g class="traffic-light-color traffic-light-empty">
-				<ellipse fill="#C8C8C8" cx="15" cy="23.5" rx="5.7" ry="5.6"/>
-				<ellipse fill="#C8C8C8" cx="15" cy="10.9" rx="5.7" ry="5.6"/>
-				<ellipse fill="#C8C8C8" cx="15" cy="36.1" rx="5.7" ry="5.6"/>
-			</g>
-			<g class="traffic-light-color traffic-light-init">
-				<ellipse fill="#C8C8C8" cx="15" cy="23.5" rx="5.7" ry="5.6"/>
-				<ellipse fill="#C8C8C8" cx="15" cy="10.9" rx="5.7" ry="5.6"/>
-				<ellipse fill="#C8C8C8" cx="15" cy="36.1" rx="5.7" ry="5.6"/>
-			</g>
-		</g>
-	</g>
-</g>
-</svg>
-SVG;
-	}
-
-	/**
-	 * Gets the plugin name from file.
-	 *
-	 * @since      2.3.3
-	 * @deprecated 15.5
-	 * @codeCoverageIgnore
-	 *
-	 * @param string $plugin Plugin path relative to plugins directory.
-	 *
-	 * @return string|bool
-	 */
-	public static function get_plugin_name( $plugin ) {
-		_deprecated_function( __METHOD__, 'WPSEO 15.5' );
-
-		$plugin_details = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin );
-
-		if ( $plugin_details['Name'] !== '' ) {
-			return $plugin_details['Name'];
-		}
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		return false;
 	}
 

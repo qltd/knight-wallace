@@ -208,19 +208,6 @@ class WPSEO_Admin_Bar_Menu implements WPSEO_WordPress_Integration {
 				'href'   => $settings_url,
 				'meta'   => [ 'tabindex' => ! empty( $settings_url ) ? false : '0' ],
 			];
-<<<<<<< HEAD
-=======
-			$wp_admin_bar->add_menu( $admin_bar_menu_args );
-		}
-
-		if ( ! is_network_admin() && $can_manage_options ) {
-			$admin_bar_menu_args = [
-				'parent' => self::MENU_IDENTIFIER,
-				'id'     => 'wpseo-configuration-wizard',
-				'title'  => __( 'Configuration Wizard', 'wordpress-seo' ),
-				'href'   => admin_url( 'admin.php?page=' . WPSEO_Configuration_Page::PAGE_IDENTIFIER ),
-			];
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			$wp_admin_bar->add_menu( $admin_bar_menu_args );
 		}
 	}

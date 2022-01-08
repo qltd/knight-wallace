@@ -30,7 +30,6 @@ function wpcf7_plugin_url( $path = '' ) {
 
 
 /**
-<<<<<<< HEAD
  * Include a file under WPCF7_PLUGIN_MODULES_DIR.
  *
  * @param string $path File path relative to the module dir.
@@ -55,8 +54,6 @@ function wpcf7_include_module_file( $path ) {
 
 
 /**
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  * Retrieves uploads directory information.
  *
  * @param string|bool $type Optional. Type of output. Default false.
@@ -553,7 +550,6 @@ function wpcf7_deprecated_function( $function, $version, $replacement ) {
 		}
 	}
 }
-<<<<<<< HEAD
 
 
 /**
@@ -582,36 +578,6 @@ function wpcf7_apply_filters_deprecated( $tag, $args, $version, $replacement ) {
 		);
 	}
 
-=======
-
-
-/**
- * Fires functions attached to a deprecated filter hook.
- *
- * @param string $tag The name of the filter hook.
- * @param array $args Array of additional function arguments to be
- *                    passed to apply_filters().
- * @param string $version The version of Contact Form 7 that deprecated
- *                        the hook.
- * @param string $replacement The hook that should have been used.
- */
-function wpcf7_apply_filters_deprecated( $tag, $args, $version, $replacement ) {
-	if ( ! has_filter( $tag ) ) {
-		return $args[0];
-	}
-
-	if ( WP_DEBUG ) {
-		trigger_error(
-			sprintf(
-				/* translators: 1: WordPress hook name, 2: version number, 3: alternative hook name */
-				__( '%1$s is <strong>deprecated</strong> since Contact Form 7 version %2$s! Use %3$s instead.', 'contact-form-7' ),
-				$tag, $version, $replacement
-			),
-			E_USER_DEPRECATED
-		);
-	}
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	return apply_filters_ref_array( $tag, $args );
 }
 

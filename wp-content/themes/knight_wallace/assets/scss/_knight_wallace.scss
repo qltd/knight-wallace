@@ -646,6 +646,11 @@ blockquote {
   }
 }
 
+.wp-block-button__link {
+  font-size: 1.8rem;
+  padding: 1rem 2rem;
+}
+
 .button {
   display: inline-block;
   padding: 1rem;
@@ -662,6 +667,10 @@ blockquote {
   &:hover {
     background: $ublue;
   }
+}
+
+.wp-block-image {
+  margin: 0;
 }
 
 figure {

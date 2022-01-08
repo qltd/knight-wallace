@@ -270,37 +270,15 @@ class WPSEO_Options {
 	 *
 	 * @return mixed Returns value if found, $default_value if not.
 	 */
-<<<<<<< HEAD
 	public static function get( $key, $default_value = null ) {
-=======
-	public static function get( $key, $default = null ) {
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		if ( static::$option_values === null ) {
 			static::prime_cache();
 		}
 		if ( isset( static::$option_values[ $key ] ) ) {
 			return static::$option_values[ $key ];
 		}
-<<<<<<< HEAD
 
 		return $default_value;
-	}
-
-	/**
-	 * Resets the cache to null.
-	 */
-	public static function clear_cache() {
-		static::$option_values = null;
-	}
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
-
-	/**
-	 * Primes our cache.
-	 */
-	private static function prime_cache() {
-		static::$option_values = static::get_all();
-		static::$option_values = static::add_ms_option( static::$option_values );
 	}
 
 	/**
@@ -357,11 +335,7 @@ class WPSEO_Options {
 			$passed_default = func_num_args() > 1;
 
 			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals -- Using WP native filter.
-<<<<<<< HEAD
 			return apply_filters( "default_option_{$option}", $default_value, $option, $passed_default );
-=======
-			return apply_filters( "default_option_{$option}", $default, $option, $passed_default );
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		}
 
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals -- Using WP native filter.

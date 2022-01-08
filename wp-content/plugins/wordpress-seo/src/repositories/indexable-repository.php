@@ -164,7 +164,6 @@ class Indexable_Repository {
 	 */
 	public function find_by_permalink( $permalink ) {
 		$permalink_hash = \strlen( $permalink ) . ':' . \md5( $permalink );
-<<<<<<< HEAD
 
 		// Find by both permalink_hash and permalink, permalink_hash is indexed so will be used first by the DB to optimize the query.
 		return $this->query()
@@ -303,157 +302,6 @@ class Indexable_Repository {
 	 * @return bool|Indexable Instance of indexable.
 	 */
 	public function find_for_system_page( $object_sub_type, $auto_create = true ) {
-=======
-
-		// Find by both permalink_hash and permalink, permalink_hash is indexed so will be used first by the DB to optimize the query.
-		return $this->query()
-			->where( 'permalink_hash', $permalink_hash )
-			->where( 'permalink', $permalink )
-			->find_one();
-	}
-
-	/**
-	 * Retrieves all the indexable instances of a certain object type.
-	 *
-	 * @param string $object_type The object type.
-	 *
-	 * @return Indexable[] The array with all the indexable instances of a certain object type.
-	 */
-	public function find_all_with_type( $object_type ) {
-		/**
-		 * The array with all the indexable instances of a certain object type.
-		 *
-		 * @var Indexable[] $indexables
-		 */
-		$indexables = $this
-			->query()
-			->where( 'object_type', $object_type )
-			->find_many();
-
-		return \array_map( [ $this, 'upgrade_indexable' ], $indexables );
-	}
-
-	/**
-	 * Retrieves all the indexable instances of a certain object subtype.
-	 *
-	 * @param string $object_type     The object type.
-	 * @param string $object_sub_type The object subtype.
-	 *
-	 * @return Indexable[] The array with all the indexable instances of a certain object subtype.
-	 */
-	public function find_all_with_type_and_sub_type( $object_type, $object_sub_type ) {
-		/**
-		 * The array with all the indexable instances of a certain object type and subtype.
-		 *
-		 * @var Indexable[] $indexables
-		 */
-		$indexables = $this
-			->query()
-			->where( 'object_type', $object_type )
-			->where( 'object_sub_type', $object_sub_type )
-			->find_many();
-
-		return \array_map( [ $this, 'upgrade_indexable' ], $indexables );
-	}
-
-	/**
-	 * Retrieves the homepage indexable.
-	 *
-	 * @param bool $auto_create Optional. Create the indexable if it does not exist.
-	 *
-	 * @return bool|Indexable Instance of indexable.
-	 */
-	public function find_for_home_page( $auto_create = true ) {
-		$indexable = \wp_cache_get( 'home-page', 'yoast-seo-indexables' );
-		if ( ! $indexable ) {
-			/**
-			 * Indexable instance.
-			 *
-			 * @var Indexable $indexable
-			 */
-			$indexable = $this->query()->where( 'object_type', 'home-page' )->find_one();
-
-			if ( $auto_create && ! $indexable ) {
-				$indexable = $this->builder->build_for_home_page();
-			}
-
-			$indexable = $this->upgrade_indexable( $indexable );
-
-			\wp_cache_set( 'home-page', $indexable, 'yoast-seo-indexables', ( 5 * \MINUTE_IN_SECONDS ) );
-		}
-
-		return $indexable;
-	}
-
-	/**
-	 * Retrieves the date archive indexable.
-	 *
-	 * @param bool $auto_create Optional. Create the indexable if it does not exist.
-	 *
-	 * @return bool|Indexable Instance of indexable.
-	 */
-	public function find_for_date_archive( $auto_create = true ) {
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
-		/**
-		 * Indexable instance.
-		 *
-		 * @var Indexable $indexable
-		 */
-<<<<<<< HEAD
-		$indexable = $this->query()
-			->where( 'object_type', 'system-page' )
-			->where( 'object_sub_type', $object_sub_type )
-			->find_one();
-
-		if ( $auto_create && ! $indexable ) {
-			$indexable = $this->builder->build_for_system_page( $object_sub_type );
-		}
-
-=======
-		$indexable = $this->query()->where( 'object_type', 'date-archive' )->find_one();
-
-		if ( $auto_create && ! $indexable ) {
-			$indexable = $this->builder->build_for_date_archive();
-		}
-
-		return $this->upgrade_indexable( $indexable );
-	}
-
-	/**
-	 * Retrieves an indexable for a post type archive.
-	 *
-	 * @param string $post_type   The post type.
-	 * @param bool   $auto_create Optional. Create the indexable if it does not exist.
-	 *
-	 * @return bool|Indexable The indexable, false if none could be found.
-	 */
-	public function find_for_post_type_archive( $post_type, $auto_create = true ) {
-		/**
-		 * Indexable instance.
-		 *
-		 * @var Indexable $indexable
-		 */
-		$indexable = $this->query()
-			->where( 'object_type', 'post-type-archive' )
-			->where( 'object_sub_type', $post_type )
-			->find_one();
-
-		if ( $auto_create && ! $indexable ) {
-			$indexable = $this->builder->build_for_post_type_archive( $post_type );
-		}
-
-		return $this->upgrade_indexable( $indexable );
-	}
-
-	/**
-	 * Retrieves the indexable for a system page.
-	 *
-	 * @param string $object_sub_type The type of system page.
-	 * @param bool   $auto_create     Optional. Create the indexable if it does not exist.
-	 *
-	 * @return bool|Indexable Instance of indexable.
-	 */
-	public function find_for_system_page( $object_sub_type, $auto_create = true ) {
 		/**
 		 * Indexable instance.
 		 *
@@ -468,7 +316,6 @@ class Indexable_Repository {
 			$indexable = $this->builder->build_for_system_page( $object_sub_type );
 		}
 
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		return $this->upgrade_indexable( $indexable );
 	}
 
@@ -631,20 +478,12 @@ class Indexable_Repository {
 	/**
 	 * Ensures that the given indexable has a permalink.
 	 *
-<<<<<<< HEAD
 	 * Will be deprecated in 17.3 - Use upgrade_indexable instead.
 	 *
 	 * @codeCoverageIgnore
 	 *
 	 * @param Indexable $indexable The indexable.
 	 *
-=======
-	 * @param Indexable $indexable The indexable.
-	 *
-	 * will be deprecated in 17.3 - Use upgrade_indexable instead.
-	 * @codeCoverageIgnore
-	 *
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 * @return bool|Indexable The indexable.
 	 */
 	public function ensure_permalink( $indexable ) {

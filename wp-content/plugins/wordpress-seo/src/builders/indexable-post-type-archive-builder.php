@@ -2,13 +2,9 @@
 
 namespace Yoast\WP\SEO\Builders;
 
-<<<<<<< HEAD
 use wpdb;
 use Yoast\WP\SEO\Helpers\Options_Helper;
 use Yoast\WP\SEO\Helpers\Post_Helper;
-=======
-use Yoast\WP\SEO\Helpers\Options_Helper;
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 use Yoast\WP\SEO\Models\Indexable;
 use Yoast\WP\SEO\Values\Indexables\Indexable_Builder_Versions;
 
@@ -36,7 +32,6 @@ class Indexable_Post_Type_Archive_Builder {
 	protected $version;
 
 	/**
-<<<<<<< HEAD
 	 * Holds the taxonomy helper instance.
 	 *
 	 * @var Post_Helper
@@ -68,19 +63,6 @@ class Indexable_Post_Type_Archive_Builder {
 		$this->version     = $versions->get_latest_version_for_type( 'post-type-archive' );
 		$this->post_helper = $post_helper;
 		$this->wpdb        = $wpdb;
-=======
-	 * Indexable_Post_Type_Archive_Builder constructor.
-	 *
-	 * @param Options_Helper             $options  The options helper.
-	 * @param Indexable_Builder_Versions $versions The latest version of each Indexable builder.
-	 */
-	public function __construct(
-		Options_Helper $options,
-		Indexable_Builder_Versions $versions
-	) {
-		$this->options = $options;
-		$this->version = $versions->get_latest_version_for_type( 'post-type-archive' );
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 	/**
@@ -103,13 +85,10 @@ class Indexable_Post_Type_Archive_Builder {
 		$indexable->blog_id           = \get_current_blog_id();
 		$indexable->version           = $this->version;
 
-<<<<<<< HEAD
 		$timestamps                      = $this->get_object_timestamps( $post_type );
 		$indexable->object_published_at  = $timestamps->published_at;
 		$indexable->object_last_modified = $timestamps->last_modified;
 
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		return $indexable;
 	}
 
@@ -143,7 +122,6 @@ class Indexable_Post_Type_Archive_Builder {
 
 		return $post_type_obj->name;
 	}
-<<<<<<< HEAD
 
 	/**
 	 * Returns the timestamps for a given post type.
@@ -168,6 +146,4 @@ class Indexable_Post_Type_Archive_Builder {
 		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- We are using wpdb prepare.
 		return $this->wpdb->get_row( $this->wpdb->prepare( $sql, $replacements ) );
 	}
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 }

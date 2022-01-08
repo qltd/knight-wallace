@@ -1,16 +1,11 @@
 <?php
 
 add_filter(
-<<<<<<< HEAD
 	'wpcf7_pre_construct_contact_form_properties',
-=======
-	'wpcf7_contact_form_properties',
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	'wpcf7_sendinblue_register_property',
 	10, 2
 );
 
-<<<<<<< HEAD
 /**
  * Registers the sendinblue contact form property.
  */
@@ -23,19 +18,6 @@ function wpcf7_sendinblue_register_property( $properties, $contact_form ) {
 		);
 	}
 
-=======
-function wpcf7_sendinblue_register_property( $properties, $contact_form ) {
-	$service = WPCF7_Sendinblue::get_instance();
-
-	if ( ! $service->is_active() ) {
-		return $properties;
-	}
-
-	$properties += array(
-		'sendinblue' => array(),
-	);
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	return $properties;
 }
 
@@ -46,12 +28,9 @@ add_action(
 	10, 3
 );
 
-<<<<<<< HEAD
 /**
  * Saves the sendinblue property value.
  */
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 function wpcf7_sendinblue_save_contact_form( $contact_form, $args, $context ) {
 	$service = WPCF7_Sendinblue::get_instance();
 
@@ -89,12 +68,9 @@ add_filter(
 	10, 1
 );
 
-<<<<<<< HEAD
 /**
  * Builds the editor panel for the sendinblue property.
  */
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 function wpcf7_sendinblue_editor_panels( $panels ) {
 	$service = WPCF7_Sendinblue::get_instance();
 

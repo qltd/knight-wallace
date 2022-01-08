@@ -127,7 +127,6 @@ class Indexable_Term_Watcher implements Integration_Interface {
 		// If we haven't found an existing indexable, create it. Otherwise update it.
 		$indexable = $this->builder->build_for_id_and_type( $term_id, 'term', $indexable );
 
-<<<<<<< HEAD
 		if ( ! $indexable ) {
 			return;
 		}
@@ -136,11 +135,6 @@ class Indexable_Term_Watcher implements Integration_Interface {
 		$this->link_builder->build( $indexable, $term->description );
 
 		$indexable->object_last_modified = \max( $indexable->object_last_modified, \current_time( 'mysql' ) );
-=======
-		// Update links.
-		$this->link_builder->build( $indexable, $term->description );
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		$indexable->save();
 	}
 }

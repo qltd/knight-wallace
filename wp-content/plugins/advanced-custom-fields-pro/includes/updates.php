@@ -116,18 +116,8 @@ if ( ! class_exists( 'ACF_Updates' ) ) :
 			$url = "https://connect.advancedcustomfields.com/$endpoint";
 
 			// Staging environment.
-<<<<<<< HEAD
 			if ( defined( 'ACF_DEV_API' ) && ACF_DEV_API ) {
 				$url = trailingslashit( ACF_DEV_API ) . $endpoint;
-=======
-			if ( defined( 'ACF_DEV_API' ) && ACF_DEV_API === 'STAGE' ) {
-				$url = "https://staging.connect.advancedcustomfields.com/$endpoint";
-				acf_log( $url, $body );
-
-				// Dev environment.
-			} elseif ( defined( 'ACF_DEV_API' ) && ACF_DEV_API ) {
-				$url = "http://connect/$endpoint";
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				acf_log( $url, $body );
 			}
 

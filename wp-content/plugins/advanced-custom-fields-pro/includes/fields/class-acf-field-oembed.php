@@ -299,7 +299,6 @@ if ( ! class_exists( 'acf_field_oembed' ) ) :
 		}
 
 
-<<<<<<< HEAD
 		/**
 		 *  format_value()
 		 *
@@ -316,26 +315,6 @@ if ( ! class_exists( 'acf_field_oembed' ) ) :
 		 *  @return  $value (mixed) the modified value
 		 */
 		function format_value( $value, $post_id, $field ) {
-=======
-		/*
-		*  format_value()
-		*
-		*  This filter is appied to the $value after it is loaded from the db and before it is returned to the template
-		*
-		*  @type    filter
-		*  @since   3.6
-		*  @date    23/01/13
-		*
-		*  @param   $value (mixed) the value which was loaded from the database
-		*  @param   $post_id (mixed) the $post_id from which the value was loaded
-		*  @param   $field (array) the field array holding all the field options
-		*
-		*  @return  $value (mixed) the modified value
-		*/
-
-		function format_value( $value, $post_id, $field ) {
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			// bail early if no value
 			if ( empty( $value ) ) {
 				return $value;
@@ -349,7 +328,6 @@ if ( ! class_exists( 'acf_field_oembed' ) ) :
 
 			// return
 			return $value;
-<<<<<<< HEAD
 		}
 
 		/**
@@ -364,11 +342,6 @@ if ( ! class_exists( 'acf_field_oembed' ) ) :
 
 			return $schema;
 		}
-=======
-
-		}
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 

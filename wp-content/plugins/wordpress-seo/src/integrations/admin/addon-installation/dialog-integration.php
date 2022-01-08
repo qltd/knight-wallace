@@ -60,11 +60,7 @@ class Dialog_Integration implements Integration_Interface {
 	/**
 	 * Starts the addon installation flow.
 	 *
-<<<<<<< HEAD
 	 * @return void
-=======
-	 * @returns void
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 */
 	public function start_addon_installation() {
 		// Only show the dialog when we explicitly want to see it.
@@ -87,11 +83,7 @@ class Dialog_Integration implements Integration_Interface {
 	/**
 	 * Throws a no owned addons warning.
 	 *
-<<<<<<< HEAD
 	 * @return void
-=======
-	 * @returns void
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 */
 	public function throw_no_owned_addons_warning() {
 		echo '<div class="notice notice-warning"><p>' .
@@ -109,11 +101,7 @@ class Dialog_Integration implements Integration_Interface {
 	/**
 	 * Shows the modal.
 	 *
-<<<<<<< HEAD
 	 * @return void
-=======
-	 * @returns void
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 */
 	public function show_modal() {
 		\wp_localize_script(

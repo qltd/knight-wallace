@@ -53,10 +53,6 @@ class WPCF7_REST_Controller {
 		register_rest_route( self::route_namespace,
 			'/contact-forms/(?P<id>\d+)',
 			array(
-<<<<<<< HEAD
-=======
-				'args' => $this->get_argument_schema(),
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				array(
 					'methods' => WP_REST_Server::READABLE,
 					'callback' => array( $this, 'get_contact_form' ),
@@ -111,10 +107,6 @@ class WPCF7_REST_Controller {
 		register_rest_route( self::route_namespace,
 			'/contact-forms/(?P<id>\d+)/feedback',
 			array(
-<<<<<<< HEAD
-=======
-				'args' => $this->get_argument_schema(),
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				array(
 					'methods' => WP_REST_Server::CREATABLE,
 					'callback' => array( $this, 'create_feedback' ),
@@ -126,10 +118,6 @@ class WPCF7_REST_Controller {
 		register_rest_route( self::route_namespace,
 			'/contact-forms/(?P<id>\d+)/refill',
 			array(
-<<<<<<< HEAD
-=======
-				'args' => $this->get_argument_schema(),
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				array(
 					'methods' => WP_REST_Server::READABLE,
 					'callback' => array( $this, 'get_refill' ),

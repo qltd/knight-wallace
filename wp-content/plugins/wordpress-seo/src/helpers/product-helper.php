@@ -37,7 +37,6 @@ class Product_Helper {
 	public function is_premium() {
 		return \defined( 'WPSEO_PREMIUM_FILE' );
 	}
-<<<<<<< HEAD
 
 	/**
 	 * Gets the Premium version if defined, returns null otherwise.
@@ -51,6 +50,4 @@ class Product_Helper {
 
 		return null;
 	}
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 }

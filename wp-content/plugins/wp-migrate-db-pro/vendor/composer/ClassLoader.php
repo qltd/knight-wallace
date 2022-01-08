@@ -37,7 +37,6 @@ namespace Composer\Autoload;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Jordi Boggiano <j.boggiano@seld.be>
-<<<<<<< HEAD
  * @see    https://www.php-fig.org/psr/psr-0/
  * @see    https://www.php-fig.org/psr/psr-4/
  */
@@ -112,28 +111,6 @@ class ClassLoader
     /**
      * @return string[]
      */
-=======
- * @see    http://www.php-fig.org/psr/psr-0/
- * @see    http://www.php-fig.org/psr/psr-4/
- */
-class ClassLoader
-{
-    // PSR-4
-    private $prefixLengthsPsr4 = array();
-    private $prefixDirsPsr4 = array();
-    private $fallbackDirsPsr4 = array();
-
-    // PSR-0
-    private $prefixesPsr0 = array();
-    private $fallbackDirsPsr0 = array();
-
-    private $useIncludePath = false;
-    private $classMap = array();
-    private $classMapAuthoritative = false;
-    private $missingClasses = array();
-    private $apcuPrefix;
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
     public function getPrefixes()
     {
         if (!empty($this->prefixesPsr0)) {
@@ -143,63 +120,47 @@ class ClassLoader
         return array();
     }
 
-<<<<<<< HEAD
     /**
      * @return array[]
      * @psalm-return array<string, array<int, string>>
      */
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
     public function getPrefixesPsr4()
     {
         return $this->prefixDirsPsr4;
     }
 
-<<<<<<< HEAD
     /**
      * @return array[]
      * @psalm-return array<string, string>
      */
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
     public function getFallbackDirs()
     {
         return $this->fallbackDirsPsr0;
     }
 
-<<<<<<< HEAD
     /**
      * @return array[]
      * @psalm-return array<string, string>
      */
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
     public function getFallbackDirsPsr4()
     {
         return $this->fallbackDirsPsr4;
     }
 
-<<<<<<< HEAD
     /**
      * @return string[] Array of classname => path
      * @psalm-var array<string, string>
      */
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
     public function getClassMap()
     {
         return $this->classMap;
     }
 
     /**
-<<<<<<< HEAD
      * @param string[] $classMap Class to filename map
      * @psalm-param array<string, string> $classMap
      *
      * @return void
-=======
-     * @param array $classMap Class to filename map
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
      */
     public function addClassMap(array $classMap)
     {
@@ -214,17 +175,11 @@ class ClassLoader
      * Registers a set of PSR-0 directories for a given prefix, either
      * appending or prepending to the ones previously set for this prefix.
      *
-<<<<<<< HEAD
      * @param string          $prefix  The prefix
      * @param string[]|string $paths   The PSR-0 root directories
      * @param bool            $prepend Whether to prepend the directories
      *
      * @return void
-=======
-     * @param string       $prefix  The prefix
-     * @param array|string $paths   The PSR-0 root directories
-     * @param bool         $prepend Whether to prepend the directories
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
      */
     public function add($prefix, $paths, $prepend = false)
     {
@@ -267,7 +222,6 @@ class ClassLoader
      * Registers a set of PSR-4 directories for a given namespace, either
      * appending or prepending to the ones previously set for this namespace.
      *
-<<<<<<< HEAD
      * @param string          $prefix  The prefix/namespace, with trailing '\\'
      * @param string[]|string $paths   The PSR-4 base directories
      * @param bool            $prepend Whether to prepend the directories
@@ -275,13 +229,6 @@ class ClassLoader
      * @throws \InvalidArgumentException
      *
      * @return void
-=======
-     * @param string       $prefix  The prefix/namespace, with trailing '\\'
-     * @param array|string $paths   The PSR-4 base directories
-     * @param bool         $prepend Whether to prepend the directories
-     *
-     * @throws \InvalidArgumentException
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
      */
     public function addPsr4($prefix, $paths, $prepend = false)
     {
@@ -325,15 +272,10 @@ class ClassLoader
      * Registers a set of PSR-0 directories for a given prefix,
      * replacing any others previously set for this prefix.
      *
-<<<<<<< HEAD
      * @param string          $prefix The prefix
      * @param string[]|string $paths  The PSR-0 base directories
      *
      * @return void
-=======
-     * @param string       $prefix The prefix
-     * @param array|string $paths  The PSR-0 base directories
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
      */
     public function set($prefix, $paths)
     {
@@ -348,19 +290,12 @@ class ClassLoader
      * Registers a set of PSR-4 directories for a given namespace,
      * replacing any others previously set for this namespace.
      *
-<<<<<<< HEAD
      * @param string          $prefix The prefix/namespace, with trailing '\\'
      * @param string[]|string $paths  The PSR-4 base directories
      *
      * @throws \InvalidArgumentException
      *
      * @return void
-=======
-     * @param string       $prefix The prefix/namespace, with trailing '\\'
-     * @param array|string $paths  The PSR-4 base directories
-     *
-     * @throws \InvalidArgumentException
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
      */
     public function setPsr4($prefix, $paths)
     {
@@ -380,11 +315,8 @@ class ClassLoader
      * Turns on searching the include path for class files.
      *
      * @param bool $useIncludePath
-<<<<<<< HEAD
      *
      * @return void
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
      */
     public function setUseIncludePath($useIncludePath)
     {
@@ -407,11 +339,8 @@ class ClassLoader
      * that have not been registered with the class map.
      *
      * @param bool $classMapAuthoritative
-<<<<<<< HEAD
      *
      * @return void
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
      */
     public function setClassMapAuthoritative($classMapAuthoritative)
     {
@@ -432,11 +361,8 @@ class ClassLoader
      * APCu prefix to use to cache found/not-found classes, if the extension is enabled.
      *
      * @param string|null $apcuPrefix
-<<<<<<< HEAD
      *
      * @return void
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
      */
     public function setApcuPrefix($apcuPrefix)
     {
@@ -457,16 +383,12 @@ class ClassLoader
      * Registers this instance as an autoloader.
      *
      * @param bool $prepend Whether to prepend the autoloader or not
-<<<<<<< HEAD
      *
      * @return void
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
      */
     public function register($prepend = false)
     {
         spl_autoload_register(array($this, 'loadClass'), true, $prepend);
-<<<<<<< HEAD
 
         if (null === $this->vendorDir) {
             return;
@@ -478,39 +400,27 @@ class ClassLoader
             unset(self::$registeredLoaders[$this->vendorDir]);
             self::$registeredLoaders[$this->vendorDir] = $this;
         }
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
     }
 
     /**
      * Unregisters this instance as an autoloader.
-<<<<<<< HEAD
      *
      * @return void
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
      */
     public function unregister()
     {
         spl_autoload_unregister(array($this, 'loadClass'));
-<<<<<<< HEAD
 
         if (null !== $this->vendorDir) {
             unset(self::$registeredLoaders[$this->vendorDir]);
         }
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
     }
 
     /**
      * Loads the given class or interface.
      *
      * @param  string    $class The name of the class
-<<<<<<< HEAD
      * @return true|null True if loaded, null otherwise
-=======
-     * @return bool|null True if loaded, null otherwise
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
      */
     public function loadClass($class)
     {
@@ -519,11 +429,8 @@ class ClassLoader
 
             return true;
         }
-<<<<<<< HEAD
 
         return null;
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
     }
 
     /**
@@ -568,7 +475,6 @@ class ClassLoader
         return $file;
     }
 
-<<<<<<< HEAD
     /**
      * Returns the currently registered loaders indexed by their corresponding vendor directories.
      *
@@ -584,8 +490,6 @@ class ClassLoader
      * @param  string       $ext
      * @return string|false
      */
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
     private function findFileWithExtension($class, $ext)
     {
         // PSR-4 lookup
@@ -657,13 +561,10 @@ class ClassLoader
  * Scope isolated include.
  *
  * Prevents access to $this/self from included files.
-<<<<<<< HEAD
  *
  * @param  string $file
  * @return void
  * @private
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 function includeFile($file)
 {

@@ -140,15 +140,12 @@ class Index_Command implements Command_Interface {
 	 * [--skip-confirmation]
 	 * : Skips the confirmations (for automated systems).
 	 *
-<<<<<<< HEAD
 	 * [--interval=<interval>]
 	 * : The number of microseconds (millionths of a second) to wait between index actions.
 	 * ---
 	 * default: 500000
 	 * ---
 	 *
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 * ## EXAMPLES
 	 *
 	 *     wp yoast index
@@ -219,14 +216,9 @@ class Index_Command implements Command_Interface {
 
 		$this->prepare_indexing_action->prepare();
 
-<<<<<<< HEAD
 		$interval = (int) $assoc_args['interval'];
 		foreach ( $indexation_actions as $name => $indexation_action ) {
 			$this->run_indexation_action( $name, $indexation_action, $interval );
-=======
-		foreach ( $indexation_actions as $name => $indexation_action ) {
-			$this->run_indexation_action( $name, $indexation_action );
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		}
 
 		$this->complete_indexation_action->complete();
@@ -237,18 +229,11 @@ class Index_Command implements Command_Interface {
 	 *
 	 * @param string                      $name              The name of the object to be indexed.
 	 * @param Indexation_Action_Interface $indexation_action The indexation action.
-<<<<<<< HEAD
 	 * @param int                         $interval          Number of microseconds (millionths of a second) to wait between index actions.
 	 *
 	 * @return void
 	 */
 	protected function run_indexation_action( $name, Indexation_Action_Interface $indexation_action, $interval ) {
-=======
-	 *
-	 * @return void
-	 */
-	protected function run_indexation_action( $name, Indexation_Action_Interface $indexation_action ) {
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		$total = $indexation_action->get_total_unindexed();
 		if ( $total > 0 ) {
 			$limit    = $indexation_action->get_limit();
@@ -257,11 +242,8 @@ class Index_Command implements Command_Interface {
 				$indexables = $indexation_action->index();
 				$count      = \count( $indexables );
 				$progress->tick( $count );
-<<<<<<< HEAD
 				usleep( $interval );
 				Utils\wp_clear_object_cache();
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			} while ( $count >= $limit );
 			$progress->finish();
 		}

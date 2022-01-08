@@ -273,15 +273,6 @@ function acf_prepare_block( $block ) {
 		return false;
 	}
 
-<<<<<<< HEAD
-=======
-	// Replace className with wpClassName if it's set. This enables support for blocks API v2 filters.
-	if ( isset( $block['wpClassName'] ) ) {
-		$block['className'] = $block['wpClassName'];
-		unset( $block['wpClassName'] );
-	}
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	// Get block type and return false if doesn't exist.
 	$block_type = acf_get_block_type( $block['name'] );
 	if ( ! $block_type ) {
@@ -360,11 +351,7 @@ function acf_rendered_block( $attributes, $content = '', $is_preview = false, $p
 
 	$html = ob_get_clean();
 
-<<<<<<< HEAD
 	if ( in_array( $mode, array( 'preview', 'auto' ) ) && $is_preview ) {
-=======
-	if ( 'preview' === $mode && $is_preview ) {
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		$html = '<div class="acf-block-preview">' . $html . '</div>';
 	}
 
@@ -509,10 +496,6 @@ function acf_enqueue_block_assets() {
 	// Enqueue script.
 	$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	if ( acf_version_compare( 'wp', '<', '5.6' ) ) {
 		$blocks_js_path = acf_get_url( "assets/build/js/pro/acf-pro-blocks-legacy{$min}.js" );
 	} else {
@@ -578,17 +561,12 @@ function acf_enqueue_block_type_assets( $block_type ) {
  * @return  void
  */
 function acf_ajax_fetch_block() {
-<<<<<<< HEAD
-=======
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	// Validate ajax request.
 	if ( ! acf_verify_ajax() ) {
 		 wp_send_json_error();
 	}
 
 	// Get request args.
-<<<<<<< HEAD
 	$args = acf_request_args(
 		array(
 			'block'   => false,
@@ -602,19 +580,6 @@ function acf_ajax_fetch_block() {
 	$query   = $args['query'];
 
 	// Bail early if no block.
-=======
-	extract(
-		acf_request_args(
-			array(
-				'block'   => false,
-				'post_id' => 0,
-				'query'   => array(),
-			)
-		)
-	);
-
-	// Bail ealry if no block.
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	if ( ! $block ) {
 		wp_send_json_error();
 	}
@@ -675,11 +640,7 @@ function acf_ajax_fetch_block() {
 		$response['preview'] = acf_rendered_block( $block, $content, $is_preview, $post_id );
 	}
 
-<<<<<<< HEAD
 	// Send response.
-=======
-	// Send repsonse.
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	wp_send_json_success( $response );
 }
 

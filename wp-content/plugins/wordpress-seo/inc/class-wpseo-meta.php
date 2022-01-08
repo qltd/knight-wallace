@@ -105,30 +105,18 @@ class WPSEO_Meta {
 	 */
 	public static $meta_fields = [
 		'general'  => [
-<<<<<<< HEAD
 			'focuskw' => [
 				'type'  => 'hidden',
 				'title' => '',
 			],
 			'title' => [
-=======
-			'focuskw'        => [
-				'type'  => 'hidden',
-				'title' => '',
-			],
-			'title'          => [
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				'type'          => 'hidden',
 				'title'         => '', // Translation added later.
 				'default_value' => '',
 				'description'   => '', // Translation added later.
 				'help'          => '', // Translation added later.
 			],
-<<<<<<< HEAD
 			'metadesc' => [
-=======
-			'metadesc'       => [
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				'type'          => 'hidden',
 				'title'         => '', // Translation added later.
 				'default_value' => '',
@@ -137,21 +125,13 @@ class WPSEO_Meta {
 				'description'   => '', // Translation added later.
 				'help'          => '', // Translation added later.
 			],
-<<<<<<< HEAD
 			'linkdex' => [
-=======
-			'linkdex'        => [
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				'type'          => 'hidden',
 				'title'         => 'linkdex',
 				'default_value' => '0',
 				'description'   => '',
 			],
-<<<<<<< HEAD
 			'content_score' => [
-=======
-			'content_score'  => [
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				'type'          => 'hidden',
 				'title'         => 'content_score',
 				'default_value' => '0',
@@ -412,11 +392,7 @@ class WPSEO_Meta {
 				$field_defs['schema_page_type']['default'] = WPSEO_Options::get( 'schema-page-type-' . $post_type );
 
 				$article_helper = new Article_Helper();
-<<<<<<< HEAD
 				if ( $article_helper->is_article_post_type( $post_type ) ) {
-=======
-				if ( $post_type !== 'page' && $article_helper->is_author_supported( $post_type ) ) {
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 					$default_schema_article_type = WPSEO_Options::get( 'schema-article-type-' . $post_type );
 
 					/** This filter is documented in inc/options/class-wpseo-option-titles.php */

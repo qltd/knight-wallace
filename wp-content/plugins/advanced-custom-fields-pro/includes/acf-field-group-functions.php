@@ -223,10 +223,7 @@ function acf_validate_field_group( $field_group = array() ) {
 			'hide_on_screen'        => array(),
 			'active'                => true,
 			'description'           => '',
-<<<<<<< HEAD
 			'show_in_rest'          => false,
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		)
 	);
 

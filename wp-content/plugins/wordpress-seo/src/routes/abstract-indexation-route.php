@@ -10,28 +10,7 @@ use Yoast\WP\SEO\Actions\Indexing\Indexation_Action_Interface;
  *
  * Reindexing route for indexables.
  */
-<<<<<<< HEAD
 abstract class Abstract_Indexation_Route extends Abstract_Action_Route {
-=======
-abstract class Abstract_Indexation_Route implements Route_Interface {
-
-	/**
-	 * Responds to an indexing request.
-	 *
-	 * @param array  $objects  The objects that have been indexed.
-	 * @param string $next_url The url that should be called to continue reindexing. False if done.
-	 *
-	 * @return WP_REST_Response The response.
-	 */
-	protected function respond_with( $objects, $next_url ) {
-		return new WP_REST_Response(
-			[
-				'objects'  => $objects,
-				'next_url' => $next_url,
-			]
-		);
-	}
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 	/**
 	 * Runs an indexing action and returns the response.

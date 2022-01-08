@@ -198,7 +198,6 @@ if ( ! class_exists( 'acf_field_textarea' ) ) :
 
 			// return
 			return $value;
-<<<<<<< HEAD
 		}
 
 		/**
@@ -240,33 +239,6 @@ if ( ! class_exists( 'acf_field_textarea' ) ) :
 			}
 
 			return $schema;
-=======
-		}
-
-		/**
-		 * validate_value
-		 *
-		 * Validates a field's value.
-		 *
-		 * @date    29/1/19
-		 * @since   5.7.11
-		 *
-		 * @param   (bool|string) Whether the value is vaid or not.
-		 * @param   mixed                                          $value The field value.
-		 * @param   array                                          $field The field array.
-		 * @param   string                                         $input The HTML input name.
-		 * @return  (bool|string)
-		 */
-		function validate_value( $valid, $value, $field, $input ) {
-
-			// Check maxlength.
-			if ( $field['maxlength'] && ( acf_strlen( $value ) > $field['maxlength'] ) ) {
-				return sprintf( __( 'Value must not exceed %d characters', 'acf' ), $field['maxlength'] );
-			}
-
-			// Return.
-			return $valid;
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		}
 	}
 

@@ -15,11 +15,7 @@ if ( ! function_exists( 'add_filter' ) ) {
  * {@internal Nobody should be able to overrule the real version number as this can cause
  *            serious issues with the options, so no if ( ! defined() ).}}
  */
-<<<<<<< HEAD
 define( 'WPSEO_VERSION', '17.8' );
-=======
-define( 'WPSEO_VERSION', '17.4' );
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 
 if ( ! defined( 'WPSEO_PATH' ) ) {
@@ -139,12 +135,9 @@ function wpseo_activate( $networkwide = false ) {
 		/* Multi-site network activation - activate the plugin for all blogs. */
 		wpseo_network_activate_deactivate( true );
 	}
-<<<<<<< HEAD
 
 	// This is done so that the 'uninstall_{$file}' is triggered.
 	register_uninstall_hook( WPSEO_FILE, '__return_false' );
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 }
 
 /**
@@ -225,10 +218,7 @@ function _wpseo_activate() {
 	}
 
 	WPSEO_Options::set( 'indexing_reason', 'first_install' );
-<<<<<<< HEAD
 	WPSEO_Options::set( 'first_time_install', true );
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 	do_action( 'wpseo_register_roles' );
 	WPSEO_Role_Manager_Factory::get()->add();
@@ -378,12 +368,6 @@ function wpseo_init_rest_api() {
 	}
 
 	// Boot up REST API.
-<<<<<<< HEAD
-=======
-	$configuration_service = new WPSEO_Configuration_Service();
-	$configuration_service->initialize();
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	$statistics_service = new WPSEO_Statistics_Service( new WPSEO_Statistics() );
 
 	$endpoints   = [];

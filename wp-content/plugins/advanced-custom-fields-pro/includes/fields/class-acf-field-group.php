@@ -132,7 +132,6 @@ if ( ! class_exists( 'acf_field__group' ) ) :
 			// bail early if no value
 			if ( empty( $value ) ) {
 				return false;
-<<<<<<< HEAD
 			}
 
 			// modify names
@@ -152,27 +151,6 @@ if ( ! class_exists( 'acf_field__group' ) ) :
 
 			}
 
-=======
-			}
-
-			// modify names
-			$field = $this->prepare_field_for_db( $field );
-
-			// loop
-			foreach ( $field['sub_fields'] as $sub_field ) {
-
-				// extract value
-				$sub_value = acf_extract_var( $value, $sub_field['key'] );
-
-				// format value
-				$sub_value = acf_format_value( $sub_value, $post_id, $sub_field );
-
-				// append to $row
-				$value[ $sub_field['_name'] ] = $sub_value;
-
-			}
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			// return
 			return $value;
 
@@ -520,7 +498,6 @@ if ( ! class_exists( 'acf_field__group' ) ) :
 			// bail early if no sub fields
 			if ( empty( $field['sub_fields'] ) ) {
 				return $valid;
-<<<<<<< HEAD
 			}
 
 			// loop
@@ -544,31 +521,6 @@ if ( ! class_exists( 'acf_field__group' ) ) :
 
 			}
 
-=======
-			}
-
-			// loop
-			foreach ( $field['sub_fields'] as $sub_field ) {
-
-				// get sub field
-				$k = $sub_field['key'];
-
-				// bail early if value not set (conditional logic?)
-				if ( ! isset( $value[ $k ] ) ) {
-					continue;
-				}
-
-				// required
-				if ( $field['required'] ) {
-					$sub_field['required'] = 1;
-				}
-
-				// validate
-				acf_validate_value( $value[ $k ], $sub_field, "{$input}[{$k}]" );
-
-			}
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			// return
 			return $valid;
 
@@ -651,8 +603,6 @@ if ( ! class_exists( 'acf_field__group' ) ) :
 				// Return array of [field, sub_1, sub_2, ...].
 				return array_merge( array( $field ), $sub_fields );
 
-<<<<<<< HEAD
-=======
 			}
 			return $field;
 		}
@@ -685,45 +635,9 @@ if ( ! class_exists( 'acf_field__group' ) ) :
 			// loop
 			foreach ( $field['sub_fields'] as $sub_field ) {
 				acf_delete_value( $post_id, $sub_field );
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
-			}
-			return $field;
-		}
-
-<<<<<<< HEAD
-
-		/*
-		*  delete_value
-		*
-		*  Called when deleting this field's value.
-		*
-		*  @date    1/07/2015
-		*  @since   5.2.3
-		*
-		*  @param   mixed $post_id The post ID being saved
-		*  @param   string $meta_key The field name as seen by the DB
-		*  @param   array $field The field settings
-		*  @return  void
-		*/
-
-		function delete_value( $post_id, $meta_key, $field ) {
-
-			// bail ealry if no sub fields
-			if ( empty( $field['sub_fields'] ) ) {
-				return null;
-			}
-
-			// modify names
-			$field = $this->prepare_field_for_db( $field );
-
-			// loop
-			foreach ( $field['sub_fields'] as $sub_field ) {
-				acf_delete_value( $post_id, $sub_field );
 			}
 		}
 
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		/**
 		 *  delete_field
 		 *
@@ -745,7 +659,6 @@ if ( ! class_exists( 'acf_field__group' ) ) :
 			}
 		}
 
-<<<<<<< HEAD
 		/**
 		 * Return the schema array for the REST API.
 		 *
@@ -796,8 +709,6 @@ if ( ! class_exists( 'acf_field__group' ) ) :
 			return $value;
 		}
 
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 

@@ -81,11 +81,7 @@ if ( ! function_exists( 'yoast_get_primary_term' ) ) {
  *
  * @return string
  */
-<<<<<<< HEAD
 function wpseo_replace_vars( $text, $args, $omit = [] ) {
-=======
-function wpseo_replace_vars( $string, $args, $omit = [] ) {
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	$replacer = new WPSEO_Replace_Vars();
 
 	return $replacer->replace( $text, $args, $omit );

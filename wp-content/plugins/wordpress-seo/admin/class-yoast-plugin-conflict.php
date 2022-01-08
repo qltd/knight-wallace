@@ -33,11 +33,7 @@ class Yoast_Plugin_Conflict {
 	 *
 	 * @var array
 	 */
-<<<<<<< HEAD
 	protected $active_conflicting_plugins = [];
-=======
-	protected $active_plugins = [];
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 	/**
 	 * Property for holding instance of itself.
@@ -177,11 +173,7 @@ class Yoast_Plugin_Conflict {
 		$inactive_sections = \array_diff( $all_plugin_sections, $sections );
 		if ( ! empty( $inactive_sections ) ) {
 			foreach ( $inactive_sections as $section ) {
-<<<<<<< HEAD
 				\array_walk( $this->plugins[ $section ], [ $this, 'clear_error' ] );
-=======
-				array_walk( $this->plugins[ $section ], [ $this, 'clear_error' ] );
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			}
 		}
 
@@ -195,11 +187,7 @@ class Yoast_Plugin_Conflict {
 				$inactive_plugins = \array_diff( $this->plugins[ $section ], $this->active_conflicting_plugins[ $section ] );
 			}
 
-<<<<<<< HEAD
 			\array_walk( $inactive_plugins, [ $this, 'clear_error' ] );
-=======
-			array_walk( $inactive_plugins, [ $this, 'clear_error' ] );
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		}
 	}
 
@@ -298,14 +286,8 @@ class Yoast_Plugin_Conflict {
 	 * @param string $plugin         Plugin basename string.
 	 */
 	protected function add_active_plugin( $plugin_section, $plugin ) {
-<<<<<<< HEAD
 		if ( ! \array_key_exists( $plugin_section, $this->active_conflicting_plugins ) ) {
 			$this->active_conflicting_plugins[ $plugin_section ] = [];
-=======
-
-		if ( ! array_key_exists( $plugin_section, $this->active_plugins ) ) {
-			$this->active_plugins[ $plugin_section ] = [];
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		}
 
 		if ( ! \in_array( $plugin, $this->active_conflicting_plugins[ $plugin_section ], true ) ) {
@@ -338,11 +320,7 @@ class Yoast_Plugin_Conflict {
 	 * @return string|bool Plugin name or false when no name is set.
 	 */
 	protected function get_plugin_name( $plugin ) {
-<<<<<<< HEAD
 		$plugin_details = \get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin );
-=======
-		$plugin_details = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin );
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 		if ( $plugin_details['Name'] !== '' ) {
 			return $plugin_details['Name'];

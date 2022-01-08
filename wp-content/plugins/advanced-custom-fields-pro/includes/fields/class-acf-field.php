@@ -12,10 +12,7 @@ if ( ! class_exists( 'acf_field' ) ) :
 		$l10n     = array(),
 		$public   = true;
 
-<<<<<<< HEAD
 		public $show_in_rest = true;
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 		/*
 		*  __construct
@@ -53,10 +50,7 @@ if ( ! class_exists( 'acf_field' ) ) :
 			$this->add_field_action( 'acf/delete_value', array( $this, 'delete_value' ), 10, 3 );
 
 			// field
-<<<<<<< HEAD
 			$this->add_field_filter( 'acf/validate_rest_value', array( $this, 'validate_rest_value' ), 10, 3 );
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			$this->add_field_filter( 'acf/validate_field', array( $this, 'validate_field' ), 10, 1 );
 			$this->add_field_filter( 'acf/load_field', array( $this, 'load_field' ), 10, 1 );
 			$this->add_field_filter( 'acf/update_field', array( $this, 'update_field' ), 10, 1 );
@@ -276,7 +270,6 @@ if ( ! class_exists( 'acf_field' ) ) :
 
 		}
 
-<<<<<<< HEAD
 		/**
 		 * Add additional validation for fields being updated via the REST API.
 		 *
@@ -350,8 +343,6 @@ if ( ! class_exists( 'acf_field' ) ) :
 			return $value;
 		}
 
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 endif; // class_exists check

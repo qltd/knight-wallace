@@ -120,10 +120,6 @@ class Indexable_Post_Watcher implements Integration_Interface {
 	public function register_hooks() {
 		\add_action( 'wp_insert_post', [ $this, 'build_indexable' ], \PHP_INT_MAX );
 		\add_action( 'delete_post', [ $this, 'delete_indexable' ] );
-<<<<<<< HEAD
-=======
-		\add_action( 'wpseo_save_indexable', [ $this, 'updated_indexable' ], \PHP_INT_MAX, 2 );
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 		\add_action( 'edit_attachment', [ $this, 'build_indexable' ], \PHP_INT_MAX );
 		\add_action( 'add_attachment', [ $this, 'build_indexable' ], \PHP_INT_MAX );
@@ -145,13 +141,7 @@ class Indexable_Post_Watcher implements Integration_Interface {
 			return;
 		}
 
-<<<<<<< HEAD
 		$this->update_relations( $this->post->get_post( $post_id ) );
-=======
-		if ( $indexable->is_public ) {
-			$this->update_relations( $this->post->get_post( $post_id ) );
-		}
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 		$this->update_has_public_posts( $indexable );
 
@@ -163,7 +153,6 @@ class Indexable_Post_Watcher implements Integration_Interface {
 	/**
 	 * Updates the relations when the post indexable is built.
 	 *
-<<<<<<< HEAD
 	 * @param Indexable $indexable The indexable.
 	 * @param WP_Post   $post      The post.
 	 */
@@ -182,27 +171,6 @@ class Indexable_Post_Watcher implements Integration_Interface {
 		$this->update_has_public_posts( $indexable );
 
 		$indexable->save();
-=======
-	 * @param Indexable $updated_indexable The updated indexable.
-	 * @param Indexable $old_indexable     The old indexable.
-	 */
-	public function updated_indexable( $updated_indexable, $old_indexable ) {
-		// Only interested in post indexables.
-		if ( $updated_indexable->object_type !== 'post' ) {
-			return;
-		}
-
-		$post = $this->post->get_post( $updated_indexable->object_id );
-
-		// When the indexable is public or has a change in its public state.
-		if ( $updated_indexable->is_public || $updated_indexable->is_public !== $old_indexable->is_public ) {
-			$this->update_relations( $post );
-		}
-
-		$this->update_has_public_posts( $updated_indexable );
-
-		$updated_indexable->save();
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 	/**
@@ -229,10 +197,7 @@ class Indexable_Post_Watcher implements Integration_Interface {
 				$this->link_builder->build( $indexable, $post->post_content );
 				// Save indexable to persist the updated link count.
 				$indexable->save();
-<<<<<<< HEAD
 				$this->updated_indexable( $indexable, $post );
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			}
 		} catch ( Exception $exception ) {
 			$this->logger->log( LogLevel::ERROR, $exception->getMessage() );
@@ -266,18 +231,8 @@ class Indexable_Post_Watcher implements Integration_Interface {
 	protected function update_relations( $post ) {
 		$related_indexables = $this->get_related_indexables( $post );
 
-<<<<<<< HEAD
 		foreach ( $related_indexables as $indexable ) {
 			$indexable->object_last_modified = max( $indexable->object_last_modified, $post->post_modified_gmt );
-=======
-		$updated_at = \gmdate( 'Y-m-d H:i:s' );
-		foreach ( $related_indexables as $indexable ) {
-			if ( ! $indexable->is_public ) {
-				continue;
-			}
-
-			$indexable->updated_at = $updated_at;
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			$indexable->save();
 		}
 	}
@@ -302,10 +257,7 @@ class Indexable_Post_Watcher implements Integration_Interface {
 
 		$taxonomies = \get_post_taxonomies( $post->ID );
 		$taxonomies = \array_filter( $taxonomies, 'is_taxonomy_viewable' );
-<<<<<<< HEAD
 		$term_ids   = [];
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		foreach ( $taxonomies as $taxonomy ) {
 			$terms = \get_the_terms( $post->ID, $taxonomy );
 
@@ -313,19 +265,12 @@ class Indexable_Post_Watcher implements Integration_Interface {
 				continue;
 			}
 
-<<<<<<< HEAD
 			$term_ids = \array_merge( $term_ids, \wp_list_pluck( $terms, 'term_id' ) );
 		}
 		$related_indexables = \array_merge(
 			$related_indexables,
 			$this->repository->find_by_multiple_ids_and_type( $term_ids, 'term', false )
 		);
-=======
-			foreach ( $terms as $term ) {
-				$related_indexables[] = $this->repository->find_by_id_and_type( $term->term_id, 'term', false );
-			}
-		}
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 		return \array_filter( $related_indexables );
 	}

@@ -51,11 +51,8 @@ class WPSEO_Tracking_Settings_Data implements WPSEO_Collection {
 		'wikipedia_url',
 		'semrush_tokens',
 		'zapier_api_key',
-<<<<<<< HEAD
 		'wincher_tokens',
 		'wincher_website_id',
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	];
 
 	/**
@@ -178,14 +175,11 @@ class WPSEO_Tracking_Settings_Data implements WPSEO_Collection {
 		'enable_metabox_insights',
 		'enable_link_suggestions',
 		'workouts',
-<<<<<<< HEAD
 		'wincher_integration_active',
 		'wincher_tokens',
 		'wincher_website_id',
 		'wincher_automatically_add_keyphrases',
 		'first_time_install',
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	];
 
 	/**

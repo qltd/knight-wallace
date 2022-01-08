@@ -18,10 +18,6 @@ if ( ! class_exists( 'ACF_Admin' ) ) :
 		 * @return  void
 		 */
 		function __construct() {
-<<<<<<< HEAD
-=======
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			// Add actions.
 			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
@@ -87,17 +83,10 @@ if ( ! class_exists( 'ACF_Admin' ) ) :
 			} else {
 				$classes .= ' acf-admin-3-8';
 			}
-<<<<<<< HEAD
 
 			// Add browser for specific CSS.
 			$classes .= ' acf-browser-' . acf_get_browser();
 
-=======
-
-			// Add browser for specific CSS.
-			$classes .= ' acf-browser-' . acf_get_browser();
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			// Return classes.
 			return $classes;
 		}
@@ -211,10 +200,7 @@ if ( ! class_exists( 'ACF_Admin' ) ) :
 			// Use RegExp to append "ACF" after the <a> element allowing translations to read correctly.
 			return preg_replace( '/(<a[\S\s]+?\/a>)/', '$1 ' . __( 'and', 'acf' ) . ' <a href="https://www.advancedcustomfields.com" target="_blank">ACF</a>', $text, 1 );
 		}
-<<<<<<< HEAD
 
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	}
 
 	// Instantiate.
