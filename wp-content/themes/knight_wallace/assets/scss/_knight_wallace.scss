@@ -1411,6 +1411,10 @@ ul.pagination {
 }
 
 /*Past Winners*/
+.past-winners-content {
+  margin-bottom: 4rem;
+}
+
 #past_winners_control {
   @include link_style($white, $white);
 
