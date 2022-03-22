@@ -6617,10 +6617,15 @@ body {
   font-family: UniversLTPro-45Light, sans-serif;
   width: 100%; }
 
+/* WP Gallery */
 .wp-block-gallery.has-nested-images figure.wp-block-image {
-  -webkit-box-flex: 0;
-  -ms-flex-positive: 0;
-  flex-grow: 0; }
+  max-height: 150px; }
+
+@media screen and (min-width: 700px) {
+  .wp-block-gallery.has-nested-images figure.wp-block-image {
+    -webkit-box-flex: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0; } }
 
 .image-flexbox {
   margin-top: 2rem;
