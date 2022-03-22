@@ -2,12 +2,14 @@
 
 namespace WPForms\Pro\Admin;
 
+use WPForms\Admin\Dashboard\Widget;
+
 /**
  * Dashboard Widget shows a chart and the form entries stats in WP Dashboard.
  *
  * @since 1.5.0
  */
-class DashboardWidget {
+class DashboardWidget extends Widget {
 
 	/**
 	 * Instance slug.
@@ -217,7 +219,7 @@ class DashboardWidget {
 	 */
 	public function widget_content() {
 
-		$forms = \wpforms()->form->get( '', array( 'fields' => 'ids' ) );
+		$forms = wpforms()->get( 'form' )->get( '', [ 'fields' => 'ids' ] );
 
 		echo '<div class="wpforms-dash-widget wpforms-pro">';
 
@@ -227,16 +229,15 @@ class DashboardWidget {
 			$this->widget_content_html();
 		}
 
-		$plugins          = \get_plugins();
+		$plugin           = $this->get_recommended_plugin();
 		$hide_recommended = $this->widget_meta( 'get', 'hide_recommended_block' );
 
 		if (
-			! \array_key_exists( 'google-analytics-for-wordpress/googleanalytics.php', $plugins ) &&
-			! \array_key_exists( 'google-analytics-premium/googleanalytics-premium.php', $plugins ) &&
+			! empty( $plugin ) &&
 			! empty( $forms ) &&
 			! $hide_recommended
 		) {
-			$this->recommended_plugin_block_html();
+			$this->recommended_plugin_block_html( $plugin );
 		}
 
 		echo '</div><!-- .wpforms-dash-widget -->';
@@ -551,27 +552,34 @@ class DashboardWidget {
 	 * Recommended plugin block HTML.
 	 *
 	 * @since 1.5.0
+	 * @since 1.7.3 Added plugin parameter.
+	 *
+	 * @param array $plugin Plugin data.
 	 */
-	public function recommended_plugin_block_html() {
+	public function recommended_plugin_block_html( $plugin = [] ) {
 
-		$install_mi_url = \wp_nonce_url(
-			\self_admin_url( 'update.php?action=install-plugin&plugin=google-analytics-for-wordpress' ),
-			'install-plugin_google-analytics-for-wordpress'
+		if ( ! $plugin ) {
+			return;
+		}
+
+		$install_url = wp_nonce_url(
+			self_admin_url( 'update.php?action=install-plugin&plugin=' . rawurlencode( $plugin['slug'] ) ),
+			'install-plugin_' . $plugin['slug']
 		);
 		?>
 
 		<div class="wpforms-dash-widget-recommended-plugin-block">
 			<span class="wpforms-dash-widget-recommended-plugin">
-				<span class="recommended"><?php \esc_html_e( 'Recommended Plugin:', 'wpforms' ); ?></span>
+				<span class="recommended"><?php esc_html_e( 'Recommended Plugin:', 'wpforms' ); ?></span>
 				<span>
-					<b><?php \esc_html_e( 'MonsterInsights', 'wpforms' ); ?></b> <span class="sep">-</span>
+					<strong><?php echo esc_html( $plugin['name'] ); ?></strong> <span class="sep">-</span>
 					<?php if ( wpforms_can_install( 'plugin' ) ) { ?>
-						<a href="<?php echo \esc_url( $install_mi_url ); ?>"><?php \esc_html_e( 'Install', 'wpforms' ); ?></a> <span class="sep sep-vertical">&vert;</span>
+						<a href="<?php echo esc_url( $install_url ); ?>"><?php esc_html_e( 'Install', 'wpforms' ); ?></a> <span class="sep sep-vertical">&vert;</span>
 					<?php } ?>
-					<a href="https://www.monsterinsights.com/?utm_source=wpformsplugin&utm_medium=link&utm_campaign=wpformsdashboardwidget"><?php \esc_html_e( 'Learn More', 'wpforms' ); ?></a>
+					<a href="<?php echo esc_url( $plugin['more'] ); ?>?utm_source=wpformsplugin&utm_medium=link&utm_campaign=wpformsdashboardwidget"><?php esc_html_e( 'Learn More', 'wpforms' ); ?></a>
 				</span>
 			</span>
-			<button type="button" id="wpforms-dash-widget-dismiss-recommended-plugin-block" class="wpforms-dash-widget-dismiss-recommended-plugin-block" title="<?php \esc_html_e( 'Dismiss recommended plugin block', 'wpforms' ); ?>">
+			<button type="button" id="wpforms-dash-widget-dismiss-recommended-plugin-block" class="wpforms-dash-widget-dismiss-recommended-plugin-block" title="<?php esc_html_e( 'Dismiss recommended plugin block', 'wpforms' ); ?>">
 				<span class="dashicons dashicons-no-alt"></span>
 			</button>
 		</div>
@@ -834,9 +842,11 @@ class DashboardWidget {
 			case 'date':
 				$result = $this->get_entries_count_by_date_sql( $form_id, $dates['start'], $dates['end'] );
 				break;
+
 			case 'form':
 				$result = $this->get_entries_count_by_form_sql( $form_id, $dates['start'], $dates['end'] );
 				break;
+
 			default:
 				$result = array();
 		}

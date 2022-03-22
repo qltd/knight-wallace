@@ -2,7 +2,7 @@
 
 namespace WPForms\Pro\Admin\Entries\Export;
 
-use Goodby\CSV\Export\Standard\CsvFileObject;
+use WP_Filesystem_Base;
 use WPForms\Helpers\Transient;
 
 /**
@@ -62,24 +62,28 @@ class File {
 			return;
 		}
 
-		$csv       = new CsvFileObject( $export_file, 'a' );
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fopen
+		$f         = fopen( 'php://temp', 'wb+' );
 		$enclosure = '"';
 
-		$csv->fputcsv( $request_data['columns_row'], $this->export->configuration['csv_export_separator'], $enclosure );
+		fputcsv( $f, $request_data['columns_row'], $this->export->configuration['csv_export_separator'], $enclosure );
 
 		for ( $i = 1; $i <= $request_data['total_steps']; $i ++ ) {
 
 			$entries = wpforms()->get( 'entry' )->get_entries( $request_data['db_args'] );
 
 			foreach ( $this->export->ajax->get_entry_data( $entries ) as $entry ) {
-
-				$csv->fputcsv( $entry, $this->export->configuration['csv_export_separator'], $enclosure );
+				fputcsv( $f, $entry, $this->export->configuration['csv_export_separator'], $enclosure );
 			}
 
 			$request_data['db_args']['offset'] = $i * $this->export->configuration['entries_per_step'];
 		}
 
-		$csv->fflush();
+		rewind( $f );
+
+		$file_contents = stream_get_contents( $f );
+
+		$this->put_contents( $export_file, $file_contents );
 	}
 
 	/**
@@ -123,7 +127,9 @@ class File {
 			$request_data['db_args']['offset'] = $i * $this->export->configuration['entries_per_step'];
 		}
 
-		$writer->writeToFile( $export_file );
+		$file_contents = $writer->writeToString();
+
+		$this->put_contents( $export_file, $file_contents );
 	}
 
 	/**
@@ -172,7 +178,8 @@ class File {
 		}
 
 		$export_dir  = $this->get_tmpdir();
-		$export_file = $export_dir . '/' . sanitize_key( $request_data['request_id'] );
+		$export_file = $export_dir . '/' . sanitize_key( $request_data['request_id'] ) . '.tmp';
+
 		touch( $export_file );
 
 		return $export_file;
@@ -198,6 +205,9 @@ class File {
 
 	/**
 	 * Output the file.
+	 * The WPFORMS_SAVE_ENTRIES_PATH is introduced for facilitating e2e tests.
+	 * When the constant is used, download isn't prompted and the file gets downloaded in the provided path.
+	 *
 	 *
 	 * @since 1.6.0.2
 	 *
@@ -230,9 +240,12 @@ class File {
 
 		$file_name = 'wpforms-' . $request_data['db_args']['form_id'] . '-' . sanitize_file_name( get_the_title( $request_data['db_args']['form_id'] ) ) . $entry_suffix . '-' . current_time( 'Y-m-d-H-i-s' ) . '.' . $request_data['type'];
 
-		$this->http_headers( $file_name );
-
-		readfile( $export_file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_readfile
+		if ( defined( 'WPFORMS_SAVE_ENTRIES_PATH' ) ) {
+			$this->put_contents( WPFORMS_SAVE_ENTRIES_PATH . $file_name, file_get_contents( $export_file ) );
+		} else {
+			$this->http_headers( $file_name );
+			readfile( $export_file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_readfile
+		}
 
 		// Schedule clean up.
 		$this->schedule_remove_old_export_files();
@@ -371,7 +384,7 @@ class File {
 
 		$tasks = wpforms()->get( 'tasks' );
 
-		if ( ! empty( $tasks->is_scheduled( Export::TASK_CLEANUP ) ) ) {
+		if ( $tasks->is_scheduled( Export::TASK_CLEANUP ) !== false ) {
 			return;
 		}
 
@@ -403,5 +416,32 @@ class File {
 				unlink( $file );
 			}
 		}
+	}
+
+	/**
+	 * Put file contents using WP Filesystem.
+	 *
+	 * @since 1.7.3
+	 *
+	 * @param string $export_file   Export filename.
+	 * @param string $file_contents File contents.
+	 *
+	 * @return void
+	 */
+	private function put_contents( $export_file, $file_contents ) {
+
+		global $wp_filesystem;
+
+		if (
+			! $wp_filesystem instanceof WP_Filesystem_Base ||
+			! WP_Filesystem( request_filesystem_credentials( site_url() ) )
+		) {
+			return;
+		}
+
+		$wp_filesystem->put_contents(
+			$export_file,
+			$file_contents
+		);
 	}
 }

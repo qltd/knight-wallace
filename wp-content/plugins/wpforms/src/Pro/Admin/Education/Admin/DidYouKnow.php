@@ -304,7 +304,7 @@ class DidYouKnow implements EducationInterface {
 	 *
 	 * @since 1.6.6
 	 *
-	 * @param \WP_List_Table $wp_list_table Instance of WP_List_Table.
+	 * @param WP_List_Table $wp_list_table Instance of WP_List_Table.
 	 */
 	public function display( $wp_list_table ) {
 
@@ -320,11 +320,11 @@ class DidYouKnow implements EducationInterface {
 			return;
 		}
 
-		$message     = $this->message_rnd();
-		$column_info = $wp_list_table->__call( 'get_column_info', [] );
+		$message      = $this->message_rnd();
+		$column_count = $wp_list_table->get_column_count();
 
 		if ( ! empty( $message['more'] ) ) {
-			$message['more'] = \add_query_arg(
+			$message['more'] = add_query_arg(
 				[
 					'utm_source'   => 'WordPress',
 					'utm_medium'   => 'DYK ' . ucfirst( $this->page ),
@@ -338,7 +338,7 @@ class DidYouKnow implements EducationInterface {
 		echo wpforms_render( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			'education/admin/did-you-know',
 			[
-				'cols' => count( $column_info[0] ),
+				'cols' => $column_count,
 				'desc' => $message['desc'],
 				'more' => ! empty( $message['more'] ) ? $message['more'] : '',
 				'page' => $this->page,
