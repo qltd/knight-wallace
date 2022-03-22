@@ -1,3 +1,7 @@
+:root {
+  --gallery-block--gutter-size: 1rem;
+}
+
 // Foundation by ZURB
 // foundation.zurb.com
 // Licensed under MIT Open Source
@@ -96,16 +100,16 @@ $include-html-global-classes: $include-html-classes;
 // $font-weight-normal: normal;
 // $font-weight-bold: bold;
 
-$white: #FFFFFF;
-$ghost: #FAFAFA;
-$snow: #F9F9F9;
-$vapor: #F6F6F6;
-$white-smoke: #F5F5F5;
-$silver: #EFEFEF;
-$smoke: #EEEEEE;
-$gainsboro: #DDDDDD;
-$iron: #CCCCCC;
-$base: #AAAAAA;
+$white: #ffffff;
+$ghost: #fafafa;
+$snow: #f9f9f9;
+$vapor: #f6f6f6;
+$white-smoke: #f5f5f5;
+$silver: #efefef;
+$smoke: #eeeeee;
+$gainsboro: #dddddd;
+$iron: #cccccc;
+$base: #aaaaaa;
 $aluminum: #999999;
 $jumbo: #888888;
 $monsoon: #777777;

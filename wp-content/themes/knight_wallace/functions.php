@@ -1121,7 +1121,7 @@ function remove_admin_bar() {
 
 add_filter('login_redirect', 'my_login_redirect', 10, 3);
 function my_login_redirect($redirect_to, $requested_redirect_to, $user) {
-    $referrer = $_SERVER['HTTP_REFERER'];
+    $referrer = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : '' ;
 
     // let's not mess with the default wp-admin/wp-login.php pages
     if( !empty( $referrer ) && !strstr( $referrer,'wp-login' ) && !strstr( $referrer,'wp-admin' ) ) {

@@ -27,6 +27,7 @@ $sorted_winners = sort_past_winners($winners,$year_array);
 <div class="row">
     <div class="large-12 columns">
         <h1 class="entry-title" id="page_title">Past Winners</h1>
+        <div class="past-winners-content"><?php the_content(); ?></div>
     </div>
 </div>
 <section id="past_winners_control">

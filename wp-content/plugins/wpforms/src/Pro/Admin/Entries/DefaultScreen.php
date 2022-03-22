@@ -252,8 +252,11 @@ class DefaultScreen extends \WPForms\Pro\Admin\DashboardWidget {
 	 * Do not display recommended plugin block.
 	 *
 	 * @since 1.5.5
+	 * @since 1.7.3 Added plugin parameter.
+	 *
+	 * @param array $plugin Plugin data.
 	 */
-	public function recommended_plugin_block_html() {
+	public function recommended_plugin_block_html( $plugin = [] ) {
 	}
 
 	/**

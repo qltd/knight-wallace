@@ -684,10 +684,10 @@ class WPForms_Entry_Preview extends WPForms_Field {
 			'row',
 			$field,
 			[
-				'slug'    => 'notice',
+				'slug'    => 'description',
 				'content' => sprintf(
 					'<p class="note">%s</p>',
-					esc_html__( 'The Entry Preview field will be displayed on its own page.', 'wpforms' )
+					esc_html__( 'Entry Preview must be displayed on its own page, without other fields. HTML fields are allowed.', 'wpforms' )
 				),
 			]
 		);

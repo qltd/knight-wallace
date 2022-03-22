@@ -516,29 +516,13 @@ class WPForms_Pro {
 		);
 
 		// Create entry.
-		$entry_id = wpforms()->entry->add( $entry_args );
+		$entry_id = wpforms()->get( 'entry' )->add( $entry_args );
 
-		// Create fields.
-		if ( $entry_id ) {
-			foreach ( $fields as $field ) {
+		// Save entry fields.
+		wpforms()->get( 'entry_fields' )->save( $fields, $form_data, $entry_id );
 
-				$field = apply_filters( 'wpforms_entry_save_fields', $field, $form_data, $entry_id );
-
-				if ( isset( $field['value'] ) && '' !== $field['value'] ) {
-					wpforms()->entry_fields->add(
-						array(
-							'entry_id' => $entry_id,
-							'form_id'  => absint( $form_id ),
-							'field_id' => absint( $field['id'] ),
-							'value'    => $field['value'],
-							'date'     => $date,
-						)
-					);
-				}
-			}
-		}
-
-		wpforms()->process->entry_id = $entry_id;
+		// Save entry id.
+		wpforms()->get( 'process' )->entry_id = $entry_id;
 	}
 
 	/**

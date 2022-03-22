@@ -76,7 +76,7 @@ class WPForms_Entries_Single {
 		$view = ! empty( $_GET['view'] ) ? sanitize_key( $_GET['view'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
 
 		if ( $page !== 'wpforms-entries' || $view !== 'details' ) {
-		    return;
+			return;
 		}
 
 		$entry_id = isset( $_GET['entry_id'] ) ? absint( $_GET['entry_id'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification
@@ -510,16 +510,19 @@ class WPForms_Entries_Single {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$entry = wpforms()->get( 'entry' )->get( absint( $_GET['entry_id'] ) );
 
-		// No entry was found, abort.
-		if ( ! $entry || empty( $entry ) ) {
+		// If entry exists.
+		if ( ! empty( $entry ) ) {
+			// Find the form information.
+			$form = wpforms()->get( 'form' )->get( $entry->form_id, [ 'cap' => 'view_entries_form_single' ] );
+		}
+
+		// No entry was found, no form was found, the Form is in the Trash.
+		if ( empty( $entry ) || empty( $form ) || $form->post_status === 'trash' ) {
 			$this->abort_message = esc_html__( 'It looks like the entry you are trying to access is no longer available.', 'wpforms' );
 			$this->abort         = true;
 
 			return;
 		}
-
-		// Find the form information.
-		$form = wpforms()->get( 'form' )->get( $entry->form_id, [ 'cap' => 'view_entries_form_single' ] );
 
 		// Form details.
 		$form_data      = wpforms_decode( $form->post_content );
@@ -647,7 +650,7 @@ class WPForms_Entries_Single {
 				<a href="<?php echo esc_url( $this->form->form_url ); ?>" class="add-new-h2 wpforms-btn-orange"><?php esc_html_e( 'Back to All Entries', 'wpforms' ); ?></a>
 
 				<div class="wpforms-entry-navigation">
-					<span class="wpforms-entry-navigation-text">
+					<div class="wpforms-entry-navigation-text">
 						<?php
 						printf(
 							/* translators: %1$d - current number of entry; %2$d - total number of entries. */
@@ -656,8 +659,8 @@ class WPForms_Entries_Single {
 							(int) $entry->entry_count
 						);
 						?>
-					</span>
-					<span class="wpforms-entry-navigation-buttons">
+					</div>
+					<div class="wpforms-entry-navigation-buttons">
 						<a
 								href="<?php echo esc_url( $entry->entry_prev_url ); ?>"
 								title="<?php esc_attr_e( 'Previous form entry', 'wpforms' ); ?>"
@@ -679,7 +682,7 @@ class WPForms_Entries_Single {
 								class=" add-new-h2 wpforms-btn-grey <?php echo sanitize_html_class( $entry->entry_next_class ); ?>">
 							<span class="dashicons dashicons-arrow-right-alt2"></span>
 						</a>
-					</span>
+					</div>
 				</div>
 
 			</h1>
@@ -1273,6 +1276,7 @@ class WPForms_Entries_Single {
 					$total .= ' <span style="font-weight:400; color:#999; display:inline-block;margin-left:4px;"><i class="fa fa-refresh" aria-hidden="true"></i> ' . $entry_meta['payment_period'] . '</span>';
 				}
 				break;
+
 			case 'paypal_standard':
 				$gateway = esc_html__( 'PayPal Standard', 'wpforms' );
 				if ( ! empty( $entry_meta['payment_transaction'] ) ) {
@@ -1281,6 +1285,7 @@ class WPForms_Entries_Single {
 				}
 				break;
 		}
+
 		?>
 
 		<!-- Entry Payment details metabox -->

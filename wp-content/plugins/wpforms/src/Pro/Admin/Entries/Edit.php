@@ -21,6 +21,15 @@ class Edit {
 	public $abort = false;
 
 	/**
+	 * The human-readable error message.
+	 *
+	 * @since 1.7.3
+	 *
+	 * @var string
+	 */
+	private $abort_message;
+
+	/**
 	 * Form object.
 	 *
 	 * @since 1.6.0
@@ -158,6 +167,9 @@ class Edit {
 
 		// Instance of `\WPForms_Entries_Single` class.
 		$entries_single = new \WPForms_Entries_Single();
+
+		// Display Empty State screen.
+		add_action( 'wpforms_admin_page', [ $this, 'display_abort_message' ] );
 
 		// Output. Entry edit page.
 		add_action( 'wpforms_admin_page', [ $this, 'display_edit_page' ] );
@@ -373,31 +385,28 @@ class Edit {
 	 */
 	public function setup() {
 
-		// No entry ID was provided, error.
+		// No entry ID was provided, abort.
 		if ( empty( $_GET['entry_id'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-			\WPForms\Admin\Notice::error( esc_html__( 'Invalid entry ID.', 'wpforms' ) );
-			$this->abort = true;
+			$this->abort_message = esc_html__( 'It looks like the provided entry ID isn\'t valid.', 'wpforms' );
+			$this->abort         = true;
 
 			return;
 		}
 
 		// Find the entry.
-		$entry = wpforms()->entry->get( (int) $_GET['entry_id'] ); // phpcs:ignore WordPress.Security.NonceVerification
+		// phpcs:ignore WordPress.Security.NonceVerification
+		$entry = wpforms()->get( 'entry' )->get( (int) $_GET['entry_id'] );
 
-		// No entry was found, error.
-		if ( ! $entry || empty( $entry ) ) {
-			\WPForms\Admin\Notice::error( esc_html__( 'Entry not found.', 'wpforms' ) );
-			$this->abort = true;
-
-			return;
+		// If entry exists.
+		if ( ! empty( $entry ) ) {
+			// Find the form information.
+			$form = wpforms()->get( 'form' )->get( $entry->form_id, [ 'cap' => 'edit_entries_form_single' ] );
 		}
 
-		// Find the form information.
-		$form = wpforms()->form->get( $entry->form_id, [ 'cap' => 'edit_entries_form_single' ] );
-
-		// No form was found, error.
-		if ( ! $form || empty( $form ) ) {
-			\WPForms\Admin\Notice::error( esc_html__( 'Form not found.', 'wpforms' ) );
+		// No entry was found, no form was found, the Form is in the Trash.
+		if ( empty( $entry ) || empty( $form ) || $form->post_status === 'trash' ) {
+			$this->abort_message = esc_html__( 'It looks like the entry you are trying to access is no longer available.', 'wpforms' );
+			$this->abort         = true;
 
 			return;
 		}
@@ -507,7 +516,7 @@ class Edit {
 	public function display_edit_page() {
 
 		if ( $this->abort ) {
-			exit;
+			return;
 		}
 
 		$entry          = $this->entry;
@@ -573,6 +582,40 @@ class Edit {
 
 			</div>
 
+		</div>
+		<?php
+	}
+
+	/**
+	 * Display abort message using empty state page.
+	 *
+	 * @since 1.7.3
+	 */
+	public function display_abort_message() {
+
+		if ( ! $this->abort ) {
+			return;
+		}
+
+		?>
+		<div id="wpforms-entries-single" class="wrap wpforms-admin-wrap">
+
+			<h1 class="page-title">
+				<?php esc_html_e( 'Edit Entry', 'wpforms' ); ?>
+			</h1>
+			<div class="wpforms-admin-content">
+				<?php
+				// Output empty state screen.
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo wpforms_render(
+					'admin/empty-states/no-entry',
+					[
+						'message' => $this->abort_message,
+					],
+					true
+				);
+				?>
+			</div>
 		</div>
 		<?php
 	}
