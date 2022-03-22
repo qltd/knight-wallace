@@ -122,8 +122,15 @@ body {
   width: 100%;
 }
 
+/* WP Gallery */
 .wp-block-gallery.has-nested-images figure.wp-block-image {
-  flex-grow: 0;
+  max-height: 150px;
+}
+
+@media screen and (min-width: 700px) {
+  .wp-block-gallery.has-nested-images figure.wp-block-image {
+    flex-grow: 0;
+  }
 }
 
 .image-flexbox {
