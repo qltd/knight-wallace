@@ -14,7 +14,6 @@
  * @since Twenty Twenty-One 1.0
  */
 
-<<<<<<< HEAD
 get_header(); ?>
 
 <?php if ( is_home() && ! is_front_page() && ! empty( single_post_title( '', false ) ) ) : ?>
@@ -24,10 +23,6 @@ get_header(); ?>
 <?php endif; ?>
 
 <?php
-=======
-get_header();
-
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 if ( have_posts() ) {
 
 	// Load posts loop.

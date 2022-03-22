@@ -8,15 +8,11 @@
  *
  * @package WordPress
  * @subpackage Twenty_Twenty
-<<<<<<< HEAD
  * @since Twenty Twenty 1.0
-=======
- * @since 1.0.0
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 
 ?>
-			<footer id="site-footer" role="contentinfo" class="header-footer-group">
+			<footer id="site-footer" class="header-footer-group">
 
 				<div class="section-inner">
 
@@ -25,16 +21,18 @@
 						<p class="footer-copyright">&copy;
 							<?php
 							echo date_i18n(
-<<<<<<< HEAD
 								/* translators: Copyright date format, see https://www.php.net/manual/datetime.format.php */
-=======
-								/* translators: Copyright date format, see https://secure.php.net/date */
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 								_x( 'Y', 'copyright date format', 'twentytwenty' )
 							);
 							?>
 							<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php bloginfo( 'name' ); ?></a>
 						</p><!-- .footer-copyright -->
+
+						<?php
+						if ( function_exists( 'the_privacy_policy_link' ) ) {
+							the_privacy_policy_link( '<p class="privacy-policy">', '</p>' );
+						}
+						?>
 
 						<p class="powered-by-wordpress">
 							<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'twentytwenty' ) ); ?>">
@@ -47,21 +45,13 @@
 					<a class="to-the-top" href="#site-header">
 						<span class="to-the-top-long">
 							<?php
-<<<<<<< HEAD
 							/* translators: %s: HTML character for up arrow. */
-=======
-							/* translators: %s: HTML character for up arrow */
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 							printf( __( 'To the top %s', 'twentytwenty' ), '<span class="arrow" aria-hidden="true">&uarr;</span>' );
 							?>
 						</span><!-- .to-the-top-long -->
 						<span class="to-the-top-short">
 							<?php
-<<<<<<< HEAD
 							/* translators: %s: HTML character for up arrow. */
-=======
-							/* translators: %s: HTML character for up arrow */
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 							printf( __( 'Up %s', 'twentytwenty' ), '<span class="arrow" aria-hidden="true">&uarr;</span>' );
 							?>
 						</span><!-- .to-the-top-short -->

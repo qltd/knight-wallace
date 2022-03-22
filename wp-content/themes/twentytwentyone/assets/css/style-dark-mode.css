@@ -17,11 +17,7 @@
 		--table--stripes-background-color: rgba(240, 240, 240, 0.15);
 	}
 
-<<<<<<< HEAD
 	.is-dark-theme img {
-=======
-	.is-dark-theme.is-dark-theme img {
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		filter: brightness(0.85) contrast(1.1);
 	}
 
@@ -86,7 +82,7 @@
 @media only screen and (max-width: 481px) {
 
 	body:not(.primary-navigation-open) #dark-mode-toggler.relative ~ nav {
-		top: calc(44px + 44px);
+		top: 88px;
 	}
 }
 @media only screen {

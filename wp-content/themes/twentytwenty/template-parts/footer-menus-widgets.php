@@ -5,11 +5,7 @@
  *
  * @package WordPress
  * @subpackage Twenty_Twenty
-<<<<<<< HEAD
  * @since Twenty Twenty 1.0
-=======
- * @since 1.0.0
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 
 $has_footer_menu = has_nav_menu( 'footer' );
@@ -35,14 +31,10 @@ if ( $has_footer_menu || $has_social_menu || $has_sidebar_1 || $has_sidebar_2 ) 
 
 			if ( $has_footer_menu || $has_social_menu ) {
 				?>
-<<<<<<< HEAD
 				<div class="footer-top<?php echo $footer_top_classes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static output ?>">
-=======
-				<div class="footer-top<?php echo $footer_top_classes; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static output ?>">
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 					<?php if ( $has_footer_menu ) { ?>
 
-						<nav aria-label="<?php esc_attr_e( 'Footer', 'twentytwenty' ); ?>" role="navigation" class="footer-menu-wrapper">
+						<nav aria-label="<?php esc_attr_e( 'Footer', 'twentytwenty' ); ?>" class="footer-menu-wrapper">
 
 							<ul class="footer-menu reset-list-style">
 								<?php
@@ -94,7 +86,7 @@ if ( $has_footer_menu || $has_social_menu || $has_sidebar_1 || $has_sidebar_2 ) 
 
 			<?php if ( $has_sidebar_1 || $has_sidebar_2 ) { ?>
 
-				<aside class="footer-widgets-outer-wrapper" role="complementary">
+				<aside class="footer-widgets-outer-wrapper">
 
 					<div class="footer-widgets-wrapper">
 

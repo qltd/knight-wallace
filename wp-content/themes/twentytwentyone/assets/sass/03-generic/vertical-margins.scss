@@ -92,12 +92,8 @@
 .site-main > .not-found > *, // apply vertical margins to article level
 .entry-content > *,
 [class*="inner-container"] > *,
-<<<<<<< HEAD
 .wp-block-template-part > *,
 .wp-block-post-template :where(li > *) { // using :where keeps specificity low.
-=======
-.wp-block-template-part > * {
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 
 	margin-top: calc(0.666 * var(--global--spacing-vertical));
 	margin-bottom: calc(0.666 * var(--global--spacing-vertical));

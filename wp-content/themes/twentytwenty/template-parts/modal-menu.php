@@ -4,11 +4,7 @@
  *
  * @package WordPress
  * @subpackage Twenty_Twenty
-<<<<<<< HEAD
  * @since Twenty Twenty 1.0
-=======
- * @since 1.0.0
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 
 ?>
@@ -49,11 +45,7 @@
 
 					?>
 
-<<<<<<< HEAD
-					<nav class="expanded-menu<?php echo esc_attr( $expanded_nav_classes ); ?>" aria-label="<?php echo esc_attr_x( 'Expanded', 'menu', 'twentytwenty' ); ?>" role="navigation">
-=======
-					<nav class="expanded-menu<?php echo esc_attr( $expanded_nav_classes ); ?>" aria-label="<?php esc_attr_e( 'Expanded', 'twentytwenty' ); ?>" role="navigation">
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
+					<nav class="expanded-menu<?php echo esc_attr( $expanded_nav_classes ); ?>" aria-label="<?php echo esc_attr_x( 'Expanded', 'menu', 'twentytwenty' ); ?>">
 
 						<ul class="modal-menu reset-list-style">
 							<?php
@@ -78,11 +70,7 @@
 				if ( 'expanded' !== $mobile_menu_location ) {
 					?>
 
-<<<<<<< HEAD
-					<nav class="mobile-menu" aria-label="<?php echo esc_attr_x( 'Mobile', 'menu', 'twentytwenty' ); ?>" role="navigation">
-=======
-					<nav class="mobile-menu" aria-label="<?php esc_attr_e( 'Mobile', 'twentytwenty' ); ?>" role="navigation">
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
+					<nav class="mobile-menu" aria-label="<?php echo esc_attr_x( 'Mobile', 'menu', 'twentytwenty' ); ?>">
 
 						<ul class="modal-menu reset-list-style">
 
@@ -126,7 +114,7 @@
 
 				<?php if ( has_nav_menu( 'social' ) ) { ?>
 
-					<nav aria-label="<?php esc_attr_e( 'Expanded Social links', 'twentytwenty' ); ?>" role="navigation">
+					<nav aria-label="<?php esc_attr_e( 'Expanded Social links', 'twentytwenty' ); ?>">
 						<ul class="social-menu reset-list-style social-icons fill-children-current-color">
 
 							<?php

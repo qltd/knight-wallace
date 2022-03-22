@@ -4,32 +4,22 @@
  *
  * @package WordPress
  * @subpackage Twenty_Twenty
-<<<<<<< HEAD
  * @since Twenty Twenty 1.0
-=======
- * @since 1.0.0
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  */
 
 if ( ! class_exists( 'TwentyTwenty_Customize' ) ) {
 	/**
 	 * CUSTOMIZER SETTINGS
-<<<<<<< HEAD
 	 *
 	 * @since Twenty Twenty 1.0
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 */
 	class TwentyTwenty_Customize {
 
 		/**
 		 * Register customizer options.
 		 *
-<<<<<<< HEAD
 		 * @since Twenty Twenty 1.0
 		 *
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		 * @param WP_Customize_Manager $wp_customize Theme Customizer object.
 		 */
 		public static function register( $wp_customize ) {
@@ -59,8 +49,9 @@ if ( ! class_exists( 'TwentyTwenty_Customize' ) ) {
 			$wp_customize->selective_refresh->add_partial(
 				'custom_logo',
 				array(
-					'selector'        => '.header-titles [class*=site-]:not(.site-description)',
-					'render_callback' => 'twentytwenty_customize_partial_site_logo',
+					'selector'            => '.header-titles [class*=site-]:not(.site-description)',
+					'render_callback'     => 'twentytwenty_customize_partial_site_logo',
+					'container_inclusive' => true,
 				)
 			);
 
@@ -136,13 +127,8 @@ if ( ! class_exists( 'TwentyTwenty_Customize' ) ) {
 					'section' => 'colors',
 					'label'   => __( 'Primary Color', 'twentytwenty' ),
 					'choices' => array(
-<<<<<<< HEAD
 						'default' => _x( 'Default', 'color', 'twentytwenty' ),
 						'custom'  => _x( 'Custom', 'color', 'twentytwenty' ),
-=======
-						'default' => __( 'Default', 'twentytwenty' ),
-						'custom'  => __( 'Custom', 'twentytwenty' ),
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 					),
 				)
 			);
@@ -153,11 +139,7 @@ if ( ! class_exists( 'TwentyTwenty_Customize' ) ) {
 			 * The control is a hue-only colorpicker, and there is a separate setting that holds values
 			 * for other colors calculated based on the selected hue and various background-colors on the page.
 			 *
-<<<<<<< HEAD
 			 * @since Twenty Twenty 1.0
-=======
-			 * @since 1.0.0
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 			 */
 
 			// Add the setting for the hue colorpicker.
@@ -205,7 +187,7 @@ if ( ! class_exists( 'TwentyTwenty_Customize' ) ) {
 						'settings'        => 'accent_hue',
 						'description'     => __( 'Apply a custom color for links, buttons, featured images.', 'twentytwenty' ),
 						'mode'            => 'hue',
-						'active_callback' => function() use ( $wp_customize ) {
+						'active_callback' => static function() use ( $wp_customize ) {
 							return ( 'custom' === $wp_customize->get_setting( 'accent_hue_active' )->value() );
 						},
 					)
@@ -435,18 +417,10 @@ if ( ! class_exists( 'TwentyTwenty_Customize' ) ) {
 		/**
 		 * Sanitization callback for the "accent_accessible_colors" setting.
 		 *
-<<<<<<< HEAD
 		 * @since Twenty Twenty 1.0
 		 *
 		 * @param array $value The value we want to sanitize.
 		 * @return array Returns sanitized value. Each item in the array gets sanitized separately.
-=======
-		 * @static
-		 * @access public
-		 * @since 1.0.0
-		 * @param array $value The value we want to sanitize.
-		 * @return array       Returns sanitized value. Each item in the array gets sanitized separately.
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		 */
 		public static function sanitize_accent_accessible_colors( $value ) {
 
@@ -466,18 +440,11 @@ if ( ! class_exists( 'TwentyTwenty_Customize' ) ) {
 		/**
 		 * Sanitize select.
 		 *
-<<<<<<< HEAD
 		 * @since Twenty Twenty 1.0
 		 *
 		 * @param string $input   The input from the setting.
 		 * @param object $setting The selected setting.
 		 * @return string The input from the setting or the default setting.
-=======
-		 * @param string $input The input from the setting.
-		 * @param object $setting The selected setting.
-		 *
-		 * @return string $input|$setting->default The input from the setting or the default setting.
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		 */
 		public static function sanitize_select( $input, $setting ) {
 			$input   = sanitize_key( $input );
@@ -488,14 +455,9 @@ if ( ! class_exists( 'TwentyTwenty_Customize' ) ) {
 		/**
 		 * Sanitize boolean for checkbox.
 		 *
-<<<<<<< HEAD
 		 * @since Twenty Twenty 1.0
 		 *
 		 * @param bool $checked Whether or not a box is checked.
-=======
-		 * @param bool $checked Whether or not a box is checked.
-		 *
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 		 * @return bool
 		 */
 		public static function sanitize_checkbox( $checked ) {
@@ -515,11 +477,8 @@ if ( ! class_exists( 'TwentyTwenty_Customize' ) ) {
 if ( ! function_exists( 'twentytwenty_customize_partial_blogname' ) ) {
 	/**
 	 * Render the site title for the selective refresh partial.
-<<<<<<< HEAD
 	 *
 	 * @since Twenty Twenty 1.0
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 */
 	function twentytwenty_customize_partial_blogname() {
 		bloginfo( 'name' );
@@ -529,11 +488,8 @@ if ( ! function_exists( 'twentytwenty_customize_partial_blogname' ) ) {
 if ( ! function_exists( 'twentytwenty_customize_partial_blogdescription' ) ) {
 	/**
 	 * Render the site description for the selective refresh partial.
-<<<<<<< HEAD
 	 *
 	 * @since Twenty Twenty 1.0
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 */
 	function twentytwenty_customize_partial_blogdescription() {
 		bloginfo( 'description' );
@@ -545,11 +501,8 @@ if ( ! function_exists( 'twentytwenty_customize_partial_site_logo' ) ) {
 	 * Render the site logo for the selective refresh partial.
 	 *
 	 * Doing it this way so we don't have issues with `render_callback`'s arguments.
-<<<<<<< HEAD
 	 *
 	 * @since Twenty Twenty 1.0
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 */
 	function twentytwenty_customize_partial_site_logo() {
 		twentytwenty_site_logo();
@@ -560,16 +513,12 @@ if ( ! function_exists( 'twentytwenty_customize_partial_site_logo' ) ) {
 /**
  * Input attributes for cover overlay opacity option.
  *
-<<<<<<< HEAD
  * @since Twenty Twenty 1.0
  *
-=======
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
  * @return array Array containing attribute names and their values.
  */
 function twentytwenty_customize_opacity_range() {
 	/**
-<<<<<<< HEAD
 	 * Filters the input attributes for opacity.
 	 *
 	 * @since Twenty Twenty 1.0
@@ -580,16 +529,6 @@ function twentytwenty_customize_opacity_range() {
 	 *     @type int $min  Minimum value.
 	 *     @type int $max  Maximum value.
 	 *     @type int $step Interval between numbers.
-=======
-	 * Filter the input attributes for opacity
-	 *
-	 * @param array $attrs {
-	 *     The attributes
-	 *
-	 *     @type int $min Minimum value
-	 *     @type int $max Maximum value
-	 *     @type int $step Interval between numbers
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 	 * }
 	 */
 	return apply_filters(

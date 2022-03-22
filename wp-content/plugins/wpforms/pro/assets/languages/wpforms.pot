@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WPForms 1.7.2\n"
+"Project-Id-Version: WPForms 1.7.2.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpforms\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-01-04T09:41:26+00:00\n"
+"POT-Creation-Date: 2022-02-03T21:37:09+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.5.0\n"
+"X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: wpforms\n"
 
 #. Plugin Name of the plugin
@@ -1151,7 +1151,7 @@ msgid "Fill in the message to show above the entry preview."
 msgstr ""
 
 #: pro/includes/fields/class-entry-preview.php:760
-#: pro/includes/fields/class-file-upload.php:610
+#: pro/includes/fields/class-file-upload.php:634
 #: pro/includes/fields/class-payment-dropdown.php:262
 msgid "Style"
 msgstr ""
@@ -1214,10 +1214,10 @@ msgid "File Upload"
 msgstr ""
 
 #: pro/includes/fields/class-file-upload.php:186
-#: pro/includes/fields/class-file-upload.php:1461
-#: pro/includes/fields/class-file-upload.php:1528
-#: pro/includes/fields/class-file-upload.php:1572
-#: pro/includes/fields/class-file-upload.php:1599
+#: pro/includes/fields/class-file-upload.php:1485
+#: pro/includes/fields/class-file-upload.php:1552
+#: pro/includes/fields/class-file-upload.php:1596
+#: pro/includes/fields/class-file-upload.php:1623
 msgid "Something went wrong, please try again."
 msgstr ""
 
@@ -1227,14 +1227,14 @@ msgstr ""
 
 #. translators: %s - max number of files allowed.
 #: pro/includes/fields/class-file-upload.php:191
-#: pro/includes/fields/class-file-upload.php:1061
+#: pro/includes/fields/class-file-upload.php:1085
 #: pro/wpforms-pro.php:374
 msgid "File uploads exceed the maximum number allowed (%s)."
 msgstr ""
 
 #: pro/includes/fields/class-file-upload.php:195
-#: pro/includes/fields/class-file-upload.php:1818
-#: pro/includes/fields/class-file-upload.php:1846
+#: pro/includes/fields/class-file-upload.php:1842
+#: pro/includes/fields/class-file-upload.php:1870
 #: pro/wpforms-pro.php:361
 #: pro/wpforms-pro.php:1259
 msgid "File type is not allowed."
@@ -1253,7 +1253,7 @@ msgstr ""
 msgid "File upload is in progress. Please submit the form once uploading is completed."
 msgstr ""
 
-#: pro/includes/fields/class-file-upload.php:435
+#: pro/includes/fields/class-file-upload.php:459
 #: pro/templates/fields/file-upload-backend.php:22
 #: pro/templates/fields/file-upload-frontend.php:40
 msgid "Click or drag a file to this area to upload."
@@ -1261,109 +1261,109 @@ msgid_plural "Click or drag files to this area to upload."
 msgstr[0] ""
 msgstr[1] ""
 
-#: pro/includes/fields/class-file-upload.php:436
+#: pro/includes/fields/class-file-upload.php:460
 msgid "Click or drag files to this area to upload."
 msgstr ""
 
 #. translators: % - max number of files as a template string (not a number), replaced by a number later.
-#: pro/includes/fields/class-file-upload.php:438
+#: pro/includes/fields/class-file-upload.php:462
 msgid "You can upload up to %s files."
 msgstr ""
 
-#: pro/includes/fields/class-file-upload.php:492
+#: pro/includes/fields/class-file-upload.php:516
 msgid "Allowed File Extensions"
 msgstr ""
 
-#: pro/includes/fields/class-file-upload.php:493
+#: pro/includes/fields/class-file-upload.php:517
 msgid "Enter the extensions you would like to allow, comma separated."
 msgstr ""
 
-#: pro/includes/fields/class-file-upload.php:494
+#: pro/includes/fields/class-file-upload.php:518
 msgid "See More Details"
 msgstr ""
 
-#: pro/includes/fields/class-file-upload.php:522
+#: pro/includes/fields/class-file-upload.php:546
 msgid "Max File Size"
 msgstr ""
 
 #. translators: %s - max upload size.
-#: pro/includes/fields/class-file-upload.php:524
+#: pro/includes/fields/class-file-upload.php:548
 msgid "Enter the max size of each file, in megabytes, to allow. If left blank, the value defaults to the maximum size the server allows which is %s."
 msgstr ""
 
-#: pro/includes/fields/class-file-upload.php:559
+#: pro/includes/fields/class-file-upload.php:583
 msgid "Max File Uploads"
 msgstr ""
 
-#: pro/includes/fields/class-file-upload.php:560
+#: pro/includes/fields/class-file-upload.php:584
 msgid "Enter the max number of files to allow. If left blank, the value defaults to 1."
 msgstr ""
 
-#: pro/includes/fields/class-file-upload.php:611
+#: pro/includes/fields/class-file-upload.php:635
 msgid "Modern Style supports multiple file uploads, displays a drag-and-drop upload box, and uses AJAX. Classic Style supports single file upload and displays a traditional upload button."
 msgstr ""
 
-#: pro/includes/fields/class-file-upload.php:623
+#: pro/includes/fields/class-file-upload.php:647
 #: pro/includes/fields/class-payment-dropdown.php:276
 msgid "Modern"
 msgstr ""
 
-#: pro/includes/fields/class-file-upload.php:624
+#: pro/includes/fields/class-file-upload.php:648
 #: pro/includes/fields/class-payment-dropdown.php:275
 msgid "Classic"
 msgstr ""
 
-#: pro/includes/fields/class-file-upload.php:646
+#: pro/includes/fields/class-file-upload.php:670
 msgid "Store file in WordPress Media Library"
 msgstr ""
 
-#: pro/includes/fields/class-file-upload.php:647
+#: pro/includes/fields/class-file-upload.php:671
 msgid "Check this option to store the final uploaded file in the WordPress Media Library"
 msgstr ""
 
-#: pro/includes/fields/class-file-upload.php:1426
+#: pro/includes/fields/class-file-upload.php:1450
 msgid "Something went wrong while removing the file."
 msgstr ""
 
-#: pro/includes/fields/class-file-upload.php:1700
+#: pro/includes/fields/class-file-upload.php:1724
 msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
 msgstr ""
 
-#: pro/includes/fields/class-file-upload.php:1701
+#: pro/includes/fields/class-file-upload.php:1725
 msgid "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form."
 msgstr ""
 
-#: pro/includes/fields/class-file-upload.php:1702
+#: pro/includes/fields/class-file-upload.php:1726
 msgid "The uploaded file was only partially uploaded."
 msgstr ""
 
-#: pro/includes/fields/class-file-upload.php:1703
+#: pro/includes/fields/class-file-upload.php:1727
 msgid "No file was uploaded."
 msgstr ""
 
-#: pro/includes/fields/class-file-upload.php:1705
+#: pro/includes/fields/class-file-upload.php:1729
 msgid "Missing a temporary folder."
 msgstr ""
 
-#: pro/includes/fields/class-file-upload.php:1706
+#: pro/includes/fields/class-file-upload.php:1730
 msgid "Failed to write file to disk."
 msgstr ""
 
-#: pro/includes/fields/class-file-upload.php:1707
+#: pro/includes/fields/class-file-upload.php:1731
 msgid "File upload stopped by extension."
 msgstr ""
 
 #. translators: %s - error text.
-#: pro/includes/fields/class-file-upload.php:1712
+#: pro/includes/fields/class-file-upload.php:1736
 msgid "File upload error. %s"
 msgstr ""
 
 #. translators: $s - allowed file size in Mb.
-#: pro/includes/fields/class-file-upload.php:1789
+#: pro/includes/fields/class-file-upload.php:1813
 msgid "File exceeds max size allowed (%s)."
 msgstr ""
 
-#: pro/includes/fields/class-file-upload.php:1813
+#: pro/includes/fields/class-file-upload.php:1837
 msgid "File must have an extension."
 msgstr ""
 
@@ -2511,159 +2511,159 @@ msgstr ""
 msgid "Please select a different period or check back later."
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:91
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:93
 msgid "You can capture email addresses from partial form entries to get more leads. Abandoned cart emails have an average open rate of 45%!"
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:96
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:98
 msgid "You can easily integrate your forms with 1,500+ useful apps by using WPForms + Zapier."
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:101
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:103
 msgid "You can integrate your forms to automatically send entries to your most used apps. Perfect for users of Salesforce, Slack, Trello, and 1,500+ others."
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:106
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:108
 msgid "You can make distraction-free and custom landing pages in WPForms! Perfect for getting more leads."
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:111
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:113
 msgid "You can build and customize your own professional-looking landing page. A great alternative to Google Forms!"
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:116
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:118
 msgid "You don’t have to build your forms from scratch. The Form Templates Pack addon gives you access to 150+ additional templates."
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:121
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:123
 msgid "You can password-protect your forms. Perfect for collecting reviews or success stories from customers!"
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:126
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:128
 msgid "You can automatically close a form at a specific date and time. Great for applications!"
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:131
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:133
 msgid "You can generate more fresh content for your website for free by accepting guest blog posts."
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:136
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:138
 msgid "You can easily add a field to your forms that let users draw their signature then saves it as an image with their entry."
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:141
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:143
 msgid "You can set up your forms to let your site visitors pick which payment method they want to use."
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:146
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:148
 msgid "You can increase your revenue by accepting recurring payments on your forms."
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:151
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:153
 msgid "For added insight into your customers, you can collect your user's city, state, and country behind-the-scenes with Geolocation!"
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:156
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:158
 msgid "You can let people automatically register as users on your WordPress site. Perfect for things like accepting guest blog posts!"
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:161
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:163
 msgid "You can limit one form submission per person to avoid duplicate entries. Perfect for applications and giveaway!"
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:166
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:168
 msgid "You can use NPS Surveys to learn about your visitors. A tactic used by some of the biggest brands around!"
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:171
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:173
 msgid "If you're planning an event, you can create an RSVP form to stay organized and get higher response rates!"
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:176
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:178
 msgid "With the Offline Forms addon, you can save data entered into your forms even if the user loses their internet connection."
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:181
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:183
 msgid "You can accept PayPal on your website — a great way to increase your revenue."
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:186
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:188
 msgid "You can easily take payments by credit card on your website using the Stripe addon."
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:191
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:193
 msgid "You can make money selling digital downloads on your site by using Stripe or PayPal."
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:196
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:198
 msgid "You can create a simple order form on your site to sell services or products online."
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:201
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:203
 msgid "You can create surveys or polls and see interactive visual reports of your user's answers."
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:206
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:208
 msgid "You can add a customer feedback form to your site. Try automatically emailing it out after a sale!"
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:211
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:213
 msgid "You can add a Likert rating scale to your WordPress forms. Great for measuring your customer’s experience with your business!"
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:216
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:218
 msgid "You can easily add a poll to your site! Helpful for making business decisions based on your audience's needs."
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:221
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:223
 msgid "You can create a customer cancellation survey to find out what you can do to improve."
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:226
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:228
 msgid "WPForms is a great alternative to SurveyMonkey! You can create your first survey or poll today."
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:231
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:233
 msgid "You can make your forms interactive and easier to complete. A great way to get more leads!"
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:236
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:238
 msgid "You can easily display survey results graphically. Great for presentations!"
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:241
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:243
 msgid "You can make your forms feel like a one-on-one conversation and boost conversion rates."
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:246
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:248
 msgid "You can put a pre-built job application form on your website. Perfect if you’re looking for new employees!"
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:251
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:253
 msgid "You can automatically send form entries to your Google Calendar. Perfect for appointments!"
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:256
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:258
 msgid "You can automatically send uploaded files from your form entries to Dropbox for safekeeping and organization!"
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:261
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:263
 msgid "When a user submits an uploaded file to your form, it can upload automatically to your Google Drive for better organization!"
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:266
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:268
 msgid "You can get notified via text when someone completes your form! Great for closing deals faster."
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:271
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:273
 msgid "Save time on invoicing! You can automatically add customers to Quickbooks after they complete a form."
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:276
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:278
 msgid "You can let users upload videos to your YouTube channel. Perfect for collecting testimonials!"
 msgstr ""
 
-#: src/Pro/Admin/Education/Admin/DidYouKnow.php:281
+#: src/Pro/Admin/Education/Admin/DidYouKnow.php:283
 msgid "You can automatically save submitted form info in a free Google Sheets spreadsheet. Great for keeping track of your entries!"
 msgstr ""
 

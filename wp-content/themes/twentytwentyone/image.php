@@ -24,13 +24,9 @@ while ( have_posts() ) {
 				/**
 				 * Filter the default image attachment size.
 				 *
-<<<<<<< HEAD
 				 * @since Twenty Twenty-One 1.0
 				 *
 				 * @param string $image_size Image size. Default 'full'.
-=======
-				 * @param string $image_size Image size. Default 'large'.
->>>>>>> 4f5257590d2e7c22bdac7a915861fa8f02a12394
 				 */
 				$image_size = apply_filters( 'twenty_twenty_one_attachment_size', 'full' );
 				echo wp_get_attachment_image( get_the_ID(), $image_size );

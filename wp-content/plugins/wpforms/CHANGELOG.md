@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file and formatted via [this recommendation](https://keepachangelog.com/en/1.0.0/).
 
+## [1.7.2.2] - 2022-02-03
+### Fixed
+- Compatibility with current versions of the User Journey and Form Locker addons.
+
+## [1.7.2.1] - 2022-02-03
+### Fixed
+- Compatibility with PHP 8.0 and PHP 8.1.
+- Compatibility with WordPress 5.9, including its new Full Site Editing feature.
+- Broken cache directory path if `WP_CONTENT_DIR` is set in the `wp-config.php` without trailing slash.
+- PHP Notice when using the `wpforms_log()` function in certain conditions.
+- Type mismatch brakes a list of scheduled actions in Action Scheduler if typed arguments are passed.
+
 ## [1.7.2] - 2022-01-04
 ### Added
 - Search by form name and description is available on the Forms Overview page.

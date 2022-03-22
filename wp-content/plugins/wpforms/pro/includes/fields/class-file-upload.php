@@ -287,9 +287,33 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 		wp_enqueue_style(
 			'wpforms-dropzone',
 			WPFORMS_PLUGIN_URL . "pro/assets/css/dropzone{$min}.css",
-			array(),
+			[ 'wpforms-pro-integrations' ],
 			self::DROPZONE_VERSION
 		);
+
+		// The Full Site Editor (FSE) uses an iframe with the site editor.
+		// It inserts into the iframe only those scripts defined during the block registration.
+		// Here we set the 'editor_style' field of the 'wpforms/form-selector' block to the current handle.
+		// All other styles required for 'wpforms/form-selector' block will be loaded as dependencies.
+		// So, our styles will be loaded in the following order:
+		// wpforms-integrations
+		// wpforms-gutenberg-form-selector
+		// wpforms-pro-integrations
+		// wpforms-dropzone.
+		// @todo Find out the better way to inject our styles into the FSE iframe.
+		$wp_block_type_registry = WP_Block_Type_Registry::get_instance();
+
+		if ( ! $wp_block_type_registry ) {
+			return;
+		}
+
+		$block = $wp_block_type_registry->get_registered( 'wpforms/form-selector' );
+
+		if ( ! $block ) {
+			return;
+		}
+
+		$block->editor_style = 'wpforms-dropzone';
 	}
 
 	/**
