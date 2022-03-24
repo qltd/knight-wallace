@@ -168,4 +168,9 @@ jQuery(document).ready(function($){
        $('#alum_view_special').slideToggle();
        $('#alum_view_location').slideToggle();
     });
+
+    // Fancybox lightbox
+    $('.fancybox a').fancybox({
+
+    })
 });
