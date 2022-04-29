@@ -48,6 +48,27 @@ $sorted_slides = sort_slider_content($slides);
         <div class="content donate">
           <div class="row">
             <div class="medium-5 columns">
+              <?php $annualFundImage = get_field('annual_fund_image'); ?>
+              <img src="<?php echo $annualFundImage['url']; ?>" class="donate-image" />
+            </div>
+            <div class="medium-7 columns">
+              <h2 class="lblue">Support the Wallace House Annual Fund</h2>
+              <p><?php the_field('annual_fund_text'); ?></p>
+              <a href="<?php the_field('annual_fund_donation_url'); ?>" target="_blank" rel="noopener noreferrer" class="button">Donate &raquo;</a>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="banner--gray">
+    <div class="row">
+      <div class="large-10 large-centered columns">
+        <div class="content donate">
+          <div class="row">
+            <div class="medium-5 columns">
               <?php $annualFundImage = get_field('livingston_awards_image'); ?>
               <img src="<?php echo $annualFundImage['url']; ?>" class="donate-image" />
             </div>
@@ -83,26 +104,7 @@ $sorted_slides = sort_slider_content($slides);
     </div>
   </div>
 
-  <div class="banner--gray">
-    <div class="row">
-      <div class="large-10 large-centered columns">
-        <div class="content donate">
-          <div class="row">
-            <div class="medium-5 columns">
-              <?php $annualFundImage = get_field('annual_fund_image'); ?>
-              <img src="<?php echo $annualFundImage['url']; ?>" class="donate-image" />
-            </div>
-            <div class="medium-7 columns">
-              <h2 class="lblue">Support the Wallace House Annual Fund</h2>
-              <p><?php the_field('annual_fund_text'); ?></p>
-              <a href="<?php the_field('annual_fund_donation_url'); ?>" target="_blank" rel="noopener noreferrer" class="button">Donate &raquo;</a>
-              
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  
 
 </section>
 
