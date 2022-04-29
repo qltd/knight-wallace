@@ -89,15 +89,16 @@ $sorted_slides = sort_slider_content($slides);
       <div class="large-10 large-centered columns">
         <div class="content donate">
           <div class="row flex-row">
+              <div class="column medium-5 small-float-left text-md-right text-small-left">
+              <?php $annualFundImage = get_field('knight_wallace_fellowships_image'); ?>
+              <img src="<?php echo $annualFundImage['url']; ?>" class="donate-image" />  
+            </div>
             <div class="column medium-7 small-float-right">
               <h2 class="lblue">Support the Knight-Wallace Fellowships</h2>
               <p><?php the_field('knight_wallace_fellowships_text'); ?></p>
               <a href="<?php the_field('knight_wallace_fellowships_donation_url'); ?>" target="_blank" rel="noopener noreferrer" class="button">Donate &raquo;</a>  
             </div>
-            <div class="column medium-5 small-float-left text-md-right text-small-left">
-              <?php $annualFundImage = get_field('knight_wallace_fellowships_image'); ?>
-              <img src="<?php echo $annualFundImage['url']; ?>" class="donate-image" />  
-            </div>
+            
           </div>
         </div>
       </div>
