@@ -68,15 +68,15 @@ $sorted_slides = sort_slider_content($slides);
       <div class="large-10 large-centered columns">
         <div class="content donate">
           <div class="row">
-            <div class="medium-5 columns">
-              <?php $annualFundImage = get_field('livingston_awards_image'); ?>
-              <img src="<?php echo $annualFundImage['url']; ?>" class="donate-image" />
-            </div>
             <div class="medium-7 columns">
               <h2 class="lblue">Support the Livingston Awards for Young Journalists</h2>
               <p><?php the_field('livingston_awards_text'); ?></p>
               <a href="<?php the_field('livingston_awards_donation_url'); ?>" target="_blank" rel="noopener noreferrer" class="button">Donate &raquo;</a>
               
+            </div>
+            <div class="medium-5 columns">
+              <?php $annualFundImage = get_field('livingston_awards_image'); ?>
+              <img src="<?php echo $annualFundImage['url']; ?>" class="donate-image" />
             </div>
           </div>
         </div>
