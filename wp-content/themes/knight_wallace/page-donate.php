@@ -63,7 +63,7 @@ $sorted_slides = sort_slider_content($slides);
     </div>
   </div>
 
-  <div class="banner--gray">
+  <div class="banner--white">
     <div class="row">
       <div class="large-10 large-centered columns">
         <div class="content donate">
@@ -84,7 +84,7 @@ $sorted_slides = sort_slider_content($slides);
     </div>
   </div>
 
-  <div class="banner--white">
+  <div class="banner--gray">
     <div class="row">
       <div class="large-10 large-centered columns">
         <div class="content donate">
