@@ -253,7 +253,7 @@ class Ajax {
 			'fields'          => empty( $args['entry_id'] ) ? $args['fields'] : wp_list_pluck( $this->exclude_disallowed_fields( $form_data['fields'] ), 'id' ),
 			'additional_info' => empty( $args['entry_id'] ) ? $args['additional_info'] : array_keys( $this->export->additional_info_fields ),
 			'count'           => $count,
-			'total_steps'     => ceil( $count / $this->export->configuration['entries_per_step'] ),
+			'total_steps'     => (int) ceil( $count / $this->export->configuration['entries_per_step'] ),
 			'type'            => ! empty( $args['export_options'] ) ? $args['export_options'][0] : 'csv',
 		];
 

@@ -4,6 +4,7 @@ namespace WPForms\Pro;
 
 use WPForms\Pro\Integrations\TranslationsPress\Translations;
 use WPForms\Tasks\Actions\Migration173Task;
+use WPForms_Pro; // phpcs:ignore WPForms.PHP.UseStatement.UnusedUseStatement
 
 /**
  * Class Migrations handles Pro plugin upgrade routines.
@@ -27,6 +28,15 @@ class Migrations {
 	 * @var bool
 	 */
 	private $is_migrated = false;
+
+	/**
+	 * WPForms_Pro instance.
+	 *
+	 * @since 1.7.4
+	 *
+	 * @var WPForms_Pro|null
+	 */
+	private $wpforms_pro = null;
 
 	/**
 	 * Class init.
@@ -95,7 +105,13 @@ class Migrations {
 	 */
 	private function migrate( $version ) {
 
-		wpforms()->get( 'pro' )->objects();
+		$this->wpforms_pro = wpforms()->get( 'pro' );
+
+		if ( ! $this->wpforms_pro ) {
+			return;
+		}
+
+		$this->wpforms_pro->objects();
 
 		$methods        = get_class_methods( $this );
 		$method_pattern = '/^v(\d+)_upgrade$/';
@@ -509,6 +525,14 @@ class Migrations {
 	 * @noinspection PhpUnusedPrivateMethodInspection
 	 */
 	private function v173_upgrade() { // phpcs:ignore WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
+
+		// Do not run migration if custom tables do not exist (this happens on migration from Lite).
+		// Tables will be created later in reinstall_custom_tables() at wpforms_settings_init hook.
+		if ( ! $this->wpforms_pro->custom_tables_exist() ) {
+			$this->is_migrated = true;
+
+			return;
+		}
 
 		add_action(
 			'init',

@@ -27,7 +27,7 @@ $random_hero_content = random_hero_content($hero_content,'Wallace House');
 ?>
 
 <?php if(!empty($random_hero_content)): ?>
-<?php $background_image = turn_img_tag_to_url($random_hero_content['image']);?>
+<?php $background_image = $random_hero_content['image'];?>
 <style>
 #hero_image {
 background: url(<?php echo $background_image; ?>) no-repeat scroll center center / cover;

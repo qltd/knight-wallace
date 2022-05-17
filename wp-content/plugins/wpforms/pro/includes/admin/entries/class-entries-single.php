@@ -783,7 +783,7 @@ class WPForms_Entries_Single {
 						$field_value  = apply_filters( 'wpforms_html_field_value', wp_strip_all_tags( $field_value ), $field, $form_data, 'entry-single' );
 						$field_class  = sanitize_html_class( 'wpforms-field-' . $field_type );
 						$field_class .= wpforms_is_empty_string( $field_value ) ? ' empty' : '';
-						$field_style  = $hide_empty && empty( $field_value ) ? 'display:none;' : '';
+						$field_style  = $hide_empty && wpforms_is_empty_string( $field_value ) ? 'display:none;' : '';
 
 						echo '<div class="wpforms-entry-field ' . wpforms_sanitize_classes( $field_class ) . '" style="' . esc_attr( $field_style ) . '">';
 

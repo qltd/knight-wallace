@@ -330,7 +330,7 @@ class PrintPreview {
 
 						$field_value  = isset( $field['value'] ) ? apply_filters( 'wpforms_html_field_value', wp_strip_all_tags( $field['value'] ), $field, $this->form_data, 'entry-single' ) : '';
 						$field_class  = sanitize_html_class( 'wpforms-field-' . $field['type'] );
-						$field_class .= empty( $field_value ) ? ' empty' : '';
+						$field_class .= wpforms_is_empty_string( $field_value ) ? ' empty' : '';
 						$field_label  = isset( $field['name'] ) ? $field['name'] : '';
 
 						if ( $field['type'] === 'divider' ) {
@@ -359,7 +359,7 @@ class PrintPreview {
 								?>
 							</p>
 							<p class="field-value">
-								<?php echo ! empty( $field_value ) ? nl2br( make_clickable( $field_value ) ) : esc_html__( 'Empty', 'wpforms' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+								<?php echo ! wpforms_is_empty_string( $field_value ) ? nl2br( make_clickable( $field_value ) ) : esc_html__( 'Empty', 'wpforms' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 							</p>
 						</div>
 						<?php endif; ?>

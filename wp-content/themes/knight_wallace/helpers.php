@@ -45,7 +45,7 @@ function sort_hero_content($content){
     if(!empty($content)){
         foreach($content as $c){
             $pmeta = get_post_meta($c->ID);
-            $pimage = get_the_post_thumbnail($c->ID);
+            $pimage = get_the_post_thumbnail_url($c->ID);
             if(!empty($pmeta)){
                 $res[$pmeta["_hero_content_which_page"][0]][] = array(
                     'title' => $c->post_title,

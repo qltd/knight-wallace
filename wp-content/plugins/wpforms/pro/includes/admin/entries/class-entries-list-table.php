@@ -458,7 +458,7 @@ class WPForms_Entries_Table extends WP_List_Table {
 			$value = sprintf( '<div data-field-type="%s">%s</div>', esc_attr( $field_type ), $value );
 		}
 
-		/*
+		/**
 		 * Allow filtering entry table column value.
 		 *
 		 * @since 1.0.0

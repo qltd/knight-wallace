@@ -719,14 +719,14 @@ class Edit {
 
 		$entry_field = ! empty( $entry_fields[ $field_id ] ) ? $entry_fields[ $field_id ] : $this->get_empty_entry_field_data( $field );
 
-		$field_value = ! empty( $entry_field['value'] ) ? $entry_field['value'] : '';
+		$field_value = ! wpforms_is_empty_string( $entry_field['value'] ) ? $entry_field['value'] : '';
 		$field_value = apply_filters( 'wpforms_html_field_value', wp_strip_all_tags( $field_value ), $entry_field, $form_data, 'entry-single' );
 
 		$field_class  = ! empty( $field['type'] ) ? sanitize_html_class( 'wpforms-edit-entry-field-' . $field['type'] ) : '';
 		$field_class .= wpforms_is_empty_string( $field_value ) ? ' empty' : '';
 		$field_class .= ! empty( $field['required'] ) ? ' wpforms-entry-field-required' : '';
 
-		$field_style = $hide_empty && empty( $entry_field['value'] ) ? 'display:none;' : '';
+		$field_style = $hide_empty && wpforms_is_empty_string( $entry_field['value'] ) ? 'display:none;' : '';
 
 		echo '<div class="wpforms-edit-entry-field ' . esc_attr( $field_class ) . '" style="' . esc_attr( $field_style ) . '">';
 
