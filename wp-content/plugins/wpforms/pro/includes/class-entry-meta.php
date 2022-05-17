@@ -98,7 +98,8 @@ class WPForms_Entry_Meta_Handler extends WPForms_DB {
 		);
 
 		// Allowed string arg items.
-		$keys = array( 'status', 'type' );
+		$keys = [ 'status', 'type', 'data' ];
+
 		foreach ( $keys as $key ) {
 
 			if ( ! empty( $args[ $key ] ) ) {

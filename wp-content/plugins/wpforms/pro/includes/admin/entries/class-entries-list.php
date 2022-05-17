@@ -154,7 +154,7 @@ class WPForms_Entries_List {
 	 */
 	private function remove_get_parameters() {
 
-		$_SERVER['REQUEST_URI'] = remove_query_arg( '_wp_http_referer', $_SERVER['REQUEST_URI'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+		$_SERVER['REQUEST_URI'] = remove_query_arg( [ '_wp_http_referer', 'action', 'read', 'unread', 'unstarred', 'starred', 'deleted' ], $_SERVER['REQUEST_URI'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
 	}
 
 	/**

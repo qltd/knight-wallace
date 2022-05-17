@@ -197,6 +197,7 @@ class Export {
 			'file_not_readable' => esc_html__( 'Export file cannot be retrieved from a file system.', 'wpforms' ),
 			'file_empty'        => esc_html__( 'Export file is empty.', 'wpforms' ),
 			'form_empty'        => esc_html__( 'The form does not have any fields for export.', 'wpforms' ),
+			'no_direct_access'  => esc_html__( 'We need direct access to the filesystem for export.', 'wpforms' ),
 		);
 
 		// Strings to localize.

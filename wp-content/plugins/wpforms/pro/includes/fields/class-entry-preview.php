@@ -431,7 +431,7 @@ class WPForms_Entry_Preview extends WPForms_Field {
 
 			$value = $this->get_field_value( $field, $form_data );
 
-			if ( empty( $value ) ) {
+			if ( wpforms_is_empty_string( $value ) ) {
 				continue;
 			}
 
