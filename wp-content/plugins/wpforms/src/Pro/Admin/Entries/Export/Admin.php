@@ -342,7 +342,7 @@ class Admin {
 
 		wp_enqueue_style(
 			'wpforms-flatpickr',
-			WPFORMS_PLUGIN_URL . 'assets/css/flatpickr.min.css',
+			WPFORMS_PLUGIN_URL . 'assets/lib/flatpickr/flatpickr.min.css',
 			[],
 			'4.6.9'
 		);
@@ -353,7 +353,7 @@ class Admin {
 
 		wp_enqueue_script(
 			'wpforms-flatpickr',
-			WPFORMS_PLUGIN_URL . 'assets/js/flatpickr.min.js',
+			WPFORMS_PLUGIN_URL . 'assets/lib/flatpickr/flatpickr.min.js',
 			[ 'jquery' ],
 			'4.6.9',
 			true
@@ -361,7 +361,7 @@ class Admin {
 
 		wp_enqueue_script(
 			'wpforms-tools-entries-export',
-			WPFORMS_PLUGIN_URL . "pro/assets/js/admin/tools-entries-export{$min}.js",
+			WPFORMS_PLUGIN_URL . "assets/pro/js/admin/tools-entries-export{$min}.js",
 			[ 'jquery', 'wpforms-flatpickr' ],
 			WPFORMS_VERSION,
 			true

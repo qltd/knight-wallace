@@ -371,14 +371,9 @@ class WPForms_Field_Date_Time extends WPForms_Field {
 			} elseif ( 'mmmm d, yyyy' === $date_format ) {
 				$date_format = 'F j, Y';
 			}
-			$date_formats = apply_filters(
-				'wpforms_datetime_date_formats',
-				array(
-					'm/d/Y'  => 'm/d/Y',
-					'd/m/Y'  => 'd/m/Y',
-					'F j, Y' => 'F j, Y',
-				)
-			);
+
+			$date_formats = wpforms_date_formats();
+
 			printf(
 				'<div class="wpforms-clear wpforms-field-option-row wpforms-field-option-row-date no-gap" id="wpforms-field-option-row-%d-date" data-subfield="date" data-field-id="%d">',
 				esc_attr( $field['id'] ),

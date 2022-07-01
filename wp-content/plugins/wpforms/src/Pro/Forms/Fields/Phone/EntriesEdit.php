@@ -31,7 +31,7 @@ class EntriesEdit extends \WPForms\Pro\Forms\Fields\Base\EntriesEdit {
 		// International Telephone Input library CSS.
 		wp_enqueue_style(
 			'wpforms-smart-phone-field',
-			WPFORMS_PLUGIN_URL . "pro/assets/css/vendor/intl-tel-input{$min}.css",
+			WPFORMS_PLUGIN_URL . "assets/pro/css/fields/phone/intl-tel-input{$min}.css",
 			[],
 			'17.0.5'
 		);
@@ -39,7 +39,7 @@ class EntriesEdit extends \WPForms\Pro\Forms\Fields\Base\EntriesEdit {
 		// Load International Telephone Input library - https://github.com/jackocnr/intl-tel-input.
 		wp_enqueue_script(
 			'wpforms-smart-phone-field',
-			WPFORMS_PLUGIN_URL . "pro/assets/js/vendor/jquery.intl-tel-input{$min}.js",
+			WPFORMS_PLUGIN_URL . 'assets/pro/lib/intl-tel-input/jquery.intl-tel-input.min.js',
 			[ 'jquery' ],
 			'17.0.5',
 			true
@@ -48,7 +48,7 @@ class EntriesEdit extends \WPForms\Pro\Forms\Fields\Base\EntriesEdit {
 		// Load jQuery input mask library - https://github.com/RobinHerbots/jquery.inputmask.
 		wp_enqueue_script(
 			'wpforms-maskedinput',
-			WPFORMS_PLUGIN_URL . 'assets/js/jquery.inputmask.min.js',
+			WPFORMS_PLUGIN_URL . 'assets/lib/jquery.inputmask.min.js',
 			[ 'jquery' ],
 			'5.0.7-beta.29',
 			true

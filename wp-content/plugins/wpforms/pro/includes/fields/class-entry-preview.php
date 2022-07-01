@@ -67,7 +67,7 @@ class WPForms_Entry_Preview extends WPForms_Field {
 
 		wp_enqueue_style(
 			'wpforms-entry-preview',
-			WPFORMS_PLUGIN_URL . "pro/assets/css/fields/entry-preview{$min}.css",
+			WPFORMS_PLUGIN_URL . "assets/pro/css/fields/entry-preview{$min}.css",
 			[],
 			WPFORMS_VERSION
 		);
@@ -93,7 +93,7 @@ class WPForms_Entry_Preview extends WPForms_Field {
 
 		wp_enqueue_script(
 			'wpforms-entry-preview',
-			WPFORMS_PLUGIN_URL . "pro/assets/js/fields/entry-preview{$min}.js",
+			WPFORMS_PLUGIN_URL . "assets/pro/js/fields/entry-preview{$min}.js",
 			[ 'jquery' ],
 			WPFORMS_VERSION,
 			true

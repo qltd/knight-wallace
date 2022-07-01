@@ -633,19 +633,23 @@ class WPForms_Field_Address extends WPForms_Field {
 	public function field_preview( $field ) {
 
 		// Define data.
-		$address1_placeholder = ! empty( $field['address1_placeholder'] ) ? esc_attr( $field['address1_placeholder'] ) : '';
-		$address2_placeholder = ! empty( $field['address2_placeholder'] ) ? esc_attr( $field['address2_placeholder'] ) : '';
+		$address1_placeholder = ! empty( $field['address1_placeholder'] ) ? $field['address1_placeholder'] : '';
+		$address1_default     = ! empty( $field['address1_default'] ) ? $field['address1_default'] : '';
+		$address2_placeholder = ! empty( $field['address2_placeholder'] ) ? $field['address2_placeholder'] : '';
+		$address2_default     = ! empty( $field['address2_default'] ) ? $field['address2_default'] : '';
 		$address2_hide        = ! empty( $field['address2_hide'] ) ? 'wpforms-hide' : '';
-		$city_placeholder     = ! empty( $field['city_placeholder'] ) ? esc_attr( $field['city_placeholder'] ) : '';
-		$state_placeholder    = ! empty( $field['state_placeholder'] ) ? esc_attr( $field['state_placeholder'] ) : '';
-		$state_default        = ! empty( $field['state_default'] ) ? esc_attr( $field['state_default'] ) : '';
-		$postal_placeholder   = ! empty( $field['postal_placeholder'] ) ? esc_attr( $field['postal_placeholder'] ) : '';
+		$city_placeholder     = ! empty( $field['city_placeholder'] ) ? $field['city_placeholder'] : '';
+		$city_default         = ! empty( $field['city_default'] ) ? $field['city_default'] : '';
+		$state_placeholder    = ! empty( $field['state_placeholder'] ) ? $field['state_placeholder'] : '';
+		$state_default        = ! empty( $field['state_default'] ) ? $field['state_default'] : '';
+		$postal_placeholder   = ! empty( $field['postal_placeholder'] ) ? $field['postal_placeholder'] : '';
+		$postal_default       = ! empty( $field['postal_default'] ) ? $field['postal_default'] : '';
 		$postal_hide          = ! empty( $field['postal_hide'] ) ? 'wpforms-hide' : '';
-		$country_placeholder  = ! empty( $field['country_placeholder'] ) ? esc_attr( $field['country_placeholder'] ) : '';
-		$country_default      = ! empty( $field['country_default'] ) ? esc_attr( $field['country_default'] ) : '';
+		$country_placeholder  = ! empty( $field['country_placeholder'] ) ? $field['country_placeholder'] : '';
+		$country_default      = ! empty( $field['country_default'] ) ? $field['country_default'] : '';
 		$country_hide         = ! empty( $field['country_hide'] ) ? 'wpforms-hide' : '';
-		$format               = ! empty( $field['format'] ) ? esc_attr( $field['format'] ) : 'us';
-		$scheme_selected      = ! empty( $field['scheme'] ) ? esc_attr( $field['scheme'] ) : $format;
+		$format               = ! empty( $field['format'] ) ? $field['format'] : 'us';
+		$scheme_selected      = ! empty( $field['scheme'] ) ? $field['scheme'] : $format;
 
 		// Label.
 		$this->field_preview_option( 'label', $field );
@@ -666,13 +670,13 @@ class WPForms_Field_Address extends WPForms_Field {
 
 				// Row 1 - Address Line 1.
 				echo '<div class="wpforms-field-row wpforms-address-1">';
-					printf( '<input type="text" placeholder="%s" readonly>', esc_attr( $address1_placeholder ) );
+					printf( '<input type="text" placeholder="%s" value="%s" readonly>', esc_attr( $address1_placeholder ), esc_attr( $address1_default ) );
 					printf( '<label class="wpforms-sub-label">%s</label>', esc_html( $address1_label ) );
 				echo '</div>';
 
 				// Row 2 - Address Line 2.
 				printf( '<div class="wpforms-field-row wpforms-address-2 %s">', wpforms_sanitize_classes( $address2_hide ) );
-					printf( '<input type="text" placeholder="%s" readonly>', esc_attr( $address2_placeholder ) );
+					printf( '<input type="text" placeholder="%s" value="%s" readonly>', esc_attr( $address2_placeholder ), esc_attr( $address2_default ) );
 					printf( '<label class="wpforms-sub-label">%s</label>', esc_html( $address2_label ) );
 				echo '</div>';
 
@@ -681,7 +685,7 @@ class WPForms_Field_Address extends WPForms_Field {
 
 					// City.
 					echo '<div class="wpforms-city wpforms-one-half ">';
-						printf( '<input type="text" placeholder="%s" readonly>', esc_attr( $city_placeholder ) );
+						printf( '<input type="text" placeholder="%s" value="%s" readonly>', esc_attr( $city_placeholder ), esc_attr( $city_default ) );
 						printf( '<label class="wpforms-sub-label">%s</label>', esc_html( $city_label ) );
 					echo '</div>';
 
@@ -720,7 +724,7 @@ class WPForms_Field_Address extends WPForms_Field {
 
 					// ZIP / Postal.
 					printf( '<div class="wpforms-postal wpforms-one-half %s">', wpforms_sanitize_classes( $postal_hide ) );
-						printf( '<input type="text" placeholder="%s" readonly>', esc_attr( $postal_label ) );
+						printf( '<input type="text" placeholder="%s" value="%s" readonly>', esc_attr( $postal_placeholder ), esc_attr( $postal_default ) );
 						printf( '<label class="wpforms-sub-label">%s</label>', esc_html( $postal_label ) );
 					echo '</div>';
 

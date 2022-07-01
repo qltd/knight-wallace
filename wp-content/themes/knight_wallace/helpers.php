@@ -100,17 +100,17 @@ function randomize_and_limit($array,$limit){
  *
  * */
 
-function turn_img_tag_to_url($img){
-    if(empty($img)){
-        $src = '';
-    }else{
-        $doc = new DOMDocument();
-        $doc->loadHTML($img);
-        $xpath = new DOMXPath($doc);
-        $src = $xpath->evaluate("string(//img/@src)");
-    }
-    return $src;
-}
+// function turn_img_tag_to_url($img){
+//     if(empty($img)){
+//         $src = '';
+//     }else{
+//         $doc = new DOMDocument();
+//         $doc->loadHTML($img);
+//         $xpath = new DOMXPath($doc);
+//         $src = $xpath->evaluate("string(//img/@src)");
+//     }
+//     return $src;
+// }
 
 /**
  * Sort Library Items

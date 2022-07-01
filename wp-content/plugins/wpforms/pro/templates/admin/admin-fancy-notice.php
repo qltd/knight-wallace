@@ -33,7 +33,7 @@ $icon_svg = empty( $icons[ $icon ] ) ? $icons['default'] : $icons[ $icon ];
 	</div>
 	<div>
 		<div class="wpforms-fancy-notice-title"><?php echo esc_html( $title ); ?></div>
-		<div class="wpforms-fancy-notice-desc"><?php echo esc_html( $desc ); ?></div>
+		<div class="wpforms-fancy-notice-desc"><?php echo wp_kses( $desc, [ 'a' => [ 'href' => [] ] ] ); ?></div>
 	</div>
 	<div class="wpforms-fancy-notice-buttons">
 		<?php if ( ! empty( $btn_url ) ) : ?>

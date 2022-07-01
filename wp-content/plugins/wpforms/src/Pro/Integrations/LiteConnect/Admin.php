@@ -223,47 +223,46 @@ final class Admin {
 			return;
 		}
 
-		if ( ! Transient::get( 'lite_connect_imported_entries' ) ) {
+		$imported_entries = Transient::get( 'lite_connect_imported_entries' );
+
+		if ( $imported_entries === false ) {
 			return;
 		}
 
-		$imported_entries_count = count( Transient::get( 'lite_connect_imported_entries' ) );
+		$imported_entries_count = count( $imported_entries );
 
 		// In case it is a re-import, then reduce the number of entries imported previously from the count.
 		if ( isset( $this->import_option['previous_import_count'] ) ) {
 			$imported_entries_count -= (int) $this->import_option['previous_import_count'];
 		}
 
-		if ( $imported_entries_count <= 0 ) {
+		$failed_entries       = Transient::get( 'lite_connect_failed_entries' );
+		$failed_entries_count = is_array( $failed_entries ) ? count( $failed_entries ) : 0;
+
+		// In case it is a re-import, then reduce the number of previously failed entries from the count.
+		if ( isset( $this->import_option['previous_failed_count'] ) ) {
+			$failed_entries_count -= (int) $this->import_option['previous_failed_count'];
+		}
+
+		if ( $imported_entries_count <= 0 && $failed_entries_count <= 0 ) {
 			return;
 		}
 
-		// Prepares the message and displays the admin notice.
-		$desc = sprintf(
-			esc_html( /* translators: %d - number of imported entries. */
-				_n(
-					'%d entry has been successfully imported.',
-					'%d entries have been successfully imported.',
-					$imported_entries_count,
-					'wpforms'
-				)
-			),
-			$imported_entries_count
-		);
-
+		// Render notice.
 		$message = wpforms_render(
 			'admin/admin-fancy-notice',
 			[
 				'slug'      => 'lite-connect-entries-complete',
 				'icon'      => 'check',
 				'title'     => esc_html__( 'Entry Restore Complete', 'wpforms' ),
-				'desc'      => $desc,
+				'desc'      => $this->prepare_completed_notice( $imported_entries_count, $failed_entries_count ),
 				'btn_title' => esc_html__( 'View Entries', 'wpforms' ),
-				'btn_url'   => admin_url( 'admin.php?page=wpforms-entries' ),
+				'btn_url'   => $imported_entries_count > 0 ? admin_url( 'admin.php?page=wpforms-entries' ) : '',
 			],
 			true
 		);
 
+		// Display the admin notice.
 		Notice::add(
 			$message,
 			'fancy-success',
@@ -280,6 +279,72 @@ final class Admin {
 		$settings['import']['user_notified'] = true;
 
 		update_option( Integration::get_option_name(), $settings );
+	}
+
+	/**
+	 * Prepare complete notice description.
+	 *
+	 * @since 1.7.4.2
+	 *
+	 * @param int $imported_count Imported entries count.
+	 * @param int $failed_count   Failed entries count.
+	 *
+	 * @return string
+	 */
+	private function prepare_completed_notice( $imported_count, $failed_count ) {
+
+		$imported_count = (int) $imported_count;
+		$failed_count   = (int) $failed_count;
+
+		$desc = '';
+
+		if ( $imported_count > 0 ) {
+			$desc = sprintf(
+				esc_html( /* translators: %d - number of imported entries. */
+					_n(
+						'%d entry has been successfully imported.',
+						'%d entries have been successfully imported.',
+						$imported_count,
+						'wpforms'
+					)
+				),
+				$imported_count
+			);
+		}
+
+		if ( $failed_count > 0 && $imported_count > 0 ) {
+			$desc .= ' ' . sprintf(
+				esc_html( /* translators: %d - number of imported entries. */
+					_n(
+						'%d entry was not imported.',
+						'%d entries were not imported.',
+						$failed_count,
+						'wpforms'
+					)
+				),
+				$failed_count
+			);
+		}
+
+		if ( $failed_count > 0 && $imported_count <= 0 ) {
+			$desc = esc_html__( 'No entries were imported.', 'wpforms' );
+		}
+
+		if ( $failed_count > 0 && wpforms_setting( 'logs-enable' ) ) {
+			$desc .= ' ' . sprintf(
+				wp_kses( /* translators: %s - WPForms Logs admin page URL. */
+					__( '<a href="%s">View log</a> for details.', 'wpforms' ),
+					[
+						'a' => [
+							'href' => [],
+						],
+					]
+				),
+				admin_url( 'admin.php?page=wpforms-tools&view=logs' )
+			);
+		}
+
+		return trim( $desc );
 	}
 
 	/**
@@ -380,6 +445,7 @@ final class Admin {
 
 		Transient::delete( 'lite_connect_error' );
 		Transient::delete( 'lite_connect_imported_entries' );
+		Transient::delete( 'lite_connect_failed_entries' );
 		Transient::delete( API::LITE_CONNECT_SITE_KEY_LOCK );
 		Transient::delete( API::LITE_CONNECT_ACCESS_TOKEN_LOCK );
 

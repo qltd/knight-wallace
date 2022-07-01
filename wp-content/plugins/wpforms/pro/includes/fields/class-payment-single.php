@@ -242,11 +242,13 @@ class WPForms_Field_Payment_Single extends WPForms_Field {
 			case 'single':
 			case 'hidden':
 				if ( 'single' === $field_format ) {
+					$price = ! empty( $field['price'] ) ? $field['price'] : 0;
+
 					echo '<div class="wpforms-single-item-price">';
 					printf(
 						/* translators: %s - price amount. */
 						esc_html__( 'Price: %s', 'wpforms' ),
-						'<span class="wpforms-price">' . esc_html( wpforms_format_amount( wpforms_sanitize_amount( $field['price'] ), true ) ) . '</span>'
+						'<span class="wpforms-price">' . esc_html( wpforms_format_amount( wpforms_sanitize_amount( $price ), true ) ) . '</span>'
 					);
 					echo '</div>';
 				}
