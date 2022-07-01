@@ -35,7 +35,8 @@ class Integration extends \WPForms\Integrations\LiteConnect\Integration {
 	private $form_ids = [];
 
 	/**
-	 * ID of the entries that were already imported.
+	 * Processed entry IDs.
+	 * Possible keys: `imported`, `failed`.
 	 *
 	 * @since 1.7.4
 	 *
@@ -134,8 +135,8 @@ class Integration extends \WPForms\Integrations\LiteConnect\Integration {
 		// Import entries to the database.
 		foreach ( $response['entries'] as $encrypted_entry ) {
 			// Decrypts information from API.
-			$entry_args = json_decode( Crypto::decrypt( $encrypted_entry['data'] ), true );
-			$backup_id  = $encrypted_entry['id'];
+			$entry_args = isset( $encrypted_entry['data'] ) ? json_decode( Crypto::decrypt( $encrypted_entry['data'] ), true ) : null;
+			$backup_id  = isset( $encrypted_entry['id'] ) ? $encrypted_entry['id'] : null;
 
 			// If entry already exists on database, then do not import it again.
 			if ( $this->backup_id_exists( $backup_id ) ) {
@@ -146,10 +147,15 @@ class Integration extends \WPForms\Integrations\LiteConnect\Integration {
 			$status = $this->import_entry( $entry_args, $backup_id );
 
 			if ( ! is_array( $status ) || ! isset( $status['fields'] ) ) {
+
+				$this->save_processed_entry_id( $backup_id, 'failed' );
+
+				$form_id = ! empty( $entry_args['form_id'] ) ? $entry_args['form_id'] : 0;
+
 				wpforms_log(
 					'Lite Connect: error importing form entry',
 					[
-						'reason'     => ! get_post_status( $entry_args['form_id'] ) ?
+						'reason'     => $form_id > 0 && ! get_post_status( $form_id ) ?
 							esc_html__( 'The form no longer exists', 'wpforms' ) :
 							esc_html__( 'Unknown', 'wpforms' ),
 						'backup_id'  => $backup_id,
@@ -157,7 +163,7 @@ class Integration extends \WPForms\Integrations\LiteConnect\Integration {
 					],
 					[
 						'type'    => 'error',
-						'form_id' => $entry_args['form_id'],
+						'form_id' => $form_id,
 					]
 				);
 			}
@@ -181,7 +187,13 @@ class Integration extends \WPForms\Integrations\LiteConnect\Integration {
 	 */
 	private function import_entry( $entry_args, $backup_id ) {
 
-		if ( ! $this->validate_form( $entry_args['form_id'] ) ) {
+		if (
+			empty( $entry_args['form_id'] ) ||
+			empty( $entry_args['fields'] ) ||
+			empty( $entry_args['form_data'] ) ||
+			empty( $backup_id ) ||
+			! $this->validate_form( $entry_args['form_id'] )
+		) {
 			return false;
 		}
 
@@ -209,7 +221,7 @@ class Integration extends \WPForms\Integrations\LiteConnect\Integration {
 		);
 
 		// Add entry ID to a WPForms Transient, so we can revert in case a new import is required.
-		$this->save_imported_id( $entry_id );
+		$this->save_processed_entry_id( $entry_id );
 
 		return [
 			'fields'    => $fields,
@@ -230,13 +242,10 @@ class Integration extends \WPForms\Integrations\LiteConnect\Integration {
 	 */
 	public function reset_import() {
 
-		$this->entries = Transient::get( 'lite_connect_imported_entries' );
+		$entries = $this->get_saved_entry_ids();
 
-		if ( ! is_array( $this->entries ) ) {
-			return;
-		}
+		foreach ( $entries as $entry_id ) {
 
-		foreach ( $this->entries as $entry_id ) {
 			if ( empty( $entry_id ) ) {
 				continue;
 			}
@@ -292,25 +301,47 @@ class Integration extends \WPForms\Integrations\LiteConnect\Integration {
 	}
 
 	/**
-	 * Saves the ID of an imported entry.
+	 * Saves the ID of the processed entry.
 	 *
-	 * @since 1.7.4
+	 * @since 1.7.4.2
 	 *
-	 * @param int $id The ID of the entry.
+	 * @param int    $id   The ID of the entry.
+	 * @param string $type Type of the entry. Possible values: `imported` or `failed`. Default `imported`.
 	 */
-	private function save_imported_id( $id ) {
+	private function save_processed_entry_id( $id, $type = 'imported' ) {
 
-		if ( empty( $this->entries ) ) {
-			$this->entries = Transient::get( 'lite_connect_imported_entries' );
+		$type = $type === 'imported' ? $type : 'failed';
 
-			if ( $this->entries === false ) {
-				$this->entries = [];
-			}
+		if ( empty( $this->entries[ $type ] ) ) {
+			$this->get_saved_entry_ids( $type );
 		}
 
-		$this->entries[] = $id;
+		$this->entries[ $type ][] = $id;
 
-		Transient::set( 'lite_connect_imported_entries', $this->entries );
+		Transient::set( "lite_connect_{$type}_entries", $this->entries[ $type ] );
+	}
+
+	/**
+	 * Get saved entry IDs.
+	 *
+	 * @since 1.7.4.2
+	 *
+	 * @param string $type Type of the entry. Possible values: `imported` or `failed`. Default `imported`.
+	 *
+	 * @return array
+	 */
+	private function get_saved_entry_ids( $type = 'imported' ) {
+
+		$type = $type === 'imported' ? $type : 'failed';
+
+		if ( ! is_array( $this->entries ) ) {
+			$this->entries = [];
+		}
+
+		$this->entries[ $type ] = Transient::get( "lite_connect_{$type}_entries" );
+		$this->entries[ $type ] = ! empty( $this->entries[ $type ] ) ? $this->entries[ $type ] : [];
+
+		return $this->entries[ $type ];
 	}
 
 	/**
@@ -393,7 +424,8 @@ class Integration extends \WPForms\Integrations\LiteConnect\Integration {
 			true
 		);
 
-		return ! empty( $entry_id );
+		return ! empty( $entry_id ) ||
+			in_array( $backup_id, $this->get_saved_entry_ids( 'failed' ), true );
 	}
 
 	/**

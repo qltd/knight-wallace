@@ -127,7 +127,7 @@ class WPForms_Entries_Single {
 
 		wp_enqueue_script(
 			'wpforms-admin-view-entry',
-			WPFORMS_PLUGIN_URL . "pro/assets/js/admin/view-entry{$min}.js",
+			WPFORMS_PLUGIN_URL . "assets/pro/js/admin/view-entry{$min}.js",
 			[ 'jquery' ],
 			WPFORMS_VERSION,
 			true

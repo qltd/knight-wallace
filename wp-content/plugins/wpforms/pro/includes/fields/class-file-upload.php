@@ -88,8 +88,11 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 		// Form frontend CSS.
 		add_action( 'wpforms_frontend_css', [ $this, 'frontend_css' ] );
 
-		// Field styles for Gutenberg.
-		add_action( 'enqueue_block_editor_assets', [ $this, 'gutenberg_enqueues' ] );
+		// Field styles for Gutenberg. Register after wpforms-pro-integrations.
+		add_action( 'init', [ $this, 'register_gutenberg_styles' ], 20 );
+
+		// Set editor style handle for block type editor.
+		add_filter( 'register_block_type_args', [ $this, 'register_block_type_args' ], 10, 2 );
 
 		// Define additional field properties.
 		add_filter( 'wpforms_field_properties_file-upload', [ $this, 'field_properties' ], 5, 3 );
@@ -163,7 +166,7 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 
 			wp_enqueue_script(
 				'wpforms-dropzone',
-				WPFORMS_PLUGIN_URL . "pro/assets/js/vendor/dropzone{$min}.js",
+				WPFORMS_PLUGIN_URL . 'assets/pro/lib/dropzone.min.js',
 				[ 'jquery' ],
 				self::DROPZONE_VERSION,
 				true
@@ -171,7 +174,7 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 
 			wp_enqueue_script(
 				'wpforms-file-upload',
-				WPFORMS_PLUGIN_URL . "pro/assets/js/wpforms-file-upload{$min}.js",
+				WPFORMS_PLUGIN_URL . "assets/pro/js/wpforms-file-upload{$min}.js",
 				[ 'wpforms', 'wp-util', 'wpforms-dropzone' ],
 				WPFORMS_VERSION,
 				true
@@ -233,7 +236,7 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 
 			wp_enqueue_style(
 				'wpforms-dropzone',
-				WPFORMS_PLUGIN_URL . "pro/assets/css/dropzone{$min}.css",
+				WPFORMS_PLUGIN_URL . "assets/pro/css/dropzone{$min}.css",
 				array(),
 				self::DROPZONE_VERSION
 			);
@@ -279,17 +282,44 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 	 * Load enqueues for the Gutenberg editor.
 	 *
 	 * @since 1.5.6
+	 * @deprecated 1.7.4.2
 	 */
 	public function gutenberg_enqueues() {
 
-		$min = wpforms_get_min_suffix();
+		_deprecated_function( __METHOD__, '1.7.4.2 of the WPForms plugin' );
+	}
 
-		wp_enqueue_style(
+	/**
+	 * Register Gutenberg block styles.
+	 *
+	 * @since 1.7.4.2
+	 */
+	public function register_gutenberg_styles() {
+
+		$min  = wpforms_get_min_suffix();
+		$deps = is_admin() ? [ 'wpforms-pro-integrations' ] : [];
+
+		wp_register_style(
 			'wpforms-dropzone',
-			WPFORMS_PLUGIN_URL . "pro/assets/css/dropzone{$min}.css",
-			[ 'wpforms-pro-integrations' ],
+			WPFORMS_PLUGIN_URL . "assets/pro/css/dropzone{$min}.css",
+			$deps,
 			self::DROPZONE_VERSION
 		);
+	}
+
+	/**
+	 * Set editor style handle for block type editor.
+	 *
+	 * @since 1.7.4.2
+	 *
+	 * @param array  $args       Array of arguments for registering a block type.
+	 * @param string $block_type Block type name including namespace.
+	 */
+	public function register_block_type_args( $args, $block_type ) {
+
+		if ( $block_type !== 'wpforms/form-selector' ) {
+			return $args;
+		}
 
 		// The Full Site Editor (FSE) uses an iframe with the site editor.
 		// It inserts into the iframe only those scripts defined during the block registration.
@@ -300,20 +330,9 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 		// wpforms-gutenberg-form-selector
 		// wpforms-pro-integrations
 		// wpforms-dropzone.
-		// @todo Find out the better way to inject our styles into the FSE iframe.
-		$wp_block_type_registry = WP_Block_Type_Registry::get_instance();
+		$args['editor_style'] = 'wpforms-dropzone';
 
-		if ( ! $wp_block_type_registry ) {
-			return;
-		}
-
-		$block = $wp_block_type_registry->get_registered( 'wpforms/form-selector' );
-
-		if ( ! $block ) {
-			return;
-		}
-
-		$block->editor_style = 'wpforms-dropzone';
+		return $args;
 	}
 
 	/**
@@ -1809,7 +1828,7 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 
 		foreach ( $sizes as $size ) {
 			if ( $size > $max_size ) {
-				return sprintf( /* translators: $s - allowed file size in Mb. */
+				return sprintf( /* translators: $s - allowed file size in MB. */
 					esc_html__( 'File exceeds max size allowed (%s).', 'wpforms' ),
 					size_format( $max_size )
 				);

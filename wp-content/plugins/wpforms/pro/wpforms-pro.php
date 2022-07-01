@@ -1,6 +1,7 @@
 <?php
 
 use WPForms\Pro\Integrations\LiteConnect\Integration;
+use WPForms\Admin\Builder\TemplateSingleCache;
 
 /**
  * WPForms Pro. Load Pro specific features/functionality.
@@ -66,7 +67,17 @@ class WPForms_Pro {
 	 */
 	public function init() {
 
-		add_action( 'init', [ $this, 'load_textdomain' ], 10 );
+		$this->hooks();
+		$this->allow_wp_auto_update_plugins();
+	}
+
+	/**
+	 * Hook into WordPress lifecycle.
+	 *
+	 * @since 1.7.5
+	 */
+	private function hooks() {
+
 		add_filter( 'plugin_action_links_' . plugin_basename( WPFORMS_PLUGIN_DIR . 'wpforms.php' ), [ $this, 'plugin_action_links' ], 11, 4 );
 		add_action( 'wpforms_loaded', [ $this, 'objects' ], 1 );
 		add_action( 'wpforms_loaded', [ $this, 'updater' ], 30 );
@@ -74,6 +85,7 @@ class WPForms_Pro {
 		add_filter( 'wpforms_settings_tabs', [ $this, 'register_settings_tabs' ], 5, 1 );
 		add_filter( 'wpforms_settings_defaults', [ $this, 'register_settings_fields' ], 5, 1 );
 		add_action( 'wpforms_settings_init', [ $this, 'reinstall_custom_tables' ] );
+		add_filter( 'wpforms_update_settings', [ $this, 'maybe_unset_gdpr_sub_settings' ] );
 		add_action( 'wpforms_process_entry_save', [ $this, 'entry_save' ], 10, 4 );
 		add_action( 'wpforms_form_settings_general', [ $this, 'form_settings_general' ], 10 );
 		add_filter( 'wpforms_overview_table_columns', [ $this, 'form_table_columns' ], 10, 1 );
@@ -88,8 +100,7 @@ class WPForms_Pro {
 		add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueues' ] );
 		add_filter( 'wpforms_helpers_templates_get_theme_template_paths', [ $this, 'add_templates' ] );
 		add_filter( 'wpforms_integrations_usagetracking_is_enabled', '__return_true' );
-
-		$this->allow_wp_auto_update_plugins();
+		add_action( 'wpforms_builder_enqueues', [ $this, 'builder_enqueues' ] );
 	}
 
 	/**
@@ -178,6 +189,12 @@ class WPForms_Pro {
 		if ( class_exists( Integration::class ) ) {
 			Integration::maybe_restart_import_flag();
 		}
+
+		// Wipe cache of an empty templates.
+		// We should do it, otherwise it's possible, that some templates will appear empty after upgrading to Pro.
+		if ( class_exists( TemplateSingleCache::class ) ) {
+			( new TemplateSingleCache() )->wipe_empty_templates_cache();
+		}
 	}
 
 	/**
@@ -214,23 +231,6 @@ class WPForms_Pro {
 
 		$upgrader = new Language_Pack_Upgrader( new Automatic_Upgrader_Skin() );
 		$upgrader->bulk_upgrade( $to_update );
-	}
-
-	/**
-	 * Load the separate PRO plugin translation file.
-	 *
-	 * @since 1.5.0
-	 */
-	public function load_textdomain() {
-
-		// If the user is logged in, unset the current text-domains before loading our text domain.
-		// This feels hacky, but this way a user's set language in their profile will be used,
-		// rather than the site-specific language.
-		if ( is_user_logged_in() ) {
-			unload_textdomain( 'wpforms' );
-		}
-
-		load_plugin_textdomain( 'wpforms', false, dirname( plugin_basename( WPFORMS_PLUGIN_FILE ) ) . '/pro/assets/languages/' );
 	}
 
 	/**
@@ -353,7 +353,7 @@ class WPForms_Pro {
 		// Pro admin styles.
 		wp_enqueue_style(
 			'wpforms-pro-admin',
-			WPFORMS_PLUGIN_URL . "pro/assets/css/admin{$min}.css",
+			WPFORMS_PLUGIN_URL . "assets/pro/css/admin{$min}.css",
 			array(),
 			WPFORMS_VERSION
 		);
@@ -379,6 +379,12 @@ class WPForms_Pro {
 		}
 
 		// Validation settings for fields only available in Pro.
+		$settings['validation']['validation-url']              = [
+			'id'      => 'validation-url',
+			'name'    => esc_html__( 'Website URL', 'wpforms' ),
+			'type'    => 'text',
+			'default' => esc_html__( 'Please enter a valid URL.', 'wpforms' ),
+		];
 		$settings['validation']['validation-phone']            = [
 			'id'      => 'validation-phone',
 			'name'    => esc_html__( 'Phone', 'wpforms' ),
@@ -440,8 +446,8 @@ class WPForms_Pro {
 			'id'      => 'validation-post_max_size',
 			'name'    => esc_html__( 'File Upload Total Size', 'wpforms' ),
 			'type'    => 'text',
-			'default' => sprintf( /* translators: %1$s - total size of the selected files in megabytes, %2$s - allowed file upload limit in megabytes.*/
-				esc_html__( 'The total size of the selected files %1$s Mb exceeds the allowed limit %2$s Mb.', 'wpforms' ),
+			'default' => sprintf( /* translators: %1$s - total size of the selected files in megabytes, %2$s - allowed file upload limit in megabytes. */
+				esc_html__( 'The total size of the selected files %1$s MB exceeds the allowed limit %2$s MB.', 'wpforms' ),
 				'{totalSize}',
 				'{maxSize}'
 			),
@@ -478,7 +484,7 @@ class WPForms_Pro {
 				'gdpr-disable-uuid'    => [
 					'id'   => 'gdpr-disable-uuid',
 					'name' => esc_html__( 'Disable User Cookies', 'wpforms' ),
-					'desc' => esc_html__( 'Check this option to disable user tracking cookies. This will disable the Related Entries feature and the Form Abandonment/Geolocation addons.', 'wpforms' ),
+					'desc' => esc_html__( 'Check this option to disable user tracking cookies. This will disable the Related Entries feature and the Form Abandonment addon.', 'wpforms' ),
 					'type' => 'checkbox',
 				],
 				'gdpr-disable-details' => [
@@ -492,6 +498,31 @@ class WPForms_Pro {
 		);
 
 		unset( $settings['misc'][ \WPForms\Integrations\UsageTracking\UsageTracking::SETTINGS_SLUG ] );
+
+		return $settings;
+	}
+
+	/**
+	 * Modify GDPR sub-settings before they are persisted in the database.
+	 *
+	 * Disabling GDPR master switch doesn't modify sub-settings by default. Although we should
+	 * always check for both parent and child settings, unsetting them when the master switch
+	 * is off is the right thing to do.
+	 *
+	 * @since 1.7.5
+	 *
+	 * @param array $settings An array of plugin settings to modify.
+	 *
+	 * @return array
+	 */
+	public function maybe_unset_gdpr_sub_settings( $settings ) {
+
+		$settings['gdpr'] = isset( $settings['gdpr'] ) ? $settings['gdpr'] : false;
+
+		if ( ! $settings['gdpr'] ) {
+			$settings['gdpr-disable-uuid']    = false;
+			$settings['gdpr-disable-details'] = false;
+		}
 
 		return $settings;
 	}
@@ -537,13 +568,10 @@ class WPForms_Pro {
 	 */
 	public function form_settings_general( $instance ) {
 
-		// Only provide this option if the user has configured payments.
+		// Don't provide this option if the user has configured payments.
 		if (
 			isset( $instance->form_data['settings']['disable_entries'] ) ||
-			(
-				empty( $instance->form_data['payments']['paypal_standard']['enable'] ) ||
-				empty( $instance->form_data['payments']['stripe']['enable'] )
-			)
+			! wpforms_has_payment_gateway( $instance->form_data )
 		) {
 			wpforms_panel_field(
 				'toggle',
@@ -1227,8 +1255,8 @@ class WPForms_Pro {
 		$strings['val_creditcard']      = wpforms_setting( 'validation-creditcard', esc_html__( 'Please enter a valid credit card number.', 'wpforms' ) );
 		$strings['val_post_max_size']   = wpforms_setting(
 			'validation-post_max_size',
-			sprintf( /* translators: %1$s - total size of the selected files in megabytes, %2$s - allowed file upload limit in megabytes.*/
-				esc_html__( 'The total size of the selected files %1$s Mb exceeds the allowed limit %2$s Mb.', 'wpforms' ),
+			sprintf( /* translators: %1$s - total size of the selected files in megabytes, %2$s - allowed file upload limit in megabytes. */
+				esc_html__( 'The total size of the selected files %1$s MB exceeds the allowed limit %2$s MB.', 'wpforms' ),
 				'{totalSize}',
 				'{maxSize}'
 			)
@@ -1552,6 +1580,25 @@ class WPForms_Pro {
 		}
 
 		return $new_plugins;
+	}
+
+	/**
+	 * Enqueue builder's assets.
+	 *
+	 * @since 1.7.5
+	 *
+	 * @param string $view Current view.
+	 */
+	public function builder_enqueues( $view ) {
+
+		$min = wpforms_get_min_suffix();
+
+		wp_enqueue_style(
+			'wpforms-builder-pro',
+			WPFORMS_PLUGIN_URL . "assets/pro/css/builder{$min}.css",
+			[],
+			WPFORMS_VERSION
+		);
 	}
 
 	/**

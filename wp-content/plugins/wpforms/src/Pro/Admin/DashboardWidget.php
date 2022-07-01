@@ -142,7 +142,7 @@ class DashboardWidget extends Widget {
 
 		wp_enqueue_script(
 			'wpforms-moment',
-			WPFORMS_PLUGIN_URL . 'assets/js/moment.min.js',
+			WPFORMS_PLUGIN_URL . 'assets/lib/moment/moment.min.js',
 			[],
 			'2.22.2',
 			true
@@ -150,7 +150,7 @@ class DashboardWidget extends Widget {
 
 		wp_enqueue_script(
 			'wpforms-chart',
-			WPFORMS_PLUGIN_URL . 'assets/js/chart.min.js',
+			WPFORMS_PLUGIN_URL . 'assets/lib/chart.min.js',
 			[ 'wpforms-moment' ],
 			'2.7.2',
 			true
@@ -158,7 +158,7 @@ class DashboardWidget extends Widget {
 
 		wp_enqueue_script(
 			'wpforms-dashboard-widget',
-			WPFORMS_PLUGIN_URL . "pro/assets/js/admin/dashboard-widget{$min}.js",
+			WPFORMS_PLUGIN_URL . "assets/pro/js/admin/dashboard-widget{$min}.js",
 			[ 'jquery', 'wpforms-chart' ],
 			WPFORMS_VERSION,
 			true
@@ -789,6 +789,8 @@ class DashboardWidget extends Widget {
 	 * Doesn't cache the result.
 	 *
 	 * @since 1.5.0
+	 * @since 1.7.5 Filter the forms where entries are fetched by allowed
+	 *                  access of the current user.
 	 *
 	 * @param int       $form_id    Form ID to fetch the data for.
 	 * @param \DateTime $date_start Start date for the search.
@@ -805,9 +807,10 @@ class DashboardWidget extends Widget {
 
 		global $wpdb;
 
-		$table_name   = \wpforms()->entry->table_name;
-		$format       = 'Y-m-d H:i:s';
-		$placeholders = array();
+		$table_name    = wpforms()->get( 'entry' )->table_name;
+		$format        = 'Y-m-d H:i:s';
+		$placeholders  = [];
+		$allowed_forms = [];
 
 		$sql = "SELECT CAST(date AS DATE) as day, COUNT(entry_id) as count
 				FROM {$table_name}
@@ -817,12 +820,14 @@ class DashboardWidget extends Widget {
 			$sql           .= ' AND form_id = %d';
 			$placeholders[] = $form_id;
 		} else {
-			$allowed_forms = \wpforms()->form->get( '', array( 'fields' => 'ids' ) );
+			$allowed_forms = wpforms()->get( 'form' )->get( '', [ 'fields' => 'ids' ] );
 		}
 
-		if ( ! empty( $allowed_forms ) ) {
-			$sql         .= ' AND form_id IN (' . implode( ',', array_fill( 0, \count( $allowed_forms ), '%d' ) ) . ')';
-			$placeholders = \array_merge( $placeholders, $allowed_forms );
+		$allowed_form_ids = wpforms()->get( 'access' )->filter_forms_by_current_user_capability( $allowed_forms, 'view_entries_form_single' );
+
+		if ( ! empty( $allowed_form_ids ) ) {
+			$sql         .= ' AND form_id IN (' . implode( ',', array_fill( 0, count( $allowed_form_ids ), '%d' ) ) . ')';
+			$placeholders = array_merge( $placeholders, $allowed_form_ids );
 		}
 
 		if ( ! empty( $date_start ) ) {
@@ -861,6 +866,7 @@ class DashboardWidget extends Widget {
 	 * Doesn't cache the result.
 	 *
 	 * @since 1.5.0
+	 * @since 1.7.5 Filter the results by allowed access of the current user.
 	 *
 	 * @param int       $form_id    Form ID to fetch the data for.
 	 * @param \DateTime $date_start Start date for the search.
@@ -912,20 +918,17 @@ class DashboardWidget extends Widget {
 			$sql = $wpdb->prepare( $sql, $placeholders );
 		}
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
 		$results = $wpdb->get_results( $sql, \OBJECT_K );
-
-		foreach ( $results as $id => $result ) {
-			if ( ! \wpforms_current_user_can( 'view_entries_form_single', $id ) ) {
-				unset( $results[ $id ] );
-			}
-		}
 
 		// Determine if the forms with no entries should appear in a forms list. Once switched, the effect applies after cache expiration.
 		if ( $this->settings['display_forms_list_empty_entries'] ) {
-			return $this->fill_forms_list_empty_entries_form_data( $results );
+			$forms = $this->fill_forms_list_empty_entries_form_data( $results );
+		} else {
+			$forms = (array) $this->fill_forms_list_form_data( $results );
 		}
 
-		return (array) $this->fill_forms_list_form_data( $results );
+		return wpforms()->get( 'access' )->filter_forms_by_current_user_capability( $forms, 'view_entries_form_single' );
 	}
 
 	/**

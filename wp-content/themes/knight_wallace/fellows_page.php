@@ -19,6 +19,20 @@ $sorted_events = sort_events($events);
 $content_blocks = get_posts(array('post_type'=>'homepage_fcb','posts_per_page'=>200));
 $sorted_content_blocks = sort_homepage_featured_content_blocks($content_blocks);
 $hero = get_posts(array('post_type'=>'hero_content','posts_per_page'=>200));
+
+$args = array(
+    'post_type'=>'hero_content',
+    'posts_per_page'=>200,
+   'meta_query' => array(
+       array(
+           'key' => 'hero_content_which_page',
+           'value' => 'Wallace House',
+           'compare' => '=',
+       )
+   )
+       );
+$hero = new WP_Query($args);
+
 $hero_content = sort_hero_content($hero);
 $random_hero_content = random_hero_content($hero_content,'Knight-Wallace Fellowships');
 $slides = get_posts(array('post_type'=>'slider_content','posts_per_page'=> -1));

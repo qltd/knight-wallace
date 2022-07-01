@@ -668,7 +668,7 @@ class WPForms_Field_Page_Break extends WPForms_Field {
 					if ( $next_class !== 'wpforms-hidden' ) {
 
 						/** This action is documented in includes/class-frontend.php. */
-						do_action( 'wpforms_display_submit_after', $this->form_data );
+						do_action( 'wpforms_display_submit_after', $this->form_data, 'next' ); // phpcs:ignore WPForms.PHP.ValidateHooks.InvalidHookName
 					}
 				}
 			echo '</div>';
@@ -764,7 +764,7 @@ class WPForms_Field_Page_Break extends WPForms_Field {
 			);
 
 			/** This action is documented in includes/class-frontend.php. */
-			do_action( 'wpforms_display_submit_after', $form_data );
+			do_action( 'wpforms_display_submit_after', $form_data, 'next' ); // phpcs:ignore WPForms.PHP.ValidateHooks.InvalidHookName
 		}
 		echo '</div>';
 	}

@@ -22,7 +22,7 @@ class Core extends \WPForms\Admin\Education\Core {
 
 		wp_enqueue_script(
 			'wpforms-pro-admin-education-core',
-			WPFORMS_PLUGIN_URL . "pro/assets/js/admin/education/core{$min}.js",
+			WPFORMS_PLUGIN_URL . "assets/pro/js/admin/education/core{$min}.js",
 			[ 'wpforms-admin-education-core' ],
 			WPFORMS_VERSION,
 			true

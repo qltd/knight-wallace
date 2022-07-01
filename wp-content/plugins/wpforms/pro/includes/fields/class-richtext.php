@@ -431,7 +431,7 @@ class WPForms_Field_Richtext extends WPForms_Field {
 		// Styles for Add Media, Insert Link, and other modals.
 		wp_enqueue_style(
 			'wpforms-modal-views',
-			WPFORMS_PLUGIN_URL . "pro/assets/css/fields/richtext/modal-views{$min}.css",
+			WPFORMS_PLUGIN_URL . "assets/pro/css/fields/richtext/modal-views{$min}.css",
 			[],
 			WPFORMS_VERSION
 		);
@@ -457,7 +457,7 @@ class WPForms_Field_Richtext extends WPForms_Field {
 		// Field styles based on the Form Styling setting.
 		wp_enqueue_style(
 			"wpforms-richtext-frontend-{$css_file}",
-			WPFORMS_PLUGIN_URL . "pro/assets/css/fields/richtext/frontend-{$css_file}{$min}.css",
+			WPFORMS_PLUGIN_URL . "assets/pro/css/fields/richtext/frontend-{$css_file}{$min}.css",
 			[],
 			WPFORMS_VERSION
 		);
@@ -476,7 +476,7 @@ class WPForms_Field_Richtext extends WPForms_Field {
 
 		wp_enqueue_style(
 			'wpforms-builder-richtext',
-			WPFORMS_PLUGIN_URL . "pro/assets/css/builder/fields/richtext{$min}.css",
+			WPFORMS_PLUGIN_URL . "assets/pro/css/builder/fields/richtext{$min}.css",
 			[],
 			WPFORMS_VERSION
 		);
@@ -499,7 +499,7 @@ class WPForms_Field_Richtext extends WPForms_Field {
 
 		wp_enqueue_script(
 			'wpforms-richtext-field',
-			WPFORMS_PLUGIN_URL . "pro/assets/js/fields/richtext{$min}.js",
+			WPFORMS_PLUGIN_URL . "assets/pro/js/fields/richtext{$min}.js",
 			[ 'jquery' ],
 			WPFORMS_VERSION,
 			true

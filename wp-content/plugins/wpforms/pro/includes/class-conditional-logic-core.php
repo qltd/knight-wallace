@@ -65,7 +65,7 @@ class WPForms_Conditional_Logic_Core {
 		// CSS.
 		wp_enqueue_style(
 			'wpforms-builder-conditionals',
-			WPFORMS_PLUGIN_URL . "pro/assets/css/builder-conditional-logic-core{$min}.css",
+			WPFORMS_PLUGIN_URL . "assets/pro/css/builder-conditional-logic-core{$min}.css",
 			[],
 			WPFORMS_VERSION
 		);
@@ -73,7 +73,7 @@ class WPForms_Conditional_Logic_Core {
 		// JavaScript.
 		wp_enqueue_script(
 			'wpforms-builder-conditionals',
-			WPFORMS_PLUGIN_URL . "pro/assets/js/admin/builder-conditional-logic-core{$min}.js",
+			WPFORMS_PLUGIN_URL . "assets/pro/js/admin/builder-conditional-logic-core{$min}.js",
 			[ 'jquery', 'wpforms-utils', 'wpforms-builder' ],
 			WPFORMS_VERSION,
 			false
@@ -140,6 +140,39 @@ class WPForms_Conditional_Logic_Core {
 	}
 
 	/**
+	 * Get a list of text-based fields for processing Conditional Logic.
+	 *
+	 * @since 1.7.5
+	 *
+	 * @return array
+	 */
+	private function get_text_based_fields() {
+
+		/**
+		 * Allow modifying fields list for Conditional Logic processing as a text-based field.
+		 *
+		 * @since 1.7.5
+		 *
+		 * @param array $text_based_fields Fields list for Conditional Logic processing as a text-based field.
+		 */
+		return (array) apply_filters(
+			'wpforms_conditional_logic_core_get_text_based_fields',
+			[
+				'text',
+				'textarea',
+				'email',
+				'url',
+				'number',
+				'hidden',
+				'rating',
+				'number-slider',
+				'net_promoter_score',
+				'richtext',
+			]
+		);
+	}
+
+	/**
 	 * Build the conditional logic settings to display in the form builder.
 	 *
 	 * @since 1.3.8
@@ -162,6 +195,8 @@ class WPForms_Conditional_Logic_Core {
 		$panel      = ! empty( $args['panel'] ) ? $args['panel'] : false; // notifications/connections.
 		$parent     = ! empty( $args['parent'] ) ? $args['parent'] : false; // settings.
 		$subsection = ! empty( $args['subsection'] ) ? $args['subsection'] : false;
+		$index      = isset( $args['index'] ) ? esc_attr( $args['index'] ) : '';
+		$index      = is_numeric( $index ) ? absint( $index ) : $index;
 		$field      = ! empty( $args['field'] ) ? $args['field'] : false;
 		$reference  = ! empty( $args['reference'] ) ? $args['reference'] : '';
 		$data_attrs = '';
@@ -258,7 +293,13 @@ class WPForms_Conditional_Logic_Core {
 					// is located in the form builder - eg is it in a top level
 					// setting or in a subsection, etc.
 					if ( ! empty( $parent ) ) {
-						if ( ! empty( $subsection ) ) {
+						if ( ! empty( $subsection ) && ! wpforms_is_empty_string( $index ) ) {
+							$field_name      = sprintf( '%s[%s][%s][%s]', $parent, $panel, $subsection, $index );
+							$groups_id       = sprintf( 'wpforms-conditional-groups-%s-%s-%s', $parent, $panel, $subsection );
+							$enabled         = ! empty( $form_data[ $parent ][ $panel ][ $subsection ][ $index ]['conditional_logic'] );
+							$action_selected = ! empty( $form_data[ $parent ][ $panel ][ $subsection ][ $index ]['conditional_type'] ) ? $form_data[ $parent ][ $panel ][ $subsection ][ $index ]['conditional_type'] : '';
+							$conditionals    = ! empty( $form_data[ $parent ][ $panel ][ $subsection ][ $index ]['conditionals'] ) ? $form_data[ $parent ][ $panel ][ $subsection ][ $index ]['conditionals'] : [ [ [] ] ];
+						} elseif ( ! empty( $subsection ) ) {
 							$field_name      = sprintf( '%s[%s][%s]', $parent, $panel, $subsection );
 							$groups_id       = sprintf( 'wpforms-conditional-groups-%s-%s-%s', $parent, $panel, $subsection );
 							$enabled         = ! empty( $form_data[ $parent ][ $panel ][ $subsection ]['conditional_logic'] );
@@ -290,6 +331,7 @@ class WPForms_Conditional_Logic_Core {
 							'tooltip'     => '<a href="https://wpforms.com/docs/how-to-use-conditional-logic-with-wpforms/" target="_blank" rel="noopener noreferrer">' . esc_html__( 'How to use Conditional Logic', 'wpforms' ) . '</a>',
 							'parent'      => $parent,
 							'subsection'  => $subsection,
+							'index'       => $index,
 							'input_id'    => 'wpforms-panel-field-' . implode( '-', array_filter( [ $parent, $panel, $subsection, 'conditional_logic', 'checkbox' ] ) ),
 							'input_class' => 'wpforms-panel-field-conditional_logic-checkbox',
 							'class'       => 'wpforms-conditionals-enable-toggle',
@@ -406,7 +448,7 @@ class WPForms_Conditional_Logic_Core {
 
 										echo '</td>';
 
-										$text_and_numbers_fields = [ 'text', 'textarea', 'email', 'url', 'number', 'hidden', 'rating', 'number-slider', 'net_promoter_score', 'richtext' ];
+										$text_and_numbers_fields = $this->get_text_based_fields();
 
 										// Rule operator - allows the user to
 										// determine the comparison operator used
@@ -617,7 +659,7 @@ class WPForms_Conditional_Logic_Core {
 					$rule_operator = $rule['operator'];
 					$rule_value    = isset( $rule['value'] ) ? $rule['value'] : '';
 
-					if ( in_array( $fields[ $rule_field ]['type'], [ 'text', 'textarea', 'email', 'url', 'number', 'hidden', 'rating', 'number-slider', 'net_promoter_score', 'richtext' ], true ) ) {
+					if ( in_array( $fields[ $rule_field ]['type'], $this->get_text_based_fields(), true ) ) {
 
 						// Text based fields.
 						$left  = strtolower( trim( wpforms_decode_string( $fields[ $rule_field ]['value'] ) ) );
