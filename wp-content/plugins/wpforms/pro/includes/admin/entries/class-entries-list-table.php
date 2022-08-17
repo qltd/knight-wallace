@@ -378,35 +378,30 @@ class WPForms_Entries_Table extends WP_List_Table {
 	 */
 	public function column_form_field( $entry, $column_name ) {
 
-		if ( false === strpos( $column_name, 'wpforms_field_' ) ) {
+		if ( strpos( $column_name, 'wpforms_field_' ) === false ) {
 			return '';
 		}
 
-		$field_id     = str_replace( 'wpforms_field_', '', $column_name );
-		$entry_fields = wpforms_decode( $entry->fields );
+		$field_id     = (int) str_replace( 'wpforms_field_', '', $column_name );
+		$entry_fields = (array) wpforms_decode( $entry->fields );
 
 		if (
 			isset( $entry_fields[ $field_id ]['value'] ) &&
 			! wpforms_is_empty_string( $entry_fields[ $field_id ]['value'] )
 		) {
 
-			$value = $entry_fields[ $field_id ]['value'];
+			$field_type = isset( $entry_fields[ $field_id ]['type'] ) ? $entry_fields[ $field_id ]['type'] : '';
 
-			// Limit to 5 lines.
-			$lines = explode( "\n", $value );
-			$value = array_slice( $lines, 0, 4 );
-			$value = implode( "\n", $value );
+			$value = wp_strip_all_tags( trim( $entry_fields[ $field_id ]['value'] ) );
+			$value = $this->truncate_long_value( $value, $field_type );
+			$value = nl2br( $value );
 
-			if ( count( $lines ) > 5 ) {
-				$value .= '&hellip;';
-			} elseif ( strlen( $value ) > 75 ) {
-				$value = substr( $value, 0, 75 ) . '&hellip;';
-			}
+			// phpcs:disable WPForms.PHP.ValidateHooks.InvalidHookName
 
-			$value = nl2br( wp_strip_all_tags( trim( $value ) ) );
-
+			/** This filter is documented in src/SmartTags/SmartTag/FieldHtmlId.php.*/
 			return apply_filters( 'wpforms_html_field_value', $value, $entry_fields[ $field_id ], $this->form_data, 'entry-table' );
 
+			// phpcs:enable WPForms.PHP.ValidateHooks.InvalidHookName
 		}
 
 		return '-';
@@ -1254,14 +1249,6 @@ class WPForms_Entries_Table extends WP_List_Table {
 		$data_args = apply_filters( 'wpforms_entry_table_args', $data_args );
 		$data      = wpforms()->get( 'entry' )->get_entries( $data_args );
 
-		// Maybe sort by payment total.
-		if ( $orderby === 'payment_total' ) {
-			usort( $data, [ $this, 'payment_total_sort' ] );
-			if ( strtoupper( $order ) === 'DESC' ) {
-				$data = array_reverse( $data );
-			}
-		}
-
 		// Giddy up.
 		$this->items = $data;
 
@@ -1279,13 +1266,17 @@ class WPForms_Entries_Table extends WP_List_Table {
 	 * Sort by payment total.
 	 *
 	 * @since 1.2.6
+	 * @deprecated 1.7.6
 	 *
 	 * @param object $a First entry to sort.
 	 * @param object $b Second entry to sort.
 	 *
 	 * @return int
+	 * @noinspection PhpUnused
 	 */
 	public function payment_total_sort( $a, $b ) {
+
+		_deprecated_function( __METHOD__, '1.7.6 of the WPForms plugin' );
 
 		$a_meta  = json_decode( $a->meta, true );
 		$a_total = ! empty( $a_meta['payment_total'] ) ? wpforms_sanitize_amount( $a_meta['payment_total'] ) : 0;
@@ -1311,5 +1302,37 @@ class WPForms_Entries_Table extends WP_List_Table {
 		parent::display_rows();
 
 		do_action( 'wpforms_admin_entries_after_rows', $this );
+	}
+
+	/**
+	 * Truncate long text value to X lines and Y characters.
+	 *
+	 * @since 1.7.6
+	 *
+	 * @param string $value      The value to truncate, if needed.
+	 * @param string $field_type Field type.
+	 *
+	 * @return string
+	 */
+	private function truncate_long_value( $value, $field_type ) {
+
+		// Limit multiline text to 4 lines, 5 for Address field, and overall length to 75 characters.
+		$lines_limit = $field_type === 'address' ? 5 : 4;
+		$chars_limit = 75;
+
+		$lines = preg_split( '/\r\n|\r|\n/', $value );
+		$value = array_slice( $lines, 0, $lines_limit );
+		$value = implode( PHP_EOL, $value );
+
+		if ( strlen( $value ) > $chars_limit ) {
+			return mb_substr( $value, 0, $chars_limit ) . '&hellip;';
+		}
+
+		// Ellipsis should be on a new line if the value is multiline, and extra lines were truncated.
+		if ( count( $lines ) > $lines_limit ) {
+			return $value . PHP_EOL . '&hellip;';
+		}
+
+		return $value;
 	}
 }

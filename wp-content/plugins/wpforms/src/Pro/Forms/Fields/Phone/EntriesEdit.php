@@ -33,7 +33,7 @@ class EntriesEdit extends \WPForms\Pro\Forms\Fields\Base\EntriesEdit {
 			'wpforms-smart-phone-field',
 			WPFORMS_PLUGIN_URL . "assets/pro/css/fields/phone/intl-tel-input{$min}.css",
 			[],
-			'17.0.5'
+			'17.0.17'
 		);
 
 		// Load International Telephone Input library - https://github.com/jackocnr/intl-tel-input.
@@ -41,7 +41,7 @@ class EntriesEdit extends \WPForms\Pro\Forms\Fields\Base\EntriesEdit {
 			'wpforms-smart-phone-field',
 			WPFORMS_PLUGIN_URL . 'assets/pro/lib/intl-tel-input/jquery.intl-tel-input.min.js',
 			[ 'jquery' ],
-			'17.0.5',
+			'17.0.17',
 			true
 		);
 

@@ -44,15 +44,17 @@ function sort_hero_content($content){
     );
     if(!empty($content)){
         foreach($content as $c){
-            $pmeta = get_post_meta($c->ID);
-            $pimage = get_the_post_thumbnail_url($c->ID);
-            if(!empty($pmeta)){
-                $res[$pmeta["_hero_content_which_page"][0]][] = array(
-                    'title' => $c->post_title,
-                    'image' => !empty($pimage) ? $pimage : false,
-                    'content' => $c->post_content,
-                    'link' => !empty($pmeta["_hero_content_link"][0]) ? $pmeta["_hero_content_link"][0] : ''
-                );
+            if (isset($c->ID)){
+                $pmeta = get_post_meta($c->ID);
+                $pimage = get_the_post_thumbnail_url($c->ID);
+                if(!empty($pmeta)){
+                    $res[$pmeta["_hero_content_which_page"][0]][] = array(
+                        'title' => $c->post_title,
+                        'image' => !empty($pimage) ? $pimage : false,
+                        'content' => $c->post_content,
+                        'link' => !empty($pmeta["_hero_content_link"][0]) ? $pmeta["_hero_content_link"][0] : ''
+                    );
+                }
             }
         }
     }else{
@@ -75,7 +77,7 @@ function random_hero_content($content,$page){
         $res = false;
     }else{
         $count = count($content[$page]);
-        $random_number = rand(0,$count - 1);
+        $random_number = ($count > 0) ? rand(0,$count - 1) : 1;
         $res = $content[$page][$random_number];
     }
     return $res;

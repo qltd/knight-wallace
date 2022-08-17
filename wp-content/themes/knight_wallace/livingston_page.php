@@ -24,7 +24,7 @@ $random_livingston_hero_content = random_hero_content($hero_content,'Livingston 
 $slides = get_posts(array('post_type'=>'slider_content','posts_per_page'=> -1));
 $sorted_slides = sort_slider_content($slides);
 //twitter integration
-$twitter_username = 'LivingstonAward';
+$twitter_username = 'UMWallaceHouse';
 include_once('twitter_feed.php');//$tweets var is set here
 ?>
 

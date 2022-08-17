@@ -145,6 +145,9 @@ class WPForms_Entries_List {
 		// Enqueues.
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueues' ] );
 		add_filter( 'wpforms_admin_strings', [ $this, 'js_strings' ] );
+
+		// Apply filter to search by date on Entries page.
+		add_filter( 'wpforms_entry_handler_get_entries_args', [ $this, 'get_filtered_entry_table_args' ] );
 	} // phpcs:enable WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
 
 	/**
@@ -310,7 +313,7 @@ class WPForms_Entries_List {
 			return;
 		}
 
-		_deprecated_function( __METHOD__, '1.5.5 of WPForms plugin', 'WPForms\Pro\Admin\Export\Export class' );
+		_deprecated_function( __METHOD__, '1.5.5 of the WPForms plugin', 'WPForms\Pro\Admin\Export\Export class' );
 
 		// Security check.
 		if ( ! wp_verify_nonce( sanitize_key( $_GET['_wpnonce'] ), 'wpforms_entry_list_export' ) ) {
@@ -618,15 +621,12 @@ class WPForms_Entries_List {
 			return;
 		}
 
-		$this->prepare_entry_ids_for_get_entries_args(
-			wpforms()->entry->get_entries(
-				[
-					'select'  => 'entry_ids',
-					'number'  => 0,
-					'form_id' => $form_id,
-					'date'    => 1 === count( $dates ) ? $dates[0] : $dates,
-				]
-			)
+		$this->filter = array_merge(
+			$this->filter,
+			[
+				'date'        => count( $dates ) === 1 ? $dates[0] : $dates,
+				'is_filtered' => true,
+			]
 		);
 	}
 
@@ -1159,7 +1159,7 @@ class WPForms_Entries_List {
 	 */
 	public function display_alerts( $display = '', $wrap = false ) {
 
-		_deprecated_function( __METHOD__, '1.6.7.1 of WPForms plugin' );
+		_deprecated_function( __METHOD__, '1.6.7.1 of the WPForms plugin' );
 
 		if ( empty( $this->alerts ) ) {
 			return;

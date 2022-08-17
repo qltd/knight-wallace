@@ -4,6 +4,9 @@ namespace WPForms\Pro\Migrations;
 
 use WPForms\Migrations\Base;
 use WPForms\Migrations\Migrations as MigrationsLite;
+use WPForms_Entry_Fields_Handler;
+use WPForms_Entry_Handler;
+use WPForms_Entry_Meta_Handler;
 
 /**
  * Class Migrations handles Pro plugin upgrade routines.
@@ -41,6 +44,18 @@ class Migrations extends Base {
 		'Upgrade168',
 		'Upgrade173',
 		'Upgrade175',
+		'Upgrade176',
+	];
+
+	/**
+	 * Custom table handler classes.
+	 *
+	 * @since 1.7.6
+	 */
+	const CUSTOM_TABLE_HANDLER_CLASSES = [
+		WPForms_Entry_Handler::class,
+		WPForms_Entry_Fields_Handler::class,
+		WPForms_Entry_Meta_Handler::class,
 	];
 
 	/**

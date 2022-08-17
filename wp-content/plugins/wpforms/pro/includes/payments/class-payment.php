@@ -229,10 +229,11 @@ abstract class WPForms_Payment {
 	 * Display content inside the panel sidebar area.
 	 *
 	 * @since 1.0.0
+	 * @since 1.7.5.3 Added `is_payments_enabled` method to check if payments are enabled.
 	 */
 	public function builder_sidebar() {
 
-		$configured = ! empty( $this->form_data['payments'][ $this->slug ]['enable'] ) ? 'configured' : '';
+		$configured = $this->is_payments_enabled() ? 'configured' : '';
 
 		echo '<a href="#" class="wpforms-panel-sidebar-section icon ' . esc_attr( $configured ) . ' wpforms-panel-sidebar-section-' . esc_attr( $this->slug ) . '" data-section="' . esc_attr( $this->slug ) . '">';
 
@@ -448,5 +449,17 @@ abstract class WPForms_Payment {
 	protected function get_builder_content_recurring_payment_content( $plan_id ) {
 
 		return '';
+	}
+
+	/**
+	 * Check if payments enabled.
+	 *
+	 * @since 1.7.5.3
+	 *
+	 * @return bool
+	 */
+	private function is_payments_enabled() {
+
+		return ! empty( $this->form_data['payments'][ $this->slug ]['enable'] ) || ! empty( $this->form_data['payments'][ $this->slug ]['enable_one_time'] ) || ! empty( $this->form_data['payments'][ $this->slug ]['enable_recurring'] );
 	}
 }

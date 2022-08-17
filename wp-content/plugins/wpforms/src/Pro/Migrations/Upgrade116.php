@@ -14,7 +14,7 @@ use WPForms\Migrations\UpgradeBase;
 class Upgrade116 extends UpgradeBase {
 
 	/**
-	 * Primary class constructor.
+	 * Create entry_meta table.
 	 *
 	 * @since 1.7.5
 	 *
@@ -31,7 +31,9 @@ class Upgrade116 extends UpgradeBase {
 			return false;
 		}
 
-		$entry_meta_handler->create_table();
+		if ( ! $entry_meta_handler->table_exists() ) {
+			$entry_meta_handler->create_table();
+		}
 
 		return true;
 	}

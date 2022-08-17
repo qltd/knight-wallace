@@ -23,7 +23,8 @@ $sorted_content_blocks = sort_homepage_featured_content_blocks($content_blocks);
 $hero = get_posts(array('post_type'=>'hero_content','posts_per_page'=>200));
 $hero_content = sort_hero_content($hero);
 $random_hero_content = random_hero_content($hero_content,'Wallace House');
-
+$twitter_username = 'UMWallaceHouse';
+include_once('twitter_feed.php');//$tweets var is set here
 ?>
 
 <?php if(!empty($random_hero_content)): ?>
@@ -283,6 +284,26 @@ background: url(<?php echo $background_image; ?>) no-repeat scroll center center
     </div>
 </div>
 </main>
+
+<?php if(!empty($tweets)): ?>
+<section id="tweets">
+    <?php foreach($tweets as $tweet): ?>
+    <div class="tweet-wrap">
+        <div class="row">
+            <div class="small-2 columns">
+                <a href="https://twitter.com/<?php echo $twitter_username; ?>" target="_blank"><i class="fa fa-twitter"></i></a>
+            </div>
+            <div class="small-10 columns">
+                <a href="https://twitter.com/<?php echo $twitter_username; ?>/status/<?php echo $tweet->id_str; ?>" target="_blank"><strong><?php echo '@'.$twitter_username.'</strong><br />'.$tweet->text; ?></a>
+            </div>
+        </div>
+    </div>
+    <?php endforeach; ?>
+</section>
+<?php endif; ?>
+<br /><br />
+
+
 <?php
 //display alerts
 if(!empty($alerts)):

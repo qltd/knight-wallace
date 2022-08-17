@@ -561,8 +561,10 @@ class WPForms_Entry_Handler extends WPForms_DB {
 		/*
 		 * Modify the ORDER BY.
 		 */
-		$args['orderby'] = ! array_key_exists( $args['orderby'], $this->get_columns() ) ? $this->primary_key : $args['orderby'];
-		$args['orderby'] = "{$this->table_name}.{$args['orderby']}";
+		if ( $args['orderby'] !== 'payment_total' ) {
+			$args['orderby'] = ! array_key_exists( $args['orderby'], $this->get_columns() ) ? $this->primary_key : $args['orderby'];
+			$args['orderby'] = "{$this->table_name}.{$args['orderby']}";
+		}
 
 		if ( 'ASC' === strtoupper( $args['order'] ) ) {
 			$args['order'] = 'ASC';
@@ -599,6 +601,22 @@ class WPForms_Entry_Handler extends WPForms_DB {
 			if ( $args['orderby'] === "{$this->table_name}.notes_count" ) {
 				$args['orderby'] = 'notes_counts.notes_count';
 			}
+		}
+
+		// In the case of ordering by payment_total.
+		if ( $args['orderby'] === 'payment_total' ) {
+			$sql_from .= "
+			LEFT JOIN (
+				SELECT
+					entry_id AS meta_entry_id,
+					data AS payment_total
+				FROM
+					{$meta_table}
+				WHERE
+					{$meta_table}.type = 'payment_total'
+			) AS payment_totals
+			ON
+				payment_totals.meta_entry_id = {$this->table_name}.entry_id";
 		}
 
 		// In the case of search, we maybe need to run an additional query first.
@@ -684,7 +702,6 @@ class WPForms_Entry_Handler extends WPForms_DB {
 			FROM {$second_sql_from}
 			WHERE {$second_where_sql}
 			GROUP BY `entry_id`
-			ORDER BY {$args['orderby']} {$args['order']} 
 		";
 
 		global $wpdb;
@@ -1091,7 +1108,7 @@ class WPForms_Entry_Handler extends WPForms_DB {
 			$charset_collate .= " COLLATE {$wpdb->collate}";
 		}
 
-		$sql = "CREATE TABLE {$this->table_name} (
+		$sql = "CREATE TABLE IF NOT EXISTS {$this->table_name} (
 			entry_id bigint(20) NOT NULL AUTO_INCREMENT,
 			form_id bigint(20) NOT NULL,
 			post_id bigint(20) NOT NULL,

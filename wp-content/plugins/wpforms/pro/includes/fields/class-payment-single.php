@@ -174,7 +174,10 @@ class WPForms_Field_Payment_Single extends WPForms_Field {
 
 		$this->field_option( 'advanced-options', $field, array( 'markup' => 'open' ) );
 		$this->field_option( 'size', $field );
-		$this->field_option( 'placeholder', $field );
+
+		$visibility = ! empty( $field['format'] ) && $field['format'] === 'user' ? '' : 'wpforms-hidden';
+		$this->field_option( 'placeholder', $field, [ 'class' => $visibility ] );
+
 		$this->field_option( 'css', $field );
 		$this->field_option( 'label_hide', $field );
 		$this->field_option( 'advanced-options', $field, array( 'markup' => 'close' ) );
@@ -238,10 +241,15 @@ class WPForms_Field_Payment_Single extends WPForms_Field {
 
 		$field_format = ! empty( $field['format'] ) ? $field['format'] : 'single';
 
+		// Placeholder attribute is only applicable to password, search, tel, text and url inputs, not hidden.
+		if ( $field_format !== 'user' ) {
+			unset( $primary['attr']['placeholder'] );
+		}
+
 		switch ( $field_format ) {
 			case 'single':
 			case 'hidden':
-				if ( 'single' === $field_format ) {
+				if ( $field_format === 'single' ) {
 					$price = ! empty( $field['price'] ) ? $field['price'] : 0;
 
 					echo '<div class="wpforms-single-item-price">';

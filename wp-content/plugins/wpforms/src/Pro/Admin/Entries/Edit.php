@@ -310,6 +310,14 @@ class Edit {
 			);
 		}
 
+		wp_enqueue_script(
+			'wpforms-generic-utils',
+			WPFORMS_PLUGIN_URL . "assets/js/utils{$min}.js",
+			[ 'jquery' ],
+			WPFORMS_VERSION,
+			true
+		);
+
 		// Load frontend base JS.
 		wp_enqueue_script(
 			'wpforms-frontend',
@@ -1083,8 +1091,13 @@ class Edit {
 		}
 
 		// Get saved fields data from DB.
-		$entry_fields_obj = wpforms()->entry_fields;
-		$dbdata_result    = $entry_fields_obj->get_fields( [ 'entry_id' => $this->entry_id ] );
+		$entry_fields_obj = wpforms()->get( 'entry_fields' );
+		$dbdata_result    = $entry_fields_obj->get_fields(
+			[
+				'entry_id' => $this->entry_id,
+				'number'   => 1000,
+			]
+		);
 		$dbdata_fields    = [];
 
 		if ( ! empty( $dbdata_result ) ) {

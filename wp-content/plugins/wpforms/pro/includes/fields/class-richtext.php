@@ -129,7 +129,6 @@ class WPForms_Field_Richtext extends WPForms_Field {
 		add_action( self::MEDIA_CLEANUP_ACTION, [ $this, 'delete_attachment' ] );
 		add_action( 'wpforms_frontend_css', [ $this, 'frontend_css' ] );
 		add_action( 'wpforms_frontend_js', [ $this, 'frontend_js' ] );
-		add_action( 'wpforms_builder_enqueues', [ $this, 'builder_css' ] );
 
 		add_filter( 'wpforms_entry_table_column_value', [ $this, 'entry_table_value' ], 10, 4 );
 
@@ -467,19 +466,13 @@ class WPForms_Field_Richtext extends WPForms_Field {
 	 * Enqueue builder field CSS.
 	 *
 	 * @since 1.7.0
+	 * @deprecated 1.7.6
 	 *
 	 * @param string $view Current view.
 	 */
 	public function builder_css( $view ) {
 
-		$min = wpforms_get_min_suffix();
-
-		wp_enqueue_style(
-			'wpforms-builder-richtext',
-			WPFORMS_PLUGIN_URL . "assets/pro/css/builder/fields/richtext{$min}.css",
-			[],
-			WPFORMS_VERSION
-		);
+		_deprecated_function( __METHOD__, '1.7.6 of the WPForms plugin' );
 	}
 
 	/**
@@ -1289,7 +1282,7 @@ class WPForms_Field_Richtext extends WPForms_Field {
 		}
 
 		$wpforms_upload_dir = wpforms_upload_dir();
-		$form_directory     = sprintf( '%d-%s', absint( $this->form_id ), md5( $this->form_id . $this->form_data['created'] ) );
+		$form_directory     = $this->upload->get_form_directory( $this->form_id, $this->form_data['created'] );
 		$dir['path']        = wp_normalize_path( trailingslashit( $wpforms_upload_dir['path'] ) . $form_directory );
 		$dir['url']         = trailingslashit( $wpforms_upload_dir['url'] ) . $form_directory;
 

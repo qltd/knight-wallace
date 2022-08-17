@@ -75,15 +75,12 @@ class Upgrade143 extends UpgradeBase {
 			return null;
 		}
 
-		// Create the new entry fields table.
 		$entry_handler        = wpforms()->get( 'entry' );
 		$entry_fields_handler = wpforms()->get( 'entry_fields' );
 
 		if ( ! $entry_handler || ! $entry_fields_handler ) {
 			return false;
 		}
-
-		$entry_fields_handler->create_table();
 
 		// Check the total number of entries currently stored.
 		$entry_total = $entry_handler->get_entries( [], true );

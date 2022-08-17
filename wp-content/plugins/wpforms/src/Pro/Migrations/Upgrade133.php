@@ -14,7 +14,7 @@ use WPForms\Migrations\UpgradeBase;
 class Upgrade133 extends UpgradeBase {
 
 	/**
-	 * Run upgrade.
+	 * Add user_uuid column to the entries table.
 	 *
 	 * @since 1.7.5
 	 *

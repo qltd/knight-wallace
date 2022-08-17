@@ -437,15 +437,15 @@ class Capabilities {
 	 * @since 1.5.8
 	 *
 	 * @param array|string $caps Capability name(s).
-	 * @param int          $id   Optional. ID of the specific object to check against if capability is a "meta" cap.
-	 *                           "Meta" capabilities, e.g. 'edit_post', 'edit_user', etc., are capabilities used
-	 *                           by map_meta_cap() to map to other "primitive" capabilities, e.g. 'edit_posts',
-	 *                           edit_others_posts', etc. Accessed via func_get_args() and passed to WP_User::has_cap(),
-	 *                           then map_meta_cap().
+	 * @param int          $id   Optional. ID of the specific object to check against if capability is a "meta"
+	 *                           cap. "Meta" capabilities, e.g. 'edit_post', 'edit_user', etc., are capabilities
+	 *                           used by map_meta_cap() to map to other "primitive" capabilities, e.g.
+	 *                           'edit_posts', edit_others_posts', etc. Accessed via func_get_args() and passed
+	 *                           to WP_User::has_cap(), then map_meta_cap().
 	 *
 	 * @return bool
 	 */
-	public function current_user_can( $caps = array(), $id = 0 ) {
+	public function current_user_can( $caps = [], $id = 0 ) {
 
 		return (bool) $this->get_first_valid_cap( $caps, $id );
 	}
@@ -466,22 +466,23 @@ class Capabilities {
 	 */
 	protected function get_first_valid_cap( $caps, $id = 0 ) {
 
-		$manage_cap = \wpforms_get_capability_manage_options();
+		$manage_cap = wpforms_get_capability_manage_options();
 
-		if ( \current_user_can( $manage_cap ) ) {
+		if ( current_user_can( $manage_cap ) ) {
 			return $manage_cap;
 		}
 
-		if ( empty( $caps ) && ! \current_user_can( $manage_cap ) ) {
+		if ( empty( $caps ) && ! current_user_can( $manage_cap ) ) {
 			return '';
 		}
 
-		if ( 'any' === $caps ) {
+		if ( $caps === 'any' ) {
 			$caps = array_keys( $this->get_caps() );
 		}
 
 		foreach ( (array) $caps as $cap ) {
 			$validated = $this->validate( $cap, $id );
+
 			if ( $validated ) {
 				return $validated;
 			}
