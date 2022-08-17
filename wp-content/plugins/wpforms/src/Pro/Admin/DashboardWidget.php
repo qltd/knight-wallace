@@ -2,7 +2,10 @@
 
 namespace WPForms\Pro\Admin;
 
+use DateTime;
+use Exception;
 use WPForms\Admin\Dashboard\Widget;
+use WPForms\Pro\Reports\EntriesCount;
 
 /**
  * Dashboard Widget shows a chart and the form entries stats in WP Dashboard.
@@ -30,13 +33,24 @@ class DashboardWidget extends Widget {
 	public $runtime_data;
 
 	/**
+	 * Entries count.
+	 *
+	 * @since 1.7.6
+	 *
+	 * @var EntriesCount
+	 */
+	private $entries_count;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 1.5.0
 	 */
 	public function __construct() {
 
-		add_action( 'admin_init', array( $this, 'init' ) );
+		$this->entries_count = new EntriesCount();
+
+		add_action( 'admin_init', [ $this, 'init' ] );
 	}
 
 	/**
@@ -48,6 +62,17 @@ class DashboardWidget extends Widget {
 
 		// This widget should be displayed for certain high-level users only.
 		if ( ! wpforms_current_user_can( 'view_forms' ) ) {
+			return;
+		}
+
+		global $pagenow;
+
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		$is_admin_page   = $pagenow === 'index.php' && empty( $_GET['page'] );
+		$is_ajax_request = wp_doing_ajax() && isset( $_REQUEST['action'] ) && strpos( sanitize_key( $_REQUEST['action'] ), 'wpforms_dash_widget' ) !== false;
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+
+		if ( ! $is_admin_page && ! $is_ajax_request ) {
 			return;
 		}
 
@@ -360,7 +385,7 @@ class DashboardWidget extends Widget {
 	 *
 	 * @param int $days Timespan (in days) to fetch the data for.
 	 *
-	 * @throws \Exception When date is failing.
+	 * @throws Exception When date is failing.
 	 */
 	public function forms_list_block( $days ) {
 
@@ -624,7 +649,7 @@ class DashboardWidget extends Widget {
 	 */
 	public function get_timespan_options_for( $element ) {
 
-		_deprecated_function( __METHOD__, '1.5.2 of WPForms plugin', 'get_timespan_options()' );
+		_deprecated_function( __METHOD__, '1.5.2 of the WPForms plugin', 'get_timespan_options()' );
 
 		return $this->get_timespan_options();
 	}
@@ -664,32 +689,27 @@ class DashboardWidget extends Widget {
 			$this->runtime_data['days'] = $days;
 		}
 
-		if ( ! empty( $this->runtime_data['days_interval'][ $days ] ) ) {
-			return $this->runtime_data['days_interval'][ $days ];
-		}
-
 		// PHP DateTime supported string (http://php.net/manual/en/datetime.formats.php).
-		$date_end_str = $this->settings['date_end_str'];
+		$date_end_str  = $this->settings['date_end_str'];
+		$modify_offset = (float) get_option( 'gmt_offset' ) * 60 . ' minutes';
 
 		try {
-			$interval['end'] = new \DateTime( $date_end_str );
-		} catch ( \Exception $e ) {
+			$now               = new DateTime();
+			$interval['start'] = new DateTime( $date_end_str );
+			$interval['end']   = new DateTime( $date_end_str );
+
+			$interval['end']
+				->setTime( $now->format( 'H' ), $now->format( 'i' ), $now->format( 's' ) )
+				->modify( $modify_offset )
+				->setTime( 23, 59, 59 );
+			$interval['start']
+				->setTime( $now->format( 'H' ), $now->format( 'i' ), $now->format( 's' ) )
+				->modify( $modify_offset )
+				->modify( '-' . ( absint( $days ) - 1 ) . 'days' )
+				->setTime( 0, 0 );
+		} catch ( Exception $e ) {
 			return false;
 		}
-
-		try {
-			$interval['start'] = new \DateTime( $date_end_str );
-		} catch ( \Exception $e ) {
-			return false;
-		}
-
-		$interval['end'] = $interval['end']->setTime( 23, 59, 59 );
-
-		$interval['start'] = $interval['start']
-			->modify( '-' . ( \absint( $days ) - 1 ) . 'days' )
-			->setTime( 0, 0 );
-
-		$this->runtime_data['days_interval'][ $days ] = $interval;
 
 		return $interval;
 	}
@@ -707,7 +727,7 @@ class DashboardWidget extends Widget {
 	 * @param int    $form_id Form ID to fetch the data for.
 	 *
 	 * @return array
-	 * @throws \Exception When dates management fails.
+	 * @throws Exception When dates management fails.
 	 */
 	public function get_entries_count_by( $param, $days = 0, $form_id = 0 ) {
 
@@ -792,72 +812,26 @@ class DashboardWidget extends Widget {
 	 * @since 1.7.5 Filter the forms where entries are fetched by allowed
 	 *                  access of the current user.
 	 *
-	 * @param int       $form_id    Form ID to fetch the data for.
-	 * @param \DateTime $date_start Start date for the search.
-	 * @param \DateTime $date_end   End date for the search.
+	 * @param int      $form_id    Form ID to fetch the data for.
+	 * @param DateTime $date_start Start date for the search.
+	 * @param DateTime $date_end   End date for the search.
 	 *
 	 * @return array
-	 * @throws \Exception When dates are failing.
+	 * @throws Exception When dates are failing.
 	 */
 	public function get_entries_count_by_date_sql( $form_id = 0, $date_start = null, $date_end = null ) {
 
-		if ( ! empty( $form_id ) && ! \wpforms_current_user_can( 'view_entries_form_single', $form_id ) ) {
-			return array();
+		if ( ! empty( $form_id ) && ! wpforms_current_user_can( 'view_entries_form_single', $form_id ) ) {
+			return [];
 		}
 
-		global $wpdb;
+		$results = $this->entries_count->get_by_date_sql( $form_id, $date_start, $date_end );
 
-		$table_name    = wpforms()->get( 'entry' )->table_name;
-		$format        = 'Y-m-d H:i:s';
-		$placeholders  = [];
-		$allowed_forms = [];
-
-		$sql = "SELECT CAST(date AS DATE) as day, COUNT(entry_id) as count
-				FROM {$table_name}
-				WHERE 1=1";
-
-		if ( ! empty( $form_id ) ) {
-			$sql           .= ' AND form_id = %d';
-			$placeholders[] = $form_id;
-		} else {
-			$allowed_forms = wpforms()->get( 'form' )->get( '', [ 'fields' => 'ids' ] );
+		if ( ! $this->settings['display_chart_empty_entries'] ) {
+			return $results;
 		}
 
-		$allowed_form_ids = wpforms()->get( 'access' )->filter_forms_by_current_user_capability( $allowed_forms, 'view_entries_form_single' );
-
-		if ( ! empty( $allowed_form_ids ) ) {
-			$sql         .= ' AND form_id IN (' . implode( ',', array_fill( 0, count( $allowed_form_ids ), '%d' ) ) . ')';
-			$placeholders = array_merge( $placeholders, $allowed_form_ids );
-		}
-
-		if ( ! empty( $date_start ) ) {
-			$sql           .= ' AND date >= %s';
-			$placeholders[] = $date_start->format( $format );
-		}
-
-		if ( ! empty( $date_end ) ) {
-			$sql           .= ' AND date <= %s';
-			$placeholders[] = $date_end->format( $format );
-		}
-
-		$sql .= ' GROUP BY day;';
-
-		if ( ! empty( $placeholders ) ) {
-			$sql = $wpdb->prepare( $sql, $placeholders );
-		}
-
-		$results = $wpdb->get_results( $sql, \OBJECT_K );
-
-		if ( empty( $results ) ) {
-			return array();
-		}
-
-		// Determine if the days with no entries should appear on a chart. Once switched, the effect applies after cache expiration.
-		if ( $this->settings['display_chart_empty_entries'] ) {
-			$results = $this->fill_chart_empty_entries( $results, $date_start, $date_end );
-		}
-
-		return (array) $results;
+		return $this->fill_chart_empty_entries( $results, $date_start, $date_end );
 	}
 
 	/**
@@ -868,58 +842,24 @@ class DashboardWidget extends Widget {
 	 * @since 1.5.0
 	 * @since 1.7.5 Filter the results by allowed access of the current user.
 	 *
-	 * @param int       $form_id    Form ID to fetch the data for.
-	 * @param \DateTime $date_start Start date for the search.
-	 * @param \DateTime $date_end   End date for the search.
+	 * @param int      $form_id    Form ID to fetch the data for.
+	 * @param DateTime $date_start Start date for the search.
+	 * @param DateTime $date_end   End date for the search.
 	 *
 	 * @return array
 	 */
 	public function get_entries_count_by_form_sql( $form_id = 0, $date_start = null, $date_end = null ) {
 
 		if ( ! empty( $form_id ) && ! \wpforms_current_user_can( 'view_entries_form_single', $form_id ) ) {
-			return array();
+			return [];
 		}
 
-		global $wpdb;
+		$results = $this->entries_count->get_by_form_sql( $form_id, $date_start, $date_end );
 
-		$table_name   = \wpforms()->entry->table_name;
-		$format       = 'Y-m-d H:i:s';
-		$placeholders = array();
-
-		$sql = "SELECT form_id, COUNT(entry_id) as count
-				FROM {$table_name}
-				WHERE 1=1";
-
-		if ( ! empty( $form_id ) ) {
-			$sql           .= ' AND form_id = %d';
-			$placeholders[] = $form_id;
-		} else {
-			$allowed_forms = \wpforms()->form->get( '', array( 'fields' => 'ids' ) );
+		// Keep backward compatibility converting an array to object.
+		foreach ( $results as $key => $form ) {
+			$results[ $key ] = (object) $form;
 		}
-
-		if ( ! empty( $allowed_forms ) ) {
-			$sql         .= ' AND form_id IN (' . implode( ',', array_fill( 0, \count( $allowed_forms ), '%d' ) ) . ')';
-			$placeholders = \array_merge( $placeholders, $allowed_forms );
-		}
-
-		if ( ! empty( $date_start ) ) {
-			$sql           .= ' AND date >= %s';
-			$placeholders[] = $date_start->format( $format );
-		}
-
-		if ( ! empty( $date_end ) ) {
-			$sql           .= ' AND date <= %s';
-			$placeholders[] = $date_end->format( $format );
-		}
-
-		$sql .= 'GROUP BY form_id ORDER BY count DESC;';
-
-		if ( ! empty( $placeholders ) ) {
-			$sql = $wpdb->prepare( $sql, $placeholders );
-		}
-
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
-		$results = $wpdb->get_results( $sql, \OBJECT_K );
 
 		// Determine if the forms with no entries should appear in a forms list. Once switched, the effect applies after cache expiration.
 		if ( $this->settings['display_forms_list_empty_entries'] ) {
@@ -937,12 +877,12 @@ class DashboardWidget extends Widget {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param array     $results    DB results from `$wpdb->prepare()`.
-	 * @param \DateTime $date_start Start date for the search.
-	 * @param \DateTime $date_end   End date for the search.
+	 * @param array    $results    DB results from `$wpdb->prepare()`.
+	 * @param DateTime $date_start Start date for the search.
+	 * @param DateTime $date_end   End date for the search.
 	 *
 	 * @return array
-	 * @throws \Exception DatePeriod may throw an exception.
+	 * @throws Exception DatePeriod may throw an exception.
 	 */
 	public function fill_chart_empty_entries( $results, $date_start, $date_end ) {
 

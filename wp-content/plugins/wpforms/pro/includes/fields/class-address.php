@@ -65,6 +65,9 @@ class WPForms_Field_Address extends WPForms_Field {
 
 		// Define additional field properties.
 		add_filter( 'wpforms_field_properties_address', array( $this, 'field_properties' ), 5, 3 );
+
+		// Customize value format.
+		add_filter( 'wpforms_html_field_value', [ $this, 'html_field_value' ], 10, 4 );
 	}
 
 	/**
@@ -250,11 +253,11 @@ class WPForms_Field_Address extends WPForms_Field {
 		}
 
 		// Add Postal code input mask for US address.
-		if ( 'us' === $scheme ) {
-			$properties['inputs']['postal']['class'][]                   = 'wpforms-masked-input';
-			$properties['inputs']['postal']['data']['inputmask-mask']    = '99999[-9999]';
-			$properties['inputs']['postal']['data']['inputmask-greedy']  = 'false';
-			$properties['inputs']['postal']['data']['rule-empty-blanks'] = true;
+		if ( $scheme === 'us' ) {
+			$properties['inputs']['postal']['class'][]                           = 'wpforms-masked-input';
+			$properties['inputs']['postal']['data']['inputmask-mask']            = '(99999)|(99999-9999)';
+			$properties['inputs']['postal']['data']['inputmask-keepstatic']      = 'true';
+			$properties['inputs']['postal']['data']['rule-inputmask-incomplete'] = true;
 		}
 
 		return $properties;
@@ -1064,6 +1067,95 @@ class WPForms_Field_Address extends WPForms_Field {
 		}
 
 		return isset( $input['attr']['name'] ) ? $input['attr']['name'] : $name;
+	}
+
+	/**
+	 * Customize format for HTML display.
+	 *
+	 * @since 1.7.6
+	 *
+	 * @param string $val       Field value.
+	 * @param array  $field     Field data.
+	 * @param array  $form_data Form data and settings.
+	 * @param string $context   Value display context.
+	 *
+	 * @return string
+	 */
+	public function html_field_value( $val, $field, $form_data = [], $context = '' ) {
+
+		if ( empty( $field['value'] ) || $field['type'] !== $this->type ) {
+			return $val;
+		}
+
+		$scheme = isset( $form_data['fields'][ $field['id'] ]['scheme'] ) ? $form_data['fields'][ $field['id'] ]['scheme'] : 'us';
+
+		// In the US it is common to use abbreviations for both the country and states, e.g. New York, NY.
+		if ( $scheme === 'us' ) {
+			return $val;
+		}
+
+		$allowed_contexts = [
+			'entry-table',
+			'entry-single',
+			'entry-preview',
+		];
+
+		/**
+		 * Allows filtering contexts in which the value should be transformed for display.
+		 *
+		 * Available contexts:
+		 * - `entry-table`   - entries list table,
+		 * - `entry-single`  - view entry, edit entry (non-editable field display), print preview,
+		 * - `email-html`    - entry email notification,
+		 * - `entry-preview` - entry preview on the frontend,
+		 * - `smart-tag`     - smart tag in various places (Confirmations, Notifications, integrations etc).
+		 *
+		 * By default, `email-html` and `smart-tag` contexts are ignored. The data in these contexts
+		 * can be used for automation and external data processing, so we keep the original format
+		 * intact for backwards compatibility.
+		 *
+		 * @since 1.7.6
+		 *
+		 * @param array $allowed_contexts Contexts whitelist.
+		 * @param array $field            Field data.
+		 * @param array $form_data        Form data and settings.
+		 */
+		$allowed_contexts = (array) apply_filters( 'wpforms_field_address_html_field_value_allowed_contexts', $allowed_contexts, $field, $form_data );
+
+		return in_array( $context, $allowed_contexts, true ) ?
+			$this->transform_value_for_display( $scheme, $field, $val ) :
+			$val;
+	}
+
+	/**
+	 * Transform the value for display context.
+	 *
+	 * @since 1.7.6
+	 *
+	 * @param string $scheme The scheme used in the field.
+	 * @param array  $field  Field data.
+	 * @param string $value  Value to transform.
+	 *
+	 * @return string
+	 */
+	private function transform_value_for_display( $scheme, $field, $value ) {
+
+		$transform = [
+			'state'   => 'states',
+			'country' => 'countries',
+		];
+
+		foreach ( $transform as $singular => $plural ) {
+
+			$collection = isset( $this->schemes[ $scheme ][ $plural ] ) ? $this->schemes[ $scheme ][ $plural ] : '';
+
+			// The 'countries' or 'states' is array and the value exists as array key.
+			if ( is_array( $collection ) && array_key_exists( $field[ $singular ], $collection ) ) {
+				$value = str_replace( $field[ $singular ], $collection[ $field[ $singular ] ], $value );
+			}
+		}
+
+		return $value;
 	}
 }
 

@@ -666,9 +666,8 @@ blockquote {
   .large-8 {
     font-size: 1.8rem;
     display: flex;
-    padding-left: 2rem;
+    padding-left: 4rem;
     align-items: center;
-    justify-content: center;
     min-height: 10rem;
 
     @include link_style($red, lighten($red, 10%));

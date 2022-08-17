@@ -245,7 +245,11 @@ class WPForms_Conditional_Logic_Core {
 							'slug'    => 'conditional_logic',
 							'value'   => $enabled,
 							'desc'    => esc_html__( 'Enable Conditional Logic', 'wpforms' ),
-							'tooltip' => '<a href="https://wpforms.com/docs/how-to-use-conditional-logic-with-wpforms/" target="_blank" rel="noopener noreferrer">' . esc_html__( 'How to use Conditional Logic', 'wpforms' ) . '</a>',
+							'tooltip' => sprintf(
+								'<a href="%1$s" target="_blank" rel="noopener noreferrer">%2$s</a>',
+								esc_url( wpforms_utm_link( 'https://wpforms.com/docs/how-to-use-conditional-logic-with-wpforms/', 'Field Options', 'Conditional Logic Documentation' ) ),
+								esc_html__( 'How to use Conditional Logic', 'wpforms' )
+							),
 							'data'    => [
 								'name'        => $field_name,
 								'actions'     => $actions,
@@ -328,7 +332,11 @@ class WPForms_Conditional_Logic_Core {
 						$args['form'],
 						esc_html__( 'Enable Conditional Logic', 'wpforms' ),
 						[
-							'tooltip'     => '<a href="https://wpforms.com/docs/how-to-use-conditional-logic-with-wpforms/" target="_blank" rel="noopener noreferrer">' . esc_html__( 'How to use Conditional Logic', 'wpforms' ) . '</a>',
+							'tooltip'     => sprintf(
+								'<a href="%1$s" target="_blank" rel="noopener noreferrer">%2$s</a>',
+								esc_url( wpforms_utm_link( 'https://wpforms.com/docs/how-to-use-conditional-logic-with-wpforms/', 'Field Options', 'Conditional Logic Documentation' ) ),
+								esc_html__( 'How to use Conditional Logic', 'wpforms' )
+							),
 							'parent'      => $parent,
 							'subsection'  => $subsection,
 							'index'       => $index,
@@ -604,7 +612,7 @@ class WPForms_Conditional_Logic_Core {
 	 */
 	public function conditionals_block( $args = [], $echo = true ) {
 
-		_deprecated_function( __METHOD__, '1.3.8 of the WPForms', 'wpforms_conditional_logic()->builder_block()' );
+		_deprecated_function( __METHOD__, '1.3.8 of the WPForms plugin', 'wpforms_conditional_logic()->builder_block()' );
 
 		if ( $echo ) {
 			echo $this->builder_block( $args, $echo ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
