@@ -61,7 +61,7 @@ $get_page_template_slug = get_page_template_slug();
 <?php
 // custom local navigation for the Alumni Locator page
 if($get_page_template_slug == 'alum_locate.php'):
-$sort_by = htmlspecialchars($_GET['alumni-sort-by']); // determine the current 'search by' term
+$sort_by = (isset($_GET['alumni-sort-by'])) ? htmlspecialchars($_GET['alumni-sort-by']) : 'usa';
 ?>
 <div class="in-this-section-nav">
     <div class="row">

@@ -33,7 +33,7 @@ $alum = get_posts(array(
 // SORT ALUMNI BY METAFIELD
 // determine which metafield to sort by (i.e. Worldwide, USA, Subject)
 // this is passed in by an "alumni-sort-by" GET variable. acceptable values are 'usa', 'worldwide', 'subject'
-$sort_by = htmlspecialchars($_GET['alumni-sort-by']);
+$sort_by = (isset($_GET['alumni-sort-by'])) ? htmlspecialchars($_GET['alumni-sort-by']) : 'usa';
 $alum_sorted_by_metafield = sort_alum($sort_by, $alum);
 
 

@@ -5,7 +5,7 @@
 * @package knight_wallace
 */
 
-get_header('livingston'); ?>
+get_header(); ?>
 
 <?php
 include_once('helpers.php');
@@ -353,4 +353,4 @@ if(!empty($alerts)):
 <?php endif; ?>
 
 
-<?php get_footer('livingston'); ?>
+<?php get_footer(); ?>

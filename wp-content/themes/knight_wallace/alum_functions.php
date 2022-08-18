@@ -42,7 +42,7 @@ function sort_alum_by($field,$alum){
 
         // some meta values may contain comma separated lists of items
         // so let's loop through each of those items
-        $pmeta_values = $pmeta[$field][0];
+        $pmeta_values = (isset($pmeta[$field][0])) ? $pmeta[$field][0] : false;;
         $pmeta_values = explode(', ',$pmeta_values);
         foreach ($pmeta_values as $value){
             if($value == ''){ continue; } // skip fellows who don't have this data yet
@@ -61,19 +61,23 @@ function sort_alum_by($field,$alum){
 }
 
 function add_in_special_field_data($pmeta,$fellow){
+    if (empty($pmeta)){
+        return;
+    }
+
     $fellow->extra_data = array(
-        'class_year' => $pmeta["_kw_person_kw_class_year"][0],
-        'current_job_title' => $pmeta["_kw_person_kw_locator_current_job_title"][0],
-        'current_affiliation' => $pmeta["_kw_person_kw_current_aff"][0],
-        'country' => $pmeta["_kw_person_kw_country"][0],
-        'state' => $pmeta["_kw_person_kw_state"][0],
-        'city' => $pmeta["_kw_person_kw_city"][0],
-        'special' => $pmeta["_kw_person_kw_special"][0],
-        'available_for' => $pmeta["_kw_person_kw_available_for"][0],
-        'additional_info' => $pmeta["_kw_person_kw_additional_info"][0],
-        'phone' => $pmeta["_kw_person_kw_personal_phone"][0],
-        'email' => $pmeta["_kw_person_kw_personal_email"][0],
-        'twitter' => $pmeta["_kw_person_kw_personal_twitter"][0]
+        'class_year' => (isset($pmeta["_kw_person_kw_class_year"][0])) ? $pmeta["_kw_person_kw_class_year"][0] : false,
+        'current_job_title' => (isset($pmeta["_kw_person_kw_locator_current_job_title"][0])) ? $pmeta["_kw_person_kw_locator_current_job_title"][0] : false,
+        'current_affiliation' => (isset($pmeta["_kw_person_kw_current_aff"][0])) ? $pmeta["_kw_person_kw_current_aff"][0] : false,
+        'country' => (isset($pmeta["_kw_person_kw_country"][0])) ? $pmeta["_kw_person_kw_country"][0] : false,
+        'state' => (isset($pmeta["_kw_person_kw_state"][0])) ? $pmeta["_kw_person_kw_state"][0] : false,
+        'city' => (isset($pmeta["_kw_person_kw_city"][0])) ? $pmeta["_kw_person_kw_city"][0] : false,
+        'special' => (isset($pmeta["_kw_person_kw_special"][0])) ? $pmeta["_kw_person_kw_special"][0] : false,
+        'available_for' => (isset($pmeta["_kw_person_kw_available_for"][0])) ? $pmeta["_kw_person_kw_available_for"][0] : false,
+        'additional_info' => (isset($pmeta["_kw_person_kw_additional_info"][0])) ? $pmeta["_kw_person_kw_additional_info"][0] : false,
+        'phone' => (isset($pmeta["_kw_person_kw_personal_phone"][0])) ? $pmeta["_kw_person_kw_personal_phone"][0] : false,
+        'email' => (isset($pmeta["_kw_person_kw_personal_email"][0])) ? $pmeta["_kw_person_kw_personal_email"][0] : false,
+        'twitter' => (isset($pmeta["_kw_person_kw_personal_twitter"][0])) ? $pmeta["_kw_person_kw_personal_twitter"][0] : false
     );
     return $fellow;
 }

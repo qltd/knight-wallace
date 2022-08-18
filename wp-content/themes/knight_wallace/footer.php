@@ -15,10 +15,24 @@
     <div class="top">
       <div class="row">
         <div class="medium-6 columns">
-          <?php dynamic_sidebar( 'wallace-house-footer-left' ); ?>
+            <?php if (is_page('knight-wallace') || (isset($post->post_parent->post_name) && $post->post_parent->post_name === 'knight-wallace')){ 
+                $footerLeftSidebar = 'kwf-footer-left';
+            } elseif (is_page('livingston-awards') || (isset($post->post_parent->post_name) && $post->post_parent->post_name === 'livingston-awards')){ 
+                $footerLeftSidebar = 'la-footer-left';
+            } else { 
+                $footerLeftSidebar = 'wallace-house-footer-left';
+            } ?>
+          <?php dynamic_sidebar( $footerLeftSidebar ); ?>
         </div>
         <div class="medium-6 columns">
-          <?php dynamic_sidebar( 'wallace-house-footer-right' ); ?>
+          <?php if (is_page('knight-wallace') || (isset($post->post_parent->post_name) && $post->post_parent->post_name === 'knight-wallace')){ 
+                $footerRightSidebar = 'kwf-footer-right';
+            } elseif (is_page('livingston-awards') || (isset($post->post_parent->post_name) && $post->post_parent->post_name === 'livingston-awards')){ 
+                $footerRightSidebar = 'la-footer-right';
+            } else { 
+                $footerRightSidebar = 'wallace-house-footer-right';
+            } ?>
+          <?php dynamic_sidebar( $footerRightSidebar ); ?>
         </div>
       </div>
     </div>
@@ -34,7 +48,7 @@
 
 <?php wp_footer(); ?>
 
-<?php if (is_logged_in() && !current_user_can('administrator')): ?>
+<?php if (is_user_logged_in() && !current_user_can('administrator')): ?>
     <script type="text/javascript">
 	  var _gaq = _gaq || [];
 	  _gaq.push(['_setAccount', 'UA-77325244-1']);
