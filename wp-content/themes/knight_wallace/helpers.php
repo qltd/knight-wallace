@@ -73,13 +73,14 @@ function sort_hero_content($content){
  * */
 
 function random_hero_content($content,$page){
-    if(empty($content) || empty($page)){
-        $res = false;
-    }else{
-        $count = count($content[$page]);
-        $random_number = ($count > 0) ? rand(0,$count - 1) : 1;
-        $res = $content[$page][$random_number];
+    if (!array_filter(array_map('array_filter', $content)) || empty($page)) {
+        return;
     }
+    
+    $count = count($content[$page]);
+    $random_number = ($count > 0) ? rand(0,$count - 1) : 1;
+    $res = $content[$page][$random_number];
+    
     return $res;
 }
 
