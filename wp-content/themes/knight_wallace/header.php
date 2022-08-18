@@ -27,21 +27,31 @@
       </div>
     </div>
     <div class="row">
-      <div class="large-5 columns">
+      <div class="small-12 large-9 columns">
         <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" class="logo">
-            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/wallace-house-logo.svg" alt="Knight-Wallace" />
+            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/WH-Informal-Logo-white.svg" alt="Knight-Wallace" />
         </a>
       </div>
-      <div class="large-4 columns">
-        <h1 class="section-title">Knight-Wallace Fellowships for Journalists<br />and the Livingston Awards</h1>
-      </div>
-      <div class="large-2 columns left">
+
+      <div class="small-12 large-2 columns left">
         <h1 class="section-title yellow">UPHOLD DEMOCRACY. SUPPORT JOURNALISTS.</h1>
       </div>
     </div>
   </header>
+
+
 <nav id="main_nav">
-<?php
+<?php 
+$fellowsMenuActive = $livingstonMenuActive = $wallaceMenuActive = false;
+if (is_page('knight-wallace') || (isset($post->post_parent->post_name) && $post->post_parent->post_name === 'knight-wallace')){ 
+    $fellowsMenuActive = 'active';
+} elseif (is_page('livingston-awards') || (isset($post->post_parent->post_name) && $post->post_parent->post_name === 'livingston-awards')){ 
+    $livingstonMenuActive = 'active';
+} else { 
+    $wallaceMenuActive = 'active';
+}
+
+
 //Grab Main nav item items
 $main_menu = wp_get_nav_menu_items('primary');
 $ni1_link = !empty($main_menu[0]->url) ? $main_menu[0]->url : "Menu Item";
@@ -53,17 +63,17 @@ $ni3_title = !empty($main_menu[2]->title) ? $main_menu[2]->title : "Menu Item";
 ?>
     <div class="row small-collapse">
       <div class="large-4 columns">
-        <p class="primary active wallace-house" data-sub-nav-menu="wallace-house">
+        <p class="primary <?php echo $wallaceMenuActive; ?> wallace-house" data-sub-nav-menu="wallace-house">
         <a href="<?php echo $ni1_link; ?>"><?php echo $ni1_title; ?></a>
         </p>
       </div>
       <div class="large-4 columns">
-        <p class="primary knight-wallace-fellows" data-sub-nav-menu="knight-wallace-fellows">
+        <p class="primary <?php echo $fellowsMenuActive; ?> knight-wallace-fellows" data-sub-nav-menu="knight-wallace-fellows">
             <a href="<?php echo $ni2_link; ?>"><?php echo $ni2_title; ?></a>
         </p>
       </div>
       <div class="large-4 columns">
-        <p class="primary livingston-awards" data-sub-nav-menu="livingston-awards">
+        <p class="primary <?php echo $livingstonMenuActive; ?> livingston-awards" data-sub-nav-menu="livingston-awards">
             <a href="<?php echo $ni3_link; ?>"><?php echo $ni3_title; ?></a>
         </p>
       </div>
@@ -124,6 +134,9 @@ $ni3_title = !empty($main_menu[2]->title) ? $main_menu[2]->title : "Menu Item";
     </div>
 </nav>
 
+
+
+
 <nav id="mobile_nav">
 <div class="mobile-menu-trigger-wrap">
     <div class="row collapsed">
@@ -133,16 +146,14 @@ $ni3_title = !empty($main_menu[2]->title) ? $main_menu[2]->title : "Menu Item";
 <div class="row mobile-menu-wrap">
      <div class="large-12 columns nopadding">
         <?php wp_nav_menu(array('menu'=>'mobile')); ?>
-            <?php /* <div class="row">
+             <div class="row">
                 <div class="small-11 small-centered columns">
                     <div class="mobile-search-form">
                      <?php the_widget( 'WP_Widget_Search' ); ?>
                      <i class="fa fa-search mobile-search-icon"></i>
                     </div>
                 </div>
-            </div> */ ?>
+            </div> 
     </div>
 </div>
 </nav>
-
-<div class="back-to-top-button"><i class="fa fa-angle-double-up"></i></div>

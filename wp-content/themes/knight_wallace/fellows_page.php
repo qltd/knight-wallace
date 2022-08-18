@@ -5,7 +5,7 @@
 * @package knight_wallace
 */
 
-get_header('fellows'); ?>
+get_header(); ?>
 
 <?php
 include_once('helpers.php');
@@ -369,4 +369,4 @@ if(!empty($alerts)):
 </section>
 <?php endif; ?>
 
-<?php get_footer('fellows'); ?>
+<?php get_footer(); ?>
