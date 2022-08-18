@@ -6527,6 +6527,9 @@ th.hide-for-touch {
     display: table-cell !important; } }
 
 /* Inline Responsive Media Query */
+.newsletter-signup p {
+  font-size: 1.8rem !important; }
+
 /**
  * Styles for the Knight-Wallace Website
  * @rdar
@@ -7956,8 +7959,7 @@ ul.pagination li {
         .site-footer .top input[type="email"] {
           width: 100%; } }
     .site-footer .top p {
-      color: #ffffff;
-      font-size: 1.8rem; }
+      color: #ffffff; }
   .site-footer a {
     color: #0d57aa;
     font-size: 1.4rem; }
