@@ -15,19 +15,19 @@
     <div class="top">
       <div class="row">
         <div class="medium-6 columns">
-            <?php if (is_page('knight-wallace') || (isset($post->post_parent->post_name) && $post->post_parent->post_name === 'knight-wallace')){ 
+            <?php if (is_active_sidebar('kwf-footer-left') && (is_page('knight-wallace') || (isset($post->post_parent->post_name) && $post->post_parent->post_name === 'knight-wallace'))){ 
                 $footerLeftSidebar = 'kwf-footer-left';
-            } elseif (is_page('livingston-awards') || (isset($post->post_parent->post_name) && $post->post_parent->post_name === 'livingston-awards')){ 
+            } elseif (is_active_sidebar('la-footer-left') && (is_page('livingston-awards') || (isset($post->post_parent->post_name) && $post->post_parent->post_name === 'livingston-awards'))){ 
                 $footerLeftSidebar = 'la-footer-left';
             } else { 
                 $footerLeftSidebar = 'wallace-house-footer-left';
-            } ?>
+            }  ?>
           <?php dynamic_sidebar( $footerLeftSidebar ); ?>
         </div>
         <div class="medium-6 columns">
-          <?php if (is_page('knight-wallace') || (isset($post->post_parent->post_name) && $post->post_parent->post_name === 'knight-wallace')){ 
+          <?php if (is_active_sidebar('kwf-footer-right') && (is_page('knight-wallace') || (isset($post->post_parent->post_name) && $post->post_parent->post_name === 'knight-wallace'))){ 
                 $footerRightSidebar = 'kwf-footer-right';
-            } elseif (is_page('livingston-awards') || (isset($post->post_parent->post_name) && $post->post_parent->post_name === 'livingston-awards')){ 
+            } elseif (is_active_sidebar('la-footer-right') && (is_page('livingston-awards') || (isset($post->post_parent->post_name) && $post->post_parent->post_name === 'livingston-awards'))){ 
                 $footerRightSidebar = 'la-footer-right';
             } else { 
                 $footerRightSidebar = 'wallace-house-footer-right';
