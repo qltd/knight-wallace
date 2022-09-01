@@ -37,13 +37,14 @@ function sort_homepage_featured_content_blocks($content){
 }
 
 function sort_hero_content($content){
+ 
     $res = array(
         'Wallace House' => array(),
         'Knight-Wallace Fellowships' => array(),
         'Livingston Awards' => array(),
     );
     if(!empty($content)){
-        foreach($content as $c){
+        foreach($content as $k => $c){
             if (isset($c->ID)){
                 $pmeta = get_post_meta($c->ID);
                 $pimage = get_the_post_thumbnail_url($c->ID);
@@ -60,6 +61,7 @@ function sort_hero_content($content){
     }else{
         $res = false;
     }
+
     return $res;
 }
 
