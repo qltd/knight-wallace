@@ -10,10 +10,10 @@
 get_header(); ?>
 <section class="breadcrumb">
 <div class="row">
-    <div class="small-6 columns">
+    <div class="small-7 columns">
         <a href="/wallace-house/library/" class="library-link">&nbsp;All Library Items</a>
     </div>
-    <div class="small-6 columns text-right">
+    <div class="small-5 columns text-right">
         <p class="share-wrap">Share:
             <a href="https://twitter.com/intent/tweet?text=<?php urlencode(the_title()); ?> https://<?php echo urlencode($_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]); ?>" target="_blank"><i class="fa fa-twitter"></i></a>
             <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]); ?>" target="_blank"><i class="fa fa-facebook"></i></a>
