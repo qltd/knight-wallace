@@ -45,12 +45,12 @@ class WPForms_Campaign_Monitor extends WPForms_Provider {
 			$list_id    = $connection['list_id'];
 			$name_data  = explode( '.', $connection['fields']['fullname'] );
 			$email_data = explode( '.', $connection['fields']['email'] );
-			$data       = array(
-				'Name'         => $fields[ $name_data[0] ]['value'],
+			$data       = [
+				'Name'         => isset( $name_data[0], $fields[ $name_data[0] ]['value'] ) ? $fields[ $name_data[0] ]['value'] : '',
 				'EmailAddress' => $fields[ $email_data[0] ]['value'],
-				'CustomFields' => array(),
+				'CustomFields' => [],
 				'Resubscribe'  => true, // Set to false, won't subscribe even new email addresses to CM?
-			);
+			];
 			$api        = $this->api_connect( $account_id );
 
 			// Bail if there is any sort of issues with the API connection.
@@ -144,7 +144,7 @@ class WPForms_Campaign_Monitor extends WPForms_Provider {
 	/**
 	 * Format a value in expected format for `Date` field type.
 	 *
-	 * @since {VERSION}
+	 * @since 1.2.2
 	 *
 	 * @param array  $field           Field attributes.
 	 * @param string $name            Custom Field name.
@@ -188,7 +188,7 @@ class WPForms_Campaign_Monitor extends WPForms_Provider {
 	/**
 	 * Format a value(s) for `MultiSelectMany` field type.
 	 *
-	 * @since {VERSION}
+	 * @since 1.2.2
 	 *
 	 * @param array $field Field attributes.
 	 * @param array $name  Custom Field name.
@@ -239,20 +239,19 @@ class WPForms_Campaign_Monitor extends WPForms_Provider {
 			require_once plugin_dir_path( __FILE__ ) . '/vendor/campaign-monitor.php';
 		}
 
-		// Connect via API.
-		$api = new Campaign_Monitor( $data['apikey'], $data['client_id'] );
-
 		// Test the API Key by getting lists for the given API Key and Client.
 		try {
+			$api = new Campaign_Monitor( $data['apikey'], $data['client_id'] );
+
 			$api->get_lists();
 		} catch ( Exception $e ) {
 			wpforms_log(
 				'Campaign Monitor API error',
 				$e->getMessage(),
-				array(
-					'type'    => array( 'provider', 'error' ),
-					'form_id' => $form_id['id'],
-				)
+				[
+					'type'    => [ 'provider', 'error' ],
+					'form_id' => isset( $form_id['id'] ) ? $form_id['id'] : 'Form ID not set',
+				]
 			);
 
 			return $this->error( 'API authorization error: ' . $e->getMessage() );
@@ -290,7 +289,7 @@ class WPForms_Campaign_Monitor extends WPForms_Provider {
 			return $this->api[ $account_id ];
 		} else {
 			$providers = get_option( 'wpforms_providers' );
-			if ( ! empty( $providers[ $this->slug ][ $account_id ]['api'] ) ) {
+			if ( ! empty( $providers[ $this->slug ][ $account_id ]['api'] ) && ! empty( $providers[ $this->slug ][ $account_id ]['client_id'] ) ) {
 				$this->api[ $account_id ] = new Campaign_Monitor( $providers[ $this->slug ][ $account_id ]['api'], $providers[ $this->slug ][ $account_id ]['client_id'] );
 				return $this->api[ $account_id ];
 			} else {

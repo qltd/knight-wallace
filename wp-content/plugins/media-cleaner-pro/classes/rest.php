@@ -214,6 +214,11 @@ class Meow_WPMC_Rest
 		$finished = false;
 		$message = ""; // will be filled by extractRefsFrom...
 
+		// Randomly throw an exception
+		// if ( rand( 0, 2 ) !== 1 ) {
+		// 	throw new Exception( 'Random Exception' );
+		// }
+
 		if ( $source === 'content' ) {
 			$finished = $this->engine->extractRefsFromContent( $limit, $limitsize, $message );
 		}
