@@ -7,7 +7,7 @@
  * Requires PHP:      5.5
  * Author:            WPForms
  * Author URI:        https://wpforms.com
- * Version:           1.2.1
+ * Version:           1.2.2
  * Text Domain:       wpforms-campaign-monitor
  * Domain Path:       languages
  *
@@ -30,8 +30,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WPForms.Comments.PHPDocDefine.MissPHPDoc
 // Plugin version.
-define( 'WPFORMS_CAMPAIGN_MONITOR_VERSION', '1.2.1' );
+define( 'WPFORMS_CAMPAIGN_MONITOR_VERSION', '1.2.2' );
+// phpcs:enable WPForms.Comments.PHPDocDefine.MissPHPDoc
 
 /**
  * Load the provider class.
@@ -41,11 +43,14 @@ define( 'WPFORMS_CAMPAIGN_MONITOR_VERSION', '1.2.1' );
 function wpforms_campaign_monitor() {
 
 	// WPForms Pro is required.
-	if ( ! wpforms()->pro ) {
+	if (
+		! function_exists( 'wpforms' ) ||
+		! function_exists( 'wpforms_get_license_type' ) ||
+		! wpforms()->pro ||
+		! in_array( wpforms_get_license_type(), [ 'plus', 'pro', 'elite', 'agency', 'ultimate' ], true )
+	) {
 		return;
 	}
-
-	load_plugin_textdomain( 'wpforms-campaign-monitor', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 	require_once plugin_dir_path( __FILE__ ) . 'class-campaign-monitor.php';
 }

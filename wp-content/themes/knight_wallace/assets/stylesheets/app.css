@@ -7119,12 +7119,18 @@ figure {
   font-size: 1.8rem;
   color: #0d57aa;
   display: inline-block; }
+  @media (max-width: 640px) {
+    .breadcrumb a,
+    .breadcrumb p {
+      font-size: 1.4rem; } }
 
 .breadcrumb p {
   text-transform: uppercase; }
   @media (max-width: 640px) {
-    .breadcrumb p.share-wrap a {
-      margin-left: 0; } }
+    .breadcrumb p {
+      font-size: 1.4rem; }
+      .breadcrumb p.share-wrap a {
+        margin-left: 0; } }
 
 .breadcrumb a {
   margin-top: 3rem;
@@ -7135,6 +7141,10 @@ figure {
       margin-bottom: 2rem; } }
   .breadcrumb a i {
     font-size: 2.5rem; }
+    @media (max-width: 640px) {
+      .breadcrumb a i {
+        font-size: 1.7rem;
+        margin-left: 1rem; } }
 
 .breadcrumb .small-6:first-child a {
   margin-left: 0; }

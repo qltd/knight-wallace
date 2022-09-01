@@ -518,7 +518,7 @@ class Meow_WPMC_Core {
 		$fh = @fopen( WPMC_PATH . '/logs/media-cleaner.log', 'a' );
 		if ( !$fh )
 			return false;
-		$date = date( "Y-m-d H:i:s" );
+		$date = current_datetime()->format( 'Y-m-d H:i:s' );
 		if ( is_null( $data ) )
 			fwrite( $fh, "\n" );
 		else
