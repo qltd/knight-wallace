@@ -1,116 +1,119 @@
 @media (min-width: 1025px) {
-    #mobile_nav {
-        display: none;
-    }
+  #mobile_nav {
+    display: none;
+  }
 }
 
 @media (max-width: 1025px) {
-    #main_nav, #eyebrow {
-        display: none;
+  #main_nav,
+  #eyebrow {
+    display: none;
+  }
+
+  .mobile-menu-trigger-wrap {
+    background: $lblue;
+    color: $white;
+    font-size: 1.4rem;
+
+    p {
+      font-size: 1.4rem;
+    }
+  }
+
+  .mobile-menu-trigger {
+    cursor: pointer;
+  }
+
+  .mobile-menu-wrap {
+    display: none; //hide menu on load
+
+    li {
+      list-style: none;
+      font-size: 2rem;
     }
 
-    .mobile-menu-trigger-wrap {
-        background: $lblue;
+    li.menu-item {
+      padding: 2rem 1rem;
+    }
+
+    li.menu-item-has-children {
+      text-transform: uppercase;
+      color: $white;
+      background: $charcoal;
+
+      @include link_style($white, $white);
+    }
+
+    #menu-mobile > li {
+      text-transform: uppercase;
+      color: $white;
+      background: $charcoal;
+
+      & > a {
         color: $white;
-        font-size: 1.4rem;
 
-        p {
-            font-size: 1.4rem;
+        &:link,
+        &:hover,
+        &:visited {
+          color: $white !important;
         }
+      }
     }
 
-    .mobile-menu-trigger {
-        cursor: pointer;
+    .sub-menu {
+      background: $white;
+      margin-left: 0;
+      padding-left: 0;
+      display: none;
+
+      li {
+        text-transform: normal;
+        text-transform: capitalize;
+
+        @include link_style($lblue, $lblue);
+
+        &:hover {
+          background: $lblue;
+
+          @include link_style($white, $white);
+        }
+      }
+    }
+  }
+
+  .nav-item-controller {
+    float: right;
+  }
+
+  .mobile-search-icon {
+    cursor: pointer;
+    position: relative;
+    font-size: 2rem;
+    position: relative;
+    top: -4.1rem;
+    float: right;
+    margin-right: 1rem;
+    padding: 0.5rem;
+    z-index: 2;
+  }
+
+  .mobile-search-form {
+    input {
+      position: relative;
+      top: 0.4rem;
+      background: $white-gray;
+      font-size: 1.5rem;
+      padding: 2rem 3rem 2rem 1.5rem;
+      box-shadow: none;
+      border: none;
     }
 
-    .mobile-menu-wrap {
-        display: none; //hide menu on load
-
-        li {
-            list-style: none;
-            font-size: 2rem;
-        }
-
-        li.menu-item {
-            padding: 2rem 1rem;
-        }
-
-        li.menu-item-has-children {
-            text-transform: uppercase;
-            color: $white;
-            background: $charcoal;
-
-            @include link_style($white, $white);
-        }
-
-        #menu-mobile > li {
-            text-transform: uppercase;
-            color: $white;
-            background: $charcoal;
-
-            & > a {
-                color: $white;
-
-                &:link, &:hover, &:visited {
-                    color: $white;
-                }
-            }
-        }
-
-        .sub-menu {
-            background: $white;
-            margin-left: 0;
-            padding-left: 0;
-            display: none;
-
-            li {
-                text-transform: normal;
-                text-transform: capitalize;
-
-                @include link_style($lblue, $lblue);
-
-                &:hover {
-                    background: $lblue;
-
-                    @include link_style($white, $white);
-                }
-            }
-        }
+    .screen-reader-text {
+      display: none;
     }
 
-    .nav-item-controller {
-        float: right;
+    .search-submit {
+      display: none;
     }
-
-    .mobile-search-icon {
-        cursor: pointer;
-        position: relative;
-        font-size: 2rem;
-        position: relative;
-        top: -4.1rem;
-        float: right;
-        margin-right: 1rem;
-        padding: 0.5rem;
-        z-index: 2;
-    }
-
-    .mobile-search-form {
-        input {
-            position: relative;
-            top: 0.4rem;
-            background: $white-gray;
-            font-size: 1.5rem;
-            padding: 2rem 3rem 2rem 1.5rem;
-            box-shadow: none;
-            border: none;
-        }
-
-        .screen-reader-text {
-            display: none;
-        }
-
-        .search-submit {
-            display: none;
-        }
-    }
+  }
 }

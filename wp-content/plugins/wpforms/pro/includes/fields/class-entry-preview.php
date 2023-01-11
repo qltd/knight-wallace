@@ -18,7 +18,7 @@ class WPForms_Entry_Preview extends WPForms_Field {
 		$this->name  = esc_html__( 'Entry Preview', 'wpforms' );
 		$this->type  = 'entry-preview';
 		$this->icon  = 'fa-file-text-o';
-		$this->order = 160;
+		$this->order = 190;
 		$this->group = 'fancy';
 
 		$this->hooks();
@@ -306,6 +306,7 @@ class WPForms_Entry_Preview extends WPForms_Field {
 		wpforms()->get( 'process' )->fields = [];
 
 		foreach ( (array) $form_data['fields'] as $field_properties ) {
+
 			$field_id    = absint( $field_properties['id'] );
 			$field_type  = $field_properties['type'];
 			$field_value = isset( $submitted_fields['fields'][ $field_id ] ) ? $submitted_fields['fields'][ $field_id ] : '';
@@ -1015,8 +1016,7 @@ class WPForms_Entry_Preview extends WPForms_Field {
 	 */
 	private function is_fields_ignored( $form_data ) {
 
-		// Backward compatibility with Conversational Forms addon.
-		$is_ignore = ! empty( $form_data['settings']['conversational_forms_enable'] ) && get_query_var( 'post_type' ) === 'wpforms';
+		$is_ignore = false;
 
 		/**
 		 * Allow ignoring entry preview fields for some forms.

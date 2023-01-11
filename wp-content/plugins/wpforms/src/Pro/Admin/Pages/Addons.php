@@ -215,7 +215,7 @@ class Addons {
      */
 	public function notices() {
 
-		$errors = wpforms()->license->get_errors();
+		$errors = wpforms()->get( 'license' )->get_errors();
 
 		if ( empty( $this->addons ) ) {
 			\WPForms\Admin\Notice::error( esc_html__( 'There was an issue retrieving Addons for this site. Please click on the button above to refresh.', 'wpforms' ) );
@@ -366,6 +366,10 @@ class Addons {
 			! empty( $addon['status'] ) && $addon['status'] === 'active' && $addon['plugin_allow'] ? $addon['doc_url'] : $addon['page_url']
 		);
 
+		if ( $addon['slug'] === 'wpforms-stripe' ) {
+			$addon['recommended'] = true;
+		}
+
 		echo wpforms_render( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			'admin/addons-item',
 			[
@@ -374,6 +378,7 @@ class Addons {
 				'image'        => WPFORMS_PLUGIN_URL . 'assets/images/' . $image,
 				'url'          => $url,
 				'button'       => $this->get_addon_button_html( $addon ),
+				'recommended'  => isset( $addon['recommended'] ) ? $addon['recommended'] : false,
 			],
 			true
 		);

@@ -71,6 +71,15 @@ abstract class WPForms_Payment {
 	private static $i18n_modified = false;
 
 	/**
+	 * Flag for recommended payments.
+	 *
+	 * @since 1.7.7.2
+	 *
+	 * @var bool
+	 */
+	protected $recommended = false;
+
+	/**
 	 * Primary class constructor.
 	 *
 	 * @since 1.0.0
@@ -241,6 +250,13 @@ abstract class WPForms_Payment {
 
 		echo esc_html( $this->name );
 
+		if ( ! empty( $this->recommended ) ) {
+			echo '<span class="wpforms-panel-sidebar-recommended">';
+				echo '<i class="fa fa-star" aria-hidden="true"></i>&nbsp;';
+				esc_html_e( 'Recommended', 'wpforms' );
+			echo '</span>';
+		}
+
 		echo '<i class="fa fa-angle-right wpforms-toggle-arrow"></i>';
 
 		if ( ! empty( $configured ) ) {
@@ -347,7 +363,7 @@ abstract class WPForms_Payment {
 				[
 					'parent'  => 'payments',
 					'default' => '0',
-					'tooltip' => esc_html__( 'Allow your customer to recurring pay via the form.', 'wpforms' ),
+					'tooltip' => esc_html__( 'Allow your customer to pay recurringly via the form.', 'wpforms' ),
 					'class'   => 'wpforms-panel-content-section-payment-toggle wpforms-panel-content-section-payment-toggle-recurring',
 				]
 			);

@@ -174,3 +174,14 @@ jQuery(document).ready(function($){
 
     })
 });
+
+
+/**
+ * Toggles a class to open and close an accordion
+ */
+const accordion = document.querySelectorAll(".q-accordion-block__header");
+accordion.forEach((box) => {
+    box.addEventListener("click", function (event) {
+    this.parentElement.classList.toggle("q-accordion-block--open");
+  });
+});

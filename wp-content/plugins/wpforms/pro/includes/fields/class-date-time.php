@@ -470,13 +470,7 @@ class WPForms_Field_Date_Time extends WPForms_Field {
 		// Time.
 		$time_placeholder = ! empty( $field['time_placeholder'] ) ? $field['time_placeholder'] : '';
 		$time_format      = ! empty( $field['time_format'] ) ? esc_attr( $field['time_format'] ) : 'g:i A';
-		$time_formats     = apply_filters(
-			'wpforms_datetime_time_formats',
-			array(
-				'g:i A' => '12 H',
-				'H:i'   => '24 H',
-			)
-		);
+		$time_formats     = wpforms_time_formats();
 
 		$time_interval    = ! empty( $field['time_interval'] ) ? esc_attr( $field['time_interval'] ) : '30';
 		$time_intervals   = apply_filters(

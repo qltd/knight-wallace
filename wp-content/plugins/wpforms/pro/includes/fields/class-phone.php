@@ -112,7 +112,6 @@ class WPForms_Field_Phone extends WPForms_Field {
 		if ( ! wpforms()->frontend->assets_global() && ! $this->has_smart_format( $forms ) ) {
 			return;
 		}
-		$min = \wpforms_get_min_suffix();
 
 		// Load International Telephone Input library - https://github.com/jackocnr/intl-tel-input.
 		wp_enqueue_script(

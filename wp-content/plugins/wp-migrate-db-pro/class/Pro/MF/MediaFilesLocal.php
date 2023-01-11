@@ -244,17 +244,22 @@ class MediaFilesLocal
         $this->util->set_time_limit();
 
         $key_rules = array(
-            'action'             => 'key',
-            'stage'              => 'string',
-            'offset'             => 'numeric',
-            'folder'             => 'string',
-            'migration_state_id' => 'key',
-            'nonce'              => 'key',
+            'action'                        => 'key',
+            'stage'                         => 'string',
+            'offset'                        => 'numeric',
+            'folder'                        => 'string',
+            'migration_state_id'            => 'key',
+            'payloadSize'                   => 'numeric',
+            'stabilizePayloadSize'          => 'bool',
+            'stepDownSize'                  => 'bool',
+            'nonce'                         => 'key',
+            'retries'                       => 'numeric',
+            'forceHighPerformanceTransfers' => 'bool',
         );
 
         $state_data = Persistence::setPostData($key_rules, __METHOD__);
 
-        $count = apply_filters('wpmdbmf_file_batch_size', 100);
+        $count = apply_filters('wpmdbmf_file_batch_size', 1000);
         $data  = $this->queue_manager->list_jobs($count);
 
         $processed = $this->transfer_util->process_file_data($data);
@@ -274,6 +279,10 @@ class MediaFilesLocal
         $result = [
             'status' => $processed,
         ];
+
+        if (isset($processed['error'], $processed['message']) && true === $processed['error']) {
+            $result = new \WP_Error(400, $processed['message']);
+        }
 
         //Client should check error status for files and if a 500 is encountered kill the migration stage
         return $this->http->end_ajax($result);

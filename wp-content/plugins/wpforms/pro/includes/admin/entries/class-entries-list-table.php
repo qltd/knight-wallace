@@ -229,7 +229,14 @@ class WPForms_Entries_Table extends WP_List_Table {
 	 */
 	public static function get_columns_form_disallowed_fields() {
 
-		return (array) apply_filters( 'wpforms_entries_table_fields_disallow', [ 'captcha', 'divider', 'entry-preview', 'html', 'pagebreak' ] );
+		/**
+		 * Filter the list of the disallowed fields in the entries table.
+		 *
+		 * @since 1.4.4
+		 *
+		 * @param array $fields Field types list.
+		 */
+		return (array) apply_filters( 'wpforms_entries_table_fields_disallow', [ 'captcha', 'divider', 'entry-preview', 'html', 'pagebreak', 'layout' ] );
 	}
 
 	/**
@@ -485,6 +492,7 @@ class WPForms_Entries_Table extends WP_List_Table {
 
 		if (
 			! empty( $entry_fields[ $field_id ] ) &&
+			isset( $entry_fields[ $field_id ]['type'] ) &&
 			! wpforms_is_empty_string( $entry_fields[ $field_id ]['type'] )
 		) {
 			$field_type = $entry_fields[ $field_id ]['type'];
@@ -547,9 +555,9 @@ class WPForms_Entries_Table extends WP_List_Table {
 		);
 
 		if (
-            wpforms_current_user_can( 'edit_entries_form_single', $this->form_id ) &&
-            wpforms()->get( 'entry' )->has_editable_fields( $entry )
-        ) {
+			wpforms_current_user_can( 'edit_entries_form_single', $this->form_id ) &&
+			wpforms()->get( 'entry' )->has_editable_fields( $entry )
+		) {
 			// Edit.
 			$actions[] = sprintf(
 				'<a href="%s" title="%s" class="edit">%s</a>',
@@ -1095,7 +1103,8 @@ class WPForms_Entries_Table extends WP_List_Table {
 
 		$cur_term = '';
 
-		if ( ! empty( $_GET['search']['term'] ) ) {
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+		if ( isset( $_GET['search']['term'] ) && ! wpforms_is_empty_string( $_GET['search']['term'] ) ) {
 			$cur_term = sanitize_text_field( wp_unslash( $_GET['search']['term'] ) );
 			$cur_term = empty( $cur_term ) ? htmlspecialchars( wp_unslash( $_GET['search']['term'] ) ) : $cur_term; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		}
@@ -1139,11 +1148,11 @@ class WPForms_Entries_Table extends WP_List_Table {
 					if ( ! empty( $filter_fields ) ) {
 						foreach ( $filter_fields as $id => $name ) {
 							printf(
-                                '<option value="%1$s" %2$s>%3$s</option>',
-                                esc_attr( $id ),
-                                selected( $id, $cur_field, false ),
-                                esc_html( $name )
-                            );
+								'<option value="%1$s" %2$s>%3$s</option>',
+								esc_attr( $id ),
+								selected( $id, $cur_field, false ),
+								esc_html( $name )
+							);
 						}
 					}
 					?>
@@ -1153,11 +1162,11 @@ class WPForms_Entries_Table extends WP_List_Table {
 						<?php
 						foreach ( $search_advanced_options as $val => $name ) {
 							printf(
-                                '<option value="%1$s" %2$s>%3$s</option>',
-                                esc_attr( $val ),
-                                selected( $val, $cur_field, false ),
-                                esc_html( $name )
-                            );
+								'<option value="%1$s" %2$s>%3$s</option>',
+								esc_attr( $val ),
+								selected( $val, $cur_field, false ),
+								esc_html( $name )
+							);
 						}
 						?>
 					</optgroup>
@@ -1166,22 +1175,22 @@ class WPForms_Entries_Table extends WP_List_Table {
 
 			<select name="search[comparison]" class="wpforms-form-search-box-comparison">
 				<option value="contains" <?php selected( 'contains', $cur_comparison ); ?>>
-                    <?php esc_html_e( 'contains', 'wpforms' ); ?>
-                </option>
+					<?php esc_html_e( 'contains', 'wpforms' ); ?>
+				</option>
 				<option value="contains_not" <?php selected( 'contains_not', $cur_comparison ); ?>>
-                    <?php esc_html_e( 'does not contain', 'wpforms' ); ?>
-                </option>
+					<?php esc_html_e( 'does not contain', 'wpforms' ); ?>
+				</option>
 				<option value="is" <?php selected( 'is', $cur_comparison ); ?>>
-                    <?php esc_html_e( 'is', 'wpforms' ); ?>
-                </option>
+					<?php esc_html_e( 'is', 'wpforms' ); ?>
+				</option>
 				<option value="is_not" <?php selected( 'is_not', $cur_comparison ); ?>>
-                    <?php esc_html_e( 'is not', 'wpforms' ); ?>
-                </option>
+					<?php esc_html_e( 'is not', 'wpforms' ); ?>
+				</option>
 			</select>
 
 			<label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>">
-                <?php echo esc_html( $text ); ?>:
-            </label>
+				<?php echo esc_html( $text ); ?>:
+			</label>
 			<input type="search" name="search[term]" class="wpforms-form-search-box-term" value="<?php echo esc_attr( wp_unslash( $cur_term ) ); ?>" id="<?php echo esc_attr( $input_id ); ?>">
 
 			<button type="submit" class="button"><?php echo esc_html( $text ); ?></button>

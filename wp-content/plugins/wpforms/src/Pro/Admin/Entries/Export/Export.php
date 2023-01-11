@@ -34,6 +34,8 @@ class Export {
 			'html',
 			'pagebreak',
 			'internal-information',
+			'content',
+			'layout',
 		],
 	];
 
@@ -44,7 +46,7 @@ class Export {
 	 *
 	 * @var array
 	 */
-	public $i18n = array();
+	public $i18n = [];
 
 	/**
 	 * Error messages.
@@ -53,7 +55,7 @@ class Export {
 	 *
 	 * @var array
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * Additional Information checkboxes.
@@ -62,7 +64,7 @@ class Export {
 	 *
 	 * @var array
 	 */
-	public $additional_info_fields = array();
+	public $additional_info_fields = [];
 
 	/**
 	 * Type checkboxes.
@@ -80,14 +82,14 @@ class Export {
 	 *
 	 * @var array
 	 */
-	public $data = array();
+	public $data = [];
 
 	/**
 	 * Instance of Admin Object.
 	 *
 	 * @since 1.5.5
 	 *
-	 * @var \WPForms\Pro\Admin\Entries\Export\Admin
+	 * @var Admin
 	 */
 	public $admin;
 
@@ -96,7 +98,7 @@ class Export {
 	 *
 	 * @since 1.5.5
 	 *
-	 * @var \WPForms\Pro\Admin\Entries\Export\Ajax
+	 * @var Ajax
 	 */
 	public $ajax;
 
@@ -105,7 +107,7 @@ class Export {
 	 *
 	 * @since 1.5.5
 	 *
-	 * @var \WPForms\Pro\Admin\Entries\Export\File
+	 * @var File
 	 */
 	public $file;
 

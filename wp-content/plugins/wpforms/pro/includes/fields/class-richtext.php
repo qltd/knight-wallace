@@ -80,7 +80,7 @@ class WPForms_Field_Richtext extends WPForms_Field {
 		$this->name  = esc_html__( 'Rich Text', 'wpforms' );
 		$this->type  = 'richtext';
 		$this->icon  = 'fa-pencil-square-o';
-		$this->order = 300;
+		$this->order = 133;
 		$this->group = 'fancy';
 
 		// Init upload files helper.
@@ -1512,7 +1512,14 @@ class WPForms_Field_Richtext extends WPForms_Field {
 	 */
 	public function modify_quicktags( $qt_init, $editor_id ) {
 
-		if ( strpos( $editor_id, 'wpforms' ) !== 0 ) {
+		// This callback is executed for all TinyMCE editors, on the Builder page as well.
+		// First conditional check for verifying a prefix of editor ID is not enough
+		// and `link` quick buttons are removed through the Builder page.
+		// That's why we run the second conditional check.
+		if (
+			strpos( $editor_id, 'wpforms' ) !== 0 ||
+			wpforms_is_admin_page( 'builder' )
+		) {
 			return $qt_init;
 		}
 
