@@ -1,18 +1,18 @@
 <?php
 /**
-* Template Name: Events
-*
-*
-* @package knight_wallace
-*/
+ * Template Name: Events
+ *
+ *
+ * @package knight_wallace
+ */
 
-get_header(); ?>
+get_header();?>
 
 <?php
 $parent_id = get_post_ancestors($post->ID);
 $parent = !empty($parent_id) ? get_post($parent_id[0]) : false;
 ?>
-<?php if(!empty($parent)): ?>
+<?php if (!empty($parent)): ?>
 <section class="breadcrumb">
 <div class="row">
     <div class="small-6 columns">
@@ -22,14 +22,15 @@ $parent = !empty($parent_id) ? get_post($parent_id[0]) : false;
     </div>
 </div>
 </section>
-<?php endif; ?>
+<?php endif;?>
 
 <?php
 //grab our junk
 include_once 'helpers.php';
-$news = get_posts(array('category_name'=>'events','post_status'=>'any','posts_per_page'=> -1, 'orderby' => 'date', 'order'=> 'ASC' ));
+$news = get_posts(array('category_name' => 'events', 'post_status' => 'any', 'posts_per_page' => -1, 'orderby' => 'date', 'order' => 'ASC'));
 $featured = find_featured_news_article($news);
 $sorted_events = sort_events($news);
+
 ?>
 <div class="row">
     <div class="large-12 columns">
@@ -37,9 +38,9 @@ $sorted_events = sort_events($news);
     </div>
 </div>
 
-<?php include_once(locate_template('template-parts/featured.php')); ?>
+<?php include_once locate_template('template-parts/featured.php');?>
 
-<?php if(!empty($sorted_events['future_events'])):?>
+<?php if (!empty($sorted_events['future_events'])): ?>
    <div class="future-events story-list">
         <div class="row">
             <div class="large-12 columns">
@@ -48,11 +49,11 @@ $sorted_events = sort_events($news);
                 </div>
             </div>
         </div>
-<?php $news = $sorted_events['future_events']; ?>
-<?php include(locate_template('template-parts/news.php')); ?>
+<?php $news = $sorted_events['future_events'];?>
+<?php include locate_template('template-parts/news.php');?>
    </div>
-<?php endif; ?>
-<?php if(!empty($sorted_events['past_events'])):?>
+<?php endif;?>
+<?php if (!empty($sorted_events['past_events'])): ?>
    <div class="future-events story-list">
         <div class="row">
             <div class="large-12 columns">
@@ -61,9 +62,9 @@ $sorted_events = sort_events($news);
                 </div>
             </div>
         </div>
-<?php $news = array_reverse($sorted_events['past_events']); ?>
-<?php include(locate_template('template-parts/news.php')); ?>
+<?php $news = array_reverse($sorted_events['past_events']);?>
+<?php include locate_template('template-parts/news.php');?>
    </div>
-<?php endif; ?>
+<?php endif;?>
 
-<?php get_footer(); ?>
+<?php get_footer();?>

@@ -147,15 +147,18 @@ class PrintPreview {
 			<meta name="description" content="">
 			<meta name="viewport" content="width=device-width, initial-scale=1">
 			<meta name="robots" content="noindex,nofollow,noarchive">
-			<link rel="stylesheet" href="<?php echo esc_url( WPFORMS_PLUGIN_URL ); // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet ?>assets/lib/font-awesome/font-awesome.min.css" type="text/css">
-			<link rel="stylesheet" href="<?php echo esc_url( WPFORMS_PLUGIN_URL );// phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet ?>assets/pro/css/entry-print<?php echo esc_attr( $min ); ?>.css" type="text/css">
-			<script type="text/javascript" src="<?php echo esc_url( includes_url( 'js/utils.js' ) ); // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>"></script>
-			<script type="text/javascript" src="<?php echo esc_url( includes_url( 'js/jquery/jquery.js' ) );// phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>"></script>
+			<?php // phpcs:disable WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet, WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>
+			<link rel="stylesheet" href="<?php echo esc_url( WPFORMS_PLUGIN_URL ); ?>assets/lib/font-awesome/font-awesome.min.css" type="text/css">
+			<link rel="stylesheet" href="<?php echo esc_url( WPFORMS_PLUGIN_URL ); ?>assets/pro/css/entry-print<?php echo esc_attr( $min ); ?>.css" type="text/css">
+			<script type="text/javascript" src="<?php echo esc_url( includes_url( 'js/utils.js' ) ); ?>"></script>
+			<script type="text/javascript" src="<?php echo esc_url( includes_url( 'js/jquery/jquery.js' ) ); ?>"></script>
+			<?php // phpcs:enable WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet, WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>
 			<script type="text/javascript">
-				jQuery( function( $ ){
-					var showEmpty    = wpCookies.get( 'wpforms_entry_hide_empty' ) !== 'true';
+				jQuery( function( $ ) {
+					var showEmpty = wpCookies.get( 'wpforms_entry_hide_empty' ) !== 'true';
+
 					function toggle( $this, $elem = '', $additional = '' ) {
-						$this.find('.switch').toggleClass('active');
+						$this.find( '.switch' ).toggleClass( 'active' );
 						$( $elem ).toggleClass( $additional );
 					}
 					// Print page.
@@ -169,28 +172,28 @@ class PrintPreview {
 						window.close();
 					} );
 					// Settings button toggle.
-					$( document ).on('click', '.button-settings', function( event ) {
+					$( document ).on( 'click', '.button-settings', function( event ) {
 						event.preventDefault();
-						$(this).find('i').toggleClass('active');
-						$('.actions').toggleClass('active');
-					});
+						$( this ).find( 'i' ).toggleClass( 'active' );
+						$( '.actions' ).toggleClass( 'active' );
+					} );
 					// Init empty fields.
-					if (  showEmpty ) {
+					if ( showEmpty ) {
 						$( '.field.empty' ).show();
-						$( '.toggle-empty' ).find('.switch').addClass('active');
+						$( '.toggle-empty' ).find( '.switch' ).addClass( 'active' );
 					} else {
 						$( '.field.empty' ).hide();
-						$( '.toggle-empty' ).find('.switch').removeClass('active');
+						$( '.toggle-empty' ).find( '.switch' ).removeClass( 'active' );
 					}
 					// Toggle empty fields.
 					$( document ).on( 'click', '.toggle-empty', function( event ) {
 						event.preventDefault();
 						if ( ! showEmpty ) {
 							wpCookies.set( 'wpforms_entry_hide_empty', 'true', 2592000 );
-							$( this ).find('.switch').addClass('active');
+							$( this ).find( '.switch' ).addClass( 'active' );
 						} else {
 							wpCookies.remove( 'wpforms_entry_hide_empty' );
-							$( this ).find('.switch').removeClass('active');
+							$( this ).find( '.switch' ).removeClass( 'active' );
 						}
 						$( '.field.empty' ).toggle();
 						showEmpty = !showEmpty;
@@ -198,24 +201,23 @@ class PrintPreview {
 					// Toggle HTML fields.
 					$( document ).on( 'click', '.toggle-html', function( event ) {
 						event.preventDefault();
-						toggle( $( this ),'.wpforms-field-html', 'wpforms-hidden');
-
+						toggle( $( this ), '.wpforms-field-html, .wpforms-field-content', 'wpforms-hidden' );
 					} );
 					// Toggle section dividers.
 					$( document ).on( 'click', '.toggle-dividers', function( event ) {
 						event.preventDefault();
-						toggle( $( this ),'.wpforms-field-divider, .wpforms-field-pagebreak', 'wpforms-hidden')
-					});
+						toggle( $( this ), '.wpforms-field-divider, .wpforms-field-pagebreak', 'wpforms-hidden' )
+					} );
 					// Toggle notes.
 					$( document ).on( 'click', '.toggle-notes', function( event ) {
 						event.preventDefault();
-						$( this ).find('.switch').toggleClass('active');
+						$( this ).find( '.switch' ).toggleClass( 'active' );
 						$( '.notes, .notes-head' ).toggle();
-					});
+					} );
 					// Toggle compact view.
 					$( document ).on( 'click', '.toggle-view', function( event ) {
 						event.preventDefault();
-						toggle( $( this ), '#print', 'compact')
+						toggle( $( this ), '#print', 'compact' )
 					} );
 
 					/**
@@ -277,28 +279,28 @@ class PrintPreview {
 						<?php echo esc_html( sanitize_text_field( $this->form_data['settings']['form_title'] ) ); ?> <span> - <?php printf( esc_html__( 'Entry #%d', 'wpforms' ), absint( $this->entry->entry_id ) ); ?></span>
 					</h1>
 					<div class="buttons">
-						<a href="#" class="button button-settings" title="<?php esc_html_e( 'Cog', 'wpforms' ); ?>"><i class="fa fa-cog" aria-hidden="true"></i></a>
-						<a href="#" class="button button-close close-window" title="<?php esc_html_e( 'Close', 'wpforms' ); ?>"><?php esc_html_e( 'Close', 'wpforms' ); ?></a>
-						<a href="#" class="button button-print print" title="<?php esc_html_e( 'Print', 'wpforms' ); ?>"><?php esc_html_e( 'Print', 'wpforms' ); ?></a>
+						<a href="#" class="button button-settings" title="<?php esc_attr_e( 'Cog', 'wpforms' ); ?>"><i class="fa fa-cog" aria-hidden="true"></i></a>
+						<a href="#" class="button button-close close-window" title="<?php esc_attr_e( 'Close', 'wpforms' ); ?>"><?php esc_html_e( 'Close', 'wpforms' ); ?></a>
+						<a href="#" class="button button-print print" title="<?php esc_attr_e( 'Print', 'wpforms' ); ?>"><?php esc_html_e( 'Print', 'wpforms' ); ?></a>
 					</div>
 				</div>
 				<div class="actions no-print">
 					<div class="switch-container toggle-empty">
-						<a href="#" title="<?php esc_html_e( 'Empty fields', 'wpforms' ); ?>"><i class="switch"></i><span><?php esc_html_e( 'Empty fields', 'wpforms' ); ?></span></a>
+						<a href="#" title="<?php esc_attr_e( 'Empty fields', 'wpforms' ); ?>"><i class="switch" aria-hidden="true"></i><span><?php esc_html_e( 'Empty fields', 'wpforms' ); ?></span></a>
 					</div>
 					<div class="switch-container toggle-html">
-						<a href="#" title="<?php esc_html_e( 'HTML fields', 'wpforms' ); ?>"><i class="switch"></i><span><?php echo esc_html__( 'HTML fields', 'wpforms' ); ?></span></a>
+						<a href="#" title="<?php esc_attr_e( 'HTML/Content fields', 'wpforms' ); ?>"><i class="switch" aria-hidden="true"></i><span><?php echo esc_html__( 'HTML/Content fields', 'wpforms' ); ?></span></a>
 					</div>
 					<div class="switch-container toggle-dividers">
-						<a href="#" title="<?php esc_html_e( 'Section Dividers', 'wpforms' ); ?>"><i class="switch"></i><span><?php echo esc_html__( 'Section Dividers', 'wpforms' ); ?></span></a>
+						<a href="#" title="<?php esc_attr_e( 'Section Dividers', 'wpforms' ); ?>"><i class="switch" aria-hidden="true"></i><span><?php echo esc_html__( 'Section Dividers', 'wpforms' ); ?></span></a>
 					</div>
 					<?php if ( ! empty( $this->entry->entry_notes ) ) : ?>
 					<div class="switch-container toggle-notes">
-						<a href="#" title="<?php esc_html_e( 'Notes', 'wpforms' ); ?>"><i class="switch"></i><span><?php echo esc_html__( 'Notes', 'wpforms' ); ?></span></a>
+						<a href="#" title="<?php esc_attr_e( 'Notes', 'wpforms' ); ?>"><i class="switch" aria-hidden="true"></i><span><?php echo esc_html__( 'Notes', 'wpforms' ); ?></span></a>
 					</div>
 					<?php endif; ?>
 					<div class="switch-container toggle-view">
-						<a href="#"><i class="switch" title="<?php esc_html_e( 'Compact view', 'wpforms' ); ?>"></i><span><?php esc_html_e( 'Compact view', 'wpforms' ); ?></span></a>
+						<a href="#"><i class="switch" title="<?php esc_attr_e( 'Compact view', 'wpforms' ); ?>" aria-hidden="true"></i><span><?php esc_html_e( 'Compact view', 'wpforms' ); ?></span></a>
 					</div>
 				</div>
 				<?php
@@ -342,6 +344,32 @@ class PrintPreview {
 							$field_value = isset( $field['code'] ) ? $field['code'] : '';
 							$field_class = sanitize_html_class( 'wpforms-field-' . $field['type'] ) . ' wpforms-hidden';
 						}
+
+						if ( $field['type'] === 'content' ) {
+							$field_value = isset( $field['content'] ) ? $field['content'] : '';
+							$field_class = sanitize_html_class( 'wpforms-field-' . $field['type'] ) . ' wpforms-hidden';
+							$field_label = esc_html__( 'Content Field', 'wpforms' );
+						}
+
+						/**
+						 * Filter print preview value.
+						 *
+						 * @since 1.7.9
+						 *
+						 * @param string $field_value Field value.
+						 * @param array  $field       Field data.
+						 */
+						$field_value = make_clickable( apply_filters( 'wpforms_pro_admin_entries_print_preview_field_value', $field_value, $field ) );
+
+						/**
+						 * Decide if field value should use nl2br.
+						 *
+						 * @since 1.7.9
+						 *
+						 * @param bool  $use   Boolean value flagging if field should use nl2br function.
+						 * @param array $field Field data.
+						 */
+						$field_value = apply_filters( 'wpforms_pro_admin_entries_print_preview_field_value_use_nl2br', true, $field ) ? nl2br( $field_value ) : $field_value;
 						?>
 						<?php if ( $field['type'] === 'divider' ) : ?>
 							<div class="field <?php echo esc_attr( $field_class ); ?>">
@@ -358,9 +386,9 @@ class PrintPreview {
 								echo ! empty( $field_label ) ? esc_html( wp_strip_all_tags( $field_label ) ) : sprintf( esc_html__( 'Field ID #%d', 'wpforms' ), absint( $field['id'] ) );
 								?>
 							</p>
-							<p class="field-value">
-								<?php echo ! wpforms_is_empty_string( $field_value ) ? nl2br( make_clickable( $field_value ) ) : esc_html__( 'Empty', 'wpforms' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-							</p>
+							<div class="field-value">
+								<?php echo ! wpforms_is_empty_string( $field_value ) ? $field_value : esc_html__( 'Empty', 'wpforms' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+							</div>
 						</div>
 						<?php endif; ?>
 						<?php
@@ -444,8 +472,8 @@ class PrintPreview {
 
 			$field_type = $setting['type'];
 
-			// Divider and HTML fields must always be included because it's allowed to show and hide these fields.
-			if ( in_array( $field_type, [ 'divider', 'html' ], true ) ) {
+			// Divider, HTML and content fields must always be included because it's allowed to show and hide these fields.
+			if ( in_array( $field_type, [ 'divider', 'html', 'content' ], true ) ) {
 				continue;
 			}
 

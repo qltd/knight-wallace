@@ -1,6 +1,14 @@
 /* Inline Responsive Media Query */
 @mixin responsive($maxWidth) {
-    @media (max-width: #{$maxWidth}) {
-        @content;
-    }
+  @media (max-width: #{$maxWidth}) {
+    @content;
+  }
+}
+
+.m-0 {
+  margin: 0 !important;
+}
+
+.p-0 {
+  padding: 0 !important;
 }

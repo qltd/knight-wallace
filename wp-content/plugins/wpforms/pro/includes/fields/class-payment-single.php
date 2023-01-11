@@ -197,9 +197,9 @@ class WPForms_Field_Payment_Single extends WPForms_Field {
 		$format      = ! empty( $field['format'] ) ? $field['format'] : 'single';
 		$value       = ! empty( $field['price'] ) ? wpforms_format_amount( wpforms_sanitize_amount( $field['price'] ) ) : '';
 
-		echo '<div class="format-selected-' . esc_attr( $format ) . ' format-selected">';
+		$this->field_preview_option( 'label', $field );
 
-			$this->field_preview_option( 'label', $field );
+		echo '<div class="format-selected-' . esc_attr( $format ) . ' format-selected">';
 
 			echo '<p class="item-price">';
 				printf(

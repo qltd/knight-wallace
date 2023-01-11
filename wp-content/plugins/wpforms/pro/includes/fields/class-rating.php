@@ -18,7 +18,7 @@ class WPForms_Rating_Text extends WPForms_Field {
 		$this->name  = esc_html__( 'Rating', 'wpforms' );
 		$this->type  = 'rating';
 		$this->icon  = 'fa-star';
-		$this->order = 210;
+		$this->order = 200;
 		$this->group = 'fancy';
 
 		// Define additional field properties.
@@ -301,16 +301,23 @@ class WPForms_Rating_Text extends WPForms_Field {
 			),
 			false
 		);
+
+		$icon_color = isset( $field['icon_color'] ) ? wpforms_sanitize_hex_color( $field['icon_color'] ) : '';
+		$icon_color = empty( $icon_color ) ? '#e27730' : $icon_color;
+
 		$fld = $this->field_element(
-			'text',
+			'color',
 			$field,
-			array(
+			[
 				'slug'  => 'icon_color',
-				'value' => ! empty( $field['icon_color'] ) ? esc_attr( $field['icon_color'] ) : '#e27730',
-				'class' => 'wpforms-color-picker',
-			),
+				'value' => $icon_color,
+				'data'  => [
+					'fallback-color' => $icon_color,
+				],
+			],
 			false
 		);
+
 		$this->field_element(
 			'row',
 			$field,

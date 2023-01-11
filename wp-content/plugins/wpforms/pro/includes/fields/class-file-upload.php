@@ -48,6 +48,15 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 	const TEMPLATE_MAXFILENUM = '{maxFileNumber}';
 
 	/**
+	 * Handle name for wp_register_styles handle.
+	 *
+	 * @since 1.7.7
+	 *
+	 * @var string
+	 */
+	const HANDLE = 'wpforms-dropzone';
+
+	/**
 	 * File extensions that are now allowed.
 	 *
 	 * @since 1.0.0
@@ -76,7 +85,7 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 		$this->name  = esc_html__( 'File Upload', 'wpforms' );
 		$this->type  = 'file-upload';
 		$this->icon  = 'fa-upload';
-		$this->order = 90;
+		$this->order = 100;
 		$this->group = 'fancy';
 
 		// Init our upload helper & add the actions.
@@ -87,6 +96,9 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 
 		// Form frontend CSS.
 		add_action( 'wpforms_frontend_css', [ $this, 'frontend_css' ] );
+
+		// Field styles for Gutenberg.
+		add_action( 'enqueue_block_editor_assets', [ $this, 'gutenberg_enqueues' ] );
 
 		// Field styles for Gutenberg. Register after wpforms-pro-integrations.
 		add_action( 'init', [ $this, 'register_gutenberg_styles' ], 20 );
@@ -165,7 +177,7 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 			$min = wpforms_get_min_suffix();
 
 			wp_enqueue_script(
-				'wpforms-dropzone',
+				self::HANDLE,
 				WPFORMS_PLUGIN_URL . 'assets/pro/lib/dropzone.min.js',
 				[ 'jquery' ],
 				self::DROPZONE_VERSION,
@@ -175,13 +187,13 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 			wp_enqueue_script(
 				'wpforms-file-upload',
 				WPFORMS_PLUGIN_URL . "assets/pro/js/wpforms-file-upload{$min}.js",
-				[ 'wpforms', 'wp-util', 'wpforms-dropzone' ],
+				[ 'wpforms', 'wp-util', self::HANDLE ],
 				WPFORMS_VERSION,
 				true
 			);
 
 			wp_localize_script(
-				'wpforms-dropzone',
+				self::HANDLE,
 				'wpforms_file_upload',
 				[
 					'url'             => admin_url( 'admin-ajax.php' ),
@@ -235,9 +247,9 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 			$min = wpforms_get_min_suffix();
 
 			wp_enqueue_style(
-				'wpforms-dropzone',
+				self::HANDLE,
 				WPFORMS_PLUGIN_URL . "assets/pro/css/dropzone{$min}.css",
-				array(),
+				[],
 				self::DROPZONE_VERSION
 			);
 		}
@@ -282,11 +294,14 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 	 * Load enqueues for the Gutenberg editor.
 	 *
 	 * @since 1.5.6
-	 * @deprecated 1.7.4.2
 	 */
 	public function gutenberg_enqueues() {
 
-		_deprecated_function( __METHOD__, '1.7.4.2 of the WPForms plugin' );
+		if ( version_compare( get_bloginfo( 'version' ), '5.5', '>=' ) ) {
+			return;
+		}
+
+		wp_enqueue_style( self::HANDLE );
 	}
 
 	/**
@@ -300,7 +315,7 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 		$deps = is_admin() ? [ 'wpforms-pro-integrations' ] : [];
 
 		wp_register_style(
-			'wpforms-dropzone',
+			self::HANDLE,
 			WPFORMS_PLUGIN_URL . "assets/pro/css/dropzone{$min}.css",
 			$deps,
 			self::DROPZONE_VERSION
@@ -330,7 +345,7 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 		// wpforms-gutenberg-form-selector
 		// wpforms-pro-integrations
 		// wpforms-dropzone.
-		$args['editor_style'] = 'wpforms-dropzone';
+		$args['editor_style'] = self::HANDLE;
 
 		return $args;
 	}
@@ -2314,6 +2329,57 @@ class WPForms_Field_File_Upload extends WPForms_Field {
 	public static function is_modern_upload( $field_data ) {
 
 		return isset( $field_data['style'] ) && $field_data['style'] === self::STYLE_MODERN;
+	}
+
+	/**
+	 * Returns an array containing the file paths of the files uploading in a file upload entry.
+	 *
+	 * @since 1.7.8
+	 *
+	 * @param string $form_id     Form ID.
+	 * @param array  $entry_field Entry field data.
+	 *
+	 * @return array The file path of the uploaded file. Returns an empty string if the file path isn't fetched.
+	 */
+	public static function get_entry_field_file_paths( $form_id, $entry_field ) {
+
+		$form_file_path = self::get_form_files_path( $form_id );
+		$files          = [];
+
+		if ( self::is_modern_upload( $entry_field ) ) {
+
+			foreach ( $entry_field['value_raw'] as $value ) {
+				$file_path = self::get_file_path( $value['attachment_id'], $value['file'], $form_file_path );
+
+				if ( empty( $file_path ) ) {
+					continue;
+				}
+
+				$files[] = $file_path;
+			}
+		} else {
+			$files[] = self::get_file_path( $entry_field['attachment_id'], $entry_field['file'], $form_file_path );
+		}
+
+		return $files;
+	}
+
+	/**
+	 * Returns the file path of a given attachment ID or file name.
+	 *
+	 * @since 1.7.8
+	 *
+	 * @param int    $attachment_id  Attachment ID.
+	 * @param string $file_name      File name.
+	 * @param string $file_base_path The base path of uploaded files.
+	 *
+	 * @return string
+	 */
+	private static function get_file_path( $attachment_id, $file_name, $file_base_path ) {
+
+		$file_path = empty( $attachment_id ) ? trailingslashit( $file_base_path ) . $file_name : get_attached_file( $attachment_id );
+
+		return ( empty( $file_path ) || ! is_file( $file_path ) ) ? '' : $file_path;
 	}
 }
 

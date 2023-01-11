@@ -8206,7 +8206,8 @@ main .wpforms-form,
     display: none; } }
 
 @media (max-width: 1025px) {
-  #main_nav, #eyebrow {
+  #main_nav,
+  #eyebrow {
     display: none; }
   .mobile-menu-trigger-wrap {
     background: #0d57aa;
@@ -8240,7 +8241,7 @@ main .wpforms-form,
       .mobile-menu-wrap #menu-mobile > li > a {
         color: #ffffff; }
         .mobile-menu-wrap #menu-mobile > li > a:link, .mobile-menu-wrap #menu-mobile > li > a:hover, .mobile-menu-wrap #menu-mobile > li > a:visited {
-          color: #ffffff; }
+          color: #ffffff !important; }
     .mobile-menu-wrap .sub-menu {
       background: #ffffff;
       margin-left: 0;

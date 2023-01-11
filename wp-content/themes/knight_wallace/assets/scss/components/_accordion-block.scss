@@ -1,0 +1,95 @@
+.q-accordion-block {
+  margin-bottom: 1rem;
+  overflow: hidden;
+
+  .wp-block-group__inner-container {
+    padding: 0;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+}
+
+h2.q-accordion-block__header,
+.q-accordion-block__header {
+  background-color: #555555;
+  position: relative;
+  color: white;
+  cursor: pointer;
+  margin: 0;
+  padding-inline: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  font-size: 2rem;
+  height: 4rem;
+  z-index: 2;
+
+  &:hover {
+    background-color: darken(#555, 10%);
+  }
+
+  // Icon
+  &::after {
+    content: "\f055";
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "FontAwesome";
+    font-size: 2rem;
+    width: 18px;
+    height: 18px;
+    color: white;
+    transition: all 0.3s ease-in-out;
+  }
+
+  // Hide icons on admin
+  .wp-admin & {
+    &::after,
+    &::before {
+      display: none !important;
+    }
+  }
+}
+
+.q-accordion-block__content {
+  z-index: 1;
+  max-height: 0;
+  padding: 0 2rem;
+  transition: all 0.3s ease-in-out; /* This doesn't work when the handle has rounded corners aand the panel has a background color */
+  background: white;
+
+  > p:last-child,
+  > ul:last-child,
+  > ol:last-child,
+  li:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.q-accordion-block--open {
+  // Rotate the chevon on open
+  > .q-accordion-block__header::after {
+    content: "\f056";
+  }
+
+  > .q-accordion-block__content {
+    max-height: 40000vh;
+    padding: 3rem 2rem 0.5rem;
+    margin-top: -14px;
+  }
+}
+
+/* These styles only display when editing the block */
+.wp-admin {
+  .q-accordion-block__header::before {
+    display: none !important;
+  }
+
+  .q-accordion-block__content {
+    max-height: 40000vh;
+    padding: 2.4rem 2rem 2rem;
+    margin-top: -14px;
+  }
+}

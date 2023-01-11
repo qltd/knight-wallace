@@ -1,6 +1,122 @@
 # Changelog
 All notable changes to this project will be documented in this file and formatted via [this recommendation](https://keepachangelog.com/).
 
+## [1.7.9.1] - 2023-01-11
+### Fixed
+- Layout fields were not shown when they were on any page other than the first page of a multi-page form and conditional logic was enabled on at least one field within the Layout field.
+- Incorrect spacing around the Submit button in the Form Builder was fixed.
+- Missing assets were added to the plugin.
+
+## [1.7.9] - 2023-01-03
+### Added
+- Icon Choices feature for Checkboxes, Multiple Choice, Checkbox Items, and Multiple Items payment fields - a selection of 2000+ icons can now be used with your choices!
+
+### Changed
+- Avoid rendering the WPForms Import admin page if the user lacks `unfiltered_html` capability.
+- Respect site settings for displaying avatars on the Revisions screen in the Form Builder.
+- Minor CSS adjustments on the Entry details page.
+- Color picker fields in the Form Builder are now correctly handling default colors.
+- In the form Notifications you can now set up the Reply-To Name value in addition to the Reply-To Email using a special format.
+- Updated jquery-confirm library to 3.3.4.
+
+### Fixed
+- Improved a preview for the Classic File Upload field in the Form Builder.
+- Prevent field duplication in the Form Builder performed multiple times when clicking fast inside the confirmation modal.
+- Action links were rendered on two lines in the admin dashboard widget.
+- The content editor option in HTML mode was not visible when the Content field was added inside the Layout field.
+- Buttons of the content editor option in Visual mode didn't have hotkey texts in their tooltips when the Content field was added.
+- Email notification was not able to show the submitted Content field value.
+- Text and image styles were not applied to the Content field value on the Entry Print Preview page.
+- WordPress VIP platform users were unable to export form entries.
+- Styles for the Content field editor were not applied when the field had been placed in the Layout field in Firefox.
+- The content field disappeared if it was duplicated inside the Layout field.
+- A blank space was showing when all of the fields inside of a Layout field were hidden using the Conditional Logic.
+- PHP notices were generated when form locations logic ran for unregistered post types.
+- Not all WPForms-specific data was removed from the database when the Settings > Misc > Uninstall option was enabled.
+- The Embed modal performance in the Form Builder was improved a lot when there are a ton of pages on a site.
+- The confirmation message for non-AJAX form submissions wasn't wrapped into the main form container.
+- In the Layout field its last column on the right side was always wider than other columns.
+- Improved compatibility with Elementor popups v3.9+.
+- Notification email suggestion didn't work properly in WordPress installed in a subdomain.
+- License key was incorrectly processed when set in the `wp-config.php`.
+- `{page_title}` smart tag was conflicting with the wpSEO plugin.
+- Better compatibility with the Popup Maker plugin.
+- Activate the first form page with an error after failed form submission for AJAX forms.
+
+## [1.7.8] - 2022-11-09
+### Added
+- Introducing a completely new Content field to help you easily add formatted text to your forms.
+- Submitted files can now be attached to the notification email, that is configurable on the Form Builder > Notifications screen.
+- All anti-spam protection settings are grouped in one place in the Form Builder > Settings for easier access.
+- You can now completely block form submissions from certain countries.
+- You can also block form submissions that contain particular keywords.
+- New hooks at the beginning and end of each page of the Page Break field.
+
+### Changed
+- Recently added Form Templates are now available in the "New Templates" category.
+- Non-responsive (desktop) version of the Form Builder is not accessible on mobile devices.
+
+### Fixed
+- jQuery deprecation notices were triggered in the browser's console.
+- Close button in dropdowns was displayed incorrectly in certain places.
+- A PHP warning was raised on certain site configurations when the user tried to submit a form.
+- Toggle control animation was working incorrectly in certain cases.
+- Required fields were still highlighted as incomplete after being filled on the Form Builder > Marketing screen.
+- Text was overlapping the down arrow on dropdowns in the 2021 theme.
+- The Currency field dropdown went outside of the page border in the Form Builder.
+- WPForms Challenge user experience was improved.
+- Smart tag list was too big in fields with warnings.
+- Some input masks caused the text in the Text field to be right-aligned.
+- Compatibility with the 2023 theme was improved.
+- Search was incorrectly processing the `0` term when performed on the Entries Overview page.
+- Entry Preview functionality didn't work on the Form Preview page when Conversational Forms was enabled.
+- A PHP warning related to the Entry CSV Attachment was raised when navigating through different form revisions.
+- Entry CSV Attachment settings were not saved properly when saved too quickly after the page load.
+
+## [1.7.7.2] - 2022-10-12
+### Added
+- There is a new filter `wpforms_builder_panel_sidebar_section_classes` to change builder panel sidebar section classes.
+
+### Changed
+- Updated DOMPurify library to 2.4.0.
+
+### Fixed
+- Placeholder text in the Dropdown field was cut off in the Form Builder.
+- The Form Builder had an inconsistent text strings escaping.
+- The information about "no form templates to display" did not disappear when a category was changed.
+
+## [1.7.7.1] - 2022-10-05
+### Fixed
+- Email Notifications options for completed payments were displayed in an incorrect place - below the Settings > Notifications > Advanced section in the Form Builder.
+- Very long field labels were not wrapped and were breaking mid-word.
+
+## [1.7.7] - 2022-09-27
+### Added
+- Introducing a completely new Layout field to help you build advanced form layouts that automatically adjust to the users’ screen size.
+- All templates are now available on our new Form Templates admin page.
+- Form Templates can now be marked as favorite for easier access to forms inside the Form Builder.
+- The form fields column can now be collapsed in the Form Builder to give more space to the form preview panel.
+- Form submission values can now be attached as a CSV file to the notification email. You can set it up on the Form Builder > Notifications screen.
+
+### Changed
+- The DB tables row in the Site Health Info section is now private which means it's excluded from the copied data when the "Copy site info to clipboard" button is clicked.
+
+### Fixed
+- Selected columns were not centered in the Entries Field Columns dropdown.
+- WPForms Challenge was displayed after a forms search with no result.
+- WPForms Challenge disappeared after selecting a template for the new form.
+- After a form submission a PHP warning was generated in some cases when the Akismet anti-spam protection setting was enabled.
+- Using allow/deny list was breaking input mask validation for all fields above the Email field.
+- An unusually long text string in the confirmation message caused layout problems due to overflow.
+- File upload field was broken in the Block Editor on WordPress 5.2-5.4.
+- The time value for the Date/Time field was not populated correctly on the Edit Entry page.
+- `page_title` smart tag was working inconsistently on a form preview page.
+- `wpforms()->get( 'entry' )->get_entries()` returned all entries when no entries were found.
+- From Email address check in the Form Builder > Notifications was incorrectly handling domain check containing the `www` prefix.
+- It was possible to execute exported field values as formulas in `.csv` and `.xlsx` files.
+- Input mask validation message didn't use what was previously saved on the WPForms > Settings > Validation page.
+- On the Form builder, a template selection didn't work if a page was translated through web extensions.
+
 ## [1.7.6] - 2022-08-16
 ### Added
 - Entries can now be checked against the Akismet API to prevent spam submissions.

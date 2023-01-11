@@ -998,7 +998,7 @@ add_action( 'widgets_init', 'knight_wallace_widgets_init' );
  */
 function knight_wallace_scripts() {
     wp_enqueue_style('font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
-    wp_enqueue_style( 'knight_wallace-style', get_stylesheet_directory_uri() . '/assets/stylesheets/app.css', array('font-awesome'));
+    wp_enqueue_style( 'knight_wallace-style', get_stylesheet_directory_uri() . '/dist/styles/app.min.css', array('font-awesome'));
     wp_enqueue_style('bx-slider', get_stylesheet_directory_uri() . '/assets/bxslider/jquery.bxslider.css');
 
 
@@ -1045,6 +1045,14 @@ require get_template_directory() . '/inc/customizer.php';
  * Load Jetpack compatibility file.
  */
 require get_template_directory() . '/inc/jetpack.php';
+
+
+
+/**
+ * Load BLOCK PATTERNS file.
+ */
+require get_template_directory() . '/inc/block-patterns.php';
+
 
 /**
  * Add Theme Settings

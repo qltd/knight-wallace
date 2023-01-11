@@ -452,8 +452,14 @@ button.gsc-search-button {
   height: 750px;
   justify-content: center;
 
-  @include responsive("640px") {
+  @include responsive("900px") {
     height: 350px;
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  @include responsive("640px") {
+    height: 220px;
     position: relative;
     margin-bottom: 250px;
   }
@@ -1224,6 +1230,7 @@ ul.pagination {
   ul {
     margin-left: 4rem;
     margin-bottom: 2rem;
+    color: $charcoal;
   }
 
   ol {
@@ -1234,7 +1241,6 @@ ul.pagination {
   li,
   p {
     font-size: 2rem;
-    color: $charcoal;
     line-height: 2.8rem;
     overflow-wrap: break-word;
     word-wrap: break-word;

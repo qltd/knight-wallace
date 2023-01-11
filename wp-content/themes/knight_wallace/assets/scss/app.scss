@@ -2,12 +2,14 @@
 @import "settings";
 @import "../bower_components/foundation/scss/foundation";
 @import "mixins";
-@import "forms";
 @import "knight_wallace";
 @import "mobile_nav";
-@import "slider";
 @import "res";
-@import "pager";
+
+@import "components/slider";
+@import "components/pager";
+@import "components/forms";
+@import "components/accordion-block";
 
 // Or selectively include components
 // @import
